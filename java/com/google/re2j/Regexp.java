@@ -98,7 +98,7 @@ class Regexp {
     name = null;
   }
 
-  public TrackInfo[] GetTracks() {
+  public ArrayList<TrackInfo> GetTracks() {
     ArrayList<TrackInfo> tracks = new ArrayList<TrackInfo>();
     tracks.add(track);
     if (subs != null) {
@@ -106,7 +106,8 @@ class Regexp {
         tracks.add(sub.track);
       }
     }
-    return tracks.toArray(null);
+
+    return tracks;
   }
 
   @Override
