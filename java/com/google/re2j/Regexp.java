@@ -390,6 +390,14 @@ class Regexp {
   public String genTrackInfo(Op op) {
     StringBuilder b = new StringBuilder();
     switch (op) {
+      case BEGIN_LINE:
+        b.append("Matches line start");
+        break;
+      case END_LINE:
+        b.append("Matches line end");
+        break;
+      case BEGIN_TEXT:
+        b.append("Matches text start");
       case END_TEXT:
         b.append("Matches text end");
         break;
