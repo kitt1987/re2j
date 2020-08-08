@@ -432,7 +432,12 @@ class Regexp {
         b.append(subs[0].track.Info);
         break;
       case REPEAT:
-        hashcode += 31 * min + 31 * max + 31 * subs[0].hashCode();
+        b.append("Matches ");
+        b.append(min);
+        b.append(" to ");
+        b.append(max);
+        b.append(" times repetition of ");
+        b.append(subs[0].track.Info);
         break;
       case CAPTURE:
         hashcode += 31 * cap + 31 * (name != null ? name.hashCode() : 0) + 31 * subs[0].hashCode();
