@@ -33,4 +33,12 @@ public class TrackInfo {
     void UpdateEnd(int end) {
         End = end;
     }
+
+    TrackInfo Adjacent() {
+        return new TrackInfo(End, End + 1);
+    }
+
+    TrackInfo Adjacent(int n) {
+        return new TrackInfo(End, End + n);
+    }
 }
