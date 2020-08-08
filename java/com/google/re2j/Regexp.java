@@ -386,12 +386,13 @@ class Regexp {
   }
 
   public String genTrackInfo(Op op) {
-    String info;
+    StringBuilder b = new StringBuilder();
     switch (op) {
       case END_TEXT:
         hashcode += 31 * (flags & RE2.WAS_DOLLAR);
         break;
       case LITERAL:
+        b.append("Match string \"");
         return "Match string \"" + runes + "\"";
       case CHAR_CLASS:
         hashcode += 31 * Arrays.hashCode(runes);
