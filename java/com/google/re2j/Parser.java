@@ -207,8 +207,8 @@ class Parser {
 
   // literal pushes a literal regexp for the rune r on the stack
   // and returns that regexp.
-  private void literal(int r) {
-    push(newLiteral(r, flags));
+  private void literal(int r, int start, int len) {
+    push(newLiteral(r, flags, start, len));
   }
 
   // op pushes a regexp with the given op onto the stack
@@ -799,10 +799,11 @@ class Parser {
     StringIterator t = new StringIterator(wholeRegexp);
     while (t.more()) {
       int repeatPos = -1;
+      int pos = t.pos();
       bigswitch:
       switch (t.peek()) {
         default:
-          literal(t.pop());
+          literal(t.pop(), pos, t.pos() - pos);
           break;
 
         case '(':
