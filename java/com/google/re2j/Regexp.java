@@ -62,7 +62,10 @@ class Regexp {
   Map<String, Integer> namedGroups; // map of group name -> capturing index
   // Do update copy ctor when adding new fields!
 
-  Regexp(Op op) {
+  TrackInfo track;
+
+  Regexp(Op op, int start, int len) {
+    this.track = new TrackInfo(start, len);
     this.op = op;
   }
 
@@ -77,6 +80,7 @@ class Regexp {
     this.cap = that.cap;
     this.name = that.name;
     this.namedGroups = that.namedGroups;
+    this.track = that.track;
   }
 
   void reinit() {
@@ -85,6 +89,11 @@ class Regexp {
     runes = null;
     cap = min = max = 0;
     name = null;
+  }
+
+  public TrackInfo GetTrack() {
+    // FIXME update track info
+    return track;
   }
 
   @Override

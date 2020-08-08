@@ -67,14 +67,14 @@ class Parser {
   }
 
   // Allocate a Regexp, from the free list if possible.
-  private Regexp newRegexp(Regexp.Op op) {
+  private Regexp newRegexp(Regexp.Op op, int start, int len) {
     Regexp re = free;
     if (re != null && re.subs != null && re.subs.length > 0) {
       free = re.subs[0];
       re.reinit();
       re.op = op;
     } else {
-      re = new Regexp(op);
+      re = new Regexp(op, start, len);
     }
     return re;
   }
@@ -180,8 +180,8 @@ class Parser {
   }
 
   // newLiteral returns a new LITERAL Regexp with the given flags
-  private Regexp newLiteral(int r, int flags) {
-    Regexp re = newRegexp(Regexp.Op.LITERAL);
+  private Regexp newLiteral(int r, int flags, int start, int len) {
+    Regexp re = newRegexp(Regexp.Op.LITERAL, start, len);
     re.flags = flags;
     if ((flags & RE2.FOLD_CASE) != 0) {
       r = minFoldRune(r);
@@ -681,8 +681,8 @@ class Parser {
     return newRegexp(Regexp.Op.EMPTY_MATCH);
   }
 
-  private static Regexp literalRegexp(String s, int flags) {
-    Regexp re = new Regexp(Regexp.Op.LITERAL);
+  private static Regexp literalRegexp(String s, int flags, int start, int len) {
+    Regexp re = new Regexp(Regexp.Op.LITERAL, start, len);
     re.flags = flags;
     re.runes = Utils.stringToRunes(s);
     return re;
