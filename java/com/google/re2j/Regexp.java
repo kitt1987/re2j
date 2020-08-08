@@ -106,7 +106,7 @@ class Regexp {
         tracks.add(sub.track);
       }
     }
-    return (TrackInfo[]) tracks.toArray();
+    return tracks.toArray(null);
   }
 
   @Override
