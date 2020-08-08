@@ -415,14 +415,18 @@ class Regexp {
         b.append("]");
         break;
       case ALTERNATE:
-        b.append("Matches one of [");
+        b.append("Matches any of [");
         for (Regexp sub : subs) {
           b.append(sub.track.Info).append(",");
         }
         b.append("]");
         break;
       case CONCAT:
-        hashcode += 31 * Arrays.deepHashCode(subs);
+        b.append("Matches each of [");
+        for (Regexp sub : subs) {
+          b.append(sub.track.Info).append(",");
+        }
+        b.append("] in order");
         break;
       case STAR:
         b.append("Matches any repetition of ");
