@@ -97,8 +97,7 @@ class Regexp {
     name = null;
   }
 
-  public TrackInfo GetTrack() {
-    // FIXME update track info
+  public TrackInfo[] GetTrack() {
     return track;
   }
 
