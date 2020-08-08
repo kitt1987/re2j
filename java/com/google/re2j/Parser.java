@@ -272,7 +272,7 @@ class Parser {
     return push(collapse(subs, Regexp.Op.CONCAT));
   }
 
-  // alternate replaces the top of the stack (above the topmost '(') with its
+  // alternate replaces the top of the stack <above the topmost '('> with its
   // alternation.
   private Regexp alternate() {
     // Scan down to find pseudo-operator (.
@@ -818,12 +818,12 @@ class Parser {
           break;
 
         case '|':
-          parseVerticalBar(startPos);
+          parseVerticalBar(new TrackInfo(startPos, startPos+1));
           t.skip(1); // '|'
           break;
 
         case ')':
-          parseRightParen(startPos);
+          parseRightParen();
           t.skip(1); // ')'
           break;
 
@@ -1207,7 +1207,7 @@ class Parser {
   }
 
   // parseVerticalBar handles a | in the input.
-  private void parseVerticalBar(int start) {
+  private void parseVerticalBar(TrackInfo track) {
     concat();
 
     // The concatenation we just parsed is on top of the stack.
@@ -1215,7 +1215,7 @@ class Parser {
     // (things below an opVerticalBar become an alternation).
     // Otherwise, push a new vertical bar.
     if (!swapVerticalBar()) {
-      op(Regexp.Op.VERTICAL_BAR, new TrackInfo(start, start+1));
+      op(Regexp.Op.VERTICAL_BAR, track);
     }
   }
 
@@ -1300,8 +1300,8 @@ class Parser {
   }
 
   // parseRightParen handles a ')' in the input.
-  private void parseRightParen(int start) throws PatternSyntaxException {
-    concat(start);
+  private void parseRightParen() throws PatternSyntaxException {
+    concat();
     if (swapVerticalBar()) {
       pop(); // pop vertical bar
     }
