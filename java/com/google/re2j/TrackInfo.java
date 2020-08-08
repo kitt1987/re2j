@@ -35,7 +35,7 @@ public class TrackInfo {
     }
 
     TrackInfo Adjacent() {
-        return new TrackInfo(End, End + 1);
+        return Adjacent(0);
     }
 
     TrackInfo Adjacent(int n) {

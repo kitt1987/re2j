@@ -926,12 +926,16 @@ class Parser {
                     t.skipString(lit);
                     t.skipString("\\E");
                     for (int j = 0; j < lit.length(); j++) {
-                      literal(lit.charAt(j), track.Adjacent());
+                      if (j == lit.length()-1) {
+                        literal(lit.charAt(j), track.Adjacent(j+2));
+                      } else {
+                        literal(lit.charAt(j), track.Adjacent(j));
+                      }
                     }
                     break bigswitch;
                   }
                 case 'z':
-                  op(Regexp.Op.END_TEXT);
+                  op(Regexp.Op.END_TEXT, new TrackInfo(repeatPos));
                   break bigswitch;
                 default:
                   t.rewindTo(savedPos);
@@ -939,7 +943,7 @@ class Parser {
               }
             }
 
-            Regexp re = newRegexp(Regexp.Op.CHAR_CLASS);
+            Regexp re = newRegexp(Regexp.Op.CHAR_CLASS, new TrackInfo(savedPos));
             re.flags = flags;
 
             // Look for Unicode character group like \p{Han}
@@ -947,6 +951,7 @@ class Parser {
               CharClass cc = new CharClass();
               if (parseUnicodeClass(t, cc)) {
                 re.runes = cc.toArray();
+                re.track.UpdateEnd(t.pos());
                 push(re);
                 break bigswitch;
               }
@@ -956,6 +961,7 @@ class Parser {
             CharClass cc = new CharClass();
             if (parsePerlClassEscape(t, cc)) {
               re.runes = cc.toArray();
+              re.track.UpdateEnd(t.pos());
               push(re);
               break bigswitch;
             }
@@ -964,7 +970,7 @@ class Parser {
             reuse(re);
 
             // Ordinary single-character escape.
-            literal(parseEscape(t));
+            literal(parseEscape(t), new TrackInfo(savedPos, t.pos()));
             break;
           }
       }
