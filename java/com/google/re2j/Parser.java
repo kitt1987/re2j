@@ -213,8 +213,8 @@ class Parser {
 
   // op pushes a regexp with the given op onto the stack
   // and returns that regexp.
-  private Regexp op(Regexp.Op op) {
-    Regexp re = newRegexp(op);
+  private Regexp op(Regexp.Op op, int start, int len) {
+    Regexp re = newRegexp(op, start, len);
     re.flags = flags;
     return push(re);
   }
