@@ -207,14 +207,14 @@ class Parser {
 
   // literal pushes a literal regexp for the rune r on the stack
   // and returns that regexp.
-  private void literal(int r, int start, int len) {
-    push(newLiteral(r, flags, start, len));
+  private void literal(int r, TrackInfo track) {
+    push(newLiteral(r, flags, track));
   }
 
   // op pushes a regexp with the given op onto the stack
   // and returns that regexp.
-  private Regexp op(Regexp.Op op, int start, int end) {
-    Regexp re = newRegexp(op, start, end);
+  private Regexp op(Regexp.Op op, TrackInfo track) {
+    Regexp re = newRegexp(op, track);
     re.flags = flags;
     return push(re);
   }
@@ -256,9 +256,9 @@ class Parser {
     stack.set(n - 1, re);
   }
 
-  // concat replaces the top of the stack (above the topmost '|' or '(') with
+  // concat replaces the top of the stack <above the topmost '|' or '('> with
   // its concatenation.
-  private Regexp concat(int start) {
+  private Regexp concat() {
     maybeConcat(-1, 0);
 
     // Scan down to find pseudo-operator | or (.
@@ -266,10 +266,10 @@ class Parser {
 
     // Empty concatenation is special case.
     if (subs.length == 0) {
-      return push(newRegexp(Regexp.Op.EMPTY_MATCH, 0, 0));
+      return push(newRegexp(Regexp.Op.EMPTY_MATCH, null));
     }
 
-    return push(collapse(subs, Regexp.Op.CONCAT, start));
+    return push(collapse(subs, Regexp.Op.CONCAT));
   }
 
   // alternate replaces the top of the stack (above the topmost '(') with its
@@ -316,7 +316,7 @@ class Parser {
   // If (sub contains op nodes, they all get hoisted up
   // so that there is never a concat of a concat or an
   // alternate of an alternate.
-  private Regexp collapse(Regexp[] subs, Regexp.Op op, int start) {
+  private Regexp collapse(Regexp[] subs, Regexp.Op op) {
     if (subs.length == 1) {
       return subs[0];
     }
@@ -337,7 +337,7 @@ class Parser {
         newsubs[i++] = sub;
       }
     }
-    Regexp re = newRegexp(op, start, start);
+    Regexp re = newRegexp(op, new TrackInfo(newsubs[0].track.Start, newsubs[newsubs.length-1].track.End));
     re.subs = newsubs;
 
     if (op == Regexp.Op.ALTERNATE) {
@@ -791,7 +791,7 @@ class Parser {
   private Regexp parseInternal() throws PatternSyntaxException {
     if ((flags & RE2.LITERAL) != 0) {
       // Trivial parser for literal string.
-      return literalRegexp(wholeRegexp, flags, 0, wholeRegexp.length());
+      return literalRegexp(wholeRegexp, flags, new TrackInfo(0, wholeRegexp.length()));
     }
 
     // Otherwise, must do real work.
@@ -803,7 +803,7 @@ class Parser {
       bigswitch:
       switch (t.peek()) {
         default:
-          literal(t.pop(), startPos, t.pos());
+          literal(t.pop(), new TrackInfo(startPos, t.pos()));
           break;
 
         case '(':
@@ -813,7 +813,7 @@ class Parser {
             parsePerlFlags(t);
             break;
           }
-          op(Regexp.Op.LEFT_PAREN, startPos, startPos+1).cap = ++numCap;
+          op(Regexp.Op.LEFT_PAREN, new TrackInfo(startPos, startPos+1)).cap = ++numCap;
           t.skip(1); // '('
           break;
 
@@ -1069,7 +1069,7 @@ class Parser {
             ERR_INVALID_NAMED_CAPTURE, s.substring(0, end)); // "(?P<name>"
       }
       // Like ordinary capture, but named.
-      Regexp re = op(Regexp.Op.LEFT_PAREN, startPos, t.pos() - startPos);
+      Regexp re = op(Regexp.Op.LEFT_PAREN, new TrackInfo(startPos, t.pos() - startPos));
       re.cap = ++numCap;
       if (namedGroups.put(name, numCap) != null) {
         throw new PatternSyntaxException(ERR_DUPLICATE_NAMED_CAPTURE, name);
@@ -1131,7 +1131,7 @@ class Parser {
           }
           if (c == ':') {
             // Open new group
-            op(Regexp.Op.LEFT_PAREN);
+            op(Regexp.Op.LEFT_PAREN, new TrackInfo(startPos, t.pos() - startPos));
           }
           this.flags = flags;
           return;
