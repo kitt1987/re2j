@@ -9,6 +9,7 @@
 
 package com.google.re2j;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -98,7 +99,9 @@ class Regexp {
   }
 
   public TrackInfo[] GetTrack() {
-    return track;
+    ArrayList<TrackInfo> tracks = new ArrayList<TrackInfo>();
+    tracks.add(track);
+    return (TrackInfo[]) tracks.toArray();
   }
 
   @Override
