@@ -64,8 +64,8 @@ class Regexp {
 
   TrackInfo track;
 
-  Regexp(Op op, int start, int end) {
-    this.track = new TrackInfo(start, end);
+  Regexp(Op op, TrackInfo track) {
+    this.track = track;
     this.op = op;
   }
 
