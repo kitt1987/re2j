@@ -451,7 +451,7 @@ class Parser {
         }
         // Recurse.
         Regexp suffix = collapse(subarray(array, s + start, s + i), Regexp.Op.ALTERNATE);
-        Regexp re = newRegexp(Regexp.Op.CONCAT);
+        Regexp re = newRegexp(Regexp.Op.CONCAT, new TrackInfo(prefix.track.Start, suffix.track.End));
         re.subs = new Regexp[] {prefix, suffix};
         array[lenout++] = re;
       }
