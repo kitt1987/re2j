@@ -71,7 +71,7 @@ class Regexp {
       track.UpdateInfo(genTrackInfo(op));
       this.track = track;
     }
-    
+
     this.op = op;
   }
 
