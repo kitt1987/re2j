@@ -6,6 +6,11 @@ public class TrackInfo {
     public int End;
     public String Info;
 
+    TrackInfo(int start) {
+        Start = start;
+        End = start + 1;
+    }
+
     TrackInfo(int start, int end) {
         Start = start;
         End = end;

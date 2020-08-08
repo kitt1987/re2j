@@ -829,7 +829,7 @@ class Parser {
 
         case '^':
           if ((flags & RE2.ONE_LINE) != 0) {
-            op(Regexp.Op.BEGIN_TEXT);
+            op(Regexp.Op.BEGIN_TEXT, );
           } else {
             op(Regexp.Op.BEGIN_LINE);
           }
