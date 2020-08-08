@@ -12,6 +12,8 @@ package com.google.re2j;
 import java.util.Arrays;
 import java.util.Map;
 
+import static com.google.re2j.RE2.FOLD_CASE;
+
 /**
  * Regular expression abstract syntax tree. Produced by parser, used by compiler. NB, this
  * corresponds to {@code syntax.regexp} in the Go implementation; Go's {@code regexp} is called
@@ -393,7 +395,18 @@ class Regexp {
         break;
       case LITERAL:
         b.append("Match string \"");
-        return "Match string \"" + runes + "\"";
+        for (int r : runes) {
+          b.appendCodePoint(r);
+        }
+        b.append("\"");
+
+        if ((flags & FOLD_CASE) != 0) {
+
+        } else {
+
+        }
+
+        break;
       case CHAR_CLASS:
         hashcode += 31 * Arrays.hashCode(runes);
         break;
@@ -414,6 +427,6 @@ class Regexp {
         break;
     }
 
-    return info;
+    return b.toString();
   }
 }
