@@ -414,7 +414,7 @@ class Regexp {
             b.appendCodePoint(r);
           }
         }
-        
+
         b.append("\"");
 
         if ((flags & FOLD_CASE) != 0) {
@@ -426,8 +426,10 @@ class Regexp {
         break;
       case CHAR_CLASS:
         b.append("Matches any character in the group [");
-        for (int r : runes) {
-          b.appendCodePoint(r);
+        if (runes != null) {
+          for (int r : runes) {
+            b.appendCodePoint(r);
+          }
         }
         b.append("]");
         break;
