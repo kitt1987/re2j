@@ -288,7 +288,7 @@ class Parser {
     // Empty alternate is special case
     // (shouldn't happen but easy to handle).
     if (subs.length == 0) {
-      return push(newRegexp(Regexp.Op.NO_MATCH));
+      return push(newRegexp(Regexp.Op.NO_MATCH, null));
     }
 
     return push(collapse(subs, Regexp.Op.ALTERNATE));
@@ -1316,12 +1316,16 @@ class Parser {
     if (re2.op != Regexp.Op.LEFT_PAREN) {
       throw new PatternSyntaxException(ERR_MISSING_PAREN, wholeRegexp);
     }
+
     // Restore flags at time of paren.
     this.flags = re2.flags;
     if (re2.cap == 0) {
       // Just for grouping.
+      re1.track.UpdateEnd(re2.track);
+
       push(re1);
     } else {
+      re2.track.UpdateStart(re1.track);
       re2.op = Regexp.Op.CAPTURE;
       re2.subs = new Regexp[] {re1};
       push(re2);

@@ -16,4 +16,12 @@ public class TrackInfo {
         End = end;
         Info = info;
     }
+
+    void UpdateStart(TrackInfo that) {
+        Start = that.Start;
+    }
+
+    void UpdateEnd(TrackInfo that) {
+        End = that.End;
+    }
 }
