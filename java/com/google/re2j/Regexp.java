@@ -67,8 +67,11 @@ class Regexp {
   TrackInfo track;
 
   Regexp(Op op, TrackInfo track) {
-    track.UpdateInfo(genTrackInfo(op));
-    this.track = track;
+    if (track != null) {
+      track.UpdateInfo(genTrackInfo(op));
+      this.track = track;
+    }
+    
     this.op = op;
   }
 
