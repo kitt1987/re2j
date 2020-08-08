@@ -258,7 +258,7 @@ class Parser {
 
   // concat replaces the top of the stack (above the topmost '|' or '(') with
   // its concatenation.
-  private Regexp concat() {
+  private Regexp concat(int start) {
     maybeConcat(-1, 0);
 
     // Scan down to find pseudo-operator | or (.
@@ -266,10 +266,10 @@ class Parser {
 
     // Empty concatenation is special case.
     if (subs.length == 0) {
-      return push(newRegexp(Regexp.Op.EMPTY_MATCH));
+      return push(newRegexp(Regexp.Op.EMPTY_MATCH, 0, 0));
     }
 
-    return push(collapse(subs, Regexp.Op.CONCAT));
+    return push(collapse(subs, Regexp.Op.CONCAT, start));
   }
 
   // alternate replaces the top of the stack (above the topmost '(') with its
@@ -316,7 +316,7 @@ class Parser {
   // If (sub contains op nodes, they all get hoisted up
   // so that there is never a concat of a concat or an
   // alternate of an alternate.
-  private Regexp collapse(Regexp[] subs, Regexp.Op op) {
+  private Regexp collapse(Regexp[] subs, Regexp.Op op, int start) {
     if (subs.length == 1) {
       return subs[0];
     }
@@ -337,7 +337,7 @@ class Parser {
         newsubs[i++] = sub;
       }
     }
-    Regexp re = newRegexp(op);
+    Regexp re = newRegexp(op, start, start + newsubs.length);
     re.subs = newsubs;
 
     if (op == Regexp.Op.ALTERNATE) {
@@ -1207,7 +1207,7 @@ class Parser {
 
   // parseVerticalBar handles a | in the input.
   private void parseVerticalBar(int start) {
-    concat();
+    concat(start);
 
     // The concatenation we just parsed is on top of the stack.
     // If it sits above an opVerticalBar, swap it below
