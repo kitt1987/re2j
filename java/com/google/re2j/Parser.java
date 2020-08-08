@@ -180,8 +180,8 @@ class Parser {
   }
 
   // newLiteral returns a new LITERAL Regexp with the given flags
-  private Regexp newLiteral(int r, int flags, int start, int len) {
-    Regexp re = newRegexp(Regexp.Op.LITERAL, start, len);
+  private Regexp newLiteral(int r, int flags, TrackInfo track) {
+    Regexp re = newRegexp(Regexp.Op.LITERAL, track);
     re.flags = flags;
     if ((flags & RE2.FOLD_CASE) != 0) {
       r = minFoldRune(r);
