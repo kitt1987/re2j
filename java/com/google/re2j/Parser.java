@@ -442,7 +442,7 @@ class Parser {
         array[lenout++] = array[s + start];
       } else {
         // Construct factored form: prefix(suffix1|suffix2|...)
-        Regexp prefix = newRegexp(Regexp.Op.LITERAL);
+        Regexp prefix = newRegexp(Regexp.Op.LITERAL, new TrackInfo(array[s+i].track.Start, array[s+i].track.Start + strlen));
         prefix.flags = strflags;
         prefix.runes = Utils.subarray(str, 0, strlen);
 
