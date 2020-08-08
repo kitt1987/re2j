@@ -98,7 +98,7 @@ class Regexp {
     name = null;
   }
 
-  public TrackInfo[] GetTrack() {
+  public TrackInfo[] GetTracks() {
     ArrayList<TrackInfo> tracks = new ArrayList<TrackInfo>();
     tracks.add(track);
     if (subs != null) {

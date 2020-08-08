@@ -9,7 +9,6 @@
 
 package com.google.re2j;
 
-import com.google.common.truth.Truth;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -17,8 +16,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import static com.google.re2j.RE2.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  * @author adonovan@google.com (Alan Donovan)
@@ -588,7 +586,9 @@ public class RegexTrackTest {
   public void testToStringEquivalentParse() throws PatternSyntaxException {
     for (String[] tt : PARSE_TESTS) {
       Regexp re = Parser.parse(tt[0], TEST_FLAGS);
-      assertEquals(re.track.Info, tt[1]); // (already ensured by testParseSimple)
+      TrackInfo[] tracks = re.GetTracks();
+      assertTrue(tracks.length > 1);
+      assertEquals(tracks[0].Info, tt[1]); // (already ensured by testParseSimple)
     }
   }
 }
