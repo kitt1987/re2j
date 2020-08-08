@@ -337,7 +337,7 @@ class Parser {
         newsubs[i++] = sub;
       }
     }
-    Regexp re = newRegexp(op, start, start + newsubs.length);
+    Regexp re = newRegexp(op, start, start);
     re.subs = newsubs;
 
     if (op == Regexp.Op.ALTERNATE) {
@@ -822,7 +822,7 @@ class Parser {
           break;
 
         case ')':
-          parseRightParen();
+          parseRightParen(startPos);
           t.skip(1); // ')'
           break;
 
@@ -1299,8 +1299,8 @@ class Parser {
   }
 
   // parseRightParen handles a ')' in the input.
-  private void parseRightParen() throws PatternSyntaxException {
-    concat();
+  private void parseRightParen(int start) throws PatternSyntaxException {
+    concat(start);
     if (swapVerticalBar()) {
       pop(); // pop vertical bar
     }
