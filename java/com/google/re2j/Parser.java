@@ -248,7 +248,7 @@ class Parser {
     if (sub.op.isPseudo()) {
       throw new PatternSyntaxException(ERR_MISSING_REPEAT_ARGUMENT, t.from(beforePos));
     }
-    Regexp re = newRegexp(op);
+    Regexp re = newRegexp(op, new TrackInfo(beforePos, t.pos()));
     re.min = min;
     re.max = max;
     re.flags = flags;
@@ -886,7 +886,7 @@ class Parser {
             if (minMax < 0) {
               // If the repeat cannot be parsed, { is a literal.
               t.rewindTo(repeatPos);
-              literal(t.pop()); // '{'
+              literal(t.pop(), new TrackInfo(repeatPos)); // '{'
               break;
             }
             min = minMax >> 16;
@@ -903,19 +903,20 @@ class Parser {
               int c = t.pop();
               switch (c) {
                 case 'A':
-                  op(Regexp.Op.BEGIN_TEXT);
+                  op(Regexp.Op.BEGIN_TEXT, new TrackInfo(savedPos, t.pos()));
                   break bigswitch;
                 case 'b':
-                  op(Regexp.Op.WORD_BOUNDARY);
+                  op(Regexp.Op.WORD_BOUNDARY, new TrackInfo(savedPos, t.pos()));
                   break bigswitch;
                 case 'B':
-                  op(Regexp.Op.NO_WORD_BOUNDARY);
+                  op(Regexp.Op.NO_WORD_BOUNDARY, new TrackInfo(savedPos, t.pos()));
                   break bigswitch;
                 case 'C':
                   // any byte; not supported
                   throw new PatternSyntaxException(ERR_INVALID_ESCAPE, "\\C");
                 case 'Q':
                   {
+                    TrackInfo track = new TrackInfo(savedPos, t.pos());
                     // \Q ... \E: the ... is always literals
                     String lit = t.rest();
                     int i = lit.indexOf("\\E");
@@ -925,7 +926,7 @@ class Parser {
                     t.skipString(lit);
                     t.skipString("\\E");
                     for (int j = 0; j < lit.length(); j++) {
-                      literal(lit.charAt(j));
+                      literal(lit.charAt(j), track.Adjacent());
                     }
                     break bigswitch;
                   }
