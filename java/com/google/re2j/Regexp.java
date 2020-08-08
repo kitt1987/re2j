@@ -65,6 +65,7 @@ class Regexp {
   TrackInfo track;
 
   Regexp(Op op, TrackInfo track) {
+    track.UpdateInfo(genTrackInfo(op));
     this.track = track;
     this.op = op;
   }
@@ -382,5 +383,36 @@ class Regexp {
         break;
     }
     return true;
+  }
+
+  public String genTrackInfo(Op op) {
+    String info;
+    switch (op) {
+      case END_TEXT:
+        hashcode += 31 * (flags & RE2.WAS_DOLLAR);
+        break;
+      case LITERAL:
+        return "Match string \"" + runes + "\"";
+      case CHAR_CLASS:
+        hashcode += 31 * Arrays.hashCode(runes);
+        break;
+      case ALTERNATE:
+      case CONCAT:
+        hashcode += 31 * Arrays.deepHashCode(subs);
+        break;
+      case STAR:
+      case PLUS:
+      case QUEST:
+        hashcode += 31 * (flags & RE2.NON_GREEDY) + 31 * subs[0].hashCode();
+        break;
+      case REPEAT:
+        hashcode += 31 * min + 31 * max + 31 * subs[0].hashCode();
+        break;
+      case CAPTURE:
+        hashcode += 31 * cap + 31 * (name != null ? name.hashCode() : 0) + 31 * subs[0].hashCode();
+        break;
+    }
+
+    return info;
   }
 }

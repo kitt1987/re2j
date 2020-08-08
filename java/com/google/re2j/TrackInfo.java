@@ -34,11 +34,11 @@ public class TrackInfo {
         End = end;
     }
 
-    TrackInfo Adjacent() {
-        return Adjacent(0);
-    }
-
     TrackInfo Adjacent(int n) {
         return new TrackInfo(End, End + n);
+    }
+
+    void UpdateInfo(String info) {
+        Info = info;
     }
 }
