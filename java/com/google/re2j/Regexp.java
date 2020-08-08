@@ -420,7 +420,8 @@ class Regexp {
         hashcode += 31 * Arrays.deepHashCode(subs);
         break;
       case STAR:
-        b.append("Matches any repeatition of ");
+        b.append("Matches any repetition of ");
+        b.append(subs[0].track.Info);
         break;
       case PLUS:
         break;
