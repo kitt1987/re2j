@@ -409,9 +409,12 @@ class Regexp {
         break;
       case LITERAL:
         b.append("Matches string \"");
-        for (int r : runes) {
-          b.appendCodePoint(r);
+        if (runes != null) {
+          for (int r : runes) {
+            b.appendCodePoint(r);
+          }
         }
+        
         b.append("\"");
 
         if ((flags & FOLD_CASE) != 0) {
