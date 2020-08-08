@@ -807,6 +807,7 @@ class Parser {
           break;
 
         case '(':
+          // √ for the Perl extension (?
           if ((flags & RE2.PERL_X) != 0 && t.lookingAt("(?")) {
             // Flag changes and non-capturing groups.
             parsePerlFlags(t);
