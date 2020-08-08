@@ -440,7 +440,14 @@ class Regexp {
         b.append(subs[0].track.Info);
         break;
       case CAPTURE:
-        hashcode += 31 * cap + 31 * (name != null ? name.hashCode() : 0) + 31 * subs[0].hashCode();
+        b.append("Submatch");
+        if (name != null && !name.isEmpty()) {
+          b.append(" with group name \"");
+          b.append(name);
+          b.append("\"");
+        }
+        b.append(" of");
+        b.append(subs[0].track.Info);
         break;
       default:
 
