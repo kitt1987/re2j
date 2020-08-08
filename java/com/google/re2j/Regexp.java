@@ -401,9 +401,9 @@ class Regexp {
         b.append("\"");
 
         if ((flags & FOLD_CASE) != 0) {
-
+          b.append(" case-insensitively");
         } else {
-
+          b.append(" case-sensitively");
         }
 
         break;
