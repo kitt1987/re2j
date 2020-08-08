@@ -391,7 +391,7 @@ class Regexp {
     StringBuilder b = new StringBuilder();
     switch (op) {
       case END_TEXT:
-        hashcode += 31 * (flags & RE2.WAS_DOLLAR);
+        b.append("Matches text end");
         break;
       case LITERAL:
         b.append("Matches string \"");
@@ -415,11 +415,15 @@ class Regexp {
         b.append("]");
         break;
       case ALTERNATE:
+        break;
       case CONCAT:
         hashcode += 31 * Arrays.deepHashCode(subs);
         break;
       case STAR:
+        b.append("Matches any ");
+        break;
       case PLUS:
+        break;
       case QUEST:
         hashcode += 31 * (flags & RE2.NON_GREEDY) + 31 * subs[0].hashCode();
         break;
@@ -429,6 +433,8 @@ class Regexp {
       case CAPTURE:
         hashcode += 31 * cap + 31 * (name != null ? name.hashCode() : 0) + 31 * subs[0].hashCode();
         break;
+      default:
+
     }
 
     return b.toString();
