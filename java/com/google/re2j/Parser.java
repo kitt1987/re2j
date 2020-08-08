@@ -678,7 +678,7 @@ class Parser {
     if (reuse) {
       reuse(re);
     }
-    return newRegexp(Regexp.Op.EMPTY_MATCH);
+    return newRegexp(Regexp.Op.EMPTY_MATCH, null);
   }
 
   private static Regexp literalRegexp(String s, int flags, TrackInfo track) {
