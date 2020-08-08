@@ -817,7 +817,7 @@ class Parser {
           break;
 
         case '|':
-          parseVerticalBar();
+          parseVerticalBar(startPos);
           t.skip(1); // '|'
           break;
 
@@ -1206,7 +1206,7 @@ class Parser {
   }
 
   // parseVerticalBar handles a | in the input.
-  private void parseVerticalBar() {
+  private void parseVerticalBar(int start) {
     concat();
 
     // The concatenation we just parsed is on top of the stack.
@@ -1214,7 +1214,7 @@ class Parser {
     // (things below an opVerticalBar become an alternation).
     // Otherwise, push a new vertical bar.
     if (!swapVerticalBar()) {
-      op(Regexp.Op.VERTICAL_BAR);
+      op(Regexp.Op.VERTICAL_BAR, start, start+1);
     }
   }
 
