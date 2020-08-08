@@ -59,7 +59,7 @@ class Simplify {
           // Special special case: x{0} matches the empty string
           // and doesn't even need to consider x.
           if (re.min == 0 && re.max == 0) {
-            return new Regexp(Regexp.Op.EMPTY_MATCH);
+            return new Regexp(Regexp.Op.EMPTY_MATCH, null);
           }
 
           // The fun begins.
@@ -78,7 +78,7 @@ class Simplify {
             }
 
             // General case: x{4,} is xxxx+.
-            Regexp nre = new Regexp(Regexp.Op.CONCAT);
+            Regexp nre = new Regexp(Regexp.Op.CONCAT, null);
             ArrayList<Regexp> subs = new ArrayList<Regexp>();
             for (int i = 0; i < re.min - 1; i++) {
               subs.add(sub);
@@ -112,7 +112,7 @@ class Simplify {
           if (re.max > re.min) {
             Regexp suffix = simplify1(Regexp.Op.QUEST, re.flags, sub, null);
             for (int i = re.min + 1; i < re.max; i++) {
-              Regexp nre2 = new Regexp(Regexp.Op.CONCAT);
+              Regexp nre2 = new Regexp(Regexp.Op.CONCAT, null);
               nre2.subs = new Regexp[] {sub, suffix};
               suffix = simplify1(Regexp.Op.QUEST, re.flags, nre2, null);
             }
@@ -122,14 +122,14 @@ class Simplify {
             prefixSubs.add(suffix);
           }
           if (prefixSubs != null) {
-            Regexp prefix = new Regexp(Regexp.Op.CONCAT);
+            Regexp prefix = new Regexp(Regexp.Op.CONCAT, null);
             prefix.subs = prefixSubs.toArray(new Regexp[prefixSubs.size()]);
             return prefix;
           }
 
           // Some degenerate case like min > max or min < max < 0.
           // Handle as impossible match.
-          return new Regexp(Regexp.Op.NO_MATCH);
+          return new Regexp(Regexp.Op.NO_MATCH, null);
         }
     }
 
@@ -168,7 +168,7 @@ class Simplify {
       return re;
     }
 
-    re = new Regexp(op);
+    re = new Regexp(op, null);
     re.flags = flags;
     re.subs = new Regexp[] {sub};
     return re;
