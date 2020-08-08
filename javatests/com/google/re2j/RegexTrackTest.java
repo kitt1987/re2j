@@ -586,9 +586,9 @@ public class RegexTrackTest {
   public void testToStringEquivalentParse() throws PatternSyntaxException {
     for (String[] tt : PARSE_TESTS) {
       Regexp re = Parser.parse(tt[0], TEST_FLAGS);
-      TrackInfo[] tracks = re.GetTracks();
-      assertTrue(tracks.length > 1);
-      assertEquals(tracks[0].Info, tt[1]); // (already ensured by testParseSimple)
+      ArrayList<TrackInfo> tracks = re.GetTracks();
+      assertTrue(tracks.size() > 1);
+      assertEquals(tracks.get(0).Info, tt[1]); // (already ensured by testParseSimple)
     }
   }
 }
