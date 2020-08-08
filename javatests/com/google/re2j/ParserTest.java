@@ -456,7 +456,7 @@ public class ParserTest {
   }
 
   private static String mkCharClass(RunePredicate f) {
-    Regexp re = new Regexp(Regexp.Op.CHAR_CLASS);
+    Regexp re = new Regexp(Regexp.Op.CHAR_CLASS, null);
     ArrayList<Integer> runes = new ArrayList<Integer>();
     int lo = -1;
     for (int i = 0; i <= Unicode.MAX_RUNE; i++) {
