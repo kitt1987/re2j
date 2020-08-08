@@ -408,7 +408,11 @@ class Regexp {
 
         break;
       case CHAR_CLASS:
-        hashcode += 31 * Arrays.hashCode(runes);
+        b.append("Matches any character in the group [");
+        for (int r : runes) {
+          b.appendCodePoint(r);
+        }
+        b.append("]");
         break;
       case ALTERNATE:
       case CONCAT:
