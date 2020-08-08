@@ -9,29 +9,21 @@
 
 package com.google.re2j;
 
-import static com.google.re2j.RE2.FOLD_CASE;
-import static com.google.re2j.RE2.LITERAL;
-import static com.google.re2j.RE2.MATCH_NL;
-import static com.google.re2j.RE2.NON_GREEDY;
-import static com.google.re2j.RE2.PERL;
-import static com.google.re2j.RE2.PERL_X;
-import static com.google.re2j.RE2.POSIX;
-import static com.google.re2j.RE2.UNICODE_GROUPS;
-import static com.google.re2j.RE2.WAS_DOLLAR;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import com.google.common.truth.Truth;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Map;
 
-import com.google.common.truth.Truth;
-import org.junit.Test;
+import static com.google.re2j.RE2.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * @author adonovan@google.com (Alan Donovan)
  */
-public class ParserTest {
+public class RegexTrackTest {
 
   private interface RunePredicate {
     boolean applies(int rune);
@@ -288,73 +280,73 @@ public class ParserTest {
   // - ending a regexp with "\\"
   // - Java UTF-16 things.
 
-  @Test
-  public void testParseSimple() {
-    testParseDump(PARSE_TESTS, TEST_FLAGS);
-  }
+//  @Test
+//  public void testParseSimple() {
+//    testParseDump(PARSE_TESTS, TEST_FLAGS);
+//  }
+//
+//  private static final String[][] FOLDCASE_TESTS = {
+//    {"AbCdE", "strfold{ABCDE}"},
+//    {"[Aa]", "litfold{A}"},
+//    {"a", "litfold{A}"},
+//
+//    // 0x17F is an old English long s (looks like an f) and folds to s.
+//    // 0x212A is the Kelvin symbol and folds to k.
+//    {"A[F-g]", "cat{litfold{A}cc{0x41-0x7a 0x17f 0x212a}}"}, // [Aa][A-z...]
+//    {"[[:upper:]]", "cc{0x41-0x5a 0x61-0x7a 0x17f 0x212a}"},
+//    {"[[:lower:]]", "cc{0x41-0x5a 0x61-0x7a 0x17f 0x212a}"}
+//  };
+//
+//  @Test
+//  public void testParseFoldCase() {
+//    testParseDump(FOLDCASE_TESTS, FOLD_CASE);
+//  }
+//
+//  private static final String[][] LITERAL_TESTS = {
+//    {"(|)^$.[*+?]{5,10},\\", "str{(|)^$.[*+?]{5,10},\\}"},
+//  };
+//
+//  @Test
+//  public void testParseLiteral() {
+//    testParseDump(LITERAL_TESTS, LITERAL);
+//  }
+//
+//  private static final String[][] MATCHNL_TESTS = {
+//    {".", "dot{}"},
+//    {"\n", "lit{\n}"},
+//    {"[^a]", "cc{0x0-0x60 0x62-0x10ffff}"},
+//    {"[a\\n]", "cc{0xa 0x61}"},
+//  };
+//
+//  @Test
+//  public void testParseMatchNL() {
+//    testParseDump(MATCHNL_TESTS, MATCH_NL);
+//  }
+//
+//  private static final String[][] NOMATCHNL_TESTS = {
+//    {".", "dnl{}"},
+//    {"\n", "lit{\n}"},
+//    {"[^a]", "cc{0x0-0x9 0xb-0x60 0x62-0x10ffff}"},
+//    {"[a\\n]", "cc{0xa 0x61}"},
+//  };
 
-  private static final String[][] FOLDCASE_TESTS = {
-    {"AbCdE", "strfold{ABCDE}"},
-    {"[Aa]", "litfold{A}"},
-    {"a", "litfold{A}"},
-
-    // 0x17F is an old English long s (looks like an f) and folds to s.
-    // 0x212A is the Kelvin symbol and folds to k.
-    {"A[F-g]", "cat{litfold{A}cc{0x41-0x7a 0x17f 0x212a}}"}, // [Aa][A-z...]
-    {"[[:upper:]]", "cc{0x41-0x5a 0x61-0x7a 0x17f 0x212a}"},
-    {"[[:lower:]]", "cc{0x41-0x5a 0x61-0x7a 0x17f 0x212a}"}
-  };
-
-  @Test
-  public void testParseFoldCase() {
-    testParseDump(FOLDCASE_TESTS, FOLD_CASE);
-  }
-
-  private static final String[][] LITERAL_TESTS = {
-    {"(|)^$.[*+?]{5,10},\\", "str{(|)^$.[*+?]{5,10},\\}"},
-  };
-
-  @Test
-  public void testParseLiteral() {
-    testParseDump(LITERAL_TESTS, LITERAL);
-  }
-
-  private static final String[][] MATCHNL_TESTS = {
-    {".", "dot{}"},
-    {"\n", "lit{\n}"},
-    {"[^a]", "cc{0x0-0x60 0x62-0x10ffff}"},
-    {"[a\\n]", "cc{0xa 0x61}"},
-  };
-
-  @Test
-  public void testParseMatchNL() {
-    testParseDump(MATCHNL_TESTS, MATCH_NL);
-  }
-
-  private static final String[][] NOMATCHNL_TESTS = {
-    {".", "dnl{}"},
-    {"\n", "lit{\n}"},
-    {"[^a]", "cc{0x0-0x9 0xb-0x60 0x62-0x10ffff}"},
-    {"[a\\n]", "cc{0xa 0x61}"},
-  };
-
-  @Test
-  public void testParseNoMatchNL() {
-    testParseDump(NOMATCHNL_TESTS, 0);
-  }
+//  @Test
+//  public void testParseNoMatchNL() {
+//    testParseDump(NOMATCHNL_TESTS, 0);
+//  }
 
   // Test Parse -> Dump.
-  private void testParseDump(String[][] tests, int flags) {
-    for (String[] test : tests) {
-      try {
-        Regexp re = Parser.parse(test[0], flags);
-        String d = dump(re);
-        Truth.assertWithMessage("parse/dump of " + test[0]).that(d).isEqualTo(test[1]);
-      } catch (PatternSyntaxException e) {
-        throw new RuntimeException("Parsing failed: " + test[0], e);
-      }
-    }
-  }
+//  private void testParseDump(String[][] tests, int flags) {
+//    for (String[] test : tests) {
+//      try {
+//        Regexp re = Parser.parse(test[0], flags);
+//        String d = dump(re);
+//        Truth.assertWithMessage("parse/dump of " + test[0]).that(d).isEqualTo(test[1]);
+//      } catch (PatternSyntaxException e) {
+//        throw new RuntimeException("Parsing failed: " + test[0], e);
+//      }
+//    }
+//  }
 
   // dump prints a string representation of the regexp showing
   // the structure explicitly.
@@ -484,135 +476,119 @@ public class ParserTest {
     return dump(re);
   }
 
-  @Test
-  public void testAppendRangeCollapse() {
-    // AppendRange should collapse each of the new ranges
-    // into the earlier ones (it looks back two ranges), so that
-    // the slice never grows very large.
-    // Note that we are not calling cleanClass.
-    CharClass cc = new CharClass();
-    // Add 'A', 'a', 'B', 'b', etc.
-    for (int i = 'A'; i <= 'Z'; i++) {
-      cc.appendRange(i, i);
-      cc.appendRange(i + 'a' - 'A', i + 'a' - 'A');
-    }
-    assertEquals("AZaz", runesToString(cc.toArray()));
-  }
+//  @Test
+//  public void testAppendRangeCollapse() {
+//    // AppendRange should collapse each of the new ranges
+//    // into the earlier ones (it looks back two ranges), so that
+//    // the slice never grows very large.
+//    // Note that we are not calling cleanClass.
+//    CharClass cc = new CharClass();
+//    // Add 'A', 'a', 'B', 'b', etc.
+//    for (int i = 'A'; i <= 'Z'; i++) {
+//      cc.appendRange(i, i);
+//      cc.appendRange(i + 'a' - 'A', i + 'a' - 'A');
+//    }
+//    assertEquals("AZaz", runesToString(cc.toArray()));
+//  }
+//
+//  // Converts an array of Unicode runes to a Java UTF-16 string.
+//  private static String runesToString(int[] runes) {
+//    StringBuilder out = new StringBuilder();
+//    for (int rune : runes) {
+//      out.appendCodePoint(rune);
+//    }
+//    return out.toString();
+//  }
 
-  // Converts an array of Unicode runes to a Java UTF-16 string.
-  private static String runesToString(int[] runes) {
-    StringBuilder out = new StringBuilder();
-    for (int rune : runes) {
-      out.appendCodePoint(rune);
-    }
-    return out.toString();
-  }
+//  private static final String[] INVALID_REGEXPS = {
+//    "(",
+//    ")",
+//    "(a",
+//    "(a|b|",
+//    "(a|b",
+//    "[a-z",
+//    "([a-z)",
+//    "x{1001}",
+//    "x{9876543210}",
+//    "x{2,1}",
+//    "x{1,9876543210}",
+//    // Java string literals can't contain Invalid UTF-8.
+//    // "\\xff",
+//    // "[\xff]",
+//    // "[\\\xff]",
+//    // "\\\xff",
+//    "(?P<name>a",
+//    "(?P<name>",
+//    "(?P<name",
+//    "(?P<x y>a)",
+//    "(?P<>a)",
+//    "[a-Z]",
+//    "(?i)[a-Z]",
+//    "a{100000}",
+//    "a{100000,}",
+//    // Group names may not be repeated
+//    "(?P<foo>bar)(?P<foo>baz)",
+//    "\\x", // https://github.com/google/re2j/issues/103
+//    "\\xv", // https://github.com/google/re2j/issues/103
+//  };
+//
+//  private static final String[] ONLY_PERL = {
+//    "[a-b-c]",
+//    "\\Qabc\\E",
+//    "\\Q*+?{[\\E",
+//    "\\Q\\\\E",
+//    "\\Q\\\\\\E",
+//    "\\Q\\\\\\\\E",
+//    "\\Q\\\\\\\\\\E",
+//    "(?:a)",
+//    "(?P<name>a)",
+//  };
+//
+//  private static final String[] ONLY_POSIX = {
+//    "a++", "a**", "a?*", "a+*", "a{1}*", ".{1}{2}.{3}",
+//  };
 
-  private static final String[] INVALID_REGEXPS = {
-    "(",
-    ")",
-    "(a",
-    "(a|b|",
-    "(a|b",
-    "[a-z",
-    "([a-z)",
-    "x{1001}",
-    "x{9876543210}",
-    "x{2,1}",
-    "x{1,9876543210}",
-    // Java string literals can't contain Invalid UTF-8.
-    // "\\xff",
-    // "[\xff]",
-    // "[\\\xff]",
-    // "\\\xff",
-    "(?P<name>a",
-    "(?P<name>",
-    "(?P<name",
-    "(?P<x y>a)",
-    "(?P<>a)",
-    "[a-Z]",
-    "(?i)[a-Z]",
-    "a{100000}",
-    "a{100000,}",
-    // Group names may not be repeated
-    "(?P<foo>bar)(?P<foo>baz)",
-    "\\x", // https://github.com/google/re2j/issues/103
-    "\\xv", // https://github.com/google/re2j/issues/103
-  };
-
-  private static final String[] ONLY_PERL = {
-    "[a-b-c]",
-    "\\Qabc\\E",
-    "\\Q*+?{[\\E",
-    "\\Q\\\\E",
-    "\\Q\\\\\\E",
-    "\\Q\\\\\\\\E",
-    "\\Q\\\\\\\\\\E",
-    "(?:a)",
-    "(?P<name>a)",
-  };
-
-  private static final String[] ONLY_POSIX = {
-    "a++", "a**", "a?*", "a+*", "a{1}*", ".{1}{2}.{3}",
-  };
-
-  @Test
-  public void testParseInvalidRegexps() throws PatternSyntaxException {
-    for (String regexp : INVALID_REGEXPS) {
-      try {
-        Regexp re = Parser.parse(regexp, PERL);
-        fail("Parsing (PERL) " + regexp + " should have failed, instead got " + dump(re));
-      } catch (PatternSyntaxException e) {
-        /* ok */
-      }
-      try {
-        Regexp re = Parser.parse(regexp, POSIX);
-        fail("parsing (POSIX) " + regexp + " should have failed, instead got " + dump(re));
-      } catch (PatternSyntaxException e) {
-        /* ok */
-      }
-    }
-    for (String regexp : ONLY_PERL) {
-      Parser.parse(regexp, PERL);
-      try {
-        Regexp re = Parser.parse(regexp, POSIX);
-        fail("parsing (POSIX) " + regexp + " should have failed, instead got " + dump(re));
-      } catch (PatternSyntaxException e) {
-        /* ok */
-      }
-    }
-    for (String regexp : ONLY_POSIX) {
-      try {
-        Regexp re = Parser.parse(regexp, PERL);
-        fail("parsing (PERL) " + regexp + " should have failed, instead got " + dump(re));
-      } catch (PatternSyntaxException e) {
-        /* ok */
-      }
-      Parser.parse(regexp, POSIX);
-    }
-  }
+//  @Test
+//  public void testParseInvalidRegexps() throws PatternSyntaxException {
+//    for (String regexp : INVALID_REGEXPS) {
+//      try {
+//        Regexp re = Parser.parse(regexp, PERL);
+//        fail("Parsing (PERL) " + regexp + " should have failed, instead got " + dump(re));
+//      } catch (PatternSyntaxException e) {
+//        /* ok */
+//      }
+//      try {
+//        Regexp re = Parser.parse(regexp, POSIX);
+//        fail("parsing (POSIX) " + regexp + " should have failed, instead got " + dump(re));
+//      } catch (PatternSyntaxException e) {
+//        /* ok */
+//      }
+//    }
+//    for (String regexp : ONLY_PERL) {
+//      Parser.parse(regexp, PERL);
+//      try {
+//        Regexp re = Parser.parse(regexp, POSIX);
+//        fail("parsing (POSIX) " + regexp + " should have failed, instead got " + dump(re));
+//      } catch (PatternSyntaxException e) {
+//        /* ok */
+//      }
+//    }
+//    for (String regexp : ONLY_POSIX) {
+//      try {
+//        Regexp re = Parser.parse(regexp, PERL);
+//        fail("parsing (PERL) " + regexp + " should have failed, instead got " + dump(re));
+//      } catch (PatternSyntaxException e) {
+//        /* ok */
+//      }
+//      Parser.parse(regexp, POSIX);
+//    }
+//  }
 
   @Test
   public void testToStringEquivalentParse() throws PatternSyntaxException {
     for (String[] tt : PARSE_TESTS) {
       Regexp re = Parser.parse(tt[0], TEST_FLAGS);
-      String d = dump(re);
-      assertEquals(d, tt[1]); // (already ensured by testParseSimple)
-
-      String s = re.toString();
-      if (!s.equals(tt[0])) {
-        // If toString didn't return the original regexp,
-        // it must have found one with fewer parens.
-        // Unfortunately we can't check the length here, because
-        // toString produces "\\{" for a literal brace,
-        // but "{" is a shorter equivalent in some contexts.
-        Regexp nre = Parser.parse(s, TEST_FLAGS);
-        String nd = dump(nre);
-        assertEquals(String.format("parse(%s) -> %s", tt[0], s), d, nd);
-
-        String ns = nre.toString();
-        assertEquals(String.format("parse(%s) -> %s", tt[0], s), s, ns);
-      }
+      assertEquals(re.track.Info, tt[1]); // (already ensured by testParseSimple)
     }
   }
 }

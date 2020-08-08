@@ -401,6 +401,12 @@ class Regexp {
       case END_TEXT:
         b.append("Matches text end");
         break;
+      case WORD_BOUNDARY:
+        b.append("Matches a word boundary");
+        break;
+      case NO_WORD_BOUNDARY:
+        b.append("Matches a word none-boundary");
+        break;
       case LITERAL:
         b.append("Matches string \"");
         for (int r : runes) {
