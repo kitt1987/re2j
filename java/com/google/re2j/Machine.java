@@ -246,6 +246,8 @@ class Machine {
           width1 = r & 7;
         }
       }
+
+      // √ The beginning of the whole input
       if (!matched && (pos == 0 || anchor == RE2.UNANCHORED)) {
         // If we are anchoring at begin then only add threads that begin
         // at |pos| = 0.
@@ -265,6 +267,8 @@ class Machine {
         // to where it is, so any match will do.
         break;
       }
+
+      //√ build variables for the next loop
       pos += width;
       rune = rune1;
       width = width1;
