@@ -415,6 +415,11 @@ class Regexp {
         b.append("]");
         break;
       case ALTERNATE:
+        b.append("Matches one of [");
+        for (Regexp sub : subs) {
+          b.append(sub.track.Info).append(",");
+        }
+        b.append("]");
         break;
       case CONCAT:
         hashcode += 31 * Arrays.deepHashCode(subs);
@@ -446,7 +451,7 @@ class Regexp {
           b.append(name);
           b.append("\"");
         }
-        b.append(" of");
+        b.append(" of ");
         b.append(subs[0].track.Info);
         break;
       default:
