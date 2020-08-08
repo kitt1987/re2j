@@ -394,7 +394,7 @@ class Regexp {
         hashcode += 31 * (flags & RE2.WAS_DOLLAR);
         break;
       case LITERAL:
-        b.append("Match string \"");
+        b.append("Matches string \"");
         for (int r : runes) {
           b.appendCodePoint(r);
         }
