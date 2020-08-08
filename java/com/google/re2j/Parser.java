@@ -813,12 +813,12 @@ class Parser {
             parsePerlFlags(t);
             break;
           }
-          op(Regexp.Op.LEFT_PAREN, new TrackInfo(startPos, startPos+1)).cap = ++numCap;
+          op(Regexp.Op.LEFT_PAREN, new TrackInfo(startPos)).cap = ++numCap;
           t.skip(1); // '('
           break;
 
         case '|':
-          parseVerticalBar(new TrackInfo(startPos, startPos+1));
+          parseVerticalBar(new TrackInfo(startPos));
           t.skip(1); // '|'
           break;
 
@@ -829,27 +829,27 @@ class Parser {
 
         case '^':
           if ((flags & RE2.ONE_LINE) != 0) {
-            op(Regexp.Op.BEGIN_TEXT, );
+            op(Regexp.Op.BEGIN_TEXT, new TrackInfo(startPos));
           } else {
-            op(Regexp.Op.BEGIN_LINE);
+            op(Regexp.Op.BEGIN_LINE, new TrackInfo(startPos));
           }
           t.skip(1); // '^'
           break;
 
         case '$':
           if ((flags & RE2.ONE_LINE) != 0) {
-            op(Regexp.Op.END_TEXT).flags |= RE2.WAS_DOLLAR;
+            op(Regexp.Op.END_TEXT, new TrackInfo(startPos)).flags |= RE2.WAS_DOLLAR;
           } else {
-            op(Regexp.Op.END_LINE);
+            op(Regexp.Op.END_LINE, new TrackInfo(startPos));
           }
           t.skip(1); // '$'
           break;
 
         case '.':
           if ((flags & RE2.DOT_NL) != 0) {
-            op(Regexp.Op.ANY_CHAR);
+            op(Regexp.Op.ANY_CHAR, new TrackInfo(startPos));
           } else {
-            op(Regexp.Op.ANY_CHAR_NOT_NL);
+            op(Regexp.Op.ANY_CHAR_NOT_NL, new TrackInfo(startPos));
           }
           t.skip(1); // '.'
           break;
@@ -1617,7 +1617,7 @@ class Parser {
   private void parseClass(StringIterator t) throws PatternSyntaxException {
     int startPos = t.pos();
     t.skip(1); // '['
-    Regexp re = newRegexp(Regexp.Op.CHAR_CLASS);
+    Regexp re = newRegexp(Regexp.Op.CHAR_CLASS, new TrackInfo(startPos));
     re.flags = flags;
     CharClass cc = new CharClass();
 
@@ -1695,6 +1695,7 @@ class Parser {
       cc.negateClass();
     }
     re.runes = cc.toArray();
+    re.track.UpdateEnd(t.pos());
     push(re);
   }
 

@@ -29,4 +29,8 @@ public class TrackInfo {
     void UpdateEnd(TrackInfo that) {
         End = that.End;
     }
+
+    void UpdateEnd(int end) {
+        End = end;
+    }
 }
