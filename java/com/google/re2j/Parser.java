@@ -791,7 +791,7 @@ class Parser {
   private Regexp parseInternal() throws PatternSyntaxException {
     if ((flags & RE2.LITERAL) != 0) {
       // Trivial parser for literal string.
-      return literalRegexp(wholeRegexp, flags);
+      return literalRegexp(wholeRegexp, flags, 0, wholeRegexp.length());
     }
 
     // Otherwise, must do real work.
