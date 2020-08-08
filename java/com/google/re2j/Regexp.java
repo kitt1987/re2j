@@ -101,6 +101,11 @@ class Regexp {
   public TrackInfo[] GetTrack() {
     ArrayList<TrackInfo> tracks = new ArrayList<TrackInfo>();
     tracks.add(track);
+    if (subs != null) {
+      for (Regexp sub : subs) {
+        tracks.add(sub.track);
+      }
+    }
     return (TrackInfo[]) tracks.toArray();
   }
 
