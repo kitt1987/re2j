@@ -424,9 +424,12 @@ class Regexp {
         b.append(subs[0].track.Info);
         break;
       case PLUS:
+        b.append("Matches 1 or more repetition of ");
+        b.append(subs[0].track.Info);
         break;
       case QUEST:
-        hashcode += 31 * (flags & RE2.NON_GREEDY) + 31 * subs[0].hashCode();
+        b.append("Matches 0 or 1 repetition of ");
+        b.append(subs[0].track.Info);
         break;
       case REPEAT:
         hashcode += 31 * min + 31 * max + 31 * subs[0].hashCode();
