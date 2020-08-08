@@ -2,17 +2,17 @@ package com.google.re2j;
 
 public class TrackInfo {
     public int Start;
-    public int Len;
+    public int End;
     public String Info;
 
-    TrackInfo(int start, int len) {
+    TrackInfo(int start, int end) {
         Start = start;
-        Len = len;
+        End = end;
     }
 
-    TrackInfo(int start, int len, String info) {
+    TrackInfo(int start, int end, String info) {
         Start = start;
-        Len = len;
+        End = end;
         Info = info;
     }
 }

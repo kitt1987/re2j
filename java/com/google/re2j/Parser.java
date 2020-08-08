@@ -67,14 +67,14 @@ class Parser {
   }
 
   // Allocate a Regexp, from the free list if possible.
-  private Regexp newRegexp(Regexp.Op op, int start, int len) {
+  private Regexp newRegexp(Regexp.Op op, int start, int end) {
     Regexp re = free;
     if (re != null && re.subs != null && re.subs.length > 0) {
       free = re.subs[0];
       re.reinit();
       re.op = op;
     } else {
-      re = new Regexp(op, start, len);
+      re = new Regexp(op, start, end);
     }
     return re;
   }
@@ -213,8 +213,8 @@ class Parser {
 
   // op pushes a regexp with the given op onto the stack
   // and returns that regexp.
-  private Regexp op(Regexp.Op op, int start, int len) {
-    Regexp re = newRegexp(op, start, len);
+  private Regexp op(Regexp.Op op, int start, int end) {
+    Regexp re = newRegexp(op, start, end);
     re.flags = flags;
     return push(re);
   }
@@ -681,8 +681,8 @@ class Parser {
     return newRegexp(Regexp.Op.EMPTY_MATCH);
   }
 
-  private static Regexp literalRegexp(String s, int flags, int start, int len) {
-    Regexp re = new Regexp(Regexp.Op.LITERAL, start, len);
+  private static Regexp literalRegexp(String s, int flags, int start, int end) {
+    Regexp re = new Regexp(Regexp.Op.LITERAL, start, end);
     re.flags = flags;
     re.runes = Utils.stringToRunes(s);
     return re;
@@ -799,11 +799,11 @@ class Parser {
     StringIterator t = new StringIterator(wholeRegexp);
     while (t.more()) {
       int repeatPos = -1;
-      int pos = t.pos();
+      int startPos = t.pos();
       bigswitch:
       switch (t.peek()) {
         default:
-          literal(t.pop(), pos, t.pos() - pos);
+          literal(t.pop(), startPos, t.pos());
           break;
 
         case '(':
@@ -812,7 +812,7 @@ class Parser {
             parsePerlFlags(t);
             break;
           }
-          op(Regexp.Op.LEFT_PAREN).cap = ++numCap;
+          op(Regexp.Op.LEFT_PAREN, startPos, startPos+1).cap = ++numCap;
           t.skip(1); // '('
           break;
 
@@ -1068,7 +1068,7 @@ class Parser {
             ERR_INVALID_NAMED_CAPTURE, s.substring(0, end)); // "(?P<name>"
       }
       // Like ordinary capture, but named.
-      Regexp re = op(Regexp.Op.LEFT_PAREN);
+      Regexp re = op(Regexp.Op.LEFT_PAREN, startPos, t.pos() - startPos);
       re.cap = ++numCap;
       if (namedGroups.put(name, numCap) != null) {
         throw new PatternSyntaxException(ERR_DUPLICATE_NAMED_CAPTURE, name);
