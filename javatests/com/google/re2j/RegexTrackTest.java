@@ -611,11 +611,11 @@ public class RegexTrackTest {
       Regexp re = Parser.parse(regexp, TEST_FLAGS);
       TrackInfo[] testTracks = PARSE_TESTS.get(regexp);
       ArrayList<TrackInfo> tracks = re.GetTracks();
-      assertEquals(tracks.size(), testTracks.length);
+      assertEquals(regexp, tracks.size(), testTracks.length);
       for (int i = 1; i < tracks.size(); i++) {
-        assertEquals(tracks.get(i-1).Start, testTracks[i].Start);
-        assertEquals(tracks.get(i-1).End, testTracks[i].End);
-        assertEquals(tracks.get(i-1).Info, testTracks[i].Info);
+        assertEquals(regexp, tracks.get(i-1).Start, testTracks[i].Start);
+        assertEquals(regexp, tracks.get(i-1).End, testTracks[i].End);
+        assertEquals(regexp, tracks.get(i-1).Info, testTracks[i].Info);
       }
     }
   }
