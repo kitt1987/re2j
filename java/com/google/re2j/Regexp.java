@@ -106,7 +106,7 @@ class Regexp {
 
     if (subs != null) {
       for (Regexp sub : subs) {
-        tracks.add(sub.track);
+        tracks.addAll(sub.GetTracks());
       }
     }
 
