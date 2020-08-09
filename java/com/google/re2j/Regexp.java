@@ -448,6 +448,12 @@ class Regexp {
         }
         b.append("]");
         break;
+      case ANY_CHAR_NOT_NL:
+        b.append("Any character except \"\\n\"");
+        break;
+      case ANY_CHAR:
+        b.append("Any character");
+        break;
       case ALTERNATE:
         b.append("Matches any of [");
         for (Regexp sub : subs) {
