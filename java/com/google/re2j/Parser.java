@@ -166,6 +166,7 @@ class Parser {
 
     // Push re1 into re2.
     re2.runes = concatRunes(re2.runes, re1.runes);
+    re2.track.UpdateStart(re1.track);
 
     // Reuse re1 if possible.
     if (r >= 0) {
@@ -174,7 +175,6 @@ class Parser {
       return true;
     }
 
-    re2.track.UpdateStart(re1.track);
     pop();
     reuse(re1);
     return false; // did not push r
