@@ -613,9 +613,9 @@ public class RegexTrackTest {
       ArrayList<TrackInfo> tracks = re.GetTracks();
       assertEquals(regexp, testTracks.length, tracks.size());
       for (int i = 0; i < testTracks.length; i++) {
-        assertEquals(regexp, testTracks[i].Start, tracks.get(i-1).Start);
-        assertEquals(regexp, testTracks[i].End, tracks.get(i-1).End);
-        assertEquals(regexp, testTracks[i].Info, tracks.get(i-1).Info);
+        assertEquals(regexp, testTracks[i].Start, tracks.get(i).Start);
+        assertEquals(regexp, testTracks[i].End, tracks.get(i).End);
+        assertEquals(regexp, testTracks[i].Info, tracks.get(i).Info);
       }
     }
   }
