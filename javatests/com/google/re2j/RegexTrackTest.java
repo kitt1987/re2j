@@ -607,12 +607,15 @@ public class RegexTrackTest {
 
   @Test
   public void testToStringEquivalentParse() throws PatternSyntaxException {
-    for (String[] tt : PARSE_TESTS) {
-      Regexp re = Parser.parse(tt[0], TEST_FLAGS);
+    for (String regexp : PARSE_TESTS.keySet()) {
+      Regexp re = Parser.parse(regexp, TEST_FLAGS);
+      TrackInfo[] testTracks = PARSE_TESTS.get(regexp);
       ArrayList<TrackInfo> tracks = re.GetTracks();
-      assertEquals(tracks.size(), tt.length - 1);
-      for (int i = 1; i < tt.length; i++) {
-        assertEquals(tracks.get(i-1).Info, tt[i]);
+      assertEquals(tracks.size(), testTracks.length);
+      for (int i = 1; i < tracks.size(); i++) {
+        assertEquals(tracks.get(i-1).Start, testTracks[i].Start);
+        assertEquals(tracks.get(i-1).End, testTracks[i].End);
+        assertEquals(tracks.get(i-1).Info, testTracks[i].Info);
       }
     }
   }
