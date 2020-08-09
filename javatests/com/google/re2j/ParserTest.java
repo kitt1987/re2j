@@ -90,7 +90,7 @@ public class ParserTest {
 
   private static final String[][] PARSE_TESTS = {
     // Base cases
-    {"a", "lit{a}"},
+    {"a", "Matches string \"a\" case-sensitively"},
     {"a.", "cat{lit{a}dot{}}"},
     {"a.b", "cat{lit{a}dot{}lit{b}}"},
     {"ab", "str{ab}"},
