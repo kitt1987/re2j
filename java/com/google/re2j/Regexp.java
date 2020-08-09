@@ -403,6 +403,7 @@ class Regexp {
 
   public String genTrackInfo(Op op) {
     StringBuilder b = new StringBuilder();
+    ArrayList<TrackInfo> tracks;
     switch (op) {
       case BEGIN_LINE:
         b.append("Matches line start");
@@ -450,7 +451,7 @@ class Regexp {
       case ALTERNATE:
         b.append("Matches any of [");
         for (Regexp sub : subs) {
-          ArrayList<TrackInfo> tracks = sub.GetTracks();
+          tracks = sub.GetTracks();
           b.append(tracks.get(0).Info).append(",");
         }
         b.append("]");
@@ -458,22 +459,25 @@ class Regexp {
       case CONCAT:
         b.append("Matches each of [");
         for (Regexp sub : subs) {
-          ArrayList<TrackInfo> tracks = sub.GetTracks();
+          tracks = sub.GetTracks();
           b.append(tracks.get(0).Info).append(",");
         }
         b.append("] in order");
         break;
       case STAR:
         b.append("Matches any repetition of ");
-        b.append(subs[0].track.Info);
+        tracks = subs[0].GetTracks();
+        b.append(tracks.get(0).Info);
         break;
       case PLUS:
         b.append("Matches 1 or more repetition of ");
-        b.append(subs[0].track.Info);
+        tracks = subs[0].GetTracks();
+        b.append(tracks.get(0).Info);
         break;
       case QUEST:
         b.append("Matches 0 or 1 repetition of ");
-        b.append(subs[0].track.Info);
+        tracks = subs[0].GetTracks();
+        b.append(tracks.get(0).Info);
         break;
       case REPEAT:
         b.append("Matches ");
@@ -481,7 +485,7 @@ class Regexp {
         b.append(" to ");
         b.append(max);
         b.append(" times repetition of ");
-        ArrayList<TrackInfo> tracks = subs[0].GetTracks();
+        tracks = subs[0].GetTracks();
         b.append(tracks.get(0).Info);
         break;
       case CAPTURE:
@@ -492,7 +496,7 @@ class Regexp {
           b.append("\"");
         }
         b.append(" of ");
-        ArrayList<TrackInfo> tracks = subs[0].GetTracks();
+        tracks = subs[0].GetTracks();
         b.append(tracks.get(0).Info);
         break;
       default:
