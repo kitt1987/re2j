@@ -450,14 +450,16 @@ class Regexp {
       case ALTERNATE:
         b.append("Matches any of [");
         for (Regexp sub : subs) {
-          b.append(sub.track.Info).append(",");
+          ArrayList<TrackInfo> tracks = sub.GetTracks();
+          b.append(tracks.get(0).Info).append(",");
         }
         b.append("]");
         break;
       case CONCAT:
         b.append("Matches each of [");
         for (Regexp sub : subs) {
-          b.append(sub.track.Info).append(",");
+          ArrayList<TrackInfo> tracks = sub.GetTracks();
+          b.append(tracks.get(0).Info).append(",");
         }
         b.append("] in order");
         break;
@@ -489,7 +491,8 @@ class Regexp {
           b.append("\"");
         }
         b.append(" of ");
-        b.append(subs[0].track.Info);
+        ArrayList<TrackInfo> tracks = subs[0].GetTracks();
+        b.append(tracks.get(0).Info);
         break;
       default:
 
