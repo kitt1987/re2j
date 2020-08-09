@@ -112,6 +112,10 @@ class Regexp {
           tracks.add(new TrackInfo(last.End, last.End+1, "alternative"));
         }
       }
+
+      if (op == Op.ALTERNATE) {
+        tracks.remove(tracks.size()-1);
+      }
     }
 
     return tracks;
