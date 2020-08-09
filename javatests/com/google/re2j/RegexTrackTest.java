@@ -96,8 +96,18 @@ public class RegexTrackTest {
             "any character",
             "string \"b\" case-sensitively"
     },
-    {"ab", "string \"ab\" case-sensitively"},
-    {"a.b.c", "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,any character,string \"c\" case-sensitively,] in order"},
+    {
+      "ab", "string \"ab\" case-sensitively"
+    },
+    {
+      "a.b.c",
+            "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,any character,string \"c\" case-sensitively,] in order",
+            "string \"a\" case-sensitively",
+            "any character",
+            "string \"b\" case-sensitively",
+            "any character",
+            "string \"c\" case-sensitively"
+    },
     {"abc", "str{abc}"},
     {"a|^", "alt{lit{a}bol{}}"},
     {"a|b", "cc{0x61-0x62}"},
