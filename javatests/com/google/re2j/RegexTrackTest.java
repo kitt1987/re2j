@@ -110,6 +110,9 @@ public class RegexTrackTest {
     });
     put("a|^", new TrackInfo[]{
             new TrackInfo(0, 3, "any of [string \"a\" case-sensitively,line start,]"),
+            new TrackInfo(0, 1, "string \"a\" case-sensitively"),
+            new TrackInfo(1, 2, "any"),
+            new TrackInfo(3, 3, "line start"),
     });
   }};
 
