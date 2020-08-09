@@ -78,11 +78,9 @@ public class RegexTrackTest {
 
   private static final int TEST_FLAGS = MATCH_NL | PERL_X | UNICODE_GROUPS;
 
-  private static final String[][] PARSE_TESTS = {
+  private static final Map<String, TrackInfo[]> PARSE_TESTS = {
     // Base cases
-    {
-      "a", "string \"a\" case-sensitively"
-    },
+          "a": "string \"a\" case-sensitively",
     {
       "a.",
             "each of [string \"a\" case-sensitively,any character,] in order",
