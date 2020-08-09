@@ -107,6 +107,10 @@ class Regexp {
     if (subs != null) {
       for (Regexp sub : subs) {
         tracks.addAll(sub.GetTracks());
+        if (op == Op.ALTERNATE) {
+          TrackInfo last = tracks.get(tracks.size()-1);
+          tracks.add(new TrackInfo(last.End, last.End+1, "alternative"));
+        }
       }
     }
 
