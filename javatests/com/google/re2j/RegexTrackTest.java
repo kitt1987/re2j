@@ -84,7 +84,7 @@ public class RegexTrackTest {
     {"a.", "each of [string \"a\" case-sensitively,any character,] in order"},
     {"a.b", "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,] in order"},
     {"ab", "string \"ab\" case-sensitively"},
-    {"a.b.c", "cat{lit{a}dot{}lit{b}dot{}lit{c}}"},
+    {"a.b.c", "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,any character,string \"c\" case-sensitively,] in order"},
     {"abc", "str{abc}"},
     {"a|^", "alt{lit{a}bol{}}"},
     {"a|b", "cc{0x61-0x62}"},
