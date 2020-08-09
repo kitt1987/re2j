@@ -89,7 +89,7 @@ public class RegexTrackTest {
     {"a|^", "alt{lit{a}bol{}}"},
     {"a|b", "cc{0x61-0x62}"},
     {"(a)", "cap{lit{a}}"},
-    {"(a)|b", "alt{cap{lit{a}}lit{b}}"},
+    {"(a)|b", "alt{ca®p{lit{a}}lit{b}}"},
     {"a*", "star{lit{a}}"},
     {"a+", "plus{lit{a}}"},
     {"a?", "que{lit{a}}"},
