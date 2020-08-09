@@ -114,6 +114,12 @@ public class RegexTrackTest {
             new TrackInfo(1, 2, "alternative"),
             new TrackInfo(2, 3, "line start"),
     });
+    put("a|b", new TrackInfo[]{
+            new TrackInfo(0, 3, "any of [string \"a\" case-sensitively,line start,]"),
+            new TrackInfo(0, 1, "string \"a\" case-sensitively"),
+            new TrackInfo(1, 2, "alternative"),
+            new TrackInfo(2, 3, "string \"b\" case-sensitively"),
+    });
   }};
 
 //  {
