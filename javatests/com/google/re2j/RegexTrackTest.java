@@ -83,7 +83,7 @@ public class RegexTrackTest {
     {"a", "string \"a\" case-sensitively"},
     {"a.", "each of [string \"a\" case-sensitively,any character,] in order"},
     {"a.b", "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,] in order"},
-    {"ab", "str{ab}"},
+    {"ab", "string \"ab\" case-sensitively"},
     {"a.b.c", "cat{lit{a}dot{}lit{b}dot{}lit{c}}"},
     {"abc", "str{abc}"},
     {"a|^", "alt{lit{a}bol{}}"},
