@@ -81,7 +81,7 @@ public class RegexTrackTest {
   private static final String[][] PARSE_TESTS = {
     // Base cases
     {"a", "string \"a\" case-sensitively"},
-    {"a.", "each of [string \"a\" case-sensitively,any character,] in order"},
+    {"a.", "each of [string \"a\" case-sensitively,any character,] in order", "string \"a\" case-sensitively", "any character"},
     {"a.b", "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,] in order"},
     {"ab", "string \"ab\" case-sensitively"},
     {"a.b.c", "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,any character,string \"c\" case-sensitively,] in order"},
