@@ -117,10 +117,12 @@ public class RegexTrackTest {
     put("a|b", new TrackInfo[]{
             new TrackInfo(0, 3, "any character in the group [ab]"),
     });
+    put("(a)", new TrackInfo[]{
+            new TrackInfo(0, 3, "any character in the group [ab]"),
+    });
   }};
 
 //  {
-//    {"a|b", "cc{0x61-0x62}"},
 //    {"(a)", "cap{lit{a}}"},
 //    {"(a)|b", "alt{ca®p{lit{a}}lit{b}}"},
 //    {"a*", "star{lit{a}}"},
