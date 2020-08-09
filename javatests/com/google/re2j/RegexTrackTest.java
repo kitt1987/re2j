@@ -119,6 +119,7 @@ public class RegexTrackTest {
     });
     put("(a)", new TrackInfo[]{
             new TrackInfo(0, 3, "any character in the group [ab]"),
+            new TrackInfo(1, 2, "string \"a\" case-sensitively"),
     });
   }};
 
