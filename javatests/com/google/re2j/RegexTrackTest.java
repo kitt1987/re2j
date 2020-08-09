@@ -98,7 +98,7 @@ public class RegexTrackTest {
             new TrackInfo(0, 2, "string \"ab\" case-sensitively"),
     });
     put("a.b.c", new TrackInfo[]{
-            new TrackInfo(0, 6, "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,] in order"),
+            new TrackInfo(0, 5, "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,] in order"),
             new TrackInfo(0, 1, "string \"a\" case-sensitively"),
             new TrackInfo(1, 2, "any character"),
             new TrackInfo(2, 3, "string \"b\" case-sensitively"),
