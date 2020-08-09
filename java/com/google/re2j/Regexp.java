@@ -481,7 +481,8 @@ class Regexp {
         b.append(" to ");
         b.append(max);
         b.append(" times repetition of ");
-        b.append(subs[0].track.Info);
+        ArrayList<TrackInfo> tracks = subs[0].GetTracks();
+        b.append(tracks.get(0).Info);
         break;
       case CAPTURE:
         b.append("Submatch");
