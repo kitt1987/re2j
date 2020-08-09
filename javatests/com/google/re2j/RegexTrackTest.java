@@ -111,7 +111,6 @@ public class RegexTrackTest {
   }};
 
 //  {
-//    {"abc", "str{abc}"},
 //    {"a|^", "alt{lit{a}bol{}}"},
 //    {"a|b", "cc{0x61-0x62}"},
 //    {"(a)", "cap{lit{a}}"},
