@@ -80,8 +80,8 @@ public class RegexTrackTest {
 
   private static final String[][] PARSE_TESTS = {
     // Base cases
-    {"a", "Matches string \"a\" case-sensitively"},
-    {"a.", "Matches each of [Matches string \"a\" case-sensitively,Any character,] in order"},
+    {"a", "string \"a\" case-sensitively"},
+    {"a.", "each of [Matches string \"a\" case-sensitively,Any character,] in order"},
     {"a.b", "cat{lit{a}dot{}lit{b}}"},
     {"ab", "str{ab}"},
     {"a.b.c", "cat{lit{a}dot{}lit{b}dot{}lit{c}}"},

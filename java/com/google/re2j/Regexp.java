@@ -406,24 +406,24 @@ class Regexp {
     ArrayList<TrackInfo> tracks;
     switch (op) {
       case BEGIN_LINE:
-        b.append("Matches line start");
+        b.append("line start");
         break;
       case END_LINE:
-        b.append("Matches line end");
+        b.append("line end");
         break;
       case BEGIN_TEXT:
-        b.append("Matches text start");
+        b.append("text start");
       case END_TEXT:
-        b.append("Matches text end");
+        b.append("text end");
         break;
       case WORD_BOUNDARY:
-        b.append("Matches a word boundary");
+        b.append("word boundary");
         break;
       case NO_WORD_BOUNDARY:
-        b.append("Matches a word none-boundary");
+        b.append("word none-boundary");
         break;
       case LITERAL:
-        b.append("Matches string \"");
+        b.append("string \"");
         if (runes != null) {
           for (int r : runes) {
             b.appendCodePoint(r);
@@ -440,7 +440,7 @@ class Regexp {
 
         break;
       case CHAR_CLASS:
-        b.append("Matches any character in the group [");
+        b.append("any character in the group [");
         if (runes != null) {
           for (int r : runes) {
             b.appendCodePoint(r);
@@ -449,13 +449,13 @@ class Regexp {
         b.append("]");
         break;
       case ANY_CHAR_NOT_NL:
-        b.append("Any character except \"\\n\"");
+        b.append("any character except \"\\n\"");
         break;
       case ANY_CHAR:
-        b.append("Any character");
+        b.append("any character");
         break;
       case ALTERNATE:
-        b.append("Matches any of [");
+        b.append("any of [");
         for (Regexp sub : subs) {
           tracks = sub.GetTracks();
           b.append(tracks.get(0).Info).append(",");
@@ -463,7 +463,7 @@ class Regexp {
         b.append("]");
         break;
       case CONCAT:
-        b.append("Matches each of [");
+        b.append("each of [");
         for (Regexp sub : subs) {
           tracks = sub.GetTracks();
           b.append(tracks.get(0).Info).append(",");
@@ -471,22 +471,21 @@ class Regexp {
         b.append("] in order");
         break;
       case STAR:
-        b.append("Matches any repetition of ");
+        b.append("any repetition of ");
         tracks = subs[0].GetTracks();
         b.append(tracks.get(0).Info);
         break;
       case PLUS:
-        b.append("Matches 1 or more repetition of ");
+        b.append("1 or more repetition of ");
         tracks = subs[0].GetTracks();
         b.append(tracks.get(0).Info);
         break;
       case QUEST:
-        b.append("Matches 0 or 1 repetition of ");
+        b.append("0 or 1 repetition of ");
         tracks = subs[0].GetTracks();
         b.append(tracks.get(0).Info);
         break;
       case REPEAT:
-        b.append("Matches ");
         b.append(min);
         b.append(" to ");
         b.append(max);
