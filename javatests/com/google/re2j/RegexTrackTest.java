@@ -587,7 +587,10 @@ public class RegexTrackTest {
     for (String[] tt : PARSE_TESTS) {
       Regexp re = Parser.parse(tt[0], TEST_FLAGS);
       ArrayList<TrackInfo> tracks = re.GetTracks();
-      assertEquals(tracks.get(0).Info, tt[1]); // (already ensured by testParseSimple)
+      assertEquals(tracks.size(), tt.length - 1);
+      for (int i = 1; i < tt.length; i++) {
+        assertEquals(tracks.get(i-1).Info, tt[i]);
+      }
     }
   }
 }
