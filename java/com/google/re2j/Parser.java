@@ -1260,6 +1260,7 @@ class Parser {
                 .appendLiteral(dst.runes[0], dst.flags)
                 .appendLiteral(src.runes[0], src.flags)
                 .toArray();
+        dst.track.UpdateEnd(src.track);
         break;
     }
   }
