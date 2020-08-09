@@ -174,7 +174,7 @@ class Parser {
       return true;
     }
 
-    re2.track.UpdateEnd();
+    re2.track.UpdateStart(re1.track);
     pop();
     reuse(re1);
     return false; // did not push r
