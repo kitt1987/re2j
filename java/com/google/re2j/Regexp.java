@@ -69,7 +69,6 @@ class Regexp {
 
   Regexp(Op op, TrackInfo track) {
     if (track != null) {
-      track.UpdateInfo(genTrackInfo(op));
       this.track = track;
     }
 
@@ -100,7 +99,11 @@ class Regexp {
 
   public ArrayList<TrackInfo> GetTracks() {
     ArrayList<TrackInfo> tracks = new ArrayList<TrackInfo>();
-    tracks.add(track);
+    if (track != null) {
+      track.UpdateInfo(genTrackInfo(op));
+      tracks.add(track);
+    }
+
     if (subs != null) {
       for (Regexp sub : subs) {
         tracks.add(sub.track);
