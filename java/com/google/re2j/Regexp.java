@@ -109,7 +109,7 @@ class Regexp {
         tracks.addAll(sub.GetTracks());
         if (op == Op.ALTERNATE) {
           TrackInfo last = tracks.get(tracks.size()-1);
-          tracks.add(new TrackInfo(last.End, last.End+1, "or"));
+          tracks.add(new TrackInfo(last.End, last.End+1, "alternative"));
         }
       }
     }
