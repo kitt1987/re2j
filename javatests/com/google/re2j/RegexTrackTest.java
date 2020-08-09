@@ -115,7 +115,7 @@ public class RegexTrackTest {
             new TrackInfo(2, 3, "line start"),
     });
     put("a|b", new TrackInfo[]{
-            new TrackInfo(0, 3, "any of [string \"a\" case-sensitively,string \"b\" case-sensitively,]"),
+            new TrackInfo(0, 3, "any character in the group [ab]"),
     });
   }};
 
