@@ -153,6 +153,9 @@ class Regexp {
                 int endPos = lastSubTrack.End+2;
                 String info = "repeat";
                 switch (min) {
+                  case -1:
+                    info += " at most";
+                    break;
                   case 1:
                     endPos += 1;
                     info += " once";
@@ -169,6 +172,9 @@ class Regexp {
                 endPos+=1;
                 info += " to";
                 switch (max) {
+                  case -1:
+                    info += " at least";
+                    break;
                   case 1:
                     endPos += 1;
                     info += " once";
