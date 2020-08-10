@@ -124,7 +124,7 @@ class Regexp {
         case PLUS:
         case QUEST:
         case REPEAT:
-          String flagsInfo = "";
+          String flagsInfo = "repeat";
           String info = "";
           if ((flags & RE2.PERL_X) != 0 && (flags & RE2.NON_GREEDY) != 0) {
             flagsInfo = "Perl extension: non-greedy";
