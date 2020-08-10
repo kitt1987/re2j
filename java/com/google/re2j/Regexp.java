@@ -129,7 +129,7 @@ class Regexp {
               tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat any times"));
               break;
             case PLUS:
-              tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat one more times"));
+              tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat at least once"));
               break;
           }
           break;
