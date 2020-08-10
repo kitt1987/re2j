@@ -305,7 +305,7 @@ public class RegexTrackTest {
             new TrackInfo(0, 11, "any character in the group [a-z]"),
     });
     put("[a-z]", new TrackInfo[]{
-            new TrackInfo(0, 11, "any character in the group [a-z]"),
+            new TrackInfo(0, 5, "any character in the group [a-z]"),
     });
   }};
 
