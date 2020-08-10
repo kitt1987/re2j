@@ -191,11 +191,15 @@ public class RegexTrackTest {
     put("x{1001", new TrackInfo[]{
             new TrackInfo(0, 6, "string \"x{1001\" case-sensitively"),
     });
+    put("x{9876543210", new TrackInfo[]{
+            new TrackInfo(0, 6, "string \"x{9876543210\" case-sensitively"),
+    });
+    put("x{9876543210,", new TrackInfo[]{
+            new TrackInfo(0, 6, "string \"x{9876543210,\" case-sensitively"),
+    });
   }};
 
 //  {
-//    // Malformed { } are treated as literals.
-//    {"x{1001", "str{x{1001}"},
 //    {"x{9876543210", "str{x{9876543210}"},
 //    {"x{9876543210,", "str{x{9876543210,}"},
 //    {"x{2,1", "str{x{2,1}"},
