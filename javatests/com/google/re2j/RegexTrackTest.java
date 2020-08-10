@@ -213,7 +213,7 @@ public class RegexTrackTest {
             new TrackInfo(0, 3, "any of [empty,string \"x\" case-sensitively,empty,]"),
             TrackInfo.EmptyMatchTrack(),
             new TrackInfo(0, 1, "alternative"),
-            new TrackInfo(1, 2, "any of [empty,string \"x\" case-sensitively,empty,]"),
+            new TrackInfo(1, 2, "string \"x\" case-sensitively"),
             new TrackInfo(2, 3, "alternative"),
             TrackInfo.EmptyMatchTrack(),
     });
