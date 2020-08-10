@@ -137,6 +137,10 @@ class Regexp {
               tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat zero or once"));
               break;
             case REPEAT:
+              String flagsInfo = "";
+              if ((flags & RE2.PERL_X)  != 0 && (flags & RE2.NON_GREEDY) != 0) {
+                flagsInfo = "Perl extension: non-greedy";
+              }
               if (min == max) {
                 switch (min) {
                   case 1:
