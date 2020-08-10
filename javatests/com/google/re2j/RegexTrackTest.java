@@ -207,7 +207,7 @@ public class RegexTrackTest {
             TrackInfo.EmptyMatchTrack(0)
     });
     put("|", new TrackInfo[]{
-            TrackInfo.EmptyMatchTrack(0)
+            new TrackInfo(0, 1, "empty"),
     });
     put("|x|", new TrackInfo[]{
             new TrackInfo(0, 3, "any of [empty,string \"x\" case-sensitively,empty,]"),
