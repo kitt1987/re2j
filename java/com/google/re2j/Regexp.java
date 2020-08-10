@@ -107,12 +107,14 @@ class Regexp {
     if (subs != null) {
       for (Regexp sub : subs) {
         ArrayList<TrackInfo> subTracks = sub.GetTracks();
-        tracks.addAll(subTracks);
-        switch (op) {
-          case ALTERNATE:
-            TrackInfo subTrack = subTracks.get(0);
-            tracks.add(new TrackInfo(subTrack.End, subTrack.End+1, "alternative"));
-            break;
+        if (subTracks != null) {
+          tracks.addAll(subTracks);
+          switch (op) {
+            case ALTERNATE:
+              TrackInfo subTrack = subTracks.get(0);
+              tracks.add(new TrackInfo(subTrack.End, subTrack.End+1, "alternative"));
+              break;
+          }
         }
       }
 
