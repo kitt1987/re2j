@@ -141,10 +141,15 @@ class Regexp {
               if ((flags & RE2.PERL_X)  != 0 && (flags & RE2.NON_GREEDY) != 0) {
                 flagsInfo = "Perl extension: non-greedy";
               }
+
+              int endPos = lastSubTrack.End+2;
+              String info = "repeat";
+
               if (min == max) {
                 switch (min) {
                   case 1:
-                    tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+3, "repeat once"));
+                    endPos += 1;
+                    info = "repeat once";
                     break;
                   case 2:
                     tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+3, "repeat twice"));
@@ -153,9 +158,13 @@ class Regexp {
                     tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+2+(min/10+1), "repeat " + min + " times"));
                     break;
                 }
+
+                if (flagsInfo.length() > 0) {
+                  info += "("+ flagsInfo + ")";
+                }
+
+                tracks.add(new TrackInfo(lastSubTrack.End, endPos, info));
               } else {
-                int endPos = lastSubTrack.End+2;
-                String info = "repeat";
                 switch (min) {
                   case -1:
                     info += " at most";
