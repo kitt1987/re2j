@@ -1282,7 +1282,7 @@ class Parser {
   // If the top of the stack is an element followed by an opVerticalBar
   // swapVerticalBar swaps the two and returns true.
   // Otherwise it returns false.
-  private boolean swapVerticalBar() {
+  private boolean swapVerticalBar(TrackInfo track) {
     // If above and below vertical bar are literal or char class,
     // can merge into a single char class.
     int n = stack.size();
@@ -1314,6 +1314,8 @@ class Parser {
           // Clean opportunistically.
           cleanAlt(stack.get(n - 3));
         }
+        // FIXME update track of re2 to the newest
+        re2.track.Update(track);
         stack.set(n - 2, re1);
         stack.set(n - 1, re2);
         return true;

@@ -38,6 +38,11 @@ public class TrackInfo {
         End = end;
     }
 
+    void Update(TrackInfo that) {
+        Start = that.Start;
+        End = that.End;
+    }
+
     TrackInfo Adjacent(int n) {
         return new TrackInfo(End, End + n);
     }
