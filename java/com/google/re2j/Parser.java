@@ -1223,7 +1223,7 @@ class Parser {
 
   // parseVerticalBar handles a | in the input.
   private void parseVerticalBar(TrackInfo track) {
-    concat();
+    concat(track.End);
 
     // The concatenation we just parsed is on top of the stack.
     // If it sits above an opVerticalBar, swap it below
