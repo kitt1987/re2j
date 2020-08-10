@@ -218,6 +218,7 @@ public class RegexTrackTest {
             TrackInfo.EmptyMatchTrack(3),
     });
     put(".", new TrackInfo[]{
+            // FIXME talk about the Unicode
             new TrackInfo(0, 1, "any character"),
     });
   }};
