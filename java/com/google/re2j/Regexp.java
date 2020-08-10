@@ -132,18 +132,22 @@ class Regexp {
 
           ArrayList<TrackInfo> lastSubTracks = subs[subs.length-1].GetTracks();
           TrackInfo lastSubTrack = lastSubTracks.get(0);
+          int endPos = lastSubTrack.End;
           switch (op) {
             case STAR:
               tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat any times"));
+              endPos += 1;
               break;
             case PLUS:
               tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat at least once"));
+              endPos += 1;
               break;
             case QUEST:
               tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat zero or once"));
+              endPos += 1;
               break;
             case REPEAT:
-              int endPos = lastSubTrack.End+2;
+              endPos += 2;
 
               if (min == max) {
                 switch (min) {
@@ -198,13 +202,15 @@ class Regexp {
                 }
               }
 
-              if (flagsInfo.length() > 0) {
-                info += "("+ flagsInfo + ")";
-              }
-
-              tracks.add(new TrackInfo(lastSubTrack.End, endPos, info));
               break;
           }
+
+          if (flagsInfo.length() > 0) {
+            info += "("+ flagsInfo + ")";
+          }
+
+          tracks.add(new TrackInfo(lastSubTrack.End, endPos, info));
+          
           break;
       }
     }
