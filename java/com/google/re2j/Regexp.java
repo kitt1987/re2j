@@ -589,19 +589,18 @@ class Regexp {
         }
 
         if (min != max) {
-          b.append(" to ");
           switch (max) {
             case -1:
-              b.append("at least");
+              b.append(" at least");
               break;
             case 1:
-              b.append("once");
+              b.append(" to ").append("once");
               break;
             case 2:
-              b.append("twice");
+              b.append(" to ").append("twice");
               break;
             default:
-              b.append(max).append(" times");
+              b.append(" to ").append(max).append(" times");
           }
         }
         b.append(" repetition of ");
