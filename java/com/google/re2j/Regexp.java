@@ -166,7 +166,7 @@ class Regexp {
                     info += min + " times";
                     break;
                 }
-                endPos++;
+                endPos+=1;
                 info += " to";
                 switch (max) {
                   case 1:
