@@ -301,11 +301,12 @@ public class RegexTrackTest {
             new TrackInfo(7, 8, "alternative"),
             new TrackInfo(8, 11, "string \"ghi\" case-sensitively"),
     });
+    put("[[:lower:]]", new TrackInfo[]{
+            new TrackInfo(0, 11, "any character in the group [a-z]"),
+    });
   }};
 
 //  {
-//    {"abc|def|ghi", "alt{str{abc}str{def}str{ghi}}"},
-//
 //    // Posix and Perl extensions
 //    {"[[:lower:]]", "cc{0x61-0x7a}"},
 //    {"[a-z]", "cc{0x61-0x7a}"},
