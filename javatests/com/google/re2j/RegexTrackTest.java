@@ -284,9 +284,6 @@ public class RegexTrackTest {
     put("\\_", new TrackInfo[]{
             new TrackInfo(0, 2, "string \"_\" case-sensitively"),
     });
-    put("abc", new TrackInfo[]{
-            new TrackInfo(0, 3, "string \"abc\" case-sensitively"),
-    });
     put("abc|def", new TrackInfo[]{
             new TrackInfo(0, 7, "any of [string \"abc\" case-sensitively,string \"def\" case-sensitively,]"),
             new TrackInfo(0, 3, "string \"abc\" case-sensitively"),
