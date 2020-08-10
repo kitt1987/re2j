@@ -218,7 +218,7 @@ public class RegexTrackTest {
             TrackInfo.EmptyMatchTrack(3),
     });
     put(".", new TrackInfo[]{
-            new TrackInfo(0, 1, "empty"),
+            new TrackInfo(0, 1, "any character"),
     });
   }};
 
