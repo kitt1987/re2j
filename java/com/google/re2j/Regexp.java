@@ -162,8 +162,7 @@ class Regexp {
                     info += " twice";
                     break;
                   default:
-                    tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+2+(max/10+1), "repeat " + max + " times"));
-                    endPos += (max/10+1);
+                    endPos += (min/10+1);
                     info += min + " times";
                     break;
                 }
@@ -179,11 +178,12 @@ class Regexp {
                     info += " twice";
                     break;
                   default:
-                    tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+2+(max/10+1), "repeat " + max + " times"));
                     endPos += (max/10+1);
-                    info += min + " times";
+                    info += max + " times";
                     break;
                 }
+
+                tracks.add(new TrackInfo(lastSubTrack.End, endPos, info));
               }
 
               break;
