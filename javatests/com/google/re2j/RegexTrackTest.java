@@ -161,7 +161,7 @@ public class RegexTrackTest {
     put("a*?", new TrackInfo[]{
             new TrackInfo(0, 3, "any times repetition of string \"a\" case-sensitively"),
             new TrackInfo(0, 1, "string \"a\" case-sensitively"),
-            new TrackInfo(1, 2, "repeat any times"),
+            new TrackInfo(1, 2, "repeat any times(Perl extension: non-greedy)"),
     });
     put("a+?", new TrackInfo[]{
             new TrackInfo(0, 3, "1 or more repetition of string \"a\" case-sensitively"),
