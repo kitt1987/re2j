@@ -125,7 +125,7 @@ class Regexp {
         case QUEST:
         case REPEAT:
           String flagsInfo = "";
-          String info = "repeat";
+          String info = "";
           if ((flags & RE2.PERL_X) != 0 && (flags & RE2.NON_GREEDY) != 0) {
             flagsInfo = "Perl extension: non-greedy";
           }
@@ -135,16 +135,16 @@ class Regexp {
           int endPos = lastSubTrack.End;
           switch (op) {
             case STAR:
-              tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat any times"));
               endPos += 1;
+              info = "repeat any times";
               break;
             case PLUS:
-              tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat at least once"));
               endPos += 1;
+              info = "repeat at least once";
               break;
             case QUEST:
-              tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat zero or once"));
               endPos += 1;
+              info = "repeat zero or once";
               break;
             case REPEAT:
               endPos += 2;
@@ -210,7 +210,6 @@ class Regexp {
           }
 
           tracks.add(new TrackInfo(lastSubTrack.End, endPos, info));
-          
           break;
       }
     }
