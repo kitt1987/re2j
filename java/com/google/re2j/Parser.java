@@ -259,7 +259,7 @@ class Parser {
 
   // concat replaces the top of the stack <above the topmost '|' or '('> with
   // its concatenation.
-  private Regexp concat() {
+  private Regexp concat(int pos) {
     maybeConcat(-1, 0);
 
     // Scan down to find pseudo-operator | or (.
@@ -267,7 +267,7 @@ class Parser {
 
     // Empty concatenation is special case.
     if (subs.length == 0) {
-      return push(newRegexp(Regexp.Op.EMPTY_MATCH, TrackInfo.EmptyMatchTrack()));
+      return push(newRegexp(Regexp.Op.EMPTY_MATCH, TrackInfo.EmptyMatchTrack(pos)));
     }
 
     return push(collapse(subs, Regexp.Op.CONCAT));
@@ -985,7 +985,7 @@ class Parser {
       lastRepeatPos = repeatPos;
     }
 
-    concat();
+    concat(t.pos());
     if (swapVerticalBar()) {
       pop(); // pop vertical bar
     }
