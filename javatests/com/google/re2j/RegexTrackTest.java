@@ -118,8 +118,8 @@ public class RegexTrackTest {
             new TrackInfo(0, 3, "any character in the group [ab]"),
     });
     put("(a)", new TrackInfo[]{
-            new TrackInfo(0, 3, "any character in the group [ab]"),
-            new TrackInfo(1, 2, "Submatch of string \"a\" case-sensitively"),
+            new TrackInfo(0, 3, "Submatch of string \"a\" case-sensitively"),
+            new TrackInfo(1, 2, "string \"a\" case-sensitively"),
     });
   }};
 
