@@ -824,7 +824,7 @@ class Parser {
           break;
 
         case ')':
-          parseRightParen();
+          parseRightParen(new TrackInfo(startPos));
           t.skip(1); // ')'
           break;
 
@@ -1309,7 +1309,7 @@ class Parser {
   }
 
   // parseRightParen handles a ')' in the input.
-  private void parseRightParen() throws PatternSyntaxException {
+  private void parseRightParen(TrackInfo track) throws PatternSyntaxException {
     concat();
     if (swapVerticalBar()) {
       pop(); // pop vertical bar
@@ -1334,7 +1334,7 @@ class Parser {
 
       push(re1);
     } else {
-      re2.track.UpdateStart(re1.track);
+      re2.track.UpdateEnd(track);
       re2.op = Regexp.Op.CAPTURE;
       re2.subs = new Regexp[] {re1};
       push(re2);
