@@ -163,10 +163,14 @@ public class RegexTrackTest {
             new TrackInfo(0, 1, "string \"a\" case-sensitively"),
             new TrackInfo(1, 2, "repeat any times"),
     });
+    put("a+?", new TrackInfo[]{
+            new TrackInfo(0, 3, "any times repetition of string \"a\" case-sensitively"),
+            new TrackInfo(0, 1, "string \"a\" case-sensitively"),
+            new TrackInfo(1, 2, "repeat any times"),
+    });
   }};
 
 //  {
-//    {"a*?", "nstar{lit{a}}"},
 //    {"a+?", "nplus{lit{a}}"},
 //    {"a??", "nque{lit{a}}"},
 //    {"a{2}?", "nrep{2,2 lit{a}}"},
