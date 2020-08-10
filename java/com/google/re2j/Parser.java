@@ -993,7 +993,7 @@ class Parser {
     }
 
     concat();
-    if (swapVerticalBar()) {
+    if (swapVerticalBar(new TrackInfo(t.pos(), t.pos()))) {
       pop(); // pop vertical bar
     }
     alternate();
@@ -1236,7 +1236,7 @@ class Parser {
     // If it sits above an opVerticalBar, swap it below
     // (things below an opVerticalBar become an alternation).
     // Otherwise, push a new vertical bar.
-    if (!swapVerticalBar()) {
+    if (!swapVerticalBar(track)) {
       op(Regexp.Op.VERTICAL_BAR, track);
     }
   }
@@ -1327,7 +1327,7 @@ class Parser {
   // parseRightParen handles a ')' in the input.
   private void parseRightParen(TrackInfo track) throws PatternSyntaxException {
     concat();
-    if (swapVerticalBar()) {
+    if (swapVerticalBar(track)) {
       pop(); // pop vertical bar
     }
     alternate();
