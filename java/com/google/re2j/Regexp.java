@@ -121,14 +121,17 @@ class Regexp {
           tracks.remove(tracks.size()-1);
           break;
         case STAR:
-          ArrayList<TrackInfo> lastSubTracks = subs[subs.length-1].GetTracks();
-          TrackInfo lastSubTrack = lastSubTracks.get(0);
-          tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat any times"));
-          break;
         case PLUS:
           ArrayList<TrackInfo> lastSubTracks = subs[subs.length-1].GetTracks();
           TrackInfo lastSubTrack = lastSubTracks.get(0);
-          tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat one more times"));
+          switch (op) {
+            case STAR:
+              tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat any times"));
+              break;
+            case PLUS:
+              tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat one more times"));
+              break;
+          }
           break;
       }
     }
