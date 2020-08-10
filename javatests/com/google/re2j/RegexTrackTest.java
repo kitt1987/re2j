@@ -161,7 +161,6 @@ public class RegexTrackTest {
   }};
 
 //  {
-//    {"a{2,}", "rep{2,-1 lit{a}}"},
 //    {"a*?", "nstar{lit{a}}"},
 //    {"a+?", "nplus{lit{a}}"},
 //    {"a??", "nque{lit{a}}"},
