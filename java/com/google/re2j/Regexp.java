@@ -489,7 +489,7 @@ class Regexp {
         b.append("] in order");
         break;
       case STAR:
-        b.append("any repetition of ");
+        b.append("any times repetition of ");
         tracks = subs[0].GetTracks();
         b.append(tracks.get(0).Info);
         break;
