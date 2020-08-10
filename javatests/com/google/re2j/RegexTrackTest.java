@@ -228,7 +228,7 @@ public class RegexTrackTest {
             new TrackInfo(0, 1, "line end"),
     });
     put("\\|", new TrackInfo[]{
-            new TrackInfo(0, 1, "string \"|\""),
+            new TrackInfo(0, 2, "string \"|\""),
     });
   }};
 
