@@ -174,9 +174,11 @@ public class RegexTrackTest {
             new TrackInfo(1, 2, "repeat zero or once(Perl extension: non-greedy)"),
     });
     put("a{2}?", new TrackInfo[]{
-            new TrackInfo(0, 3, "0 or 1 repetition of string \"a\" case-sensitively"),
+            new TrackInfo(0, 5, "0 or 1 repetition of string \"a\" case-sensitively"),
             new TrackInfo(0, 1, "string \"a\" case-sensitively"),
-            new TrackInfo(1, 2, "repeat zero or once(Perl extension: non-greedy)"),
+            new TrackInfo(1, 5, "repeat zero or once(Perl extension: non-greedy)"),
+            new TrackInfo(2, 3, "repeat zero or once(Perl extension: non-greedy)"),
+            new TrackInfo(4, 5, "repeat zero or once(Perl extension: non-greedy)"),
     });
   }};
 
