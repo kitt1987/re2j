@@ -152,10 +152,12 @@ class Regexp {
                     info = "repeat once";
                     break;
                   case 2:
-                    tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+3, "repeat twice"));
+                    endPos += 1;
+                    info = "repeat twice";
                     break;
                   default:
-                    tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+2+(min/10+1), "repeat " + min + " times"));
+                    endPos += (min/10+1);
+                    info = "repeat " + min + " times";
                     break;
                 }
 
