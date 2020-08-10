@@ -146,7 +146,7 @@ public class RegexTrackTest {
     put("a{2}", new TrackInfo[]{
             new TrackInfo(0, 4, "twice repetition of string \"a\" case-sensitively"),
             new TrackInfo(0, 1, "string \"a\" case-sensitively"),
-            new TrackInfo(2, 4, "repeat twice"),
+            new TrackInfo(1, 4, "repeat twice"),
     });
   }};
 
