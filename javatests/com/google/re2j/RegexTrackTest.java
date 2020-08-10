@@ -304,11 +304,12 @@ public class RegexTrackTest {
     put("[[:lower:]]", new TrackInfo[]{
             new TrackInfo(0, 11, "any character in the group [a-z]"),
     });
+    put("[a-z]", new TrackInfo[]{
+            new TrackInfo(0, 11, "any character in the group [a-z]"),
+    });
   }};
 
 //  {
-//    // Posix and Perl extensions
-//    {"[[:lower:]]", "cc{0x61-0x7a}"},
 //    {"[a-z]", "cc{0x61-0x7a}"},
 //    {"[^[:lower:]]", "cc{0x0-0x60 0x7b-0x10ffff}"},
 //    {"[[:^lower:]]", "cc{0x0-0x60 0x7b-0x10ffff}"},
