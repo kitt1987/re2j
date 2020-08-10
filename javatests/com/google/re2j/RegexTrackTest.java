@@ -230,14 +230,24 @@ public class RegexTrackTest {
     put("\\|", new TrackInfo[]{
             new TrackInfo(0, 2, "string \"|\" case-sensitively"),
     });
+    put("\\(", new TrackInfo[]{
+            new TrackInfo(0, 2, "string \"(\" case-sensitively"),
+    });
+    put("\\)", new TrackInfo[]{
+            new TrackInfo(0, 2, "string \")\" case-sensitively"),
+    });
+    put("\\*", new TrackInfo[]{
+            new TrackInfo(0, 2, "string \"*\" case-sensitively"),
+    });
+    put("\\+", new TrackInfo[]{
+            new TrackInfo(0, 2, "string \"+\" case-sensitively"),
+    });
+    put("\\?", new TrackInfo[]{
+            new TrackInfo(0, 2, "string \"?\" case-sensitively"),
+    });
   }};
 
 //  {
-//    {"\\(", "lit{(}"},
-//    {"\\)", "lit{)}"},
-//    {"\\*", "lit{*}"},
-//    {"\\+", "lit{+}"},
-//    {"\\?", "lit{?}"},
 //    {"{", "lit{{}"},
 //    {"}", "lit{}}"},
 //    {"\\.", "lit{.}"},
