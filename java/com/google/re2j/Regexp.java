@@ -160,12 +160,6 @@ class Regexp {
                     info = "repeat " + min + " times";
                     break;
                 }
-
-                if (flagsInfo.length() > 0) {
-                  info += "("+ flagsInfo + ")";
-                }
-
-                tracks.add(new TrackInfo(lastSubTrack.End, endPos, info));
               } else {
                 switch (min) {
                   case -1:
@@ -202,9 +196,13 @@ class Regexp {
                     info += " to " + max + " times";
                     break;
                 }
-
-                tracks.add(new TrackInfo(lastSubTrack.End, endPos, info));
               }
+
+              if (flagsInfo.length() > 0) {
+                info += "("+ flagsInfo + ")";
+              }
+
+              tracks.add(new TrackInfo(lastSubTrack.End, endPos, info));
 
               break;
           }
