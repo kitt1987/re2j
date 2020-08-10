@@ -138,10 +138,14 @@ public class RegexTrackTest {
             new TrackInfo(0, 1, "string \"a\" case-sensitively"),
             new TrackInfo(1, 2, "repeat at least once"),
     });
+    put("a?", new TrackInfo[]{
+            new TrackInfo(0, 2, "1 or more repetition of string \"a\" case-sensitively"),
+            new TrackInfo(0, 1, "string \"a\" case-sensitively"),
+            new TrackInfo(1, 2, "repeat at least once"),
+    });
   }};
 
 //  {
-//    {"a+", "plus{lit{a}}"},
 //    {"a?", "que{lit{a}}"},
 //    {"a{2}", "rep{2,2 lit{a}}"},
 //    {"a{2,3}", "rep{2,3 lit{a}}"},
