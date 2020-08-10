@@ -266,10 +266,12 @@ public class RegexTrackTest {
     put("[ace]", new TrackInfo[]{
             new TrackInfo(0, 5, "any character in the group [ace]"),
     });
+    put("[abc]", new TrackInfo[]{
+            new TrackInfo(0, 5, "any character in the group [a-c]"),
+    });
   }};
 
 //  {
-//    {"[ace]", "cc{0x61 0x63 0x65}"},
 //    {"[abc]", "cc{0x61-0x63}"},
 //    {"[a-z]", "cc{0x61-0x7a}"},
 //    {"[a]", "lit{a}"},
