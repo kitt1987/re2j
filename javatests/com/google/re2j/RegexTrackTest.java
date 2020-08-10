@@ -263,10 +263,12 @@ public class RegexTrackTest {
     put("\\\\", new TrackInfo[]{
             new TrackInfo(0, 2, "string \"\\\" case-sensitively"),
     });
+    put("[ace]", new TrackInfo[]{
+            new TrackInfo(0, 5, "string \"\\\" case-sensitively"),
+    });
   }};
 
 //  {
-//    {"\\\\", "lit{\\}"},
 //    {"[ace]", "cc{0x61 0x63 0x65}"},
 //    {"[abc]", "cc{0x61-0x63}"},
 //    {"[a-z]", "cc{0x61-0x7a}"},
