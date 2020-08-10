@@ -273,7 +273,7 @@ public class RegexTrackTest {
             new TrackInfo(0, 5, "any character in the group [a-z]"),
     });
     put("[a]", new TrackInfo[]{
-            new TrackInfo(0, 3, "any character in the group [a-z]"),
+            new TrackInfo(0, 3, "string \"a\" case-sensitively"),
     });
   }};
 
