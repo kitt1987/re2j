@@ -176,7 +176,6 @@ public class RegexTrackTest {
   }};
 
 //  {
-//    {"a??", "nque{lit{a}}"},
 //    {"a{2}?", "nrep{2,2 lit{a}}"},
 //    {"a{2,3}?", "nrep{2,3 lit{a}}"},
 //    {"a{2,}?", "nrep{2,-1 lit{a}}"},
