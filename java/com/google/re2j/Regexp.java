@@ -125,6 +125,7 @@ class Regexp {
         case QUEST:
         case REPEAT:
           String flagsInfo = "";
+          String info = "repeat";
           if ((flags & RE2.PERL_X) != 0 && (flags & RE2.NON_GREEDY) != 0) {
             flagsInfo = "Perl extension: non-greedy";
           }
@@ -143,7 +144,6 @@ class Regexp {
               break;
             case REPEAT:
               int endPos = lastSubTrack.End+2;
-              String info = "repeat";
 
               if (min == max) {
                 switch (min) {
