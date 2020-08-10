@@ -204,10 +204,10 @@ public class RegexTrackTest {
             new TrackInfo(0, 14, "string \"x{1,9876543210\" case-sensitively"),
     });
     put("", new TrackInfo[]{});
+    put("|", new TrackInfo[]{});
   }};
 
 //  {
-//    {"", "emp{}"},
 //    {"|", "emp{}"}, // alt{emp{}emp{}} but got factored
 //    {"|x|", "alt{emp{}lit{x}emp{}}"},
 //    {".", "dot{}"},
