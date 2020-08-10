@@ -546,8 +546,13 @@ class Regexp {
       case CHAR_CLASS:
         b.append("any character in the group [");
         if (runes != null) {
-          for (int r : runes) {
-            b.appendCodePoint(r);
+          for (int i = 0; i < runes.length; i += 2) {
+            int lo = runes[i], hi = runes[i + 1];
+            if (lo == hi) {
+              b.appendCodePoint(lo);
+            } else {
+              b.append(lo).append("-").append(hi);
+            }
           }
         }
         b.append("]");
