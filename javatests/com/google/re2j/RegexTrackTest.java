@@ -210,7 +210,7 @@ public class RegexTrackTest {
             TrackInfo.EmptyMatchTrack()
     });
     put("|x|", new TrackInfo[]{
-            new TrackInfo(0, 14, "string \"x{1,9876543210\" case-sensitively"),
+            new TrackInfo(0, 3, "string \"x{1,9876543210\" case-sensitively"),
     });
   }};
 
