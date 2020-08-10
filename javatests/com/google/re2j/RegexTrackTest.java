@@ -281,10 +281,12 @@ public class RegexTrackTest {
     put("-", new TrackInfo[]{
             new TrackInfo(0, 1, "string \"-\" case-sensitively"),
     });
+    put("\\_", new TrackInfo[]{
+            new TrackInfo(0, 2, "string \"_\" case-sensitively"),
+    });
   }};
 
 //  {
-//    {"-", "lit{-}"},
 //    {"\\_", "lit{_}"},
 //    {"abc", "str{abc}"},
 //    {"abc|def", "alt{str{abc}str{def}}"},
