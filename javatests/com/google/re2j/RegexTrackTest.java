@@ -203,8 +203,12 @@ public class RegexTrackTest {
     put("x{1,9876543210", new TrackInfo[]{
             new TrackInfo(0, 14, "string \"x{1,9876543210\" case-sensitively"),
     });
-    put("", new TrackInfo[]{});
-    put("|", new TrackInfo[]{});
+    put("", new TrackInfo[]{
+            TrackInfo.EmptyMatchTrack()
+    });
+    put("|", new TrackInfo[]{
+            TrackInfo.EmptyMatchTrack()
+    });
     put("|x|", new TrackInfo[]{
             new TrackInfo(0, 14, "string \"x{1,9876543210\" case-sensitively"),
     });
