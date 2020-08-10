@@ -534,8 +534,10 @@ class Regexp {
         break;
       case REPEAT:
         b.append(min);
-        b.append(" to ");
-        b.append(max);
+        if (min != max) {
+          b.append(" to ");
+          b.append(max);
+        }
         b.append(" times repetition of ");
         tracks = subs[0].GetTracks();
         b.append(tracks.get(0).Info);
