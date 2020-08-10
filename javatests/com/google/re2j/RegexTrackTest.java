@@ -307,10 +307,12 @@ public class RegexTrackTest {
     put("[a-z]", new TrackInfo[]{
             new TrackInfo(0, 5, "any character in the group [a-z]"),
     });
+    put("[^[:lower:]]", new TrackInfo[]{
+            new TrackInfo(0, 12, "any character in the group [a-z]"),
+    });
   }};
 
 //  {
-//    {"[a-z]", "cc{0x61-0x7a}"},
 //    {"[^[:lower:]]", "cc{0x0-0x60 0x7b-0x10ffff}"},
 //    {"[[:^lower:]]", "cc{0x0-0x60 0x7b-0x10ffff}"},
 //    {"(?i)[[:lower:]]", "cc{0x41-0x5a 0x61-0x7a 0x17f 0x212a}"},
