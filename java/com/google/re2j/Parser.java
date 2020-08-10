@@ -993,7 +993,7 @@ class Parser {
     }
 
     concat();
-    if (swapVerticalBar(new TrackInfo(t.pos(), t.pos()))) {
+    if (swapVerticalBar(null)) {
       pop(); // pop vertical bar
     }
     alternate();
