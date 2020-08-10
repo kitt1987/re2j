@@ -992,7 +992,7 @@ class Parser {
       lastRepeatPos = repeatPos;
     }
 
-    concat(t.pos());
+    concat();
     if (swapVerticalBar()) {
       pop(); // pop vertical bar
     }
