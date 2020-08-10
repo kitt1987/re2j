@@ -1317,7 +1317,7 @@ class Parser {
 
   // parseRightParen handles a ')' in the input.
   private void parseRightParen(TrackInfo track) throws PatternSyntaxException {
-    concat();
+    concat(track.End);
     if (swapVerticalBar()) {
       pop(); // pop vertical bar
     }
