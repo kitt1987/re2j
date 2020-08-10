@@ -149,6 +149,8 @@ class Regexp {
                     tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+2+(max/10+1), "repeat " + max + " times"));
                     break;
                 }
+              } else {
+                
               }
 
               break;
