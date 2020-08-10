@@ -129,7 +129,7 @@ public class RegexTrackTest {
             new TrackInfo(4, 5, "string \"b\" case-sensitively"),
     });
     put("a*", new TrackInfo[]{
-            new TrackInfo(0, 2, "any repetition of string \"a\" case-sensitively"),
+            new TrackInfo(0, 2, "any times repetition of string \"a\" case-sensitively"),
             new TrackInfo(0, 1, "string \"a\" case-sensitively"),
             new TrackInfo(1, 2, "repeat any times"),
     });
