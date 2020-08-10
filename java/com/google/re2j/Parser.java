@@ -249,7 +249,7 @@ class Parser {
     if (sub.op.isPseudo()) {
       throw new PatternSyntaxException(ERR_MISSING_REPEAT_ARGUMENT, t.from(beforePos));
     }
-    Regexp re = newRegexp(op, new TrackInfo(beforePos, t.pos()));
+    Regexp re = newRegexp(op, new TrackInfo(sub.track.Start, t.pos()));
     re.min = min;
     re.max = max;
     re.flags = flags;
