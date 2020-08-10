@@ -316,6 +316,9 @@ public class RegexTrackTest {
 //    put("[[:^lower:]]", new TrackInfo[]{
 //            new TrackInfo(0, 12, "any character in the group [a-z]"),
 //    });
+    put("(?i)[[:lower:]]", new TrackInfo[]{
+            new TrackInfo(0, 15, "any character in the group [a-z]"),
+    });
   }};
 
 //  {
