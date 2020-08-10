@@ -128,10 +128,14 @@ public class RegexTrackTest {
             new TrackInfo(3, 4, "alternative"),
             new TrackInfo(4, 5, "string \"b\" case-sensitively"),
     });
+    put("a*", new TrackInfo[]{
+            new TrackInfo(0, 2, "Submatch of string \"a\" case-sensitively"),
+            new TrackInfo(0, 1, "string \"a\" case-sensitively"),
+            new TrackInfo(1, 2, "string \"a\" case-sensitively"),
+    });
   }};
 
 //  {
-//    {"(a)|b", "alt{ca®p{lit{a}}lit{b}}"},
 //    {"a*", "star{lit{a}}"},
 //    {"a+", "plus{lit{a}}"},
 //    {"a?", "que{lit{a}}"},
