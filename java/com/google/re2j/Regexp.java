@@ -150,17 +150,38 @@ class Regexp {
                     break;
                 }
               } else {
-                int endPos = lastSubTrack.End;
+                int endPos = lastSubTrack.End+2;
+                String info = "repeat";
                 switch (min) {
                   case 1:
-                    endPos += 3;
-                    tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+3, "repeat once"));
+                    endPos += 1;
+                    info += " once";
                     break;
                   case 2:
-                    tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+3, "repeat twice"));
+                    endPos += 1;
+                    info += " twice";
                     break;
                   default:
                     tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+2+(max/10+1), "repeat " + max + " times"));
+                    endPos += (max/10+1);
+                    info += min + " times";
+                    break;
+                }
+                endPos++;
+                info += " to";
+                switch (max) {
+                  case 1:
+                    endPos += 1;
+                    info += " once";
+                    break;
+                  case 2:
+                    endPos += 1;
+                    info += " twice";
+                    break;
+                  default:
+                    tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+2+(max/10+1), "repeat " + max + " times"));
+                    endPos += (max/10+1);
+                    info += min + " times";
                     break;
                 }
               }
