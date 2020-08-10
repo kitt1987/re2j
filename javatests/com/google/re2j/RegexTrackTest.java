@@ -183,10 +183,14 @@ public class RegexTrackTest {
             new TrackInfo(0, 1, "string \"a\" case-sensitively"),
             new TrackInfo(1, 7, "repeat twice to 3 times(Perl extension: non-greedy)"),
     });
+    put("a{2,}?", new TrackInfo[]{
+            new TrackInfo(0, 7, "twice to 3 times repetition of string \"a\" case-sensitively"),
+            new TrackInfo(0, 1, "string \"a\" case-sensitively"),
+            new TrackInfo(1, 7, "repeat twice to 3 times(Perl extension: non-greedy)"),
+    });
   }};
 
 //  {
-//    {"a{2,3}?", "nrep{2,3 lit{a}}"},
 //    {"a{2,}?", "nrep{2,-1 lit{a}}"},
 //    // Malformed { } are treated as literals.
 //    {"x{1001", "str{x{1001}"},
