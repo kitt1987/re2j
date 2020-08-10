@@ -279,7 +279,7 @@ public class RegexTrackTest {
             new TrackInfo(0, 2, "string \"-\" case-sensitively"),
     });
     put("-", new TrackInfo[]{
-            new TrackInfo(0, 2, "string \"-\" case-sensitively"),
+            new TrackInfo(0, 1, "string \"-\" case-sensitively"),
     });
   }};
 
