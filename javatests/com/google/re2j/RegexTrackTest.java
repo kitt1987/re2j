@@ -221,10 +221,12 @@ public class RegexTrackTest {
             // FIXME talk about the Unicode
             new TrackInfo(0, 1, "any character"),
     });
+    put("^", new TrackInfo[]{
+            new TrackInfo(0, 1, "any character"),
+    });
   }};
 
 //  {
-//    {".", "dot{}"},
 //    {"^", "bol{}"},
 //    {"$", "eol{}"},
 //    {"\\|", "lit{|}"},
