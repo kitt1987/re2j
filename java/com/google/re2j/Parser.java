@@ -269,7 +269,10 @@ class Parser {
     if (subs.length == 0) {
       int start = 0;
       if (stack.size() > 0) {
-        start = stack.get(stack.size()-1).track.End;
+        TrackInfo track = stack.get(stack.size()-1).track;
+        if (track != null) {
+          start = track.End;
+        }
       }
       return push(newRegexp(Regexp.Op.EMPTY_MATCH, TrackInfo.EmptyMatchTrack(start)));
     }
