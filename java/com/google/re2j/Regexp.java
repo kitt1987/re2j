@@ -536,8 +536,10 @@ class Regexp {
         switch (min) {
           case 1:
             b.append("once");
+            break;
           case 2:
             b.append("twice");
+            break;
           default:
             b.append(min).append(" times");
         }
@@ -547,8 +549,10 @@ class Regexp {
           switch (max) {
             case 1:
               b.append("once");
+              break;
             case 2:
               b.append("twice");
+              break;
             default:
               b.append(max).append(" times");
           }
