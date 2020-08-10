@@ -222,7 +222,7 @@ public class RegexTrackTest {
             new TrackInfo(0, 1, "any character"),
     });
     put("^", new TrackInfo[]{
-            new TrackInfo(0, 1, "any character"),
+            new TrackInfo(0, 1, "line start"),
     });
   }};
 
