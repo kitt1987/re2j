@@ -139,7 +139,7 @@ public class RegexTrackTest {
             new TrackInfo(1, 2, "repeat at least once"),
     });
     put("a?", new TrackInfo[]{
-            new TrackInfo(0, 2, "1 or more repetition of string \"a\" case-sensitively"),
+            new TrackInfo(0, 2, "0 or 1 repetition of string \"a\" case-sensitively"),
             new TrackInfo(0, 1, "string \"a\" case-sensitively"),
             new TrackInfo(1, 2, "repeat zero or once"),
     });
