@@ -148,10 +148,14 @@ public class RegexTrackTest {
             new TrackInfo(0, 1, "string \"a\" case-sensitively"),
             new TrackInfo(1, 4, "repeat twice"),
     });
+    put("a{2,3}", new TrackInfo[]{
+            new TrackInfo(0, 4, "twice repetition of string \"a\" case-sensitively"),
+            new TrackInfo(0, 1, "string \"a\" case-sensitively"),
+            new TrackInfo(1, 4, "repeat twice"),
+    });
   }};
 
 //  {
-//    {"a{2}", "rep{2,2 lit{a}}"},
 //    {"a{2,3}", "rep{2,3 lit{a}}"},
 //    {"a{2,}", "rep{2,-1 lit{a}}"},
 //    {"a*?", "nstar{lit{a}}"},
