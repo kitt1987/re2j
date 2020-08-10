@@ -533,12 +533,27 @@ class Regexp {
         b.append(tracks.get(0).Info);
         break;
       case REPEAT:
-        b.append(min);
+        switch (min) {
+          case 1:
+            b.append("once");
+          case 2:
+            b.append("twice");
+          default:
+            b.append(min).append(" times");
+        }
+
         if (min != max) {
           b.append(" to ");
-          b.append(max);
+          switch (max) {
+            case 1:
+              b.append("once");
+            case 2:
+              b.append("twice");
+            default:
+              b.append(max).append(" times");
+          }
         }
-        b.append(" times repetition of ");
+        b.append(" repetition of ");
         tracks = subs[0].GetTracks();
         b.append(tracks.get(0).Info);
         break;
