@@ -6,6 +6,10 @@ public class TrackInfo {
     public int End;
     public String Info;
 
+    static TrackInfo EmptyMatchTrack() {
+        return new TrackInfo(0, 0, "empty");
+    }
+
     TrackInfo(int start) {
         Start = start;
         End = start + 1;

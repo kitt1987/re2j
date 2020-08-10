@@ -267,7 +267,7 @@ class Parser {
 
     // Empty concatenation is special case.
     if (subs.length == 0) {
-      return push(newRegexp(Regexp.Op.EMPTY_MATCH, null));
+      return push(newRegexp(Regexp.Op.EMPTY_MATCH, new TrackInfo()));
     }
 
     return push(collapse(subs, Regexp.Op.CONCAT));
