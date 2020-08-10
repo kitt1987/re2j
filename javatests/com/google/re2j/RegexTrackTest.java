@@ -122,7 +122,7 @@ public class RegexTrackTest {
             new TrackInfo(1, 2, "string \"a\" case-sensitively"),
     });
     put("(a)|b", new TrackInfo[]{
-            new TrackInfo(0, 5, "any of [string \"a\" case-sensitively,line start,]"),
+            new TrackInfo(0, 5, "any of [Submatch of string \"a\" case-sensitively,string \"b\" case-sensitively,]"),
             new TrackInfo(0, 3, "Submatch of string \"a\" case-sensitively"),
             new TrackInfo(1, 2, "string \"a\" case-sensitively"),
             new TrackInfo(3, 4, "string \"a\" case-sensitively"),
