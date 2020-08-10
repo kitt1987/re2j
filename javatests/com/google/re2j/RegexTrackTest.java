@@ -188,10 +188,14 @@ public class RegexTrackTest {
             new TrackInfo(0, 1, "string \"a\" case-sensitively"),
             new TrackInfo(1, 6, "repeat twice at least(Perl extension: non-greedy)"),
     });
+    put("x{1001", new TrackInfo[]{
+            new TrackInfo(0, 6, "twice at least repetition of string \"a\" case-sensitively"),
+            new TrackInfo(0, 1, "string \"a\" case-sensitively"),
+            new TrackInfo(1, 6, "repeat twice at least(Perl extension: non-greedy)"),
+    });
   }};
 
 //  {
-//    {"a{2,}?", "nrep{2,-1 lit{a}}"},
 //    // Malformed { } are treated as literals.
 //    {"x{1001", "str{x{1001}"},
 //    {"x{9876543210", "str{x{9876543210}"},
