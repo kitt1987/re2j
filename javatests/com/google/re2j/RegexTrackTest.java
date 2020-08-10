@@ -189,7 +189,7 @@ public class RegexTrackTest {
             new TrackInfo(1, 6, "repeat twice at least(Perl extension: non-greedy)"),
     });
     put("x{1001", new TrackInfo[]{
-            new TrackInfo(0, 6, "twice at least repetition of string \"a\" case-sensitively"),
+            new TrackInfo(0, 6, "string \"x{1001\" case-sensitively"),
     });
   }};
 
