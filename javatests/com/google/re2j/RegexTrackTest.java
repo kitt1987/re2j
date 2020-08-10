@@ -179,9 +179,9 @@ public class RegexTrackTest {
             new TrackInfo(1, 5, "repeat twice(Perl extension: non-greedy)"),
     });
     put("a{2,3}?", new TrackInfo[]{
-            new TrackInfo(0, 5, "twice repetition of string \"a\" case-sensitively"),
+            new TrackInfo(0, 7, "twice repetition of string \"a\" case-sensitively"),
             new TrackInfo(0, 1, "string \"a\" case-sensitively"),
-            new TrackInfo(1, 5, "repeat twice(Perl extension: non-greedy)"),
+            new TrackInfo(1, 5, "repeat twice to 3 times(Perl extension: non-greedy)"),
     });
   }};
 
