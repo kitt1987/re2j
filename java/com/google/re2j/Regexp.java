@@ -150,7 +150,7 @@ class Regexp {
                     break;
                 }
               }
-              
+
               break;
           }
           break;
