@@ -170,22 +170,21 @@ class Regexp {
                     break;
                 }
                 endPos+=1;
-                info += " to";
                 switch (max) {
                   case -1:
                     info += " at least";
                     break;
                   case 1:
                     endPos += 1;
-                    info += " once";
+                    info += " to once";
                     break;
                   case 2:
                     endPos += 1;
-                    info += " twice";
+                    info += " to twice";
                     break;
                   default:
                     endPos += (max/10+1);
-                    info += " " + max + " times";
+                    info += " to " + max + " times";
                     break;
                 }
 
