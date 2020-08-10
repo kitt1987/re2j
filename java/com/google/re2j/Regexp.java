@@ -128,7 +128,7 @@ class Regexp {
           if ((flags & RE2.PERL_X) != 0 && (flags & RE2.NON_GREEDY) != 0) {
             flagsInfo = "Perl extension: non-greedy";
           }
-          
+
           ArrayList<TrackInfo> lastSubTracks = subs[subs.length-1].GetTracks();
           TrackInfo lastSubTrack = lastSubTracks.get(0);
           switch (op) {
@@ -203,7 +203,6 @@ class Regexp {
               }
 
               tracks.add(new TrackInfo(lastSubTrack.End, endPos, info));
-
               break;
           }
           break;
