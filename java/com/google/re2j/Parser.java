@@ -340,7 +340,7 @@ class Parser {
     }
 
     Regexp re;
-    if (len > 0) {
+    if (len > 0 && newsubs[0].track != null) {
       re = newRegexp(op, new TrackInfo(newsubs[0].track.Start, newsubs[newsubs.length-1].track.End));
     } else {
       re = newRegexp(op, null);
