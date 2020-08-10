@@ -575,6 +575,9 @@ class Regexp {
         break;
       case REPEAT:
         switch (min) {
+          case -1:
+            b.append("at most");
+            break;
           case 1:
             b.append("once");
             break;
@@ -588,6 +591,9 @@ class Regexp {
         if (min != max) {
           b.append(" to ");
           switch (max) {
+            case -1:
+              b.append("at least");
+              break;
             case 1:
               b.append("once");
               break;
