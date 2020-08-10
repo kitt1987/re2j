@@ -137,6 +137,20 @@ class Regexp {
               tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat zero or once"));
               break;
             case REPEAT:
+              if (min == max) {
+                switch (min) {
+                  case 1:
+                    tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+3, "repeat once"));
+                    break;
+                  case 2:
+                    tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+3, "repeat twice"));
+                    break;
+                  default:
+                    tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+2+(max/10+1), "repeat " + max + " times"));
+                    break;
+                }
+              }
+              
               break;
           }
           break;
