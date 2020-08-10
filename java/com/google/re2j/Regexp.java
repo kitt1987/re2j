@@ -551,7 +551,7 @@ class Regexp {
             if (lo == hi) {
               b.appendCodePoint(lo);
             } else {
-              b.append(lo).append("-").append(hi);
+              b.append(Utils.runeToString(lo)).append("-").append(Utils.runeToString(hi));
             }
           }
         }
