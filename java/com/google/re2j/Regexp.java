@@ -150,8 +150,10 @@ class Regexp {
                     break;
                 }
               } else {
+                int endPos = lastSubTrack.End;
                 switch (min) {
                   case 1:
+                    endPos += 3;
                     tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+3, "repeat once"));
                     break;
                   case 2:
