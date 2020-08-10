@@ -1315,7 +1315,10 @@ class Parser {
           cleanAlt(stack.get(n - 3));
         }
         // FIXME update track of re2 to the newest
-        re2.track.Update(track);
+        if (track != null) {
+          re2.track.Update(track);
+        }
+
         stack.set(n - 2, re1);
         stack.set(n - 1, re2);
         return true;
