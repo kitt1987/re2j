@@ -162,7 +162,6 @@ public class RegexTrackTest {
             new TrackInfo(0, 3, "twice at least repetition of string \"a\" case-sensitively"),
             new TrackInfo(0, 1, "string \"a\" case-sensitively"),
             new TrackInfo(1, 2, "repeat any times"),
-            new TrackInfo(2, 3, "repeat at least once"),
     });
   }};
 
