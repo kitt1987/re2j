@@ -201,7 +201,7 @@ public class RegexTrackTest {
             new TrackInfo(0, 6, "string \"x{2,1,\" case-sensitively"),
     });
     put("x{1,9876543210", new TrackInfo[]{
-            new TrackInfo(0, 6, "string \"x{1,9876543210\" case-sensitively"),
+            new TrackInfo(0, 14, "string \"x{1,9876543210\" case-sensitively"),
     });
   }};
 
