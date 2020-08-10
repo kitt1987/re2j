@@ -220,7 +220,6 @@ public class RegexTrackTest {
   }};
 
 //  {
-//    {"|x|", "alt{emp{}lit{x}emp{}}"},
 //    {".", "dot{}"},
 //    {"^", "bol{}"},
 //    {"$", "eol{}"},
