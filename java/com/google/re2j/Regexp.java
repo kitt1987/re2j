@@ -163,7 +163,7 @@ class Regexp {
                     break;
                   default:
                     endPos += (min/10+1);
-                    info += min + " times";
+                    info += " " + min + " times";
                     break;
                 }
                 endPos+=1;
@@ -179,7 +179,7 @@ class Regexp {
                     break;
                   default:
                     endPos += (max/10+1);
-                    info += max + " times";
+                    info += " " + max + " times";
                     break;
                 }
 
