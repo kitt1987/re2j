@@ -124,15 +124,15 @@ class Regexp {
         case PLUS:
         case QUEST:
         case REPEAT:
+          ArrayList<TrackInfo> lastSubTracks = subs[subs.length-1].GetTracks();
+          TrackInfo lastSubTrack = lastSubTracks.get(0);
+          int endPos = lastSubTrack.End;
           String flagsInfo = "";
           String info = "repeat";
           if ((flags & RE2.PERL_X) != 0 && (flags & RE2.NON_GREEDY) != 0) {
             flagsInfo = "Perl extension: non-greedy";
+            endPos++;
           }
-
-          ArrayList<TrackInfo> lastSubTracks = subs[subs.length-1].GetTracks();
-          TrackInfo lastSubTrack = lastSubTracks.get(0);
-          int endPos = lastSubTrack.End;
           switch (op) {
             case STAR:
               endPos += 1;
