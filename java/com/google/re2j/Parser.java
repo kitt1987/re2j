@@ -338,7 +338,14 @@ class Parser {
         newsubs[i++] = sub;
       }
     }
-    Regexp re = newRegexp(op, new TrackInfo(newsubs[0].track.Start, newsubs[newsubs.length-1].track.End));
+
+    Regexp re;
+    if (len > 0) {
+      re = newRegexp(op, new TrackInfo(newsubs[0].track.Start, newsubs[newsubs.length-1].track.End));
+    } else {
+      re = newRegexp(op, null);
+    }
+
     re.subs = newsubs;
 
     if (op == Regexp.Op.ALTERNATE) {
