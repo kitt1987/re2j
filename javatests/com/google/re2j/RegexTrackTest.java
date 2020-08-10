@@ -204,18 +204,18 @@ public class RegexTrackTest {
             new TrackInfo(0, 14, "string \"x{1,9876543210\" case-sensitively"),
     });
     put("", new TrackInfo[]{
-            TrackInfo.EmptyMatchTrack()
+            TrackInfo.EmptyMatchTrack(0)
     });
     put("|", new TrackInfo[]{
-            TrackInfo.EmptyMatchTrack()
+            TrackInfo.EmptyMatchTrack(0)
     });
     put("|x|", new TrackInfo[]{
             new TrackInfo(0, 3, "any of [empty,string \"x\" case-sensitively,empty,]"),
-            TrackInfo.EmptyMatchTrack(),
+            TrackInfo.EmptyMatchTrack(0),
             new TrackInfo(0, 1, "alternative"),
             new TrackInfo(1, 2, "string \"x\" case-sensitively"),
             new TrackInfo(2, 3, "alternative"),
-            TrackInfo.EmptyMatchTrack(),
+            TrackInfo.EmptyMatchTrack(3),
     });
   }};
 
