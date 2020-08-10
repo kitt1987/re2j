@@ -122,6 +122,7 @@ class Regexp {
           break;
         case STAR:
         case PLUS:
+        case QUEST:
           ArrayList<TrackInfo> lastSubTracks = subs[subs.length-1].GetTracks();
           TrackInfo lastSubTrack = lastSubTracks.get(0);
           switch (op) {
@@ -130,6 +131,9 @@ class Regexp {
               break;
             case PLUS:
               tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat at least once"));
+              break;
+            case QUEST:
+              tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat zero or once"));
               break;
           }
           break;
