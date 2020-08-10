@@ -108,14 +108,23 @@ class Regexp {
       for (Regexp sub : subs) {
         ArrayList<TrackInfo> subTracks = sub.GetTracks();
         tracks.addAll(subTracks);
-        if (op == Op.ALTERNATE) {
-          TrackInfo last = subTracks.get(0);
-          tracks.add(new TrackInfo(last.End, last.End+1, "alternative"));
+        switch (op) {
+          case ALTERNATE:
+            TrackInfo subTrack = subTracks.get(0);
+            tracks.add(new TrackInfo(subTrack.End, subTrack.End+1, "alternative"));
+            break;
         }
       }
 
-      if (op == Op.ALTERNATE) {
-        tracks.remove(tracks.size()-1);
+      switch (op) {
+        case ALTERNATE:
+          tracks.remove(tracks.size()-1);
+          break;
+        case STAR:
+          ArrayList<TrackInfo> lastSubTracks = subs[subs.length-1].GetTracks();
+          TrackInfo lastSubTrack = lastSubTracks.get(0);
+          tracks.add(new TrackInfo(lastSubTrack.End, lastSubTrack.End+1, "repeat any times"));
+          break;
       }
     }
 
