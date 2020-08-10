@@ -107,7 +107,7 @@ class Regexp {
     if (subs != null) {
       for (Regexp sub : subs) {
         ArrayList<TrackInfo> subTracks = sub.GetTracks();
-        if (subTracks != null) {
+        if (subTracks != null && subTracks.size() > 0) {
           tracks.addAll(subTracks);
           switch (op) {
             case ALTERNATE:
