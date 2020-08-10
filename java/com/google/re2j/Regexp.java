@@ -634,6 +634,8 @@ class Regexp {
         tracks = subs[0].GetTracks();
         b.append(tracks.get(0).Info);
         break;
+      case EMPTY_MATCH:
+        b.append("empty");
       default:
 
     }
