@@ -115,7 +115,7 @@ public class RegexTrackTest {
             new TrackInfo(2, 3, "line start"),
     });
     put("a|b", new TrackInfo[]{
-            new TrackInfo(0, 3, "any character in the group [ab]"),
+            new TrackInfo(0, 3, "any character in the group [a-b]"),
     });
     put("(a)", new TrackInfo[]{
             new TrackInfo(0, 3, "Submatch of string \"a\" case-sensitively"),
