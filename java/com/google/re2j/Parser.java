@@ -711,6 +711,7 @@ class Parser {
     StringIterator(String str) {
       this.str = str;
       this.tracks = new ArrayList<Track>();
+      this.tracks.add(new Track());
     }
 
     ArrayList<Track> PopTracks() {
