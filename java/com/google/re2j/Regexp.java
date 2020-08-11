@@ -65,7 +65,7 @@ class Regexp {
 
   // Tracks from StringIterator
   private ArrayList<Track> tracks;
-  
+
   Regexp(Op op) {
     this.op = op;
   }
