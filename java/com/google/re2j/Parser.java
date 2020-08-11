@@ -822,7 +822,7 @@ class Parser {
       switch (t.peek()) {
         default:
           literal(t.pop());
-          stack.get(stack.size()-1).
+          stack.get(stack.size()-1).SetTracks(t.PopTracks());
           break;
 
         case '(':
