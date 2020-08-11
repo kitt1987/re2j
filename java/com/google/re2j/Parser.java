@@ -808,7 +808,7 @@ class Parser {
   }
 
   private void setStacks() {
-    
+
   }
 
   private Regexp parseInternal() throws PatternSyntaxException {
