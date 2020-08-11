@@ -706,8 +706,11 @@ class Parser {
     private final String str; // a stream of UTF-16 codes
     private int pos = 0; // current position in UTF-16 string
 
+    private ArrayList<Track> tracks;
+
     StringIterator(String str) {
       this.str = str;
+      this.tracks = new ArrayList<Track>();
     }
 
     // Returns the cursor position.  Do not interpret the result!
