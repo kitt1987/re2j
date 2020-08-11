@@ -9,7 +9,7 @@ public class Track {
         Start = start;
     }
 
-    void End(int end) {
+    void Freeze(int end) {
         End = end;
     }
 }
