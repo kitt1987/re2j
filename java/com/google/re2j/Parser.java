@@ -714,7 +714,9 @@ class Parser {
     }
 
     ArrayList<Track> PopTracks() {
-      return tracks;
+      ArrayList<Track> pop = tracks;
+      tracks = new ArrayList<Track>();
+      return pop;
     }
 
     // Returns the cursor position.  Do not interpret the result!
