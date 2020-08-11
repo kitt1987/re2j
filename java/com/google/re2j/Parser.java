@@ -1165,6 +1165,7 @@ class Parser {
             markTracks(t);
           }
           this.flags = flags;
+          t.PushNewTrack();
           return;
       }
     }
