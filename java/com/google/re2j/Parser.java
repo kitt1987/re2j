@@ -837,6 +837,7 @@ class Parser {
           }
           op(Regexp.Op.LEFT_PAREN).cap = ++numCap;
           t.skip(1); // '('
+          markTracks(t);
           break;
 
         case '|':
