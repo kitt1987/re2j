@@ -929,12 +929,15 @@ class Parser {
               switch (c) {
                 case 'A':
                   op(Regexp.Op.BEGIN_TEXT);
+                  markTracks(t);
                   break bigswitch;
                 case 'b':
                   op(Regexp.Op.WORD_BOUNDARY);
+                  markTracks(t);
                   break bigswitch;
                 case 'B':
                   op(Regexp.Op.NO_WORD_BOUNDARY);
+                  markTracks(t);
                   break bigswitch;
                 case 'C':
                   // any byte; not supported
@@ -956,6 +959,7 @@ class Parser {
                   }
                 case 'z':
                   op(Regexp.Op.END_TEXT);
+                  markTracks(t);
                   break bigswitch;
                 default:
                   t.rewindTo(savedPos);
