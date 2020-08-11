@@ -9,7 +9,7 @@ public class Track {
         Start = start;
     }
 
-    End() {
-
+    void End(int end) {
+        End = end;
     }
 }
