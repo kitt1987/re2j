@@ -808,7 +808,7 @@ class Parser {
   }
 
   private void setStacks() {
-
+    stack.get(stack.size()-1).SetTracks(t.PopTracks());
   }
 
   private Regexp parseInternal() throws PatternSyntaxException {
