@@ -856,6 +856,7 @@ class Parser {
             op(Regexp.Op.BEGIN_LINE);
           }
           t.skip(1); // '^'
+          markTracks(t);
           break;
 
         case '$':
