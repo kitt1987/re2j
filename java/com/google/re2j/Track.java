@@ -5,7 +5,7 @@ public class Track {
     public int End;
     public String Info;
 
-    Track() {
-
+    Track(int start) {
+        Start = start;
     }
 }
