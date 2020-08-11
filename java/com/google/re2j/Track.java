@@ -8,4 +8,8 @@ public class Track {
     Track(int start) {
         Start = start;
     }
+
+    End() {
+
+    }
 }

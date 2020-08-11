@@ -719,10 +719,9 @@ class Parser {
       return pop;
     }
 
-    ArrayList<Track> PopTracks() {
-      ArrayList<Track> pop = tracks;
-      initTracks();
-      return pop;
+    void PushNewTrack() {
+      tracks.get(tracks.size()-1).;
+      this.tracks.add(new Track(pos));
     }
 
     private void initTracks() {
