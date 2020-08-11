@@ -1162,6 +1162,7 @@ class Parser {
           if (c == ':') {
             // Open new group
             op(Regexp.Op.LEFT_PAREN);
+            markTracks(t);
           }
           this.flags = flags;
           return;
