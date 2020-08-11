@@ -1104,6 +1104,7 @@ class Parser {
         throw new PatternSyntaxException(ERR_DUPLICATE_NAMED_CAPTURE, name);
       }
       re.name = name;
+      markTracks(t);
       return;
     }
 
