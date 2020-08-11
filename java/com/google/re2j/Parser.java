@@ -807,7 +807,7 @@ class Parser {
     return new Parser(pattern, flags).parseInternal();
   }
 
-  private void completeTracks(StringIterator t) {
+  private void markTracks(StringIterator t) {
     stack.get(stack.size()-1).SetTracks(t.PopTracks());
   }
 
@@ -826,7 +826,7 @@ class Parser {
       switch (t.peek()) {
         default:
           literal(t.pop());
-          completeTracks(t);
+          markTracks(t);
           break;
 
         case '(':
