@@ -841,11 +841,13 @@ class Parser {
           break;
 
         case '|':
+          // √ track
           parseVerticalBar();
           t.skip(1); // '|'
           break;
 
         case ')':
+          // √ track
           parseRightParen();
           t.skip(1); // ')'
           break;
@@ -881,6 +883,7 @@ class Parser {
           break;
 
         case '[':
+          // √ track
           parseClass(t);
           break;
 
@@ -888,6 +891,7 @@ class Parser {
         case '+':
         case '?':
           {
+            // √ track
             repeatPos = t.pos();
             Regexp.Op op = null;
             switch (t.pop()) {
@@ -907,6 +911,7 @@ class Parser {
           }
         case '{':
           {
+            // √ track
             repeatPos = t.pos();
             int minMax = parseRepeat(t);
             if (minMax < 0) {
