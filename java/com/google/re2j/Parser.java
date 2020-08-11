@@ -713,6 +713,8 @@ class Parser {
       this.tracks = new ArrayList<Track>();
     }
 
+    
+
     // Returns the cursor position.  Do not interpret the result!
     int pos() {
       return pos;
