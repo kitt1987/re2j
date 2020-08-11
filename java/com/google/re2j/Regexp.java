@@ -9,6 +9,7 @@
 
 package com.google.re2j;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -62,6 +63,9 @@ class Regexp {
   Map<String, Integer> namedGroups; // map of group name -> capturing index
   // Do update copy ctor when adding new fields!
 
+  // Tracks from StringIterator
+  private ArrayList<Track> tracks;
+  
   Regexp(Op op) {
     this.op = op;
   }
