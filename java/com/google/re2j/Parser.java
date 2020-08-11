@@ -807,7 +807,9 @@ class Parser {
     return new Parser(pattern, flags).parseInternal();
   }
 
-  private 
+  private void setStacks() {
+    
+  }
 
   private Regexp parseInternal() throws PatternSyntaxException {
     if ((flags & RE2.LITERAL) != 0) {
