@@ -720,7 +720,9 @@ class Parser {
       return pop;
     }
 
-    
+    private void initTracks() {
+      
+    }
 
     // Returns the cursor position.  Do not interpret the result!
     int pos() {
