@@ -92,6 +92,10 @@ class Regexp {
     name = null;
   }
 
+  public void SetTracks(ArrayList<Track> tracks) {
+    this.tracks = tracks;
+  }
+
   @Override
   public String toString() {
     StringBuilder out = new StringBuilder();
