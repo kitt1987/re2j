@@ -807,6 +807,8 @@ class Parser {
     return new Parser(pattern, flags).parseInternal();
   }
 
+  private 
+
   private Regexp parseInternal() throws PatternSyntaxException {
     if ((flags & RE2.LITERAL) != 0) {
       // Trivial parser for literal string.
