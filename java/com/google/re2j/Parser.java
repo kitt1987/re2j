@@ -807,7 +807,7 @@ class Parser {
     return new Parser(pattern, flags).parseInternal();
   }
 
-  private void setStacks() {
+  private void setTracks(StringIterator t) {
     stack.get(stack.size()-1).SetTracks(t.PopTracks());
   }
 
