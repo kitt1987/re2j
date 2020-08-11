@@ -710,18 +710,18 @@ class Parser {
 
     StringIterator(String str) {
       this.str = str;
-      this.tracks = new ArrayList<Track>();
-      this.tracks.add(new Track(pos));
+      initTracks();
     }
 
     ArrayList<Track> PopTracks() {
       ArrayList<Track> pop = tracks;
-      tracks = new ArrayList<Track>();
+      initTracks();
       return pop;
     }
 
     private void initTracks() {
-      
+      this.tracks = new ArrayList<Track>();
+      this.tracks.add(new Track(pos));
     }
 
     // Returns the cursor position.  Do not interpret the result!
