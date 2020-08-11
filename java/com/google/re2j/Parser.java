@@ -866,6 +866,7 @@ class Parser {
             op(Regexp.Op.END_LINE);
           }
           t.skip(1); // '$'
+          markTracks(t);
           break;
 
         case '.':
@@ -875,6 +876,7 @@ class Parser {
             op(Regexp.Op.ANY_CHAR_NOT_NL);
           }
           t.skip(1); // '.'
+          markTracks(t);
           break;
 
         case '[':
