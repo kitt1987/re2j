@@ -92,7 +92,7 @@ public class RegexTrackTest {
 //                new Track(2, 3, "string \"b\" case-sensitively"),
 //        });
         put("ab", new Track[]{
-                new Track(0, 2, "string \"ab\" case-sensitively"),
+                new Track(0, 2, "string \"ab\""),
         });
 //        put("a.b.c", new Track[]{
 //                new Track(0, 5, "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,any character,string \"c\" case-sensitively,] in order"),
