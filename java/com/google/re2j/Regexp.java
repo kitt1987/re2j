@@ -122,6 +122,15 @@ class Regexp {
   }
 
   public ArrayList<Track> GetTracks() {
+    if (tracks != null) {
+      return tracks;
+    }
+
+    ArrayList<Track> tracks = new ArrayList<Track>();
+    for (int i = 0; i < subs.length; i++) {
+      tracks.addAll(subs[i].GetTracks());
+    }
+    
     return tracks;
   }
 
