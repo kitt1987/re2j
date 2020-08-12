@@ -13,7 +13,7 @@ public class Track {
     public String Comments;
 
     private Type type;
-    private String value;
+    private String value = "";
     private int flag;
     private boolean frozen;
 
