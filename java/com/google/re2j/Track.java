@@ -127,8 +127,10 @@ public class Track {
 
                 break;
             case ANY_CHAR:
+                type = Type.DotAll;
                 break;
             case ANY_CHAR_NOT_NL:
+                type = Type.DotInLine;
                 break;
         }
 
