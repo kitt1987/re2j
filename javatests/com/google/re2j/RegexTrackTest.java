@@ -83,7 +83,7 @@ public class RegexTrackTest {
         put("a.", new Track[]{
                 new Track(0, 2, "character class [literal 'a',any character,]"),
                 new Track(0, 1, "string \"a\" case-sensitively"),
-                new Track(1, 2, "any character"),
+                new Track(1, 2, "dot any character"),
         });
 //        put("a.b", new Track[]{
 //                new Track(0, 3, "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,] in order"),
