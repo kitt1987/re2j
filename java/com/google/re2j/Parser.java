@@ -688,7 +688,9 @@ class Parser {
     Regexp re = new Regexp(Regexp.Op.LITERAL);
     re.flags = flags;
     re.runes = Utils.stringToRunes(s);
-    re.SetTrack(new Track());
+    Track track = new Track();
+    track.Freeze(s.length(), re);
+    re.SetTrack(track);
     return re;
   }
 
