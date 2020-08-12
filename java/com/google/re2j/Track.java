@@ -49,14 +49,14 @@ public class Track {
                     b.append("literal");
                 }
 
-                if ((re.flags & FOLD_CASE) != 0) {
+                if (re.runes.length > 0) {
+                    b.append("\"");
                     for (int r : re.runes) {
-                        if (Unicode.simpleFold(r) != r) {
-                            b.append("case insensitive");
-                            break;
-                        }
+                        b.appendCodePoint(r);
                     }
+                    b.append("\"");
                 }
+
                 break;
         }
 
