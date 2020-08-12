@@ -111,18 +111,22 @@ public class Track {
     private String genComments(Regexp re) {
         switch (re.op) {
             case LITERAL:
-                if (re.runes.length > 1) {
-                    type = Type.String;
-                    StringBuilder b = new StringBuilder();
-                    for (int r : re.runes) {
-                        b.appendCodePoint(r);
-                    }
-                    value = b.toString();
-                } else {
-                    type = Type.Literal;
-                    value = Utils.runeToString(re.runes[0]);
+            if (re.runes.length > 1) {
+                type = Type.String;
+                StringBuilder b = new StringBuilder();
+                for (int r : re.runes) {
+                    b.appendCodePoint(r);
                 }
+                value = b.toString();
+            } else {
+                type = Type.Literal;
+                value = Utils.runeToString(re.runes[0]);
+            }
 
+            break;
+            case ANY_CHAR:
+                break;
+            case ANY_CHAR_NOT_NL:
                 break;
         }
 
