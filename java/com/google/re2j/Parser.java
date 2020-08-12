@@ -719,8 +719,8 @@ class Parser {
       initTracks();
     }
 
-    ArrayList<Track> PopTracks() {
-      tracks.get(tracks.size()-1).Freeze(pos, 0);
+    ArrayList<Track> PopTracks(Regexp re) {
+      tracks.get(tracks.size()-1).Freeze(pos, re);
       ArrayList<Track> pop = tracks;
       initTracks();
       return pop;
@@ -819,7 +819,8 @@ class Parser {
   }
 
   private void fixTracks(StringIterator t) {
-    stack.get(stack.size()-1).SetTracks(t.PopTracks());
+    Regexp top = stack.get(stack.size()-1);
+    top.SetTracks(t.PopTracks(top));
   }
 
   private Regexp parseInternal() throws PatternSyntaxException {
