@@ -127,10 +127,10 @@ class Regexp {
     }
 
     ArrayList<Track> tracks = new ArrayList<Track>();
-    for (int i = 0; i < subs.length; i++) {
-      tracks.addAll(subs[i].GetTracks());
+    for (Regexp sub : subs) {
+      tracks.addAll(sub.GetTracks());
     }
-    
+
     return tracks;
   }
 
