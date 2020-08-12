@@ -49,17 +49,17 @@ public class Track {
         switch (re.op) {
             case LITERAL:
                 if (re.runes.length > 1) {
-                    b.append("string");
-                } else {
-                    b.append("literal");
-                }
-
-                if (re.runes.length > 0) {
+                    b.append("string ");
                     b.append("\"");
                     for (int r : re.runes) {
                         b.appendCodePoint(r);
                     }
                     b.append("\"");
+                } else {
+                    b.append("literal ");
+                    b.append("\'");
+                    b.appendCodePoint(re.runes[0]);
+                    b.append("\'");
                 }
 
                 break;
