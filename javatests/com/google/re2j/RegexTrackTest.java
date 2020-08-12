@@ -81,7 +81,7 @@ public class RegexTrackTest {
                 new Track(0, 1, "literal 'a'"),
         });
         put("a.", new Track[]{
-                new Track(0, 2, "character class [literal 'a',any character,]"),
+                new Track(0, 2, "sequence of [literal 'a',any character,]"),
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "any character"),
         });
