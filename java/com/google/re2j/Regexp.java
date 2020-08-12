@@ -127,7 +127,7 @@ class Regexp {
       tracks.addAll(this.tracks);
     }
 
-    if (subs.length > 0) {
+    if (subs != null && subs.length > 0) {
       for (Regexp sub : subs) {
         tracks.addAll(sub.GetTracks());
       }
