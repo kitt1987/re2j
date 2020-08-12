@@ -109,6 +109,10 @@ class Regexp {
     this.tracks.add(track);
   }
 
+  public void PutTrack(Track track) {
+    this.tracks.add(0, track);
+  }
+
   public void AddTracks(ArrayList<Track> tracks) {
     this.tracks.addAll(tracks);
   }
