@@ -100,7 +100,7 @@ class Regexp {
     this.tracks = tracks;
   }
 
-  public void SetTracks(Track track) {
+  public void SetTrack(Track track) {
     if (this.tracks != null) {
       throw new IllegalStateException("tracks are already set");
     }

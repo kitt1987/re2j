@@ -8,6 +8,9 @@ public class Track {
     private int flag;
     private boolean frozen;
 
+    Track() {
+    }
+
     Track(int start) {
         Start = start;
     }
