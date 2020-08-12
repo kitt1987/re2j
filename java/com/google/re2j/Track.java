@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Track {
     enum Type {
-        TrackString,
-        TrackLiteral,
+        String,
+        Literal,
     }
 
     public int Start;
@@ -69,7 +69,7 @@ public class Track {
         switch (re.op) {
             case LITERAL:
                 if (re.runes.length > 1) {
-                    type = "string";
+                    type = Type.String;
                     b.append("string ");
                     b.append("\"");
                     for (int r : re.runes) {
@@ -77,7 +77,7 @@ public class Track {
                     }
                     b.append("\"");
                 } else {
-                    type = "literal";
+                    type = Type.Literal;
                     b.append("literal ");
                     b.append("'");
                     b.appendCodePoint(re.runes[0]);
@@ -87,10 +87,25 @@ public class Track {
                 break;
         }
 
-        return b.toString();
+        return buildComments();
     }
 
     private String buildComments() {
-        switch ()
+        StringBuilder b = new StringBuilder();
+
+        switch (type) {
+            case String:
+                b.append("string ");
+                b.append("\"");
+                b.append(value);
+                b.append("\"");
+                break;
+            case Literal:
+                b.append("literal ");
+                b.append("'");
+                b.appendCodePoint(value);
+                b.append("'");
+                break;
+        }
     }
 }
