@@ -3,7 +3,7 @@ package com.google.re2j;
 public class Track {
     public int Start;
     public int End;
-    public String Info;
+    public String Comments;
 
     private int flag;
 
@@ -12,6 +12,7 @@ public class Track {
     }
 
     void Freeze(int end, int flag) {
+        // √ also calculate Coments
         End = end;
         this.flag = flag;
     }
