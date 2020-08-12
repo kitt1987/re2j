@@ -103,7 +103,7 @@ public class Track {
             case Literal:
                 b.append("literal ");
                 b.append("'");
-                b.appendCodePoint(value);
+                b.append(value);
                 b.append("'");
                 break;
         }
