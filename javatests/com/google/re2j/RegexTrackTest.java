@@ -764,7 +764,7 @@ public class RegexTrackTest {
             for (int i = 0; i < testTracks.length; i++) {
                 assertEquals(regexp+"@"+i+":start", testTracks[i].Start, tracks.get(i).Start);
                 assertEquals(regexp+"@"+i+":end", testTracks[i].End, tracks.get(i).End);
-                assertEquals(regexp+"@"+i+":info", testTracks[i].Info, tracks.get(i).Info);
+                assertEquals(regexp+"@"+i+":info", testTracks[i].Comments, tracks.get(i).Comments);
             }
         }
     }
