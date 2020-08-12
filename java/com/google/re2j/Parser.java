@@ -725,6 +725,10 @@ class Parser {
       this.tracks.add(new Track(pos));
     }
 
+    void PushNewTrack() {
+      PushNewTrack(0);
+    }
+
     private void initTracks() {
       this.tracks = new ArrayList<Track>();
       this.tracks.add(new Track(pos));
@@ -1551,6 +1555,7 @@ class Parser {
       throw new PatternSyntaxException(ERR_INVALID_CHAR_RANGE, name);
     }
     cc.appendGroup(g, (flags & RE2.FOLD_CASE) != 0);
+    t.PushNewTrack();
     return true;
   }
 
