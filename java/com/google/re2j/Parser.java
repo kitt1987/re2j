@@ -350,7 +350,10 @@ class Parser {
         re = re.subs[0];
         reuse(old);
       }
+    } else {
+      re.SetTrack();
     }
+
     return re;
   }
 

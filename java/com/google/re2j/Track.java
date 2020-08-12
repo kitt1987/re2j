@@ -75,6 +75,12 @@ public class Track {
         return dst;
     }
 
+    static Track CombineTracks(Regexp[] res) {
+        ArrayList<Track> firstTracks = res[0].GetTracks();
+        ArrayList<Track> lastTracks = res[res.length-1].GetTracks();
+        return new Track()
+    }
+
     Track() {
     }
 
@@ -86,6 +92,10 @@ public class Track {
         Start = start;
         End = end;
         Comments = comments;
+    }
+
+    void Freeze(int end) {
+        Freeze(end, 0);
     }
 
     void Freeze(int end, int flag) {
