@@ -720,8 +720,8 @@ class Parser {
       return pop;
     }
 
-    void PushNewTrack() {
-      tracks.get(tracks.size()-1).Freeze(pos);
+    void PushNewTrack(int flags) {
+      tracks.get(tracks.size()-1).Freeze(pos, flags);
       this.tracks.add(new Track(pos));
     }
 
