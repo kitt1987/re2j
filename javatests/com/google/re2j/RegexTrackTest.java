@@ -83,7 +83,7 @@ public class RegexTrackTest {
         put("a.", new Track[]{
                 new Track(0, 2, "sequence [literal 'a',any characters including \"\\n\"]"),
                 new Track(0, 1, "literal 'a'"),
-                new Track(1, 2, "any character including \"\\n\""),
+                new Track(1, 2, "any characters including \"\\n\""),
         });
 //        put("a.b", new Track[]{
 //                new Track(0, 3, "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,] in order"),
