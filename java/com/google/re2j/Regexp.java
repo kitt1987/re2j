@@ -100,6 +100,10 @@ class Regexp {
     this.tracks.addAll(tracks);
   }
 
+  public ArrayList<Track> GetTracks() {
+    return tracks;
+  }
+
   @Override
   public String toString() {
     StringBuilder out = new StringBuilder();
