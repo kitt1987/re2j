@@ -164,6 +164,7 @@ class Parser {
       return false;
     }
 
+    // √ concatenate two literals to build a string
     // Push re1 into re2.
     re2.runes = concatRunes(re2.runes, re1.runes);
 
