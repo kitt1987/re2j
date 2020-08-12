@@ -342,6 +342,7 @@ class Parser {
     }
     Regexp re = newRegexp(op);
     re.subs = newsubs;
+    re.SetTrack(Track.CombineTracks(newsubs));
 
     if (op == Regexp.Op.ALTERNATE) {
       re.subs = factor(re.subs, re.flags);
@@ -350,8 +351,6 @@ class Parser {
         re = re.subs[0];
         reuse(old);
       }
-    } else {
-      re.SetTrack();
     }
 
     return re;
