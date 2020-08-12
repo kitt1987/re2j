@@ -26,8 +26,12 @@ public class Track {
         track.type = Type.String;
 
         for (Track e : sortedLiterals) {
-            if (e.type != Type.Literal && e.type != Type.String) {
-                throw new IllegalStateException("must be literal or string but " + e.type.name());
+            if (e.type == Type.String) {
+                continue;
+            }
+
+            if (e.type != Type.Literal) {
+                throw new IllegalStateException("must be literal but " + e.type.name());
             }
             track.value += e.value;
         }
