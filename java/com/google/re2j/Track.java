@@ -175,6 +175,9 @@ public class Track {
             case DotInLine:
                 b.append("any characters excluding \"\\n\"");
                 break;
+            case Seq:
+                b.append("sequence [").append(value).append("]");
+                break;
         }
 
         return b.toString();
