@@ -93,7 +93,20 @@ class Regexp {
   }
 
   public void SetTracks(ArrayList<Track> tracks) {
+    if (this.tracks != null) {
+      throw new IllegalStateException("tracks are already set");
+    }
+
     this.tracks = tracks;
+  }
+
+  public void SetTracks(Track track) {
+    if (this.tracks != null) {
+      throw new IllegalStateException("tracks are already set");
+    }
+
+    this.tracks = new ArrayList<Track>();
+    this.tracks.add(track);
   }
 
   public void AddTracks(ArrayList<Track> tracks) {
