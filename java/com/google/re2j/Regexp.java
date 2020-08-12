@@ -122,11 +122,11 @@ class Regexp {
   }
 
   public ArrayList<Track> GetTracks() {
-    if (tracks != null) {
-      return tracks;
+    ArrayList<Track> tracks = new ArrayList<Track>();
+    if (this.tracks != null) {
+      tracks.addAll(this.tracks);
     }
 
-    ArrayList<Track> tracks = new ArrayList<Track>();
     for (Regexp sub : subs) {
       tracks.addAll(sub.GetTracks());
     }
