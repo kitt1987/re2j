@@ -153,6 +153,12 @@ public class Track {
                 b.append(value);
                 b.append("'");
                 break;
+            case DotAll:
+                b.append("any characters including \"\\n\"");
+                break;
+            case DotInLine:
+                b.append("any characters excluding \"\\n\"");
+                break;
         }
 
         return b.toString();
