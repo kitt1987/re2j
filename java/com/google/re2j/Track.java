@@ -78,7 +78,9 @@ public class Track {
     static Track CombineTracks(Regexp[] res) {
         ArrayList<Track> firstTracks = res[0].GetTracks();
         ArrayList<Track> lastTracks = res[res.length-1].GetTracks();
-        return new Track()
+        Track track = new Track(firstTracks.get(0).Start);
+        track.Freeze(lastTracks.get(0).End);
+        return track;
     }
 
     Track() {
