@@ -170,6 +170,8 @@ class Parser {
     re2.AddTracks(Track.FilterOnlyLiteral(re1.GetTracks()));
     re2.PutTrack(Track.ConcatOnlyLiterals(re2.GetTracks()));
 
+    re2.OverrideTracks(Track.ConcatOnlyLiterals(re2.GetTracks(), re1.GetTracks()));
+
     // Reuse re1 if possible.
     if (r >= 0) {
       re1.runes = new int[] {r};

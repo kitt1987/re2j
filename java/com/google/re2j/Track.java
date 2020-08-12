@@ -64,7 +64,13 @@ public class Track {
     }
 
     static ArrayList<Track> ConcatOnlyLiterals(ArrayList<Track> dst, ArrayList<Track> src) {
+        if (dst.get(0).type == Type.String) {
+            dst.remove(0);
+        }
 
+        ArrayList<Track> result = Track.ConcatOnlyLiterals(dst, Track.FilterOnlyLiteral(src));
+        result.add(0, Track.ConcatOnlyLiterals(result));
+        return result;
     }
 
     Track() {
