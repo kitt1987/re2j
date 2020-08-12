@@ -342,7 +342,7 @@ class Parser {
     }
     Regexp re = newRegexp(op);
     re.subs = newsubs;
-    re.SetTrack(Track.CombineTracks(newsubs));
+    re.SetTrack(Track.CombineSubTracks(re));
 
     if (op == Regexp.Op.ALTERNATE) {
       re.subs = factor(re.subs, re.flags);

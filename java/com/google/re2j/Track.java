@@ -76,9 +76,9 @@ public class Track {
         return dst;
     }
 
-    static Track CombineTracks(Regexp[] res) {
-        ArrayList<Track> firstTracks = res[0].GetTracks();
-        ArrayList<Track> lastTracks = res[res.length-1].GetTracks();
+    static Track CombineSubTracks(Regexp re) {
+        ArrayList<Track> firstTracks = re.subs[0].GetTracks();
+        ArrayList<Track> lastTracks = re.subs[re.subs.length-1].GetTracks();
         Track track = new Track(firstTracks.get(0).Start);
         track.Freeze(lastTracks.get(0).End);
         return track;
