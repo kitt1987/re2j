@@ -48,9 +48,9 @@ public class Track {
         track.type = Type.String;
 
         for (Track e : sortedLiterals) {
-            if (e.type == Type.String) {
-                continue;
-            }
+//            if (e.type == Type.String) {
+//                continue;
+//            }
 
             if (e.type != Type.Literal) {
                 throw new IllegalStateException("must be literal but " + e.type.name());
