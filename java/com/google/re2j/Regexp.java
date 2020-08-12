@@ -127,8 +127,10 @@ class Regexp {
       tracks.addAll(this.tracks);
     }
 
-    for (Regexp sub : subs) {
-      tracks.addAll(sub.GetTracks());
+    if (subs.length > 0) {
+      for (Regexp sub : subs) {
+        tracks.addAll(sub.GetTracks());
+      }
     }
 
     return tracks;
