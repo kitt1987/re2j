@@ -6,6 +6,7 @@ public class Track {
     public String Comments;
 
     private int flag;
+    private boolean frozen;
 
     Track(int start) {
         Start = start;
@@ -13,7 +14,22 @@ public class Track {
 
     void Freeze(int end, int flag) {
         // √ also calculate Coments
+        assureUnfrozen();
+        frozen = true;
         End = end;
         this.flag = flag;
+    }
+
+    void Freeze(int end, Regexp regexp) {
+        // √ also calculate Coments
+        assureUnfrozen();
+        frozen = true;
+        End = end;
+    }
+
+    private void assureUnfrozen() {
+        if (frozen) {
+            throw new IllegalStateException("Track is already frozen");
+        }
     }
 }
