@@ -985,6 +985,7 @@ class Parser {
               if (parseUnicodeClass(t, cc)) {
                 re.runes = cc.toArray();
                 push(re);
+                fixTracks(t);
                 break bigswitch;
               }
             }
@@ -994,6 +995,7 @@ class Parser {
             if (parsePerlClassEscape(t, cc)) {
               re.runes = cc.toArray();
               push(re);
+              fixTracks(t);
               break bigswitch;
             }
 
@@ -1002,6 +1004,7 @@ class Parser {
 
             // Ordinary single-character escape.
             literal(parseEscape(t));
+            fixTracks(t);
             break;
           }
       }
