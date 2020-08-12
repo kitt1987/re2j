@@ -17,7 +17,7 @@ public class Track {
     private int flag;
     private boolean frozen;
 
-    static void FilterOnlyLiteral(ArrayList<Track> sortedLiterals) {
+    static ArrayList<Track> FilterOnlyLiteral(ArrayList<Track> sortedLiterals) {
         int lastLiteralPos = 0;
         for (int i = 0; i < sortedLiterals.size(); i++) {
             Track e = sortedLiterals.get(i);
@@ -35,6 +35,8 @@ public class Track {
         for (; lastLiteralPos < sortedLiterals.size(); lastLiteralPos++) {
             sortedLiterals.remove(sortedLiterals);
         }
+
+        return sortedLiterals;
     }
 
     static Track ConcatLiteralOrString(ArrayList<Track> sortedLiterals) {
