@@ -1607,6 +1607,10 @@ class Parser {
       t.rewindTo(startPos);
       throw new PatternSyntaxException(ERR_INVALID_CHAR_RANGE, t.rest());
     }
+
+    // √ the "sign"
+    t.PushNewTrack();
+
     c = t.pop();
     String name;
     if (c != '{') {
