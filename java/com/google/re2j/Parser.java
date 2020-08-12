@@ -1672,7 +1672,7 @@ class Parser {
         cc.appendRange('\n', '\n');
       }
 
-      // √ the "sign"
+      // √ the "sign" should also be tracked.
       t.PushNewTrack(flags);
     }
 
