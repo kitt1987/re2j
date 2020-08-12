@@ -101,5 +101,7 @@ public class Track {
                 b.append("'");
                 break;
         }
+
+        return b.toString();
     }
 }
