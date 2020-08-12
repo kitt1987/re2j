@@ -8,6 +8,7 @@ public class Track {
         Literal,
         DotAll,
         DotInLine,
+        Seq,
     }
 
     public int Start;
@@ -143,6 +144,9 @@ public class Track {
                 break;
             case ANY_CHAR_NOT_NL:
                 type = Type.DotInLine;
+                break;
+            case CONCAT:
+                type = Type.Seq;
                 break;
         }
 
