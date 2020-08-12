@@ -81,7 +81,7 @@ class Regexp {
     this.cap = that.cap;
     this.name = that.name;
     this.namedGroups = that.namedGroups;
-    this.tracks = that.tracks;
+    this.tracks = new ArrayList<Track>(that.tracks);
   }
 
   void reinit() {
@@ -94,6 +94,10 @@ class Regexp {
 
   public void SetTracks(ArrayList<Track> tracks) {
     this.tracks = tracks;
+  }
+
+  public void AddTracks(ArrayList<Track> tracks) {
+    this.tracks.addAll(tracks);
   }
 
   @Override
