@@ -68,9 +68,9 @@ public class Track {
             dst.remove(0);
         }
 
-        ArrayList<Track> result = Track.ConcatOnlyLiterals(dst, Track.FilterOnlyLiteral(src));
-        result.add(0, Track.ConcatOnlyLiterals(result));
-        return result;
+        dst.addAll(Track.FilterOnlyLiteral(src));
+        dst.add(0, Track.ConcatOnlyLiterals(dst));
+        return dst;
     }
 
     Track() {
