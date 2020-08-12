@@ -23,8 +23,16 @@ public class Track {
         }
 
         Track track = new Track(sortedLiterals.get(0).Start);
+        track.type = Type.String;
 
+        for (Track e : sortedLiterals) {
+            if (e.type != Type.Literal) {
+                throw new IllegalStateException("must concatenate literals but " + e.type.name());
+            }
+            track.value += e.value;
+        }
 
+        track.Freeze(sortedLiterals.get(sortedLiterals.size()-1).End, 0);
         return track;
     }
 
