@@ -121,7 +121,7 @@ class Regexp {
     this.tracks.addAll(tracks);
   }
 
-  public Track GetTrack() {
+  public Track GetTopTrack() {
     return this.tracks.get(0);
   }
 
