@@ -893,7 +893,6 @@ class Parser {
         case '+':
         case '?':
           {
-            // √ track
             repeatPos = t.pos();
             Regexp.Op op = null;
             switch (t.pop()) {
@@ -920,6 +919,7 @@ class Parser {
               // If the repeat cannot be parsed, { is a literal.
               t.rewindTo(repeatPos);
               literal(t.pop()); // '{'
+              markTracks(t);
               break;
             }
             min = minMax >> 16;
