@@ -80,11 +80,11 @@ public class RegexTrackTest {
         put("a", new Track[]{
                 new Track(0, 1, "literal 'a'"),
         });
-//        put("a.", new Track[]{
-//                new Track(0, 2, "each of [string \"a\" case-sensitively,any character,] in order"),
-//                new Track(0, 1, "string \"a\" case-sensitively"),
-//                new Track(1, 2, "any character"),
-//        });
+        put("a.", new Track[]{
+                new Track(0, 2, "each of [string \"a\" case-sensitively,any character,] in order"),
+                new Track(0, 1, "string \"a\" case-sensitively"),
+                new Track(1, 2, "any character"),
+        });
 //        put("a.b", new Track[]{
 //                new Track(0, 3, "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,] in order"),
 //                new Track(0, 1, "string \"a\" case-sensitively"),
