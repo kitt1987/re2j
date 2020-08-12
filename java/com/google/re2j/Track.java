@@ -64,24 +64,18 @@ public class Track {
     }
 
     private String genComments(Regexp re) {
-        StringBuilder b = new StringBuilder();
-
         switch (re.op) {
             case LITERAL:
                 if (re.runes.length > 1) {
                     type = Type.String;
-                    b.append("string ");
-                    b.append("\"");
+                    StringBuilder b = new StringBuilder();
                     for (int r : re.runes) {
                         b.appendCodePoint(r);
                     }
-                    b.append("\"");
+                    value = b.toString();
                 } else {
                     type = Type.Literal;
-                    b.append("literal ");
-                    b.append("'");
-                    b.appendCodePoint(re.runes[0]);
-                    b.append("'");
+                    value = Utils.runeToString(re.runes[0]);
                 }
 
                 break;
