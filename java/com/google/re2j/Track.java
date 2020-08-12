@@ -52,7 +52,7 @@ public class Track {
                 if ((re.flags & FOLD_CASE) != 0) {
                     for (int r : re.runes) {
                         if (Unicode.simpleFold(r) != r) {
-                            b.append("fold");
+                            b.append("case insensitive");
                             break;
                         }
                     }
