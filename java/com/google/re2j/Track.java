@@ -80,7 +80,7 @@ public class Track {
         ArrayList<Track> firstTracks = re.subs[0].GetTracks();
         ArrayList<Track> lastTracks = re.subs[re.subs.length-1].GetTracks();
         Track track = new Track(firstTracks.get(0).Start);
-        track.Freeze(lastTracks.get(0).End);
+        track.Freeze(lastTracks.get(0).End, re);
         return track;
     }
 
