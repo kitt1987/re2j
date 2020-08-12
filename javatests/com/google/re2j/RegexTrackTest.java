@@ -617,34 +617,34 @@ public class RegexTrackTest {
         b.append('}');
     }
 
-    private static String mkCharClass(RunePredicate f) {
-        Regexp re = new Regexp(Regexp.Op.CHAR_CLASS, null);
-        ArrayList<Integer> runes = new ArrayList<Integer>();
-        int lo = -1;
-        for (int i = 0; i <= Unicode.MAX_RUNE; i++) {
-            if (f.applies(i)) {
-                if (lo < 0) {
-                    lo = i;
-                }
-            } else {
-                if (lo >= 0) {
-                    runes.add(lo);
-                    runes.add(i - 1);
-                    lo = -1;
-                }
-            }
-        }
-        if (lo >= 0) {
-            runes.add(lo);
-            runes.add(Unicode.MAX_RUNE);
-        }
-        re.runes = new int[runes.size()];
-        int j = 0;
-        for (Integer i : runes) {
-            re.runes[j++] = i;
-        }
-        return dump(re);
-    }
+//    private static String mkCharClass(RunePredicate f) {
+//        Regexp re = new Regexp(Regexp.Op.CHAR_CLASS, null);
+//        ArrayList<Integer> runes = new ArrayList<Integer>();
+//        int lo = -1;
+//        for (int i = 0; i <= Unicode.MAX_RUNE; i++) {
+//            if (f.applies(i)) {
+//                if (lo < 0) {
+//                    lo = i;
+//                }
+//            } else {
+//                if (lo >= 0) {
+//                    runes.add(lo);
+//                    runes.add(i - 1);
+//                    lo = -1;
+//                }
+//            }
+//        }
+//        if (lo >= 0) {
+//            runes.add(lo);
+//            runes.add(Unicode.MAX_RUNE);
+//        }
+//        re.runes = new int[runes.size()];
+//        int j = 0;
+//        for (Integer i : runes) {
+//            re.runes[j++] = i;
+//        }
+//        return dump(re);
+//    }
 
 //  @Test
 //  public void testAppendRangeCollapse() {
