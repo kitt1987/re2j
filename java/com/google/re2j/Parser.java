@@ -1671,7 +1671,8 @@ class Parser {
       if ((flags & RE2.CLASS_NL) == 0) {
         cc.appendRange('\n', '\n');
       }
-      
+
+      // √ the "sign"
       t.PushNewTrack(flags);
     }
 
