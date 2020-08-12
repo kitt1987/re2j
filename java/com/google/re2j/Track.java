@@ -17,6 +17,26 @@ public class Track {
     private int flag;
     private boolean frozen;
 
+    static void FilterOnlyLiteral(ArrayList<Track> sortedLiterals) {
+        int lastLiteralPos = 0;
+        for (int i = 0; i < sortedLiterals.size(); i++) {
+            Track e = sortedLiterals.get(i);
+            if (e.type != Type.Literal) {
+                continue;
+            }
+
+            if (i != lastLiteralPos) {
+                sortedLiterals.set(lastLiteralPos, e);
+            }
+
+            lastLiteralPos++;
+        }
+
+        for (; lastLiteralPos < sortedLiterals.size(); lastLiteralPos++) {
+            sortedLiterals.remove(sortedLiterals);
+        }
+    }
+
     static Track ConcatLiteralOrString(ArrayList<Track> sortedLiterals) {
         if (sortedLiterals.size() == 1) {
             return sortedLiterals.get(0);
