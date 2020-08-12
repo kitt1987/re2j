@@ -888,8 +888,8 @@ class Parser {
           break;
 
         case '[':
-          // √ track
           parseClass(t);
+          fixTracks(t);
           break;
 
         case '*':
