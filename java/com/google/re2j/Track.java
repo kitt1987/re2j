@@ -32,6 +32,7 @@ public class Track {
             track.value += e.value;
         }
 
+        track.Comments = track.buildComments();
         track.Freeze(sortedLiterals.get(sortedLiterals.size()-1).End, 0);
         return track;
     }
