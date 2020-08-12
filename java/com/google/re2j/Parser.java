@@ -254,6 +254,7 @@ class Parser {
     re.max = max;
     re.flags = flags;
     re.subs = new Regexp[] {sub};
+    re.SetTracks(t.PopTracks());
     stack.set(n - 1, re);
   }
 
