@@ -121,6 +121,10 @@ class Regexp {
     this.tracks.addAll(tracks);
   }
 
+  public Track GetTrack() {
+    return this.tracks.get(0);
+  }
+
   public ArrayList<Track> GetTracks() {
     ArrayList<Track> tracks = new ArrayList<Track>();
     if (this.tracks != null) {

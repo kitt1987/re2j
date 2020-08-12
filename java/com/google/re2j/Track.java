@@ -155,8 +155,9 @@ public class Track {
                 break;
             case CONCAT:
                 type = Type.Seq;
-                re.subs.map()
-                value = ;
+                for (int i = 0; i < re.subs.length; i++) {
+                    re.subs[i].GetTracks()
+                }
                 break;
         }
 
