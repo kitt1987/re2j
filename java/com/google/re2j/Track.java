@@ -1,12 +1,32 @@
 package com.google.re2j;
 
+import java.util.ArrayList;
+
 public class Track {
+    enum Type {
+        TrackString,
+        TrackLiteral,
+    }
+
     public int Start;
     public int End;
     public String Comments;
 
+    private String type;
+    private String value;
     private int flag;
     private boolean frozen;
+
+    static Track ConcatLiterals(ArrayList<Track> sortedLiterals) {
+        if (sortedLiterals.size() == 1) {
+            return sortedLiterals.get(0);
+        }
+
+        Track track = new Track(sortedLiterals.get(0).Start);
+
+
+        return track;
+    }
 
     Track() {
     }
@@ -49,6 +69,7 @@ public class Track {
         switch (re.op) {
             case LITERAL:
                 if (re.runes.length > 1) {
+                    type = "string";
                     b.append("string ");
                     b.append("\"");
                     for (int r : re.runes) {
@@ -56,6 +77,7 @@ public class Track {
                     }
                     b.append("\"");
                 } else {
+                    type = "literal";
                     b.append("literal ");
                     b.append("'");
                     b.appendCodePoint(re.runes[0]);
@@ -66,5 +88,9 @@ public class Track {
         }
 
         return b.toString();
+    }
+
+    private String buildComments() {
+        switch ()
     }
 }
