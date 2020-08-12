@@ -39,7 +39,7 @@ public class Track {
         return sortedLiterals;
     }
 
-    static Track ConcatLiteralOrString(ArrayList<Track> sortedLiterals) {
+    static Track ConcatOnlyLiterals(ArrayList<Track> sortedLiterals) {
         if (sortedLiterals.size() == 1) {
             return sortedLiterals.get(0);
         }
