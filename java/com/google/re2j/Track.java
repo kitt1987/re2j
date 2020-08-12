@@ -155,8 +155,12 @@ public class Track {
                 break;
             case CONCAT:
                 type = Type.Seq;
-                for (int i = 0; i < re.subs.length; i++) {
-                    re.subs[i].GetTracks()
+                for (Regexp sub : re.subs) {
+                    if (value.length() > 0) {
+                        value += ",";
+                    }
+                    
+                    value += sub.GetTopTrack().Comments;
                 }
                 break;
         }
