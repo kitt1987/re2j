@@ -912,7 +912,6 @@ class Parser {
           }
         case '{':
           {
-            // √ track
             repeatPos = t.pos();
             int minMax = parseRepeat(t);
             if (minMax < 0) {
@@ -963,6 +962,7 @@ class Parser {
                     t.skipString("\\E");
                     for (int j = 0; j < lit.length(); j++) {
                       literal(lit.charAt(j));
+                      fixTracks(t);
                     }
                     break bigswitch;
                   }
