@@ -1671,6 +1671,8 @@ class Parser {
       if ((flags & RE2.CLASS_NL) == 0) {
         cc.appendRange('\n', '\n');
       }
+      
+      t.PushNewTrack(flags);
     }
 
     boolean first = true; // ']' and '-' are okay as first char in class
