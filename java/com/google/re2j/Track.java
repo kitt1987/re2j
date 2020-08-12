@@ -84,14 +84,6 @@ public class Track {
         return track;
     }
 
-    static String JoinTracks(Regexp[] res) {
-        ArrayList<Track> firstTracks = res[0].GetTracks();
-        ArrayList<Track> lastTracks = res[res.length-1].GetTracks();
-        Track track = new Track(firstTracks.get(0).Start);
-        track.Freeze(lastTracks.get(0).End);
-        return track;
-    }
-
     Track() {
     }
 
