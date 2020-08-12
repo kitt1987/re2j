@@ -848,9 +848,9 @@ class Parser {
           break;
 
         case '|':
-          // √ track
           parseVerticalBar();
           t.skip(1); // '|'
+          fixTracks(t);
           break;
 
         case ')':
