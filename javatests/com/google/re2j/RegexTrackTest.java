@@ -103,7 +103,7 @@ public class RegexTrackTest {
 //                new Track(4, 5, "string \"c\" case-sensitively"),
 //        });
         put("abc", new Track[]{
-                new Track(0, 3, "string \"abc\" case-sensitively"),
+                new Track(0, 3, "string \"abc\""),
         });
 //        put("a|^", new Track[]{
 //                new Track(0, 3, "any of [string \"a\" case-sensitively,line start,]"),
