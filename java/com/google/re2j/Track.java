@@ -63,6 +63,10 @@ public class Track {
         return track;
     }
 
+    static ArrayList<Track> ConcatOnlyLiterals(ArrayList<Track> dst, ArrayList<Track> src) {
+
+    }
+
     Track() {
     }
 

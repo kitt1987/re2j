@@ -113,6 +113,10 @@ class Regexp {
     this.tracks.add(0, track);
   }
 
+  public void OverrideTracks(ArrayList<Track> tracks) {
+    this.tracks = tracks;
+  }
+
   public void AddTracks(ArrayList<Track> tracks) {
     this.tracks.addAll(tracks);
   }
