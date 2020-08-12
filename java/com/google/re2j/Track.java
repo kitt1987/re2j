@@ -12,7 +12,7 @@ public class Track {
     public int End;
     public String Comments;
 
-    private String type;
+    private Type type;
     private String value;
     private int flag;
     private boolean frozen;
