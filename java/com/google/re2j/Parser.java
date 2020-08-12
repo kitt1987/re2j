@@ -854,9 +854,9 @@ class Parser {
           break;
 
         case ')':
-          // √ track
           parseRightParen();
           t.skip(1); // ')'
+          fixTracks(t);
           break;
 
         case '^':
