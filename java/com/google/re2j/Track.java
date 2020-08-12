@@ -1,5 +1,7 @@
 package com.google.re2j;
 
+import static com.google.re2j.RE2.FOLD_CASE;
+
 public class Track {
     public int Start;
     public int End;
@@ -34,5 +36,30 @@ public class Track {
         if (frozen) {
             throw new IllegalStateException("Track is already frozen");
         }
+    }
+
+    private String parseInfo(Regexp re) {
+        StringBuilder b = new StringBuilder();
+
+        switch (re.op) {
+            case LITERAL:
+                if (re.runes.length > 1) {
+                    b.append("string");
+                } else {
+                    b.append("literal");
+                }
+
+                if ((re.flags & FOLD_CASE) != 0) {
+                    for (int r : re.runes) {
+                        if (Unicode.simpleFold(r) != r) {
+                            b.append("fold");
+                            break;
+                        }
+                    }
+                }
+                break;
+        }
+
+        return b.toString();
     }
 }
