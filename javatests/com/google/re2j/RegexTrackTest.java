@@ -78,7 +78,7 @@ public class RegexTrackTest {
 
     private static final Map<String, Track[]> PARSE_TESTS = new HashMap<String, Track[]>() {{
         put("a", new Track[]{
-                new Track(0, 1, "string \"a\" case-sensitively"),
+                new Track(0, 1, "literal 'a'"),
         });
 //        put("a.", new Track[]{
 //                new Track(0, 2, "each of [string \"a\" case-sensitively,any character,] in order"),
