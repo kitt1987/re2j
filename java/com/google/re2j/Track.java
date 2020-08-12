@@ -17,7 +17,7 @@ public class Track {
     private int flag;
     private boolean frozen;
 
-    static Track ConcatLiterals(ArrayList<Track> sortedLiterals) {
+    static Track ConcatLiteralOrString(ArrayList<Track> sortedLiterals) {
         if (sortedLiterals.size() == 1) {
             return sortedLiterals.get(0);
         }
@@ -26,8 +26,8 @@ public class Track {
         track.type = Type.String;
 
         for (Track e : sortedLiterals) {
-            if (e.type != Type.Literal) {
-                throw new IllegalStateException("must concatenate literals but " + e.type.name());
+            if (e.type != Type.Literal && e.type != Type.String) {
+                throw new IllegalStateException("must be literal or string but " + e.type.name());
             }
             track.value += e.value;
         }

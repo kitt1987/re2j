@@ -168,7 +168,7 @@ class Parser {
     // Push re1 into re2.
     re2.runes = concatRunes(re2.runes, re1.runes);
     re2.AddTracks(re1.GetTracks());
-    re2.PutTrack(Track.ConcatLiterals(re2.GetTracks()));
+    re2.PutTrack(Track.ConcatLiteralOrString(re2.GetTracks()));
 
     // Reuse re1 if possible.
     if (r >= 0) {
