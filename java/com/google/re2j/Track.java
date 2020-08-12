@@ -6,6 +6,8 @@ public class Track {
     enum Type {
         String,
         Literal,
+        DotAll,
+        DotInLine,
     }
 
     public int Start;
