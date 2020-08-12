@@ -57,9 +57,9 @@ public class Track {
                     b.append("\"");
                 } else {
                     b.append("literal ");
-                    b.append("\'");
+                    b.append("'");
                     b.appendCodePoint(re.runes[0]);
-                    b.append("\'");
+                    b.append("'");
                 }
 
                 break;
