@@ -254,7 +254,6 @@ class Parser {
     re.max = max;
     re.flags = flags;
     re.subs = new Regexp[] {sub};
-    re.SetTracks(t.PopTracks());
     stack.set(n - 1, re);
   }
 
@@ -809,7 +808,7 @@ class Parser {
     return new Parser(pattern, flags).parseInternal();
   }
 
-  private void markTracks(StringIterator t) {
+  private void fixTracks(StringIterator t) {
     stack.get(stack.size()-1).SetTracks(t.PopTracks());
   }
 
@@ -828,7 +827,7 @@ class Parser {
       switch (t.peek()) {
         default:
           literal(t.pop());
-          markTracks(t);
+          fixTracks(t);
           break;
 
         case '(':
@@ -839,7 +838,7 @@ class Parser {
           }
           op(Regexp.Op.LEFT_PAREN).cap = ++numCap;
           t.skip(1); // '('
-          markTracks(t);
+          fixTracks(t);
           break;
 
         case '|':
@@ -861,7 +860,7 @@ class Parser {
             op(Regexp.Op.BEGIN_LINE);
           }
           t.skip(1); // '^'
-          markTracks(t);
+          fixTracks(t);
           break;
 
         case '$':
@@ -871,7 +870,7 @@ class Parser {
             op(Regexp.Op.END_LINE);
           }
           t.skip(1); // '$'
-          markTracks(t);
+          fixTracks(t);
           break;
 
         case '.':
@@ -881,7 +880,7 @@ class Parser {
             op(Regexp.Op.ANY_CHAR_NOT_NL);
           }
           t.skip(1); // '.'
-          markTracks(t);
+          fixTracks(t);
           break;
 
         case '[':
@@ -907,6 +906,7 @@ class Parser {
                 break;
             }
             repeat(op, min, max, repeatPos, t, lastRepeatPos);
+            fixTracks(t);
             // (min and max are now dead.)
             break;
           }
@@ -919,12 +919,13 @@ class Parser {
               // If the repeat cannot be parsed, { is a literal.
               t.rewindTo(repeatPos);
               literal(t.pop()); // '{'
-              markTracks(t);
+              fixTracks(t);
               break;
             }
             min = minMax >> 16;
             max = (short) (minMax & 0xffff); // sign extend
             repeat(Regexp.Op.REPEAT, min, max, repeatPos, t, lastRepeatPos);
+            fixTracks(t);
             break;
           }
 
@@ -937,15 +938,15 @@ class Parser {
               switch (c) {
                 case 'A':
                   op(Regexp.Op.BEGIN_TEXT);
-                  markTracks(t);
+                  fixTracks(t);
                   break bigswitch;
                 case 'b':
                   op(Regexp.Op.WORD_BOUNDARY);
-                  markTracks(t);
+                  fixTracks(t);
                   break bigswitch;
                 case 'B':
                   op(Regexp.Op.NO_WORD_BOUNDARY);
-                  markTracks(t);
+                  fixTracks(t);
                   break bigswitch;
                 case 'C':
                   // any byte; not supported
@@ -967,7 +968,7 @@ class Parser {
                   }
                 case 'z':
                   op(Regexp.Op.END_TEXT);
-                  markTracks(t);
+                  fixTracks(t);
                   break bigswitch;
                 default:
                   t.rewindTo(savedPos);
@@ -1112,7 +1113,7 @@ class Parser {
         throw new PatternSyntaxException(ERR_DUPLICATE_NAMED_CAPTURE, name);
       }
       re.name = name;
-      markTracks(t);
+      fixTracks(t);
       return;
     }
 
@@ -1170,7 +1171,7 @@ class Parser {
           if (c == ':') {
             // Open new group
             op(Regexp.Op.LEFT_PAREN);
-            markTracks(t);
+            fixTracks(t);
           }
           this.flags = flags;
           t.PushNewTrack();
