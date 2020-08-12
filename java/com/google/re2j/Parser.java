@@ -720,6 +720,7 @@ class Parser {
     }
 
     ArrayList<Track> PopTracks() {
+      tracks.get(tracks.size()-1).Freeze(pos, 0);
       ArrayList<Track> pop = tracks;
       initTracks();
       return pop;
