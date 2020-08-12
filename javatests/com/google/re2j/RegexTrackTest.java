@@ -105,6 +105,7 @@ public class RegexTrackTest {
 //                new Track(4, 5, "string \"c\" case-sensitively"),
 //        });
         put("abc", new Track[]{
+                new Track(0, 3, "string \"abc\""),
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "literal 'b'"),
                 new Track(2, 3, "literal 'c'"),
