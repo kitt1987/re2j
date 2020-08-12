@@ -1,7 +1,5 @@
 package com.google.re2j;
 
-import static com.google.re2j.RE2.FOLD_CASE;
-
 public class Track {
     public int Start;
     public int End;
@@ -17,6 +15,12 @@ public class Track {
         Start = start;
     }
 
+    Track(int start, int end, String comments) {
+        Start = start;
+        End = end;
+        Comments = comments;
+    }
+
     void Freeze(int end, int flag) {
         // √ also calculate Coments
         assureUnfrozen();
@@ -25,11 +29,12 @@ public class Track {
         this.flag = flag;
     }
 
-    void Freeze(int end, Regexp regexp) {
+    void Freeze(int end, Regexp re) {
         // √ also calculate Coments
         assureUnfrozen();
         frozen = true;
         End = end;
+        Comments = genComments(re);
     }
 
     private void assureUnfrozen() {
@@ -38,7 +43,7 @@ public class Track {
         }
     }
 
-    private String parseInfo(Regexp re) {
+    private String genComments(Regexp re) {
         StringBuilder b = new StringBuilder();
 
         switch (re.op) {
