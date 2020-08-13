@@ -12,6 +12,7 @@ public class Track {
         Alternation,
         VerticalBar,
         AnchorBeginLine,
+        CharClass,
     }
 
     public int Start;
@@ -162,6 +163,14 @@ public class Track {
             case BEGIN_LINE:
                 type = Type.AnchorBeginLine;
                 break;
+            case CHAR_CLASS:
+                if (re.HasJoinTrack()) {
+                    type = Type.VerticalBar;
+                    break;
+                }
+
+                type = Type.CharClass;
+                break;
         }
 
         return buildComments();
@@ -213,6 +222,9 @@ public class Track {
                 break;
             case AnchorBeginLine:
                 b.append("line start");
+                break;
+            case CharClass:
+                b.append("char class");
                 break;
         }
 

@@ -131,6 +131,10 @@ class Regexp {
     joinTrack = track;
   }
 
+  public boolean HasJoinTrack() {
+    return joinTrack != null;
+  }
+
   public ArrayList<Track> GetTracks() {
     ArrayList<Track> tracks = new ArrayList<Track>();
     if (this.tracks != null) {
