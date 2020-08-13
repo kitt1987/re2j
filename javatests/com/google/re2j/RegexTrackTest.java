@@ -110,12 +110,12 @@ public class RegexTrackTest {
                 new Track(1, 2, "literal 'b'"),
                 new Track(2, 3, "literal 'c'"),
         });
-//        put("a|^", new Track[]{
-//                new Track(0, 3, "any of [string \"a\" case-sensitively,line start,]"),
-//                new Track(0, 1, "string \"a\" case-sensitively"),
-//                new Track(1, 2, "alternative"),
-//                new Track(2, 3, "line start"),
-//        });
+        put("a|^", new Track[]{
+                new Track(0, 3, "any of [literal 'a',line start]"),
+                new Track(0, 1, "literal 'a'"),
+                new Track(1, 2, "alternative"),
+                new Track(2, 3, "line start"),
+        });
 //        put("a|b", new Track[]{
 //                new Track(0, 3, "any character in the group [a-b]"),
 //        });
