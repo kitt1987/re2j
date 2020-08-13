@@ -9,6 +9,7 @@ public class Track {
         DotAll,
         DotInLine,
         Seq,
+        Alternation,
     }
 
     public int Start;
@@ -155,9 +156,24 @@ public class Track {
                     value += sub.GetTopTrack().Comments;
                 }
                 break;
+            case ALTERNATE:
+                type = Type.Alternation;
         }
 
         return buildComments();
+    }
+
+    private String joinComments(Regexp[] subs) {
+        String value = "";
+        for (Regexp sub : subs) {
+            if (value.length() > 0) {
+                value += ",";
+            }
+
+            value += sub.GetTopTrack().Comments;
+        }
+
+        return value;
     }
 
     private String buildComments() {
