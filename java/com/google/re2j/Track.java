@@ -224,7 +224,7 @@ public class Track {
                 b.append("line start");
                 break;
             case CharClass:
-                b.append("char class");
+                b.append("character class");
                 break;
         }
 
