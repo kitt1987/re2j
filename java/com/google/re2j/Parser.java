@@ -1311,6 +1311,8 @@ class Parser {
         } else {
           dst.runes = new CharClass(dst.runes).appendClass(src.runes).toArray();
         }
+
+        dst.AddTracks(src.GetTracks());
         break;
       case LITERAL:
         // both literal
