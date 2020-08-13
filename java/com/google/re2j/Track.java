@@ -87,10 +87,6 @@ public class Track {
         return track;
     }
 
-    static Track GenerateAlternationTrack() {
-
-    }
-
     Track() {
     }
 

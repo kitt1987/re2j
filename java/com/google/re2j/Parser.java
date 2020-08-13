@@ -1036,6 +1036,15 @@ class Parser {
 
     alternate();
 
+    if (popTrack != null) {
+      Regexp top = stack.get(0);
+      if (top.op != Regexp.Op.ALTERNATE) {
+        throw new IllegalStateException("the top regex must be alternation");
+      }
+
+      stack.get(0).SetJoinTrack(popTrack);
+    }
+
     int n = stack.size();
     if (n != 1) {
       throw new PatternSyntaxException(ERR_MISSING_PAREN, wholeRegexp);
