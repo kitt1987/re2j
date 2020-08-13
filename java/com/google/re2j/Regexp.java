@@ -144,6 +144,9 @@ class Regexp {
         tracks.add(joinTrack);
       }
       tracks.remove(tracks.size()-1);
+      Track top = new Track(tracks.get(0).Start);
+      top.Freeze(tracks.get(tracks.size()-1).End, this);
+      tracks.add(0, top);
       return tracks;
     }
 
