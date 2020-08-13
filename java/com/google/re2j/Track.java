@@ -148,16 +148,12 @@ public class Track {
                 break;
             case CONCAT:
                 type = Type.Seq;
-                for (Regexp sub : re.subs) {
-                    if (value.length() > 0) {
-                        value += ",";
-                    }
-
-                    value += sub.GetTopTrack().Comments;
-                }
+                value = joinComments(re.subs);
                 break;
             case ALTERNATE:
                 type = Type.Alternation;
+                value = joinComments(re.subs);
+                break;
         }
 
         return buildComments();
