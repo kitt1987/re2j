@@ -191,16 +191,16 @@ public class Track {
     }
 
     private String joinComments(ArrayList<Track> tracks) {
-        String value = "";
+        StringBuilder value = new StringBuilder();
         for (Track track : tracks) {
             if (value.length() > 0) {
-                value += ",";
+                value.append(",");
             }
 
-            value += track.Comments;
+            value.append(track.Comments);
         }
 
-        return value;
+        return value.toString();
     }
 
     private String buildComments() {
