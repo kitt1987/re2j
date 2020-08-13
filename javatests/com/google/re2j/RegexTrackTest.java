@@ -85,12 +85,12 @@ public class RegexTrackTest {
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "any characters including \"\\n\""),
         });
-//        put("a.b", new Track[]{
-//                new Track(0, 3, "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,] in order"),
-//                new Track(0, 1, "string \"a\" case-sensitively"),
-//                new Track(1, 2, "any character"),
-//                new Track(2, 3, "string \"b\" case-sensitively"),
-//        });
+        put("a.b", new Track[]{
+                new Track(0, 3, "sequence [literal 'a',any characters including \"\\n\",literal 'b']"),
+                new Track(0, 1, "literal 'a'"),
+                new Track(1, 2, "any characters including \"\\n\""),
+                new Track(2, 3, "literal 'b'"),
+        });
         put("ab", new Track[]{
                 new Track(0, 2, "string \"ab\""),
                 new Track(0, 1, "literal 'a'"),
