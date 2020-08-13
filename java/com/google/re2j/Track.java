@@ -10,6 +10,7 @@ public class Track {
         DotInLine,
         Seq,
         Alternation,
+        VerticalBar,
     }
 
     public int Start;
@@ -154,6 +155,8 @@ public class Track {
                 type = Type.Alternation;
                 value = joinComments(re.subs);
                 break;
+            case VERTICAL_BAR:
+                type = Type.VerticalBar;
         }
 
         return buildComments();
