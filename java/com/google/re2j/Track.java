@@ -203,6 +203,9 @@ public class Track {
             case Alternation:
                 b.append("alternation of [").append(value).append("]");
                 break;
+            case VerticalBar:
+                b.append("alternation");
+                break;
         }
 
         return b.toString();
