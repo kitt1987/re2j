@@ -79,16 +79,7 @@ public class Track {
         return dst;
     }
 
-    static Track CombineSubTracks(Regexp re, Track joinment) {
-        if (popTrack != null && popTrack.size() > 0) {
-            Regexp re = stack.get(0);
-            if (re.op != Regexp.Op.ALTERNATE) {
-                throw new IllegalStateException("the top regex must be alternation");
-            }
-
-            re.GetTopTrack().
-        }
-
+    static Track CombineSubTracks(Regexp re, Track join) {
         ArrayList<Track> firstTracks = re.subs[0].GetTracks();
         ArrayList<Track> lastTracks = re.subs[re.subs.length-1].GetTracks();
         Track track = new Track(firstTracks.get(0).Start);

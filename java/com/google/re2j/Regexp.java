@@ -65,6 +65,7 @@ class Regexp {
 
   // Tracks from StringIterator
   private ArrayList<Track> tracks;
+  private Track joinTrack;
 
   Regexp(Op op) {
     this.op = op;
@@ -82,6 +83,7 @@ class Regexp {
     this.name = that.name;
     this.namedGroups = that.namedGroups;
     this.tracks = that.tracks;
+    this.joinTrack = that.joinTrack;
   }
 
   void reinit() {
@@ -125,6 +127,10 @@ class Regexp {
     return this.tracks.get(0);
   }
 
+  public void SetJoinTrack(Track track) {
+    joinTrack = track;
+  }
+
   public ArrayList<Track> GetTracks() {
     ArrayList<Track> tracks = new ArrayList<Track>();
     if (this.tracks != null) {
@@ -134,7 +140,11 @@ class Regexp {
     if (subs != null && subs.length > 0) {
       for (Regexp sub : subs) {
         tracks.addAll(sub.GetTracks());
+        if (joinTrack != null) {
+          tracks.add(joinTrack);
+        }
       }
+      tracks.remove(tracks.size()-1);
     }
 
     return tracks;
