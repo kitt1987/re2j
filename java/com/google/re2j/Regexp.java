@@ -137,6 +137,15 @@ class Regexp {
 
   public ArrayList<Track> GetTracks() {
     ArrayList<Track> tracks = new ArrayList<Track>();
+    if (op == Op.CHAR_CLASS && joinTrack != null) {
+      // must be transformed from an alternation
+      for (Track track : this.tracks) {
+        tracks.add(track);
+        tracks.add(joinTrack);
+      }
+      tracks.remove(tracks.size()-1);
+    }
+
     if (this.tracks != null) {
       tracks.addAll(this.tracks);
     }
