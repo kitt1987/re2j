@@ -197,6 +197,9 @@ public class Track {
             case Seq:
                 b.append("sequence [").append(value).append("]");
                 break;
+            case Alternation:
+                b.append("alternation of [").append(value).append("]");
+                break;
         }
 
         return b.toString();
