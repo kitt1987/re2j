@@ -139,14 +139,17 @@ class Regexp {
     ArrayList<Track> tracks = new ArrayList<Track>();
     if (op == Op.CHAR_CLASS && joinTrack != null) {
       // must be transformed from an alternation
+      Track top = new Track(this.tracks.get(0).Start);
+      top.Freeze(tracks.get(this.tracks.size()-1).End, this);
+
       for (Track track : this.tracks) {
         tracks.add(track);
         tracks.add(joinTrack);
       }
+
       tracks.remove(tracks.size()-1);
-      Track top = new Track(tracks.get(0).Start);
-      top.Freeze(tracks.get(tracks.size()-1).End, this);
       tracks.add(0, top);
+
       return tracks;
     }
 

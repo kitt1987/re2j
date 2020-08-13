@@ -166,6 +166,7 @@ public class Track {
             case CHAR_CLASS:
                 if (re.HasJoinTrack()) {
                     type = Type.Alternation;
+                    value = re.GetTracks();
                     break;
                 }
 
