@@ -165,7 +165,7 @@ public class Track {
                 break;
             case CHAR_CLASS:
                 if (re.HasJoinTrack()) {
-                    type = Type.VerticalBar;
+                    type = Type.Alternation;
                     break;
                 }
 
