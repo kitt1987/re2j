@@ -61,8 +61,6 @@ class Parser {
   private int numCap = 0; // number of capturing groups seen
   private final Map<String, Integer> namedGroups = new HashMap<String, Integer>();
 
-  private Track popTrack;
-
   Parser(String wholeRegexp, int flags) {
     this.wholeRegexp = wholeRegexp;
     this.flags = flags;
@@ -1029,6 +1027,7 @@ class Parser {
 
     concat();
 
+    Track popTrack = null;
     if (swapVerticalBar()) {
       popTrack = stack.get(stack.size()-1).GetTopTrack();
       pop(); // pop vertical bar
