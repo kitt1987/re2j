@@ -144,6 +144,7 @@ class Regexp {
         tracks.add(joinTrack);
       }
       tracks.remove(tracks.size()-1);
+      return tracks;
     }
 
     if (this.tracks != null) {
