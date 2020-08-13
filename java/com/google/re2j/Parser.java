@@ -1312,7 +1312,6 @@ class Parser {
           dst.runes = new CharClass(dst.runes).appendClass(src.runes).toArray();
         }
 
-        dst.AddTracks(src.GetTracks());
         break;
       case LITERAL:
         // both literal
@@ -1327,6 +1326,8 @@ class Parser {
                 .toArray();
         break;
     }
+
+    dst.AddTracks(src.GetTracks());
   }
 
   // If the top of the stack is an element followed by an opVerticalBar
