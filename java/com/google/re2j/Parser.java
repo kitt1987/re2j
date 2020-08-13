@@ -1039,7 +1039,7 @@ class Parser {
     if (popTrack != null) {
       Regexp top = stack.get(0);
       if (top.op != Regexp.Op.ALTERNATE) {
-        throw new IllegalStateException("the top regex must be alternation");
+        throw new IllegalStateException("the top regex must be alternation but " + top.op);
       }
 
       stack.get(0).SetJoinTrack(popTrack);
