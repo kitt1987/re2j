@@ -190,6 +190,19 @@ public class Track {
         return value;
     }
 
+    private String joinComments(ArrayList<Track> tracks) {
+        String value = "";
+        for (Track track : tracks) {
+            if (value.length() > 0) {
+                value += ",";
+            }
+
+            value += track.Comments;
+        }
+
+        return value;
+    }
+
     private String buildComments() {
         StringBuilder b = new StringBuilder();
 
