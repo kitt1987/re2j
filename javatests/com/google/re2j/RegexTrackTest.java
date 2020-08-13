@@ -96,14 +96,14 @@ public class RegexTrackTest {
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "literal 'b'"),
         });
-//        put("a.b.c", new Track[]{
-//                new Track(0, 5, "each of [string \"a\" case-sensitively,any character,string \"b\" case-sensitively,any character,string \"c\" case-sensitively,] in order"),
-//                new Track(0, 1, "string \"a\" case-sensitively"),
-//                new Track(1, 2, "any character"),
-//                new Track(2, 3, "string \"b\" case-sensitively"),
-//                new Track(3, 4, "any character"),
-//                new Track(4, 5, "string \"c\" case-sensitively"),
-//        });
+        put("a.b.c", new Track[]{
+                new Track(0, 5, "sequence [literal 'a',any characters including \"\\n\",literal 'b',any characters including \"\\n\",literal 'c']"),
+                new Track(0, 1, "literal 'a'"),
+                new Track(1, 2, "any characters including \"\\n\""),
+                new Track(2, 3, "literal 'b'"),
+                new Track(3, 4, "any characters including \"\\n\""),
+                new Track(4, 5, "literal 'c'"),
+        });
         put("abc", new Track[]{
                 new Track(0, 3, "string \"abc\""),
                 new Track(0, 1, "literal 'a'"),
