@@ -113,7 +113,7 @@ public class RegexTrackTest {
         put("a|^", new Track[]{
                 new Track(0, 3, "any of [literal 'a',line start]"),
                 new Track(0, 1, "literal 'a'"),
-                new Track(1, 2, "alternative"),
+                new Track(1, 2, "alternation"),
                 new Track(2, 3, "line start"),
         });
 //        put("a|b", new Track[]{
