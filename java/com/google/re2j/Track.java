@@ -11,6 +11,7 @@ public class Track {
         Seq,
         Alternation,
         VerticalBar,
+        AnchorBeginLine,
     }
 
     public int Start;
@@ -157,6 +158,10 @@ public class Track {
                 break;
             case VERTICAL_BAR:
                 type = Type.VerticalBar;
+                break;
+            case BEGIN_LINE:
+                type = Type.AnchorBeginLine;
+                break;
         }
 
         return buildComments();
@@ -205,6 +210,9 @@ public class Track {
                 break;
             case VerticalBar:
                 b.append("alternation");
+                break;
+            case AnchorBeginLine:
+                b.append("line start");
                 break;
         }
 
