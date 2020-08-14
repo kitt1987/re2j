@@ -24,8 +24,6 @@ public class Track {
 
     private Type type;
     private String value = "";
-    private int flag;
-    private boolean frozen;
 
     static Track BuildCapturingEndTrack(int start) {
         return new Track(start, start+1, "capturing group end");
@@ -117,7 +115,6 @@ public class Track {
         Start = start;
         End = end;
         Comments = comments;
-        frozen = true;
     }
 
     void Freeze(int end) {
