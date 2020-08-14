@@ -722,26 +722,16 @@ class Parser {
       initTracks();
     }
 
-    ArrayList<Track> PopTracks(Regexp re) {
-      tracks.get(tracks.size()-1).Freeze(pos, re);
+    ArrayList<Track> PopTracks() {
+      tracks.get(tracks.size()-1).Close(pos);
       ArrayList<Track> pop = tracks;
       initTracks();
       return pop;
-    }
-
-    ArrayList<Track> DiscardTracks() {
-      ArrayList<Track> pop = tracks;
-      initTracks();
-      return pop;
-    }
-
-    void PushNewTrack(int flags) {
-      tracks.get(tracks.size()-1).Freeze(pos, flags);
-      this.tracks.add(new Track(pos));
     }
 
     void PushNewTrack() {
-      PushNewTrack(0);
+      tracks.get(tracks.size()-1).Close(pos);
+      this.tracks.add(new Track(pos));
     }
 
     private void initTracks() {

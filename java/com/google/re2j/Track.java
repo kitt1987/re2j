@@ -117,24 +117,13 @@ public class Track {
 
     void Freeze(int end, int flag) {
         // √ also calculate Coments
-        assureUnfrozen();
-        frozen = true;
         End = end;
-        this.flag = flag;
     }
 
     void Freeze(int end, Regexp re) {
         // √ also calculate Coments
-        assureUnfrozen();
-        frozen = true;
         End = end;
         Comments = genComments(re);
-    }
-
-    private void assureUnfrozen() {
-        if (frozen) {
-            throw new IllegalStateException("Track is already frozen");
-        }
     }
 
     private String genComments(Regexp re) {
