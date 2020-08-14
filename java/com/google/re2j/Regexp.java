@@ -115,6 +115,10 @@ class Regexp {
     this.tracks.add(0, track);
   }
 
+  public void AppendTrack(Track track) {
+    this.tracks.add(track);
+  }
+
   public void OverrideTracks(ArrayList<Track> tracks) {
     this.tracks = tracks;
   }
@@ -135,42 +139,53 @@ class Regexp {
     return joinTrack != null;
   }
 
+  public ArrayList<Track> GetRawTracks() {
+    return this.tracks;
+  }
+
   public ArrayList<Track> GetTracks() {
-    ArrayList<Track> tracks = new ArrayList<Track>();
+    ArrayList<Track> allTracks = new ArrayList<Track>();
     if (op == Op.CHAR_CLASS && joinTrack != null) {
       // must be transformed from an alternation
       Track top = new Track(this.tracks.get(0).Start);
-      top.Freeze(tracks.get(this.tracks.size()-1).End, this);
+      top.Freeze(this.tracks.get(this.tracks.size()-1).End, this);
 
       for (Track track : this.tracks) {
-        tracks.add(track);
-        tracks.add(joinTrack);
+        allTracks.add(track);
+        allTracks.add(joinTrack);
       }
 
-      tracks.remove(tracks.size()-1);
-      tracks.add(0, top);
+      allTracks.remove(allTracks.size()-1);
+      allTracks.add(0, top);
 
-      return tracks;
-    }
-
-    if (this.tracks != null) {
-      tracks.addAll(this.tracks);
+      return allTracks;
     }
 
     if (subs != null && subs.length > 0) {
       for (Regexp sub : subs) {
-        tracks.addAll(sub.GetTracks());
+        allTracks.addAll(sub.GetTracks());
         if (joinTrack != null) {
-          tracks.add(joinTrack);
+          allTracks.add(joinTrack);
         }
       }
 
       if (joinTrack != null) {
-        tracks.remove(tracks.size()-1);
+        allTracks.remove(allTracks.size()-1);
       }
     }
 
-    return tracks;
+    if (op == Op.CAPTURE) {
+      if (this.tracks.size() != 3) {
+        throw new IllegalStateException("count of self tracks of capture must be 2 but " + this.tracks.size());
+      }
+      allTracks.add(0, this.tracks.get(0));
+      allTracks.add(1, this.tracks.get(1));
+      allTracks.add(this.tracks.get(2));
+    } else if (this.tracks != null) {
+      allTracks.addAll(0, this.tracks);
+    }
+
+    return allTracks;
   }
 
   @Override

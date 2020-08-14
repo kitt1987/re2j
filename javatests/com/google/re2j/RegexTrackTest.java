@@ -122,22 +122,26 @@ public class RegexTrackTest {
                 new Track(1, 2, "alternation"),
                 new Track(2, 3, "literal 'b'"),
         });
-//        put("(a)", new Track[]{
-//                new Track(0, 3, "Submatch of string \"a\" case-sensitively"),
-//                new Track(1, 2, "string \"a\" case-sensitively"),
-//        });
-//        put("(a)|b", new Track[]{
-//                new Track(0, 5, "any of [Submatch of string \"a\" case-sensitively,string \"b\" case-sensitively,]"),
-//                new Track(0, 3, "Submatch of string \"a\" case-sensitively"),
-//                new Track(1, 2, "string \"a\" case-sensitively"),
-//                new Track(3, 4, "alternative"),
-//                new Track(4, 5, "string \"b\" case-sensitively"),
-//        });
-//        put("a*", new Track[]{
-//                new Track(0, 2, "any times repetition of string \"a\" case-sensitively"),
-//                new Track(0, 1, "string \"a\" case-sensitively"),
-//                new Track(1, 2, "repeat any times"),
-//        });
+        put("(a)", new Track[]{
+                new Track(0, 3, "capturing group (literal 'a')"),
+                new Track(0, 1, "capturing group"),
+                new Track(1, 2, "literal 'a'"),
+                new Track(2, 3, "capturing group end"),
+        });
+        put("(a)|b", new Track[]{
+                new Track(0, 5, "alternation of [capturing group (literal 'a'),literal 'b']"),
+                new Track(0, 3, "capturing group (literal 'a')"),
+                new Track(0, 1, "capturing group"),
+                new Track(1, 2, "literal 'a'"),
+                new Track(2, 3, "capturing group end"),
+                new Track(3, 4, "alternation"),
+                new Track(4, 5, "literal 'b'"),
+        });
+        put("a*", new Track[]{
+                new Track(0, 2, "literal 'a' repeated zero or many times"),
+                new Track(0, 1, "literal 'a'"),
+                new Track(1, 2, "quantifier: repeated zero or many times"),
+        });
 //        put("a+", new Track[]{
 //                new Track(0, 2, "1 or more repetition of string \"a\" case-sensitively"),
 //                new Track(0, 1, "string \"a\" case-sensitively"),

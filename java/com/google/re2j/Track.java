@@ -13,6 +13,9 @@ public class Track {
         VerticalBar,
         AnchorBeginLine,
         CharClass,
+        CapturingGroup,
+        CapturingGroupStart,
+        Quantifier,
     }
 
     public int Start;
@@ -23,6 +26,21 @@ public class Track {
     private String value = "";
     private int flag;
     private boolean frozen;
+
+    static Track BuildCapturingEndTrack(int start) {
+        return new Track(start, start+1, "capturing group end");
+    }
+
+    static Track BuildCaptureTopTrack(Regexp re) {
+        ArrayList<Track> tracks = re.GetRawTracks();
+        if (tracks.size() != 2) {
+            throw new IllegalStateException("count of self tracks of capture must be 2");
+        }
+
+        Track track = new Track(tracks.get(0).Start);
+        track.Freeze(tracks.get(1).End, re);
+        return track;
+    }
 
     static ArrayList<Track> FilterOnlyLiteral(ArrayList<Track> sortedLiterals) {
         int lastLiteralPos = 0;
@@ -99,6 +117,7 @@ public class Track {
         Start = start;
         End = end;
         Comments = comments;
+        frozen = true;
     }
 
     void Freeze(int end) {
@@ -166,11 +185,24 @@ public class Track {
             case CHAR_CLASS:
                 if (re.HasJoinTrack()) {
                     type = Type.Alternation;
-                    value = re.GetTracks();
+                    // GetRawTracks will never call funcs to manipulate Track.
+                    value = joinComments(re.GetRawTracks());
                     break;
                 }
 
                 type = Type.CharClass;
+                break;
+            case CAPTURE:
+                type = Type.CapturingGroup;
+                value = joinComments(re.subs);
+                break;
+            case LEFT_PAREN:
+                type = Type.CapturingGroupStart;
+                break;
+            case STAR:
+            case PLUS:
+            case QUEST:
+                type = Type.Quantifier;
                 break;
         }
 
@@ -178,16 +210,16 @@ public class Track {
     }
 
     private String joinComments(Regexp[] subs) {
-        String value = "";
+        StringBuilder value = new StringBuilder();
         for (Regexp sub : subs) {
             if (value.length() > 0) {
-                value += ",";
+                value.append(",");
             }
 
-            value += sub.GetTopTrack().Comments;
+            value.append(sub.GetTopTrack().Comments);
         }
 
-        return value;
+        return value.toString();
     }
 
     private String joinComments(ArrayList<Track> tracks) {
@@ -239,6 +271,15 @@ public class Track {
                 break;
             case CharClass:
                 b.append("character class");
+                break;
+            case CapturingGroup:
+                b.append("capturing group (").append(value).append(")");
+                break;
+            case CapturingGroupStart:
+                b.append("capturing group");
+                break;
+            case Quantifier:
+                b.append("quantifier");
                 break;
         }
 
