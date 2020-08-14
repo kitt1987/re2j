@@ -23,7 +23,7 @@ public class Track {
     public String Comments;
 
     private Type type;
-    private String value = "";
+    private String[] value;
 
     static Track BuildCapturingEndTrack(int start) {
         return new Track(start, start+1, "capturing group end");
