@@ -111,14 +111,8 @@ public class Track {
         Start = start;
     }
 
-    Track(int start, int end, String comments) {
-        Start = start;
+    void Close(int end) {
         End = end;
-        Comments = comments;
-    }
-
-    void Freeze(int end) {
-        Freeze(end, 0);
     }
 
     void Freeze(int end, int flag) {
