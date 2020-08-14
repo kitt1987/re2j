@@ -111,7 +111,11 @@ public class Track {
         Start = start;
     }
 
-    void Close(int end) {
+    void Close(int end, Regexp re) {
+        End = end;
+    }
+
+    void Close(int end, String text) {
         End = end;
     }
 
