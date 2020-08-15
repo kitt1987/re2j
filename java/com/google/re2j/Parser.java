@@ -1138,7 +1138,7 @@ class Parser {
         throw new PatternSyntaxException(ERR_DUPLICATE_NAMED_CAPTURE, name);
       }
       re.name = name;
-      // √
+      // √ Save the left parenthesis as well as its name track
       top().SetTracks(startRune, t.PopTracks());
       return;
     }
