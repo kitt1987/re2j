@@ -127,9 +127,10 @@ public class Track {
     void UpdateComments(int rune) {
         switch (rune) {
             case ':':
-                Comments = ""
+                Comments = "mod modifier end";
                 break;
             case ')':
+                Comments = "group end";
                 break;
         }
     }
