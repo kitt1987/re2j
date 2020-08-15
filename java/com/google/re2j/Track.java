@@ -8,7 +8,7 @@ public class Track {
 
     static {
         POSIX_GROUPS.put("[:alnum:]", "alphanumeric characters");
-        POSIX_GROUPS.put("[:^alnum:]", new CharGroup(-1, code4));
+        POSIX_GROUPS.put("[:^alnum:]", "alphanumeric characters");
         POSIX_GROUPS.put("[:alpha:]", "alphabetic characters");
         POSIX_GROUPS.put("[:^alpha:]", new CharGroup(-1, code5));
         POSIX_GROUPS.put("[:ascii:]", "ASCII characters");
