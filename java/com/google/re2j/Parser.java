@@ -234,7 +234,7 @@ class Parser {
       if (t.more() && t.lookingAt('?')) {
         t.skip(1); // '?'
         flags ^= RE2.NON_GREEDY;
-        t.PushNewTrack();
+        t.PushNewTrack("non-greedy quantifier");
       }
       if (lastRepeatPos != -1) {
         // In Perl it is not allowed to stack repetition operators:
