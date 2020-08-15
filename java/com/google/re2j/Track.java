@@ -166,16 +166,15 @@ public class Track {
                 b.append("character class");
                 break;
             case CAPTURE:
-                type = Type.CapturingGroup;
-                value = joinComments(re.subs);
+                b.append("capturing group (").append(joinComments(re.subs)).append(")");
                 break;
             case LEFT_PAREN:
-                type = Type.CapturingGroupStart;
+                b.append("capturing group");
                 break;
             case STAR:
             case PLUS:
             case QUEST:
-                type = Type.Quantifier;
+                b.append("quantifier");
                 break;
         }
 
@@ -207,56 +206,5 @@ public class Track {
         }
 
         return value.toString();
-    }
-
-    private String buildComments() {
-        StringBuilder b = new StringBuilder();
-
-        switch (type) {
-            case String:
-                b.append("string ");
-                b.append("\"");
-                b.append(value);
-                b.append("\"");
-                break;
-            case Literal:
-                b.append("literal ");
-                b.append("'");
-                b.append(value);
-                b.append("'");
-                break;
-            case DotAll:
-                b.append("any characters including \"\\n\"");
-                break;
-            case DotInLine:
-                b.append("any characters excluding \"\\n\"");
-                break;
-            case Seq:
-                b.append("sequence [").append(value).append("]");
-                break;
-            case Alternation:
-                b.append("alternation of [").append(value).append("]");
-                break;
-            case VerticalBar:
-                b.append("alternation");
-                break;
-            case AnchorBeginLine:
-                b.append("line start");
-                break;
-            case CharClass:
-                b.append("character class");
-                break;
-            case CapturingGroup:
-                b.append("capturing group (").append(value).append(")");
-                break;
-            case CapturingGroupStart:
-                b.append("capturing group");
-                break;
-            case Quantifier:
-                b.append("quantifier");
-                break;
-        }
-
-        return b.toString();
     }
 }
