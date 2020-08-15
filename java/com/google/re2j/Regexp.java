@@ -182,7 +182,7 @@ class Regexp {
     return subs[subs.length-1].GetLastTrack();
   }
 
-  private void SetJoinTrack(Track track) {
+  public void SetJoinTrack(Track track) {
     joinTrack = track;
   }
 
