@@ -209,8 +209,9 @@ class Regexp {
       throw new IllegalStateException("the topmost track is already there");
     }
 
-    if (op == Op.CHAR_CLASS && joinTrack != null) {
+    if (op == Op.CHAR_CLASS) {
       // must be transformed from an alternation
+      // build from tracks
       topmostTrack = new Track(this.GetFirstTrack().Start, this.GetLastTrack().End, this);
       return;
     }
