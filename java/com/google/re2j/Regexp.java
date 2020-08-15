@@ -313,6 +313,10 @@ class Regexp {
       case CAPTURE:
         topmostTrack = new Track(this.GetFirstSubTrack().Start, this.GetLastSubTrack().End, this);
         break;
+      default:
+        if (topmostTrack != null) {
+          topmostTrack.UpdateComments(this);
+        }
     }
   }
 

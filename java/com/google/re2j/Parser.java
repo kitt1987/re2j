@@ -874,7 +874,7 @@ class Parser {
           break;
 
         case ')':
-          parseRightParen(t.pos());
+          parseRightParen(t);
           t.skip(1); // ')'
           top().SetTracks(peek, t.PopTracks());
           break;
@@ -1403,7 +1403,7 @@ class Parser {
         throw new IllegalStateException("the top regex must be alternation or char class but " + top.op);
       }
 
-      top.SetTrack(popTrack);
+      top.SetJoinTrack(popTrack);
     }
 
     int n = stack.size();
