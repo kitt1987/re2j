@@ -1210,7 +1210,7 @@ class Parser {
             op(Regexp.Op.LEFT_PAREN);
           }
           this.flags = flags;
-          t.PushNewTrack();
+          t.PushNewTrack(c);
           return;
       }
     }
