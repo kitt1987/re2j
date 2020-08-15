@@ -124,8 +124,14 @@ public class Track {
         Comments = comments;
     }
 
-    void UpdateComments(String comments) {
-        Comments = comments;
+    void UpdateComments(int rune) {
+        switch (rune) {
+            case ':':
+                Comments = ""
+                break;
+            case ')':
+                break;
+        }
     }
 
     void UpdateComments(Regexp re) {
