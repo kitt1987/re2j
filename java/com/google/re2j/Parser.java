@@ -1114,7 +1114,6 @@ class Parser {
     // so that's the one we implement.  One is enough.
     String s = t.rest();
     if (s.startsWith("(?P<")) {
-      // √ We need to parse the rest string and set to both heading and tailing tracks
       // Pull out name.
       int end = s.indexOf('>');
       if (end < 0) {
@@ -1130,6 +1129,7 @@ class Parser {
       // √ Save the name track
       Track track = t.PushNewTrack();
       track.UpdateComments("group name \"" + name + "\"");
+
       // Like ordinary capture, but named.
       Regexp re = op(Regexp.Op.LEFT_PAREN);
       re.cap = ++numCap;
@@ -1138,7 +1138,7 @@ class Parser {
       }
       re.name = name;
       // √
-      top().SetTracks(startPos, t.PopTracks());
+      top().SetTracks(t.startPos, t.PopTracks());
       return;
     }
 
