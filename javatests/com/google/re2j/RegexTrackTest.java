@@ -771,7 +771,7 @@ public class RegexTrackTest {
         for (String regexp : PARSE_TESTS.keySet()) {
             Regexp re = Parser.parse(regexp, TEST_FLAGS);
             Track[] testTracks = PARSE_TESTS.get(regexp);
-            ArrayList<Track> tracks = re.GetTracks();
+            ArrayList<Track> tracks = re.GetAllTracks();
             assertEquals(regexp, testTracks.length, tracks.size());
             for (int i = 0; i < testTracks.length; i++) {
                 assertEquals(regexp+"@"+i+":start", testTracks[i].Start, tracks.get(i).Start);

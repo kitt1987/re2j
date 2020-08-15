@@ -150,7 +150,7 @@ class Regexp {
 
     if (subs != null && subs.length > 0) {
       for (Regexp sub : subs) {
-        allTracks.addAll(sub.GetTracks());
+        allTracks.addAll(sub.GetAllTracks());
         if (joinTrack != null) {
           allTracks.add(joinTrack);
         }
@@ -165,7 +165,7 @@ class Regexp {
     return allTracks;
   }
 
-  public ArrayList<Track> GetTracks() {
+  public void GetTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
     if (op == Op.CHAR_CLASS && joinTrack != null) {
       // must be transformed from an alternation
@@ -185,7 +185,7 @@ class Regexp {
 
     if (subs != null && subs.length > 0) {
       for (Regexp sub : subs) {
-        allTracks.addAll(sub.GetTracks());
+        allTracks.addAll(sub.GetAllTracks());
         if (joinTrack != null) {
           allTracks.add(joinTrack);
         }
