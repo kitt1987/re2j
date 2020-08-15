@@ -118,10 +118,14 @@ public class Track {
         End = end;
     }
 
-    // Update type and value
     void End(int end, String comments) {
         End = end;
         Comments = comments;
+    }
+
+    void End(int end, int rune) {
+        End = end;
+        UpdateComments(rune);
     }
 
     void UpdateComments(int rune) {
