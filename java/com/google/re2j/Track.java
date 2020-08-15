@@ -40,11 +40,11 @@ public class Track {
     static final HashMap<String, String> PERL_GROUPS = new HashMap<String, String>();
     static {
         PERL_GROUPS.put("\\d", "Digits shorthand");
-        PERL_GROUPS.put("\\D", "Non-digits shorthand");
-        PERL_GROUPS.put("\\s", "Whitespace shorthand");
-        PERL_GROUPS.put("\\S", "Non-whitespace shorthand");
-        PERL_GROUPS.put("\\w", "Word character shorthand");
-        PERL_GROUPS.put("\\W", new CharGroup(-1, code3));
+        PERL_GROUPS.put("\\D", "non-digits shorthand");
+        PERL_GROUPS.put("\\s", "whitespace shorthand");
+        PERL_GROUPS.put("\\S", "non-whitespace shorthand");
+        PERL_GROUPS.put("\\w", "word character shorthand");
+        PERL_GROUPS.put("\\W", "non-word character shorthand");
     }
 
     public int Start;
