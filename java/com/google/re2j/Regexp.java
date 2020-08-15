@@ -222,6 +222,7 @@ class Regexp {
       case CONCAT:
       case CAPTURE:
       case REPEAT:
+      case LEFT_PAREN:
         switch (rune) {
           case '(':
           case '[':
