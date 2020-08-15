@@ -1728,16 +1728,13 @@ class Parser {
     if (t.more() && t.lookingAt('^')) {
       sign = -1;
       t.skip(1); // '^'
-      t.PushNewTrack("negated character class");
+      t.PushNewTrack("negated");
 
       // If character class does not match \n, add it here,
       // so that negation later will do the right thing.
       if ((flags & RE2.CLASS_NL) == 0) {
         cc.appendRange('\n', '\n');
       }
-
-      // √ the "sign" should also be tracked.
-      t.PushNewTrack();
     }
 
     boolean first = true; // ']' and '-' are okay as first char in class
