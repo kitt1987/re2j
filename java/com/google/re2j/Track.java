@@ -51,86 +51,13 @@ public class Track {
     public int End;
     public String Comments;
 
-    static Track BuildCapturingEndTrack(int start) {
-        return new Track(start, start+1, "capturing group end");
-    }
-
-    static Track BuildCaptureTopTrack(Regexp re) {
-        ArrayList<Track> tracks = re.GetRawTracks();
-        if (tracks.size() != 2) {
-            throw new IllegalStateException("count of self tracks of capture must be 2");
-        }
-
-        Track track = new Track(tracks.get(0).Start);
-        track.Freeze(tracks.get(1).End, re);
-        return track;
-    }
-
-    static ArrayList<Track> FilterOnlyLiteral(ArrayList<Track> sortedLiterals) {
-        int lastLiteralPos = 0;
-        for (int i = 0; i < sortedLiterals.size(); i++) {
-            Track e = sortedLiterals.get(i);
-            if (e.type != Type.Literal) {
-                continue;
-            }
-
-            if (i != lastLiteralPos) {
-                sortedLiterals.set(lastLiteralPos, e);
-            }
-
-            lastLiteralPos++;
-        }
-
-        for (; lastLiteralPos < sortedLiterals.size(); lastLiteralPos++) {
-            sortedLiterals.remove(sortedLiterals);
-        }
-
-        return sortedLiterals;
-    }
-
-    static Track ConcatOnlyLiterals(ArrayList<Track> sortedLiterals) {
-        if (sortedLiterals.size() == 1) {
-            return sortedLiterals.get(0);
-        }
-
-        Track track = new Track(sortedLiterals.get(0).Start);
-        track.type = Type.String;
-
-        for (Track e : sortedLiterals) {
-//            if (e.type == Type.String) {
-//                continue;
-//            }
-
-            if (e.type != Type.Literal) {
-                throw new IllegalStateException("must be literal but " + e.type.name());
-            }
-            track.value += e.value;
-        }
-
-        track.Comments = track.buildComments();
-        track.Freeze(sortedLiterals.get(sortedLiterals.size()-1).End, 0);
-        return track;
-    }
-
-    static ArrayList<Track> ConcatOnlyLiterals(ArrayList<Track> dst, ArrayList<Track> src) {
-        if (dst.get(0).type == Type.String) {
-            dst.remove(0);
-        }
-
-        dst.addAll(Track.FilterOnlyLiteral(src));
-        dst.add(0, Track.ConcatOnlyLiterals(dst));
-        return dst;
-    }
-
-    static Track CombineSubTracks(Regexp re) {
-        ArrayList<Track> firstTracks = re.subs[0].GetTracks();
-        ArrayList<Track> lastTracks = re.subs[re.subs.length-1].GetTracks();
-        Track track = new Track(firstTracks.get(0).Start);
-        track.Freeze(lastTracks.get(0).End, re);
-        return track;
-    }
-
     Track() {
+    }
+
+    Track(int start, int end, String comments) {
+        Start = start;
+        End = end;
+        Comments = comments;
     }
 
     Track(int start) {
