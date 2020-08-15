@@ -64,6 +64,7 @@ class Regexp {
   // Do update copy ctor when adding new fields!
 
   // Tracks from StringIterator
+  private Track topmostTrack;
   private ArrayList<Track> headingTracks;
   private ArrayList<Track> tailingTracks;
   private Track joinTrack;
@@ -142,7 +143,12 @@ class Regexp {
   }
 
   public ArrayList<Track> GetAllTracks() {
-    ArrayList<Track> allTracks = new ArrayList<Track>(this.headingTracks);
+    ArrayList<Track> allTracks = new ArrayList<Track>();
+    if (topmostTrack != null) {
+      allTracks.add(topmostTrack);
+    }
+
+    allTracks.addAll(this.headingTracks);
 
     if (subs != null && subs.length > 0) {
       for (Regexp sub : subs) {
