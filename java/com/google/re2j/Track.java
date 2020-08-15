@@ -37,6 +37,16 @@ public class Track {
         POSIX_GROUPS.put("[:^xdigit:]", new CharGroup(-1, code17));
     }
 
+    static final HashMap<String, String> PERL_GROUPS = new HashMap<String, String>();
+    static {
+        PERL_GROUPS.put("\\d", new CharGroup(+1, code1));
+        PERL_GROUPS.put("\\D", new CharGroup(-1, code1));
+        PERL_GROUPS.put("\\s", new CharGroup(+1, code2));
+        PERL_GROUPS.put("\\S", new CharGroup(-1, code2));
+        PERL_GROUPS.put("\\w", new CharGroup(+1, code3));
+        PERL_GROUPS.put("\\W", new CharGroup(-1, code3));
+    }
+
     public int Start;
     public int End;
     public String Comments;

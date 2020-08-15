@@ -1583,7 +1583,7 @@ class Parser {
       return false;
     }
     cc.appendGroup(g, (flags & RE2.FOLD_CASE) != 0);
-    t.PushNewTrack("Perl ");
+    t.PushNewTrack("character class " + );
     return true;
   }
 
