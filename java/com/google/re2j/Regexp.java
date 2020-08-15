@@ -96,41 +96,41 @@ class Regexp {
     name = null;
   }
 
-  public void SetTracks(ArrayList<Track> tracks) {
-    if (this.tracks != null) {
-      throw new IllegalStateException("tracks are already set");
-    }
-
-    this.tracks = tracks;
-  }
-
-  public void SetTrack(Track track) {
-    if (this.tracks != null) {
-      throw new IllegalStateException("tracks are already set");
-    }
-
-    this.tracks = new ArrayList<Track>();
-    this.tracks.add(track);
-  }
-
-  public void PutTrack(Track track) {
-    this.tracks.add(0, track);
-  }
-
-  public void AppendTrack(Track track) {
-    this.tracks.add(track);
-  }
-
-  public void OverrideTracks(ArrayList<Track> tracks) {
-    this.tracks = tracks;
-  }
-
-  public void AddTracks(ArrayList<Track> tracks) {
-    this.tracks.addAll(tracks);
-  }
+//  public void SetTracks(ArrayList<Track> tracks) {
+//    if (this.tracks != null) {
+//      throw new IllegalStateException("tracks are already set");
+//    }
+//
+//    this.tracks = tracks;
+//  }
+//
+//  public void SetTrack(Track track) {
+//    if (this.tracks != null) {
+//      throw new IllegalStateException("tracks are already set");
+//    }
+//
+//    this.tracks = new ArrayList<Track>();
+//    this.tracks.add(track);
+//  }
+//
+//  public void PutTrack(Track track) {
+//    this.tracks.add(0, track);
+//  }
+//
+//  public void AppendTrack(Track track) {
+//    this.tracks.add(track);
+//  }
+//
+//  public void OverrideTracks(ArrayList<Track> tracks) {
+//    this.tracks = tracks;
+//  }
+//
+//  public void AddTracks(ArrayList<Track> tracks) {
+//    this.tracks.addAll(tracks);
+//  }
 
   public Track GetTopTrack() {
-    return this.tracks.get(0);
+    return this.headingTracks.get(0);
   }
 
   public void SetJoinTrack(Track track) {
@@ -139,10 +139,6 @@ class Regexp {
 
   public boolean HasJoinTrack() {
     return joinTrack != null;
-  }
-
-  public ArrayList<Track> GetRawTracks() {
-    return this.tracks;
   }
 
   public ArrayList<Track> GetAllTracks() {
@@ -165,8 +161,7 @@ class Regexp {
     return allTracks;
   }
 
-  public void GetTracks() {
-    ArrayList<Track> allTracks = new ArrayList<Track>();
+  public void SetTracks() {
     if (op == Op.CHAR_CLASS && joinTrack != null) {
       // must be transformed from an alternation
       Track top = new Track(this.tracks.get(0).Start);
@@ -180,7 +175,7 @@ class Regexp {
       allTracks.remove(allTracks.size()-1);
       allTracks.add(0, top);
 
-      return allTracks;
+      return;
     }
 
     if (subs != null && subs.length > 0) {
