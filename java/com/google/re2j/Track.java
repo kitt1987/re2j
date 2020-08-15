@@ -1,21 +1,40 @@
 package com.google.re2j;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Track {
-    enum Type {
-        String,
-        Literal,
-        DotAll,
-        DotInLine,
-        Seq,
-        Alternation,
-        VerticalBar,
-        AnchorBeginLine,
-        CharClass,
-        CapturingGroup,
-        CapturingGroupStart,
-        Quantifier,
+    static final HashMap<String, String> POSIX_GROUPS = new HashMap<String, String>();
+
+    static {
+        POSIX_GROUPS.put("[:alnum:]", new CharGroup(+1, code4));
+        POSIX_GROUPS.put("[:^alnum:]", new CharGroup(-1, code4));
+        POSIX_GROUPS.put("[:alpha:]", new CharGroup(+1, code5));
+        POSIX_GROUPS.put("[:^alpha:]", new CharGroup(-1, code5));
+        POSIX_GROUPS.put("[:ascii:]", new CharGroup(+1, code6));
+        POSIX_GROUPS.put("[:^ascii:]", new CharGroup(-1, code6));
+        POSIX_GROUPS.put("[:blank:]", new CharGroup(+1, code7));
+        POSIX_GROUPS.put("[:^blank:]", new CharGroup(-1, code7));
+        POSIX_GROUPS.put("[:cntrl:]", new CharGroup(+1, code8));
+        POSIX_GROUPS.put("[:^cntrl:]", new CharGroup(-1, code8));
+        POSIX_GROUPS.put("[:digit:]", new CharGroup(+1, code9));
+        POSIX_GROUPS.put("[:^digit:]", new CharGroup(-1, code9));
+        POSIX_GROUPS.put("[:graph:]", new CharGroup(+1, code10));
+        POSIX_GROUPS.put("[:^graph:]", new CharGroup(-1, code10));
+        POSIX_GROUPS.put("[:lower:]", new CharGroup(+1, code11));
+        POSIX_GROUPS.put("[:^lower:]", new CharGroup(-1, code11));
+        POSIX_GROUPS.put("[:print:]", new CharGroup(+1, code12));
+        POSIX_GROUPS.put("[:^print:]", new CharGroup(-1, code12));
+        POSIX_GROUPS.put("[:punct:]", new CharGroup(+1, code13));
+        POSIX_GROUPS.put("[:^punct:]", new CharGroup(-1, code13));
+        POSIX_GROUPS.put("[:space:]", new CharGroup(+1, code14));
+        POSIX_GROUPS.put("[:^space:]", new CharGroup(-1, code14));
+        POSIX_GROUPS.put("[:upper:]", new CharGroup(+1, code15));
+        POSIX_GROUPS.put("[:^upper:]", new CharGroup(-1, code15));
+        POSIX_GROUPS.put("[:word:]", new CharGroup(+1, code16));
+        POSIX_GROUPS.put("[:^word:]", new CharGroup(-1, code16));
+        POSIX_GROUPS.put("[:xdigit:]", new CharGroup(+1, code17));
+        POSIX_GROUPS.put("[:^xdigit:]", new CharGroup(-1, code17));
     }
 
     public int Start;
