@@ -200,6 +200,18 @@ class Regexp {
     BuildTopmostTrack();
   }
 
+  public void SetTracks(int rune, ArrayList<Track> tracks) {
+    switch (rune) {
+      case '(':
+      case '[':
+      case '{':
+        SetHeadingTracks(tracks);
+        break;
+      default:
+        SetTailingTracks(tracks);
+    }
+  }
+
   public ArrayList<Track> GetAllTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
     // put the top most track

@@ -836,7 +836,7 @@ class Parser {
       switch (t.peek()) {
         default:
           literal(t.pop());
-          fixTracks(t);
+          top().SetTailingTracks(t.PopTracks());
           break;
 
         case '(':
@@ -847,13 +847,13 @@ class Parser {
           }
           op(Regexp.Op.LEFT_PAREN).cap = ++numCap;
           t.skip(1); // '('
-          fixTracks(t);
+          top().SetTailingTracks(t.PopTracks());
           break;
 
         case '|':
           parseVerticalBar();
           t.skip(1); // '|'
-          fixTracks(t);
+          top().SetTailingTracks(t.PopTracks());
           break;
 
         case ')':
@@ -869,7 +869,7 @@ class Parser {
             op(Regexp.Op.BEGIN_LINE);
           }
           t.skip(1); // '^'
-          fixTracks(t);
+          top().SetTailingTracks(t.PopTracks());
           break;
 
         case '$':
@@ -879,7 +879,7 @@ class Parser {
             op(Regexp.Op.END_LINE);
           }
           t.skip(1); // '$'
-          fixTracks(t);
+          top().SetTailingTracks(t.PopTracks());
           break;
 
         case '.':
@@ -889,12 +889,12 @@ class Parser {
             op(Regexp.Op.ANY_CHAR_NOT_NL);
           }
           t.skip(1); // '.'
-          fixTracks(t);
+          top().SetTailingTracks(t.PopTracks());
           break;
 
         case '[':
           parseClass(t);
-          fixTracks(t);
+          top().SetHeadingTracks(t.PopTracks());
           break;
 
         case '*':
@@ -915,7 +915,7 @@ class Parser {
                 break;
             }
             repeat(op, min, max, repeatPos, t, lastRepeatPos);
-            fixTracks(t);
+            top().SetTailingTracks(t.PopTracks());
             // (min and max are now dead.)
             break;
           }
@@ -927,13 +927,13 @@ class Parser {
               // If the repeat cannot be parsed, { is a literal.
               t.rewindTo(repeatPos);
               literal(t.pop()); // '{'
-              fixTracks(t);
+              top().SetHeadingTracks(t.PopTracks());
               break;
             }
             min = minMax >> 16;
             max = (short) (minMax & 0xffff); // sign extend
             repeat(Regexp.Op.REPEAT, min, max, repeatPos, t, lastRepeatPos);
-            fixTracks(t);
+            top().SetHeadingTracks(t.PopTracks());
             break;
           }
 
