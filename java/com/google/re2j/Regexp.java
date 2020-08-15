@@ -146,7 +146,23 @@ class Regexp {
   }
 
   public ArrayList<Track> GetAllTracks() {
+    ArrayList<Track> allTracks = new ArrayList<Track>(this.headingTracks);
 
+    if (subs != null && subs.length > 0) {
+      for (Regexp sub : subs) {
+        allTracks.addAll(sub.GetTracks());
+        if (joinTrack != null) {
+          allTracks.add(joinTrack);
+        }
+      }
+
+      if (joinTrack != null) {
+        allTracks.remove(allTracks.size()-1);
+      }
+    }
+
+    allTracks.addAll(this.tailingTracks);
+    return allTracks;
   }
 
   public ArrayList<Track> GetTracks() {
