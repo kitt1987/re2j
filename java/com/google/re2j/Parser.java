@@ -727,9 +727,11 @@ class Parser {
       return pop;
     }
 
-    void PushNewTrack() {
-      tracks.get(tracks.size()-1).End(pos);
+    Track PushNewTrack() {
+      Track last = tracks.get(tracks.size()-1);
+      last.End(pos);
       this.tracks.add(new Track(pos));
+      return last;
     }
 
     private void initTracks() {
