@@ -853,7 +853,7 @@ class Parser {
             throw new IllegalStateException("a literal regex must have only 1 track");
           }
 
-          top().OverrideTopmostTrack(tracks.get(0));
+          top().SetTracks(peek, tracks);
           break;
 
         case '(':
