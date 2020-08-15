@@ -1143,6 +1143,8 @@ class Parser {
 
     // Non-capturing group.  Might also twiddle Perl flags.
     t.skip(2); // "(?"
+    // √ Save the flag track
+    t.PushNewTrack("group name \"" + name + "\"");
     int flags = this.flags;
     int sign = +1;
     boolean sawFlag = false;
