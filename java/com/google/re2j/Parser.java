@@ -1159,14 +1159,17 @@ class Parser {
         case 'i':
           flags |= RE2.FOLD_CASE;
           sawFlag = true;
+          t.PushNewTrack("case insensitive");
           break;
         case 'm':
           flags &= ~RE2.ONE_LINE;
           sawFlag = true;
+          t.PushNewTrack("multiline");
           break;
         case 's':
           flags |= RE2.DOT_NL;
           sawFlag = true;
+          t.PushNewTrack("case insensitive");
           break;
         case 'U':
           flags |= RE2.NON_GREEDY;
