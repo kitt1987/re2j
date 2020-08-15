@@ -23,7 +23,7 @@ public class Track {
     public String Comments;
 
     private Type type;
-    private String[] value;
+    private String value;
 
     static Track BuildCapturingEndTrack(int start) {
         return new Track(start, start+1, "capturing group end");
@@ -131,10 +131,10 @@ public class Track {
                     for (int r : re.runes) {
                         b.appendCodePoint(r);
                     }
-                    value = new String[]{b.toString()};
+                    value = b.toString();
                 } else {
                     type = Type.Literal;
-                    value = new String[]{Utils.runeToString(re.runes[0])};
+                    value = Utils.runeToString(re.runes[0]);
                 }
 
                 break;
