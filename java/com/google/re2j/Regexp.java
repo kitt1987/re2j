@@ -238,6 +238,10 @@ class Regexp {
       throw new IllegalStateException("heading tracks of literal regexp must be empty");
     }
 
+    if (tailingTracks != null) {
+      throw new IllegalStateException("tailing tracks of literal regexp must be empty");
+    }
+
     if (re.subs.length > 0) {
       throw new IllegalStateException("literal regexp must have no sub regexps");
     }
