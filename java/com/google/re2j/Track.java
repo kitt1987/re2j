@@ -92,6 +92,9 @@ public class Track {
             case ')':
                 Comments = "group end";
                 break;
+            case '(':
+                Comments = "capturing group";
+                break;
         }
     }
 
