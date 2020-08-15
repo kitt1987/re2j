@@ -859,6 +859,7 @@ class Parser {
         case ')':
           parseRightParen(t.pos());
           t.skip(1); // ')'
+          top().SetHeadingTracks();
           t.PopTracks()
           break;
 

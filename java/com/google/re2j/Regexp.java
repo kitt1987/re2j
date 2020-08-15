@@ -190,6 +190,14 @@ class Regexp {
     headingTracks = tracks;
   }
 
+  public void SetTailingTracks(ArrayList<Track> tracks) {
+    if (tailingTracks != null) {
+      throw new IllegalStateException("Heading tracks are already there");
+    }
+
+    tailingTracks = tracks;
+  }
+
   public ArrayList<Track> GetAllTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
     // put the top most track
