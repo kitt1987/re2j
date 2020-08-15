@@ -120,11 +120,13 @@ public class Track {
     }
 
     void UpdateComments(Regexp re) {
+        StringBuilder b = new StringBuilder();
+
         switch (re.op) {
             case LITERAL:
                 if (re.runes.length > 1) {
-                    type = Type.String;
-                    StringBuilder b = new StringBuilder();
+                    b.append("string ");
+
                     for (int r : re.runes) {
                         b.appendCodePoint(r);
                     }
