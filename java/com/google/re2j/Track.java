@@ -108,14 +108,12 @@ public class Track {
         Start = start;
     }
 
-    // Update type, value and calculate the top most Track
-    void Close(int end, Regexp re) {
+    void End(int end) {
         End = end;
-        UpdateComments(re);
     }
 
     // Update type and value
-    void Close(int end, String text) {
+    void End(int end, String text) {
         End = end;
     }
 

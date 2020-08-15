@@ -723,14 +723,14 @@ class Parser {
     }
 
     ArrayList<Track> PopTracks() {
-      tracks.get(tracks.size()-1).Close(pos);
+      tracks.get(tracks.size()-1).End(pos);
       ArrayList<Track> pop = tracks;
       initTracks();
       return pop;
     }
 
     void PushNewTrack() {
-      tracks.get(tracks.size()-1).Close(pos);
+      tracks.get(tracks.size()-1).End(pos);
       this.tracks.add(new Track(pos));
     }
 
