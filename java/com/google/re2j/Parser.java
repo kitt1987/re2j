@@ -1174,7 +1174,7 @@ class Parser {
         case 'U':
           flags |= RE2.NON_GREEDY;
           sawFlag = true;
-          t.PushNewTrack("dot matches line breaks");
+          t.PushNewTrack("non-greedy");
           break;
 
           // Switch to negation.
