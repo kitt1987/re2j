@@ -1661,7 +1661,12 @@ class Parser {
     }
 
     // √ the "sign"
-    t.PushNewTrack();
+    if (c == 'p') {
+      t.PushNewTrack();
+    } else {
+
+    }
+
 
     c = t.pop();
     String name;
