@@ -727,7 +727,7 @@ class Parser {
         return null;
       }
 
-      last.End(pos, str.codePointAt(pos));
+      last.End(pos, str.codePointAt(last.Start));
       ArrayList<Track> pop = tracks;
       initTracks();
       return pop;
