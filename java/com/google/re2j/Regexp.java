@@ -143,6 +143,10 @@ class Regexp {
     return this.tracks;
   }
 
+  public ArrayList<Track> GetAllTracks() {
+
+  }
+
   public ArrayList<Track> GetTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
     if (op == Op.CHAR_CLASS && joinTrack != null) {
