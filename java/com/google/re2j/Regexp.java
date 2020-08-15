@@ -272,6 +272,10 @@ class Regexp {
   }
 
   public void BuildTopmostTrack() {
+    if (topmostOverridden) {
+      throw new IllegalStateException("the topmost track has been overridden");
+    }
+
     switch (op) {
       case CHAR_CLASS:
         // must be transformed from an alternation
