@@ -23,7 +23,7 @@ public class Track {
         POSIX_GROUPS.put("[:^graph:]", new CharGroup(-1, code10));
         POSIX_GROUPS.put("[:lower:]", "lowercase letters");
         POSIX_GROUPS.put("[:^lower:]", new CharGroup(-1, code11));
-        POSIX_GROUPS.put("[:print:]", new CharGroup(+1, code12));
+        POSIX_GROUPS.put("[:print:]", "visible characters and spaces");
         POSIX_GROUPS.put("[:^print:]", new CharGroup(-1, code12));
         POSIX_GROUPS.put("[:punct:]", new CharGroup(+1, code13));
         POSIX_GROUPS.put("[:^punct:]", new CharGroup(-1, code13));
