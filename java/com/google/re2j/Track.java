@@ -142,10 +142,10 @@ public class Track {
                     for (int r : re.runes) {
                         b.appendCodePoint(r);
                     }
-                    value = b.toString();
+                    value = new String[]{b.toString()};
                 } else {
                     type = Type.Literal;
-                    value = Utils.runeToString(re.runes[0]);
+                    value = new String[]{Utils.runeToString(re.runes[0])};
                 }
 
                 break;
