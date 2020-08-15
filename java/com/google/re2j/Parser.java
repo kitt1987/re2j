@@ -1793,9 +1793,13 @@ class Parser {
         }
       }
       if ((flags & RE2.FOLD_CASE) == 0) {
+        // FIXME parse the range
+        // √ parse the range
         t.PushNewTrack("character class range " + Utils.runeToString(lo) + " to " + Utils.runeToString(hi));
         cc.appendRange(lo, hi);
       } else {
+        // FIXME parse the range
+        // √ parse the range
         t.PushNewTrack("character class range " + Utils.runeToString(lo) + " to " + Utils.runeToString(hi));
         cc.appendFoldedRange(lo, hi);
       }
