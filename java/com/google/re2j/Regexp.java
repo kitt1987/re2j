@@ -192,7 +192,7 @@ class Regexp {
 
   public void SetTailingTracks(ArrayList<Track> tracks) {
     if (tailingTracks != null) {
-      throw new IllegalStateException("Heading tracks are already there");
+      throw new IllegalStateException("Tailing tracks are already there");
     }
 
     tailingTracks = tracks;
