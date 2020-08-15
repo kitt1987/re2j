@@ -261,7 +261,7 @@ class Parser {
 
   // concat replaces the top of the stack (above the topmost '|' or '(') with
   // its concatenation.
-  private Regexp concat() {
+  private Regexp concat(StringIterator t) {
     maybeConcat(-1, 0);
 
     // Scan down to find pseudo-operator | or (.
@@ -269,6 +269,7 @@ class Parser {
 
     // Empty concatenation is special case.
     if (subs.length == 0) {
+      t.PushNewTrack("match empty");
       return push(newRegexp(Regexp.Op.EMPTY_MATCH));
     }
 
@@ -342,7 +343,7 @@ class Parser {
     }
     Regexp re = newRegexp(op);
     re.subs = newsubs;
-    re.SetTrack(Track.CombineSubTracks(re));
+    re.BuildTopmostTrack();
 
     if (op == Regexp.Op.ALTERNATE) {
       re.subs = factor(re.subs, re.flags);
@@ -862,7 +863,7 @@ class Parser {
           break;
 
         case '|':
-          parseVerticalBar();
+          parseVerticalBar(t);
           t.skip(1); // '|'
           top().SetTracks(peek, t.PopTracks());
           break;
@@ -1284,8 +1285,9 @@ class Parser {
   }
 
   // parseVerticalBar handles a | in the input.
-  private void parseVerticalBar() {
-    concat();
+  private void parseVerticalBar(StringIterator t) {
+    concat(t);
+    top().SetTracks(0, t.PopTracks());
 
     // The concatenation we just parsed is on top of the stack.
     // If it sits above an opVerticalBar, swap it below
