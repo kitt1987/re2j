@@ -1164,7 +1164,7 @@ class Parser {
         case 'm':
           flags &= ~RE2.ONE_LINE;
           sawFlag = true;
-          t.PushNewTrack("multiline");
+          t.PushNewTrack("single line");
           break;
         case 's':
           flags |= RE2.DOT_NL;
