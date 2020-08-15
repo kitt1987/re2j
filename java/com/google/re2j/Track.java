@@ -8,33 +8,33 @@ public class Track {
 
     static {
         POSIX_GROUPS.put("[:alnum:]", "alphanumeric characters");
-        POSIX_GROUPS.put("[:^alnum:]", "alphanumeric characters");
+        POSIX_GROUPS.put("[:^alnum:]", "negated alphanumeric characters");
         POSIX_GROUPS.put("[:alpha:]", "alphabetic characters");
-        POSIX_GROUPS.put("[:^alpha:]", new CharGroup(-1, code5));
+        POSIX_GROUPS.put("[:^alpha:]", "negated alphabetic characters");
         POSIX_GROUPS.put("[:ascii:]", "ASCII characters");
-        POSIX_GROUPS.put("[:^ascii:]", new CharGroup(-1, code6));
+        POSIX_GROUPS.put("[:^ascii:]", "negated ASCII characters");
         POSIX_GROUPS.put("[:blank:]", "space and tab");
-        POSIX_GROUPS.put("[:^blank:]", new CharGroup(-1, code7));
+        POSIX_GROUPS.put("[:^blank:]", "negated space and tab");
         POSIX_GROUPS.put("[:cntrl:]", "control characters");
-        POSIX_GROUPS.put("[:^cntrl:]", new CharGroup(-1, code8));
+        POSIX_GROUPS.put("[:^cntrl:]", "negated control characters");
         POSIX_GROUPS.put("[:digit:]", "digits");
-        POSIX_GROUPS.put("[:^digit:]", new CharGroup(-1, code9));
+        POSIX_GROUPS.put("[:^digit:]", "negated digits");
         POSIX_GROUPS.put("[:graph:]", "visible characters");
-        POSIX_GROUPS.put("[:^graph:]", new CharGroup(-1, code10));
+        POSIX_GROUPS.put("[:^graph:]", "negated visible characters");
         POSIX_GROUPS.put("[:lower:]", "lowercase letters");
-        POSIX_GROUPS.put("[:^lower:]", new CharGroup(-1, code11));
+        POSIX_GROUPS.put("[:^lower:]", "negated lowercase letters");
         POSIX_GROUPS.put("[:print:]", "visible characters and spaces");
-        POSIX_GROUPS.put("[:^print:]", new CharGroup(-1, code12));
+        POSIX_GROUPS.put("[:^print:]", "negated visible characters and spaces");
         POSIX_GROUPS.put("[:punct:]", "punctuation");
-        POSIX_GROUPS.put("[:^punct:]", new CharGroup(-1, code13));
+        POSIX_GROUPS.put("[:^punct:]", "negated punctuation");
         POSIX_GROUPS.put("[:space:]", "whitespace characters, including line breaks");
-        POSIX_GROUPS.put("[:^space:]", new CharGroup(-1, code14));
+        POSIX_GROUPS.put("[:^space:]", "negated whitespace characters, including line breaks");
         POSIX_GROUPS.put("[:upper:]", "uppercase letters");
-        POSIX_GROUPS.put("[:^upper:]", new CharGroup(-1, code15));
+        POSIX_GROUPS.put("[:^upper:]", "negated uppercase letters");
         POSIX_GROUPS.put("[:word:]", "word characters");
-        POSIX_GROUPS.put("[:^word:]", new CharGroup(-1, code16));
+        POSIX_GROUPS.put("[:^word:]", "negated word characters");
         POSIX_GROUPS.put("[:xdigit:]", "hexadecimal digits");
-        POSIX_GROUPS.put("[:^xdigit:]", new CharGroup(-1, code17));
+        POSIX_GROUPS.put("[:^xdigit:]", "negated hexadecimal digits");
     }
 
     static final HashMap<String, String> PERL_GROUPS = new HashMap<String, String>();
