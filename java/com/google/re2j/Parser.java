@@ -1806,6 +1806,7 @@ class Parser {
 
     }
     t.skip(1); // ']'
+    t.PushNewTrack("character class end");
 
     cc.cleanClass();
     if (sign < 0) {
