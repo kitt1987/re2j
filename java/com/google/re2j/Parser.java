@@ -1583,7 +1583,7 @@ class Parser {
       return false;
     }
     cc.appendGroup(g, (flags & RE2.FOLD_CASE) != 0);
-    t.PushNewTrack("character class " + );
+    t.PushNewTrack("character class " + Track.PERL_GROUPS.get(t.from(beforePos)));
     return true;
   }
 
