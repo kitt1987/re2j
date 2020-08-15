@@ -15,7 +15,7 @@ public class Track {
         POSIX_GROUPS.put("[:^ascii:]", new CharGroup(-1, code6));
         POSIX_GROUPS.put("[:blank:]", "space and tab");
         POSIX_GROUPS.put("[:^blank:]", new CharGroup(-1, code7));
-        POSIX_GROUPS.put("[:cntrl:]", new CharGroup(+1, code8));
+        POSIX_GROUPS.put("[:cntrl:]", "control characters");
         POSIX_GROUPS.put("[:^cntrl:]", new CharGroup(-1, code8));
         POSIX_GROUPS.put("[:digit:]", new CharGroup(+1, code9));
         POSIX_GROUPS.put("[:^digit:]", new CharGroup(-1, code9));
