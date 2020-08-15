@@ -211,9 +211,7 @@ class Regexp {
 
     if (op == Op.CHAR_CLASS && joinTrack != null) {
       // must be transformed from an alternation
-      Track top = new Track(this.tracks.get(0).Start);
-      top.Freeze(this.tracks.get(this.tracks.size()-1).End, this);
-
+      topmostTrack = new Track(this.GetFirstTrack().Start, this.GetLastTrack().End, this);
       return;
     }
 
