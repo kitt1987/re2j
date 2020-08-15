@@ -220,6 +220,13 @@ class Regexp {
       case CONCAT:
       case CAPTURE:
       case REPEAT:
+        break;
+      default:
+        if (tracks.size() != 1) {
+          throw new IllegalStateException("regex must have only one track but " + tracks.size());
+        }
+
+        OverrideTopmostTrack(tracks.get(0));
     }
 
     switch (rune) {
