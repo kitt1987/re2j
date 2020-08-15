@@ -1169,7 +1169,7 @@ class Parser {
         case 's':
           flags |= RE2.DOT_NL;
           sawFlag = true;
-          t.PushNewTrack("case insensitive");
+          t.PushNewTrack("dot matches line breaks");
           break;
         case 'U':
           flags |= RE2.NON_GREEDY;
