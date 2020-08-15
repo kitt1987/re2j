@@ -25,7 +25,7 @@ public class Track {
         POSIX_GROUPS.put("[:^lower:]", new CharGroup(-1, code11));
         POSIX_GROUPS.put("[:print:]", "visible characters and spaces");
         POSIX_GROUPS.put("[:^print:]", new CharGroup(-1, code12));
-        POSIX_GROUPS.put("[:punct:]", new CharGroup(+1, code13));
+        POSIX_GROUPS.put("[:punct:]", "punctuation");
         POSIX_GROUPS.put("[:^punct:]", new CharGroup(-1, code13));
         POSIX_GROUPS.put("[:space:]", new CharGroup(+1, code14));
         POSIX_GROUPS.put("[:^space:]", new CharGroup(-1, code14));
