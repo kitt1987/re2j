@@ -1387,8 +1387,8 @@ class Parser {
   }
 
   // parseRightParen handles a ')' in the input.
-  private void parseRightParen(int pos) throws PatternSyntaxException {
-    concat();
+  private void parseRightParen(StringIterator t) throws PatternSyntaxException {
+    concat(t);
 
     Track popTrack = null;
     if (swapVerticalBar()) {

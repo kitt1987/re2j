@@ -218,7 +218,7 @@ class Regexp {
     if (tracks == null) {
       return;
     }
-    
+
     switch (op) {
       case ALTERNATE:
       case CONCAT:
