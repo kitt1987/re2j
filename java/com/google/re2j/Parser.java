@@ -1664,7 +1664,7 @@ class Parser {
     if (c == 'p') {
       t.PushNewTrack("unicode category");
     } else {
-      t.PushNewTrack("unicode category");
+      t.PushNewTrack("negated unicode category");
     }
 
 
