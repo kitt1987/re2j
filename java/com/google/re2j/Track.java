@@ -33,7 +33,7 @@ public class Track {
         POSIX_GROUPS.put("[:^upper:]", new CharGroup(-1, code15));
         POSIX_GROUPS.put("[:word:]", "word characters");
         POSIX_GROUPS.put("[:^word:]", new CharGroup(-1, code16));
-        POSIX_GROUPS.put("[:xdigit:]", new CharGroup(+1, code17));
+        POSIX_GROUPS.put("[:xdigit:]", "hexadecimal digits");
         POSIX_GROUPS.put("[:^xdigit:]", new CharGroup(-1, code17));
     }
 
