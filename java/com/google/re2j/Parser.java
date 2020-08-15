@@ -1174,7 +1174,7 @@ class Parser {
         case 'U':
           flags |= RE2.NON_GREEDY;
           sawFlag = true;
-          t.PushNewTrack("non-greedy");
+          t.PushNewTrack("ungreedy quantifiers");
           break;
 
           // Switch to negation.
