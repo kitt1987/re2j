@@ -231,10 +231,6 @@ class Regexp {
   }
 
   public void BuildTopmostTrack() {
-    if (topmostTrack != null) {
-      throw new IllegalStateException("the topmost track is already there");
-    }
-
     switch (op) {
       case CHAR_CLASS:
         // must be transformed from an alternation
