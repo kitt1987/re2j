@@ -1127,6 +1127,7 @@ class Parser {
         throw new PatternSyntaxException(ERR_DUPLICATE_NAMED_CAPTURE, name);
       }
       re.name = name;
+      // √
       top().SetTracks(startPos, t.PopTracks());
       return;
     }
@@ -1185,6 +1186,7 @@ class Parser {
           if (c == ':') {
             // Open new group
             op(Regexp.Op.LEFT_PAREN);
+            //√ 
             top().SetTracks(startPos, t.PopTracks());
           }
           this.flags = flags;
