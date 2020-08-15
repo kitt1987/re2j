@@ -1719,6 +1719,7 @@ class Parser {
   private void parseClass(StringIterator t) throws PatternSyntaxException {
     int startPos = t.pos();
     t.skip(1); // '['
+    t.PushNewTrack("");
     Regexp re = newRegexp(Regexp.Op.CHAR_CLASS);
     re.flags = flags;
     CharClass cc = new CharClass();
