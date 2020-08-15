@@ -65,6 +65,7 @@ class Regexp {
 
   // Tracks from StringIterator
   private Track topmostTrack;
+  private boolean topmostOverridden;
   private ArrayList<Track> headingTracks;
   private ArrayList<Track> tailingTracks;
   private Track joinTrack;
@@ -84,6 +85,8 @@ class Regexp {
     this.cap = that.cap;
     this.name = that.name;
     this.namedGroups = that.namedGroups;
+    this.topmostTrack = that.topmostTrack;
+    this.topmostOverridden = that.topmostOverridden;
     this.headingTracks = that.headingTracks;
     this.tailingTracks = that.tailingTracks;
     this.joinTrack = that.joinTrack;
@@ -129,6 +132,11 @@ class Regexp {
 //  public void AddTracks(ArrayList<Track> tracks) {
 //    this.tracks.addAll(tracks);
 //  }
+
+  public void OverrideTopmostTrack(Track track) {
+    topmostTrack = track;
+    topmostOverridden = true;
+  }
 
   public Track GetTopTrack() {
     return this.topmostTrack;
