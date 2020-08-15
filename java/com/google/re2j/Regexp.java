@@ -309,14 +309,15 @@ class Regexp {
 //    }
 
     switch (op) {
+      case CAPTURE:
       case CHAR_CLASS:
         // must be transformed from an alternation
         // build from tracks
         topmostTrack = new Track(this.GetFirstTrack().Start, this.GetLastTrack().End, this);
         break;
-      case CAPTURE:
-        topmostTrack = new Track(this.GetFirstSubTrack().Start, this.GetLastSubTrack().End, this);
-        break;
+//      case CAPTURE:
+//        topmostTrack = new Track(this.GetFirstTrack().Start, this.GetLastSubTrack().End, this);
+//        break;
       default:
         if (topmostTrack != null) {
           topmostTrack.UpdateComments(this);
