@@ -39,8 +39,8 @@ public class Track {
 
     static final HashMap<String, String> PERL_GROUPS = new HashMap<String, String>();
     static {
-        PERL_GROUPS.put("\\d", "");
-        PERL_GROUPS.put("\\D", new CharGroup(-1, code1));
+        PERL_GROUPS.put("\\d", "Digits shorthand");
+        PERL_GROUPS.put("\\D", "");
         PERL_GROUPS.put("\\s", new CharGroup(+1, code2));
         PERL_GROUPS.put("\\S", new CharGroup(-1, code2));
         PERL_GROUPS.put("\\w", new CharGroup(+1, code3));
