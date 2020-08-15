@@ -1107,6 +1107,7 @@ class Parser {
     // so that's the one we implement.  One is enough.
     String s = t.rest();
     if (s.startsWith("(?P<")) {
+      // √ We need to parse the rest string and set to both heading and tailing tracks
       // Pull out name.
       int end = s.indexOf('>');
       if (end < 0) {
