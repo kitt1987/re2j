@@ -733,6 +733,12 @@ class Parser {
       this.tracks.add(new Track(pos));
     }
 
+    void PushNewTrack(int rune) {
+      Track last = tracks.get(tracks.size()-1);
+      last.End(pos, rune);
+      this.tracks.add(new Track(pos));
+    }
+
     private void initTracks() {
       this.tracks = new ArrayList<Track>();
       this.tracks.add(new Track(pos));
