@@ -147,7 +147,15 @@ class Regexp {
   }
 
   public Track GetLastTrack() {
-    return this.topmostTrack;
+    if (this.tailingTracks != null && this.tailingTracks.size() > 0) {
+      return this.tailingTracks.get(this.tailingTracks.size()-1);
+    }
+
+    if (this.headingTracks != null && this.headingTracks.size() > 0) {
+      return this.headingTracks.get(this.headingTracks.size()-1);
+    }
+
+    return null;
   }
 
   public void SetJoinTrack(Track track) {
@@ -197,18 +205,14 @@ class Regexp {
   }
 
   public void BuildTopmostTrack() {
+    if (topmostTrack != null) {
+      throw new IllegalStateException("the topmost track is already there");
+    }
+
     if (op == Op.CHAR_CLASS && joinTrack != null) {
       // must be transformed from an alternation
       Track top = new Track(this.tracks.get(0).Start);
       top.Freeze(this.tracks.get(this.tracks.size()-1).End, this);
-
-      for (Track track : this.tracks) {
-        allTracks.add(track);
-        allTracks.add(joinTrack);
-      }
-
-      allTracks.remove(allTracks.size()-1);
-      allTracks.add(0, top);
 
       return;
     }

@@ -108,6 +108,12 @@ public class Track {
         Start = start;
     }
 
+    Track(int start, int end, Regexp re) {
+        Start = start;
+        End = end;
+        UpdateComments(re);
+    }
+
     void End(int end) {
         End = end;
     }
