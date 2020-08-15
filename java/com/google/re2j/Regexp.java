@@ -147,12 +147,12 @@ class Regexp {
   }
 
   public Track GetLastTrack() {
-    if (this.tailingTracks != null && this.tailingTracks.size() > 0) {
-      return this.tailingTracks.get(this.tailingTracks.size()-1);
+    if (tailingTracks != null && tailingTracks.size() > 0) {
+      return tailingTracks.get(tailingTracks.size()-1);
     }
 
-    if (this.headingTracks != null && this.headingTracks.size() > 0) {
-      return this.headingTracks.get(this.headingTracks.size()-1);
+    if (headingTracks != null && headingTracks.size() > 0) {
+      return headingTracks.get(headingTracks.size()-1);
     }
 
     return null;
