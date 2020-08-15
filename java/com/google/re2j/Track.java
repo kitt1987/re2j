@@ -7,7 +7,7 @@ public class Track {
     static final HashMap<String, String> POSIX_GROUPS = new HashMap<String, String>();
 
     static {
-        POSIX_GROUPS.put("[:alnum:]", "");
+        POSIX_GROUPS.put("[:alnum:]", "alphanumeric characters");
         POSIX_GROUPS.put("[:^alnum:]", new CharGroup(-1, code4));
         POSIX_GROUPS.put("[:alpha:]", new CharGroup(+1, code5));
         POSIX_GROUPS.put("[:^alpha:]", new CharGroup(-1, code5));
