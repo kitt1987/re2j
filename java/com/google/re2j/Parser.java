@@ -1335,7 +1335,7 @@ class Parser {
         break;
     }
 
-    dst.AddTracks(src.GetTracks());
+    dst.SetTracks(0, src.GetAllTracks());
   }
 
   // If the top of the stack is an element followed by an opVerticalBar
