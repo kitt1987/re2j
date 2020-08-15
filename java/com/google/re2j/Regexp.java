@@ -245,6 +245,7 @@ class Regexp {
         }
 
         OverrideTopmostTrack(tracks.get(0));
+        return;
     }
 
     BuildTopmostTrack();
