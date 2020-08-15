@@ -1660,13 +1660,11 @@ class Parser {
       throw new PatternSyntaxException(ERR_INVALID_CHAR_RANGE, t.rest());
     }
 
-    // √ the "sign"
     if (c == 'p') {
       t.PushNewTrack("unicode category");
     } else {
       t.PushNewTrack("negated unicode category");
     }
-
 
     c = t.pop();
     String name;
