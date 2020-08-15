@@ -178,19 +178,6 @@ class Regexp {
       return;
     }
 
-    if (subs != null && subs.length > 0) {
-      for (Regexp sub : subs) {
-        allTracks.addAll(sub.GetAllTracks());
-        if (joinTrack != null) {
-          allTracks.add(joinTrack);
-        }
-      }
-
-      if (joinTrack != null) {
-        allTracks.remove(allTracks.size()-1);
-      }
-    }
-
     if (op == Op.CAPTURE) {
       if (this.tracks.size() != 3) {
         throw new IllegalStateException("count of self tracks of capture must be 2 but " + this.tracks.size());
