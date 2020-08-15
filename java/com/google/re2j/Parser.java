@@ -1684,7 +1684,6 @@ class Parser {
       t.skip(1); // '}'
       // Don't use skip(end) because it assumes UTF-16 coding, and
       // StringIterator doesn't guarantee that.
-      t.PushNewTrack();
     }
 
     // Group can have leading negation too.
@@ -1711,6 +1710,8 @@ class Parser {
       int[] tmp = new CharClass().appendTable(tab).appendTable(fold).cleanClass().toArray();
       cc.appendClassWithSign(tmp, sign);
     }
+
+    t.PushNewTrack();
     return true;
   }
 
