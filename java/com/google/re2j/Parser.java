@@ -1662,9 +1662,9 @@ class Parser {
 
     // √ the "sign"
     if (c == 'p') {
-      t.PushNewTrack();
+      t.PushNewTrack("unicode category");
     } else {
-
+      t.PushNewTrack("unicode category");
     }
 
 
