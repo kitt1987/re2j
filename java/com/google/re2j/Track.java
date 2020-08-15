@@ -122,17 +122,6 @@ public class Track {
         End = end;
     }
 
-    void Freeze(int end, int flag) {
-        // √ also calculate Coments
-        End = end;
-    }
-
-    void Freeze(int end, Regexp re) {
-        // √ also calculate Coments
-        End = end;
-        Comments = genComments(re);
-    }
-
     private void update(Regexp re) {
         switch (re.op) {
             case LITERAL:
