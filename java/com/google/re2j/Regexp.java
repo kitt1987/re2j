@@ -138,7 +138,7 @@ class Regexp {
     topmostOverridden = true;
   }
 
-  public Track GetTopTrack() {
+  public Track GetTopmostTrack() {
     return topmostTrack;
   }
 

@@ -349,7 +349,7 @@ class Parser {
       if (re.subs.length == 1) {
         Regexp old = re;
         re = re.subs[0];
-        re.OverrideTopmostTrack(old.GetTopTrack());
+        re.OverrideTopmostTrack(old.GetTopmostTrack());
         reuse(old);
       }
     }
@@ -1365,7 +1365,7 @@ class Parser {
 
     Track popTrack = null;
     if (swapVerticalBar()) {
-      popTrack = stack.get(stack.size()-1).GetTopTrack();
+      popTrack = stack.get(stack.size()-1).GetTopmostTrack();
       pop(); // pop vertical bar
     }
     alternate();
@@ -1393,7 +1393,7 @@ class Parser {
     if (re2.cap == 0) {
       // Just for grouping.
       push(re1);
-      re1.PutTrack(re2.GetTopTrack());
+      re1.PutTrack(re2.GetTopmostTrack());
       re1.AppendTrack(Track.BuildCapturingEndTrack(pos));
     } else {
       re2.op = Regexp.Op.CAPTURE;

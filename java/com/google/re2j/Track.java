@@ -193,7 +193,7 @@ public class Track {
             }
 
             // We need the topmost track here
-            value.append(sub.GetTopTrack().Comments);
+            value.append(sub.GetTopmostTrack().Comments);
         }
 
         return value.toString();
