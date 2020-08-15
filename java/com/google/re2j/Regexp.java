@@ -131,7 +131,7 @@ class Regexp {
 //  }
 
   public Track GetTopTrack() {
-    return this.headingTracks.get(0);
+    return this.topmostTrack;
   }
 
   public void SetJoinTrack(Track track) {
@@ -140,6 +140,14 @@ class Regexp {
 
   public boolean HasJoinTrack() {
     return joinTrack != null;
+  }
+
+  public void SetHeadingTracks(ArrayList<Track> tracks) {
+    if (headingTracks != null) {
+      throw new IllegalStateException("Heading tracks are already there");
+    }
+
+    headingTracks = tracks;
   }
 
   public ArrayList<Track> GetAllTracks() {
