@@ -225,6 +225,14 @@ class Regexp {
     }
   }
 
+  public void ConcatLiteralTracks(Regexp re) {
+    if (headingTracks != null) {
+      throw new IllegalStateException("heading tracks of literal regexp must be empty");
+    }
+
+    tailingTracks.addAll(re.tailingTracks);
+  }
+
   public ArrayList<Track> GetAllTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
     // put the top most track
