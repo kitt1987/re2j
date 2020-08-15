@@ -83,7 +83,8 @@ class Regexp {
     this.cap = that.cap;
     this.name = that.name;
     this.namedGroups = that.namedGroups;
-    this.tracks = that.tracks;
+    this.headingTracks = that.headingTracks;
+    this.tailingTracks = that.tailingTracks;
     this.joinTrack = that.joinTrack;
   }
 
