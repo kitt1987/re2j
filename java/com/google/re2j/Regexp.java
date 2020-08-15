@@ -64,7 +64,8 @@ class Regexp {
   // Do update copy ctor when adding new fields!
 
   // Tracks from StringIterator
-  private ArrayList<Track> tracks;
+  private ArrayList<Track> headingTracks;
+  private ArrayList<Track> tailingTracks;
   private Track joinTrack;
 
   Regexp(Op op) {
