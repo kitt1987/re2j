@@ -42,7 +42,7 @@ public class Track {
         PERL_GROUPS.put("\\d", "Digits shorthand");
         PERL_GROUPS.put("\\D", "Non-digits shorthand");
         PERL_GROUPS.put("\\s", "Whitespace shorthand");
-        PERL_GROUPS.put("\\S", new CharGroup(-1, code2));
+        PERL_GROUPS.put("\\S", "Non-whitespace shorthand");
         PERL_GROUPS.put("\\w", new CharGroup(+1, code3));
         PERL_GROUPS.put("\\W", new CharGroup(-1, code3));
     }
