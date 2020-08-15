@@ -158,6 +158,22 @@ class Regexp {
     return null;
   }
 
+  public Track GetFirstSubTrack() {
+    if (subs == null || subs.length == 0) {
+      return null;
+    }
+
+    return subs[0].GetFirstTrack();
+  }
+
+  public Track GetLastSubTrack() {
+    if (subs == null || subs.length == 0) {
+      return null;
+    }
+
+    return subs[subs.length-1].GetLastTrack();
+  }
+
   public void SetJoinTrack(Track track) {
     joinTrack = track;
   }
@@ -209,22 +225,15 @@ class Regexp {
       throw new IllegalStateException("the topmost track is already there");
     }
 
-    if (op == Op.CHAR_CLASS) {
-      // must be transformed from an alternation
-      // build from tracks
-      topmostTrack = new Track(this.GetFirstTrack().Start, this.GetLastTrack().End, this);
-      return;
-    }
-
-    if (op == Op.CAPTURE) {
-      if (this.tracks.size() != 3) {
-        throw new IllegalStateException("count of self tracks of capture must be 2 but " + this.tracks.size());
-      }
-      allTracks.add(0, this.tracks.get(0));
-      allTracks.add(1, this.tracks.get(1));
-      allTracks.add(this.tracks.get(2));
-    } else if (this.tracks != null) {
-      allTracks.addAll(0, this.tracks);
+    switch (op) {
+      case CHAR_CLASS:
+        // must be transformed from an alternation
+        // build from tracks
+        topmostTrack = new Track(this.GetFirstTrack().Start, this.GetLastTrack().End, this);
+        break;
+      case CAPTURE:
+        topmostTrack = new Track(this.GetFirstTrack().Start, this.GetLastTrack().End, this);
+        break;
     }
   }
 
