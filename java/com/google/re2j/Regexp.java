@@ -144,12 +144,15 @@ class Regexp {
 
   public ArrayList<Track> GetAllTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
+    // put the top most track
     if (topmostTrack != null) {
       allTracks.add(topmostTrack);
     }
 
+    // put heading tracks
     allTracks.addAll(this.headingTracks);
 
+    // put tracks of sub regexps
     if (subs != null && subs.length > 0) {
       for (Regexp sub : subs) {
         allTracks.addAll(sub.GetAllTracks());
@@ -163,6 +166,7 @@ class Regexp {
       }
     }
 
+    // put tailing tracks
     allTracks.addAll(this.tailingTracks);
     // FIXME sort them
     return allTracks;
