@@ -726,7 +726,7 @@ class Parser {
       if (last.Start == pos) {
         return null;
       }
-      
+
       last.End(pos);
       ArrayList<Track> pop = tracks;
       initTracks();

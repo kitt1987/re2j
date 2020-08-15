@@ -215,6 +215,10 @@ class Regexp {
   }
 
   public void SetTracks(int rune, ArrayList<Track> tracks) {
+    if (tracks == null) {
+      return;
+    }
+    
     switch (op) {
       case ALTERNATE:
       case CONCAT:
