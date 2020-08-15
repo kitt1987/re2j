@@ -1187,6 +1187,7 @@ class Parser {
           // We'll invert flags again before using it below.
           flags = ~flags;
           sawFlag = false;
+          t.PushNewTrack("negative modifier");
           break;
 
           // End of flags, starting group or not.
