@@ -111,7 +111,7 @@ public class Track {
         Start = start;
     }
 
-    // Update type and value
+    // Update type, value and calculate the top most Track
     void Close(int end, Regexp re) {
         End = end;
         update(re);
