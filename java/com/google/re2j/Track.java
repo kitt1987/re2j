@@ -17,7 +17,7 @@ public class Track {
         POSIX_GROUPS.put("[:^blank:]", new CharGroup(-1, code7));
         POSIX_GROUPS.put("[:cntrl:]", "control characters");
         POSIX_GROUPS.put("[:^cntrl:]", new CharGroup(-1, code8));
-        POSIX_GROUPS.put("[:digit:]", new CharGroup(+1, code9));
+        POSIX_GROUPS.put("[:digit:]", "digits");
         POSIX_GROUPS.put("[:^digit:]", new CharGroup(-1, code9));
         POSIX_GROUPS.put("[:graph:]", new CharGroup(+1, code10));
         POSIX_GROUPS.put("[:^graph:]", new CharGroup(-1, code10));
