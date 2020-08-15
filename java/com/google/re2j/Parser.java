@@ -722,7 +722,12 @@ class Parser {
     }
 
     ArrayList<Track> PopTracks() {
-      tracks.get(tracks.size()-1).End(pos);
+      Track last = tracks.get(tracks.size()-1);
+      if (last.Start == pos) {
+        return null;
+      }
+      
+      last.End(pos);
       ArrayList<Track> pop = tracks;
       initTracks();
       return pop;
