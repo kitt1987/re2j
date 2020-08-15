@@ -171,7 +171,7 @@ class Regexp {
       return null;
     }
 
-    return subs[0].GetFirstTrack();
+    return subs[0].GetTopmostTrack();
   }
 
   public Track GetLastSubTrack() {
