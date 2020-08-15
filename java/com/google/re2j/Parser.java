@@ -1164,7 +1164,7 @@ class Parser {
         case 'm':
           flags &= ~RE2.ONE_LINE;
           sawFlag = true;
-          t.PushNewTrack("multi-line: '^' and '$' ");
+          t.PushNewTrack("multi-line: '^' and '$' match at the start and end of each line");
           break;
         case 's':
           flags |= RE2.DOT_NL;
