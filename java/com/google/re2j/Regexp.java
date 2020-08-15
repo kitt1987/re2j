@@ -215,6 +215,13 @@ class Regexp {
   }
 
   public void SetTracks(int rune, ArrayList<Track> tracks) {
+    switch (op) {
+      case ALTERNATE:
+      case CONCAT:
+      case CAPTURE:
+      case REPEAT:
+    }
+
     switch (rune) {
       case '(':
       case '[':
