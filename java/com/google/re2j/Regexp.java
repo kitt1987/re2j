@@ -224,6 +224,22 @@ class Regexp {
       case CONCAT:
       case CAPTURE:
       case REPEAT:
+        switch (rune) {
+          case '(':
+          case '[':
+          case '{':
+            SetHeadingTracks(tracks);
+            break;
+          case '|':
+            if (tracks.size() != 1) {
+              throw new IllegalStateException("the join track must be single");
+            }
+
+            SetJoinTrack(tracks.get(0));
+            break;
+          default:
+            SetTailingTracks(tracks);
+        }
         break;
       default:
         if (tracks.size() != 1) {
@@ -231,25 +247,9 @@ class Regexp {
         }
 
         OverrideTopmostTrack(tracks.get(0));
-        return;
     }
 
-    switch (rune) {
-      case '(':
-      case '[':
-      case '{':
-        SetHeadingTracks(tracks);
-        break;
-      case '|':
-        if (tracks.size() != 1) {
-          throw new IllegalStateException("the join track must be single");
-        }
-
-        SetJoinTrack(tracks.get(0));
-        break;
-      default:
-        SetTailingTracks(tracks);
-    }
+    BuildTopmostTrack();
   }
 
   public void ConcatLiteralTracks(Regexp re) {
