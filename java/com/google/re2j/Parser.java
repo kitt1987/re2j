@@ -1728,7 +1728,7 @@ class Parser {
     if (t.more() && t.lookingAt('^')) {
       sign = -1;
       t.skip(1); // '^'
-      t.PushNewTrack("character class");
+      t.PushNewTrack("negated character class");
 
       // If character class does not match \n, add it here,
       // so that negation later will do the right thing.
