@@ -264,8 +264,13 @@ class Regexp {
       throw new IllegalStateException("literal regexp must have no join regexps");
     }
 
-    tailingTracks.add(re.topmostTrack);
-    tailingTracks.addAll(re.tailingTracks);
+    if (re.topmostTrack != null) {
+      tailingTracks.add(re.topmostTrack);
+    }
+
+    if (re.tailingTracks != null) {
+      tailingTracks.addAll(re.tailingTracks);
+    }
   }
 
   public ArrayList<Track> GetAllTracks() {
