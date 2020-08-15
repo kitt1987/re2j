@@ -234,12 +234,8 @@ class Regexp {
   }
 
   public void ConcatLiteralTracks(Regexp re) {
-    if (headingTracks != null) {
+    if (re.headingTracks != null) {
       throw new IllegalStateException("heading tracks of literal regexp must be empty");
-    }
-
-    if (tailingTracks != null) {
-      throw new IllegalStateException("tailing tracks of literal regexp must be empty");
     }
 
     if (re.subs.length > 0) {
@@ -251,6 +247,7 @@ class Regexp {
     }
 
     tailingTracks.add(re.topmostTrack);
+    tailingTracks.addAll(re.tailingTracks);
   }
 
   public ArrayList<Track> GetAllTracks() {
