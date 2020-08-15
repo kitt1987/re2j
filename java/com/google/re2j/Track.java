@@ -90,7 +90,7 @@ public class Track {
                 Comments = "mod modifier end";
                 break;
             case ')':
-                Comments = "group end";
+                Comments = "capturing group end";
                 break;
             case '(':
                 Comments = "capturing group";
