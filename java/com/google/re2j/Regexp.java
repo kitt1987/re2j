@@ -158,6 +158,7 @@ class Regexp {
     }
 
     allTracks.addAll(this.tailingTracks);
+    // FIXME sort them
     return allTracks;
   }
 
