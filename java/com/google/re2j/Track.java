@@ -111,10 +111,12 @@ public class Track {
         Start = start;
     }
 
+    // Update type and value
     void Close(int end, Regexp re) {
         End = end;
     }
 
+    // Update type and value
     void Close(int end, String text) {
         End = end;
     }
@@ -130,7 +132,7 @@ public class Track {
         Comments = genComments(re);
     }
 
-    private String genComments(Regexp re) {
+    private void genComments(Regexp re) {
         switch (re.op) {
             case LITERAL:
                 if (re.runes.length > 1) {
@@ -189,8 +191,6 @@ public class Track {
                 type = Type.Quantifier;
                 break;
         }
-
-        return buildComments();
     }
 
     private String joinComments(Regexp[] subs) {
