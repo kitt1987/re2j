@@ -190,6 +190,7 @@ public class Track {
                 value.append(",");
             }
 
+            // We need the topmost track here
             value.append(sub.GetTopTrack().Comments);
         }
 
