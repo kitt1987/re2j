@@ -727,7 +727,7 @@ class Parser {
       return pop;
     }
 
-    Track PushNewTrack() {
+    Track PushNewTrack(String comments) {
       Track last = tracks.get(tracks.size()-1);
       last.End(pos);
       this.tracks.add(new Track(pos));
@@ -1128,8 +1128,7 @@ class Parser {
             ERR_INVALID_NAMED_CAPTURE, s.substring(0, end)); // "(?P<name>"
       }
       // √ Save the name track
-      Track track = t.PushNewTrack();
-      track.UpdateComments("group name \"" + name + "\"");
+      Track track = t.PushNewTrack("group name \"" + name + "\"");
 
       // Like ordinary capture, but named.
       Regexp re = op(Regexp.Op.LEFT_PAREN);

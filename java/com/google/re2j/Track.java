@@ -119,8 +119,9 @@ public class Track {
     }
 
     // Update type and value
-    void End(int end, String text) {
+    void End(int end, String comments) {
         End = end;
+        Comments = comments;
     }
 
     void UpdateComments(String comments) {
