@@ -832,11 +832,12 @@ class Parser {
     StringIterator t = new StringIterator(wholeRegexp);
     while (t.more()) {
       int repeatPos = -1;
+      int peek = t.peek();
       bigswitch:
-      switch (t.peek()) {
+      switch (peek) {
         default:
           literal(t.pop());
-          top().SetTailingTracks(t.PopTracks());
+          top().SetTracks(peek, t.PopTracks());
           break;
 
         case '(':
@@ -847,19 +848,19 @@ class Parser {
           }
           op(Regexp.Op.LEFT_PAREN).cap = ++numCap;
           t.skip(1); // '('
-          top().SetTailingTracks(t.PopTracks());
+          top().SetTracks(peek, t.PopTracks());
           break;
 
         case '|':
           parseVerticalBar();
           t.skip(1); // '|'
-          top().SetTailingTracks(t.PopTracks());
+          top().SetTracks(peek, t.PopTracks());
           break;
 
         case ')':
           parseRightParen(t.pos());
           t.skip(1); // ')'
-          top().SetTailingTracks(t.PopTracks());
+          top().SetTracks(peek, t.PopTracks());
           break;
 
         case '^':
@@ -869,7 +870,7 @@ class Parser {
             op(Regexp.Op.BEGIN_LINE);
           }
           t.skip(1); // '^'
-          top().SetTailingTracks(t.PopTracks());
+          top().SetTracks(peek, t.PopTracks());
           break;
 
         case '$':
@@ -879,7 +880,7 @@ class Parser {
             op(Regexp.Op.END_LINE);
           }
           t.skip(1); // '$'
-          top().SetTailingTracks(t.PopTracks());
+          top().SetTracks(peek, t.PopTracks());
           break;
 
         case '.':
@@ -889,12 +890,12 @@ class Parser {
             op(Regexp.Op.ANY_CHAR_NOT_NL);
           }
           t.skip(1); // '.'
-          top().SetTailingTracks(t.PopTracks());
+          top().SetTracks(peek, t.PopTracks());
           break;
 
         case '[':
           parseClass(t);
-          top().SetHeadingTracks(t.PopTracks());
+          top().SetTracks(peek, t.PopTracks());
           break;
 
         case '*':
@@ -915,7 +916,7 @@ class Parser {
                 break;
             }
             repeat(op, min, max, repeatPos, t, lastRepeatPos);
-            top().SetTailingTracks(t.PopTracks());
+            top().SetTracks(peek, t.PopTracks());
             // (min and max are now dead.)
             break;
           }
@@ -927,13 +928,13 @@ class Parser {
               // If the repeat cannot be parsed, { is a literal.
               t.rewindTo(repeatPos);
               literal(t.pop()); // '{'
-              top().SetHeadingTracks(t.PopTracks());
+              top().SetTracks(peek, t.PopTracks());
               break;
             }
             min = minMax >> 16;
             max = (short) (minMax & 0xffff); // sign extend
             repeat(Regexp.Op.REPEAT, min, max, repeatPos, t, lastRepeatPos);
-            top().SetHeadingTracks(t.PopTracks());
+            top().SetTracks(peek, t.PopTracks());
             break;
           }
 
@@ -946,15 +947,15 @@ class Parser {
               switch (c) {
                 case 'A':
                   op(Regexp.Op.BEGIN_TEXT);
-                  fixTracks(t);
+                  top().SetTracks(peek, t.PopTracks());
                   break bigswitch;
                 case 'b':
                   op(Regexp.Op.WORD_BOUNDARY);
-                  fixTracks(t);
+                  top().SetTracks(peek, t.PopTracks());
                   break bigswitch;
                 case 'B':
                   op(Regexp.Op.NO_WORD_BOUNDARY);
-                  fixTracks(t);
+                  top().SetTracks(peek, t.PopTracks());
                   break bigswitch;
                 case 'C':
                   // any byte; not supported
@@ -971,13 +972,13 @@ class Parser {
                     t.skipString("\\E");
                     for (int j = 0; j < lit.length(); j++) {
                       literal(lit.charAt(j));
-                      fixTracks(t);
+                      top().SetTracks(peek, t.PopTracks());
                     }
                     break bigswitch;
                   }
                 case 'z':
                   op(Regexp.Op.END_TEXT);
-                  fixTracks(t);
+                  top().SetTracks(peek, t.PopTracks());
                   break bigswitch;
                 default:
                   t.rewindTo(savedPos);
@@ -994,7 +995,7 @@ class Parser {
               if (parseUnicodeClass(t, cc)) {
                 re.runes = cc.toArray();
                 push(re);
-                fixTracks(t);
+                top().SetTracks(peek, t.PopTracks());
                 break bigswitch;
               }
             }
@@ -1004,7 +1005,7 @@ class Parser {
             if (parsePerlClassEscape(t, cc)) {
               re.runes = cc.toArray();
               push(re);
-              fixTracks(t);
+              top().SetTracks(peek, t.PopTracks());
               break bigswitch;
             }
 
@@ -1013,7 +1014,7 @@ class Parser {
 
             // Ordinary single-character escape.
             literal(parseEscape(t));
-            fixTracks(t);
+            top().SetTracks(peek, t.PopTracks());
             break;
           }
       }
