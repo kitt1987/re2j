@@ -242,6 +242,10 @@ class Regexp {
       throw new IllegalStateException("literal regexp must have no sub regexps");
     }
 
+    if (joinTrack != null) {
+      throw new IllegalStateException("literal regexp must have no join regexps");
+    }
+
     tailingTracks.addAll(re.tailingTracks);
   }
 
