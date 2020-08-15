@@ -114,7 +114,7 @@ public class Track {
     // Update type, value and calculate the top most Track
     void Close(int end, Regexp re) {
         End = end;
-        update(re);
+        UpdateComments(re);
     }
 
     // Update type and value
@@ -122,7 +122,7 @@ public class Track {
         End = end;
     }
 
-    private void update(Regexp re) {
+    void UpdateComments(Regexp re) {
         switch (re.op) {
             case LITERAL:
                 if (re.runes.length > 1) {
