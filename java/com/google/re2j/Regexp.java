@@ -250,7 +250,7 @@ class Regexp {
       throw new IllegalStateException("literal regexp must have no join regexps");
     }
 
-    tailingTracks.addAll(re.tailingTracks);
+    tailingTracks.add(re.topmostTrack);
   }
 
   public ArrayList<Track> GetAllTracks() {
