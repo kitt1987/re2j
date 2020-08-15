@@ -1711,7 +1711,9 @@ class Parser {
       cc.appendClassWithSign(tmp, sign);
     }
 
-    t.PushNewTrack();
+    // FIXME parse blocks
+    // √ parse blocks
+    t.PushNewTrack("Unicode block " + name);
     return true;
   }
 
