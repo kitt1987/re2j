@@ -123,6 +123,10 @@ public class Track {
         End = end;
     }
 
+    void UpdateComments(String comments) {
+        Comments = comments;
+    }
+
     void UpdateComments(Regexp re) {
         StringBuilder b = new StringBuilder();
 

@@ -1128,7 +1128,8 @@ class Parser {
             ERR_INVALID_NAMED_CAPTURE, s.substring(0, end)); // "(?P<name>"
       }
       // √ Save the name track
-      t.PushNewTrack();
+      Track track = t.PushNewTrack();
+      track.UpdateComments("group name \"" + name + "\"");
       // Like ordinary capture, but named.
       Regexp re = op(Regexp.Op.LEFT_PAREN);
       re.cap = ++numCap;
