@@ -1365,18 +1365,18 @@ class Parser {
 
     Track popTrack = null;
     if (swapVerticalBar()) {
-      popTrack = stack.get(stack.size()-1).GetTopmostTrack();
+      popTrack = top().GetTopmostTrack();
       pop(); // pop vertical bar
     }
     alternate();
 
     if (popTrack != null) {
-      Regexp top = stack.get(0);
+      Regexp top = top();
       if (top.op != Regexp.Op.ALTERNATE && top.op != Regexp.Op.CHAR_CLASS) {
         throw new IllegalStateException("the top regex must be alternation or char class but " + top.op);
       }
 
-      stack.get(0).SetJoinTrack(popTrack);
+      top().SetJoinTrack(popTrack);
     }
 
     int n = stack.size();
@@ -1393,13 +1393,9 @@ class Parser {
     if (re2.cap == 0) {
       // Just for grouping.
       push(re1);
-      re1.PutTrack(re2.GetTopmostTrack());
-      re1.AppendTrack(Track.BuildCapturingEndTrack(pos));
     } else {
       re2.op = Regexp.Op.CAPTURE;
       re2.subs = new Regexp[] {re1};
-      re2.AppendTrack(Track.BuildCapturingEndTrack(pos));
-      re2.PutTrack(Track.BuildCaptureTopTrack(re2));
       push(re2);
     }
   }
