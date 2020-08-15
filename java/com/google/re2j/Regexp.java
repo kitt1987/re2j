@@ -139,7 +139,7 @@ class Regexp {
   }
 
   public Track GetTopTrack() {
-    return this.topmostTrack;
+    return topmostTrack;
   }
 
   public Track GetFirstTrack() {
