@@ -200,6 +200,12 @@ class Regexp {
     BuildTopmostTrack();
   }
 
+  public void SetTrack(Track track) {
+    ArrayList<Track> tracks = new ArrayList<Track>(1);
+    tracks.add(track);
+    SetTracks(0, tracks);
+  }
+
   public void SetTracks(int rune, ArrayList<Track> tracks) {
     switch (rune) {
       case '(':
