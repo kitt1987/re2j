@@ -275,8 +275,10 @@ class Regexp {
       allTracks.add(topmostTrack);
     }
 
-    // put heading tracks
-    allTracks.addAll(this.headingTracks);
+    if (this.headingTracks != null) {
+      // put heading tracks
+      allTracks.addAll(headingTracks);
+    }
 
     // put tracks of sub regexps
     if (subs != null && subs.length > 0) {
@@ -292,8 +294,11 @@ class Regexp {
       }
     }
 
-    // put tailing tracks
-    allTracks.addAll(this.tailingTracks);
+    if (tailingTracks != null) {
+      // put tailing tracks
+      allTracks.addAll(tailingTracks);
+    }
+
     // FIXME sort them
     return allTracks;
   }
