@@ -1793,10 +1793,13 @@ class Parser {
         }
       }
       if ((flags & RE2.FOLD_CASE) == 0) {
+        t.PushNewTrack("character class " + );
         cc.appendRange(lo, hi);
       } else {
+        t.PushNewTrack("character class " + );
         cc.appendFoldedRange(lo, hi);
       }
+
     }
     t.skip(1); // ']'
 
