@@ -1719,7 +1719,7 @@ class Parser {
   private void parseClass(StringIterator t) throws PatternSyntaxException {
     int startPos = t.pos();
     t.skip(1); // '['
-    t.PushNewTrack("");
+    t.PushNewTrack("character class");
     Regexp re = newRegexp(Regexp.Op.CHAR_CLASS);
     re.flags = flags;
     CharClass cc = new CharClass();
@@ -1728,6 +1728,7 @@ class Parser {
     if (t.more() && t.lookingAt('^')) {
       sign = -1;
       t.skip(1); // '^'
+      t.PushNewTrack("character class");
 
       // If character class does not match \n, add it here,
       // so that negation later will do the right thing.
