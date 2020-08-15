@@ -114,6 +114,7 @@ public class Track {
     // Update type and value
     void Close(int end, Regexp re) {
         End = end;
+        update(re);
     }
 
     // Update type and value
@@ -132,7 +133,7 @@ public class Track {
         Comments = genComments(re);
     }
 
-    private void genComments(Regexp re) {
+    private void update(Regexp re) {
         switch (re.op) {
             case LITERAL:
                 if (re.runes.length > 1) {
