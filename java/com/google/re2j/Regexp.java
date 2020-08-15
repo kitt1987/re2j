@@ -179,7 +179,7 @@ class Regexp {
       return null;
     }
 
-    return subs[subs.length-1].GetLastTrack();
+    return subs[subs.length-1].GetTopmostTrack();
   }
 
   public void SetJoinTrack(Track track) {
