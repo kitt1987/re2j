@@ -232,7 +232,7 @@ class Regexp {
         topmostTrack = new Track(this.GetFirstTrack().Start, this.GetLastTrack().End, this);
         break;
       case CAPTURE:
-        topmostTrack = new Track(this.GetFirstTrack().Start, this.GetLastTrack().End, this);
+        topmostTrack = new Track(this.GetFirstSubTrack().Start, this.GetLastSubTrack().End, this);
         break;
     }
   }
