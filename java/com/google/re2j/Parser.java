@@ -167,7 +167,7 @@ class Parser {
     // √ concatenate two literals to build a string
     // Push re1 into re2.
     re2.runes = concatRunes(re2.runes, re1.runes);
-    re2.OverrideTracks(Track.ConcatOnlyLiterals(re2.GetTracks(), re1.GetTracks()));
+    re2.ConcatLiteralTracks(re1);
 
     // Reuse re1 if possible.
     if (r >= 0) {
