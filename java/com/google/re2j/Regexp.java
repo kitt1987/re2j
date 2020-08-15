@@ -188,8 +188,6 @@ class Regexp {
     } else if (this.tracks != null) {
       allTracks.addAll(0, this.tracks);
     }
-
-    return allTracks;
   }
 
   @Override
