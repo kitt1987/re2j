@@ -174,7 +174,7 @@ class Regexp {
     return subs[subs.length-1].GetLastTrack();
   }
 
-  public void SetJoinTrack(Track track) {
+  private void SetJoinTrack(Track track) {
     joinTrack = track;
   }
 
@@ -182,7 +182,7 @@ class Regexp {
     return joinTrack != null;
   }
 
-  public void SetHeadingTracks(ArrayList<Track> tracks) {
+  private void SetHeadingTracks(ArrayList<Track> tracks) {
     if (headingTracks != null) {
       throw new IllegalStateException("Heading tracks are already there");
     }
@@ -191,7 +191,7 @@ class Regexp {
     BuildTopmostTrack();
   }
 
-  public void SetTailingTracks(ArrayList<Track> tracks) {
+  private void SetTailingTracks(ArrayList<Track> tracks) {
     if (tailingTracks != null) {
       throw new IllegalStateException("Tailing tracks are already there");
     }
@@ -206,6 +206,13 @@ class Regexp {
       case '[':
       case '{':
         SetHeadingTracks(tracks);
+        break;
+      case '|':
+        if (tracks.size() != 1) {
+          throw new IllegalStateException("the join track must be single");
+        }
+
+        SetJoinTrack(tracks.get(0));
         break;
       default:
         SetTailingTracks(tracks);
