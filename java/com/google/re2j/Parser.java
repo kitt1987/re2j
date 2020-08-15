@@ -835,7 +835,12 @@ class Parser {
       switch (peek) {
         default:
           literal(t.pop());
-          top().SetTracks(peek, t.PopTracks());
+          ArrayList<Track> tracks = t.PopTracks();
+          if (tracks.size() != 1) {
+            throw new IllegalStateException("a literal regex must have only 1 track");
+          }
+
+          top().OverrideTopmostTrack(tracks.get(0));
           break;
 
         case '(':
