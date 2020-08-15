@@ -1186,7 +1186,7 @@ class Parser {
           if (c == ':') {
             // Open new group
             op(Regexp.Op.LEFT_PAREN);
-            //√ 
+            //√
             top().SetTracks(startPos, t.PopTracks());
           }
           this.flags = flags;
@@ -1712,7 +1712,7 @@ class Parser {
       }
 
       // √ the "sign" should also be tracked.
-      t.PushNewTrack(flags);
+      t.PushNewTrack();
     }
 
     boolean first = true; // ']' and '-' are okay as first char in class
