@@ -134,6 +134,22 @@ class Regexp {
     return this.topmostTrack;
   }
 
+  public Track GetFirstTrack() {
+    if (this.headingTracks != null && this.headingTracks.size() > 0) {
+      return this.headingTracks.get(0);
+    }
+
+    if (this.tailingTracks != null && this.tailingTracks.size() > 0) {
+      return this.tailingTracks.get(0);
+    }
+
+    return null;
+  }
+
+  public Track GetLastTrack() {
+    return this.topmostTrack;
+  }
+
   public void SetJoinTrack(Track track) {
     joinTrack = track;
   }
@@ -180,7 +196,7 @@ class Regexp {
     return allTracks;
   }
 
-  public void SetTracks() {
+  public void BuildTopmostTrack() {
     if (op == Op.CHAR_CLASS && joinTrack != null) {
       // must be transformed from an alternation
       Track top = new Track(this.tracks.get(0).Start);
