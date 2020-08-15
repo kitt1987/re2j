@@ -135,12 +135,12 @@ class Regexp {
   }
 
   public Track GetFirstTrack() {
-    if (this.headingTracks != null && this.headingTracks.size() > 0) {
-      return this.headingTracks.get(0);
+    if (headingTracks != null && headingTracks.size() > 0) {
+      return headingTracks.get(0);
     }
 
-    if (this.tailingTracks != null && this.tailingTracks.size() > 0) {
-      return this.tailingTracks.get(0);
+    if (tailingTracks != null && tailingTracks.size() > 0) {
+      return tailingTracks.get(0);
     }
 
     return null;
