@@ -126,46 +126,44 @@ public class Track {
             case LITERAL:
                 if (re.runes.length > 1) {
                     b.append("string ");
-
+                    b.append("\"");
                     for (int r : re.runes) {
                         b.appendCodePoint(r);
                     }
-                    value = b.toString();
+                    b.append("\"");
                 } else {
-                    type = Type.Literal;
-                    value = Utils.runeToString(re.runes[0]);
+                    b.append("literal ");
+                    b.append("'");
+                    b.append(Utils.runeToString(re.runes[0]));
+                    b.append("'");
                 }
 
                 break;
             case ANY_CHAR:
-                type = Type.DotAll;
+                b.append("any characters including \"\\n\"");
                 break;
             case ANY_CHAR_NOT_NL:
-                type = Type.DotInLine;
+                b.append("any characters excluding \"\\n\"");
                 break;
             case CONCAT:
-                type = Type.Seq;
-                value = joinComments(re.subs);
+                b.append("sequence [").append(joinComments(re.subs)).append("]");
                 break;
             case ALTERNATE:
-                type = Type.Alternation;
-                value = joinComments(re.subs);
+                b.append("alternation of [").append(joinComments(re.subs)).append("]");
                 break;
             case VERTICAL_BAR:
-                type = Type.VerticalBar;
+                b.append("alternation");
                 break;
             case BEGIN_LINE:
-                type = Type.AnchorBeginLine;
+                b.append("line start");
                 break;
             case CHAR_CLASS:
                 if (re.HasJoinTrack()) {
-                    type = Type.Alternation;
-                    // GetRawTracks will never call funcs to manipulate Track.
-                    value = joinComments(re.GetRawTracks());
+                    b.append("alternation of [").append(joinComments(re.subs)).append("]");
                     break;
                 }
 
-                type = Type.CharClass;
+                b.append("character class");
                 break;
             case CAPTURE:
                 type = Type.CapturingGroup;
@@ -180,6 +178,8 @@ public class Track {
                 type = Type.Quantifier;
                 break;
         }
+
+        Comments = b.toString();
     }
 
     private String joinComments(Regexp[] subs) {
