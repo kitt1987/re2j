@@ -817,9 +817,8 @@ class Parser {
     return new Parser(pattern, flags).parseInternal();
   }
 
-  private void fixTracks(StringIterator t) {
-    Regexp top = stack.get(stack.size()-1);
-    top.SetTracks(t.PopTracks(top));
+  private Regexp top() {
+    return stack.get(stack.size()-1);
   }
 
   private Regexp parseInternal() throws PatternSyntaxException {
@@ -860,7 +859,7 @@ class Parser {
         case ')':
           parseRightParen(t.pos());
           t.skip(1); // ')'
-          t.DiscardTracks();
+          t.PopTracks()
           break;
 
         case '^':
