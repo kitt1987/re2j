@@ -188,6 +188,7 @@ class Regexp {
     }
 
     headingTracks = tracks;
+    BuildTopmostTrack();
   }
 
   public void SetTailingTracks(ArrayList<Track> tracks) {
@@ -196,6 +197,7 @@ class Regexp {
     }
 
     tailingTracks = tracks;
+    BuildTopmostTrack();
   }
 
   public ArrayList<Track> GetAllTracks() {
