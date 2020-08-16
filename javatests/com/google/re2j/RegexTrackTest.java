@@ -226,10 +226,10 @@ public class RegexTrackTest {
                 new Track(1, 2, "literal 'x'"),
                 new Track(2, 3, "alternation"),
         });
-//        put(".", new Track[]{
-//                // FIXME talk about the Unicode
-//                new Track(0, 1, "any character"),
-//        });
+        put(".", new Track[]{
+                // FIXME talk about the Unicode
+                new Track(0, 1, "any character"),
+        });
 //        put("^", new Track[]{
 //                new Track(0, 1, "line start"),
 //        });
