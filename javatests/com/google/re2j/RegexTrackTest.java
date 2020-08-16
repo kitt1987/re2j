@@ -329,12 +329,12 @@ public class RegexTrackTest {
                 new Track(1, 10, "POSIX class lowercase letters"),
                 new Track(10, 11, "character class end"),
         });
-        // FIXME the negative sign
         put("[^[:lower:]]", new Track[]{
-                new Track(0, 11, "character class of [POSIX class lowercase letters]"),
+                new Track(0, 12, "character class of [negated,POSIX class lowercase letters]"),
                 new Track(0, 1, "character class"),
-                new Track(1, 10, "POSIX class lowercase letters"),
-                new Track(10, 11, "character class end"),
+                new Track(1, 2, "negated"),
+                new Track(2, 11, "POSIX class lowercase letters"),
+                new Track(11, 12, "character class end"),
         });
 
 //    {"[^[:lower:]]", "cc{0x0-0x60 0x7b-0x10ffff}"},
