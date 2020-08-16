@@ -328,6 +328,18 @@ class Regexp {
     }
 
     // FIXME sort them and filter out empty tracks
+    int lastValidPos = 0;
+    for (Track track : allTracks) {
+      if (track.Start != track.End) {
+        allTracks.set(lastValidPos, track);
+        lastValidPos++;
+      }
+    }
+
+    while (allTracks.size() > lastValidPos) {
+      allTracks.remove(allTracks.size()-1);
+    }
+    
     return allTracks;
   }
 
