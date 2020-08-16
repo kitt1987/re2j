@@ -242,36 +242,36 @@ public class RegexTrackTest {
         put("\\(", new Track[]{
                 new Track(0, 2, "literal '('"),
         });
-//        put("\\)", new Track[]{
-//                new Track(0, 2, "string \")\" case-sensitively"),
-//        });
-//        put("\\*", new Track[]{
-//                new Track(0, 2, "string \"*\" case-sensitively"),
-//        });
-//        put("\\+", new Track[]{
-//                new Track(0, 2, "string \"+\" case-sensitively"),
-//        });
-//        put("\\?", new Track[]{
-//                new Track(0, 2, "string \"?\" case-sensitively"),
-//        });
-//        put("{", new Track[]{
-//                new Track(0, 1, "string \"{\" case-sensitively"),
-//        });
-//        put("}", new Track[]{
-//                new Track(0, 1, "string \"}\" case-sensitively"),
-//        });
-//        put("\\.", new Track[]{
-//                new Track(0, 2, "string \".\" case-sensitively"),
-//        });
-//        put("\\^", new Track[]{
-//                new Track(0, 2, "string \"^\" case-sensitively"),
-//        });
-//        put("\\$", new Track[]{
-//                new Track(0, 2, "string \"$\" case-sensitively"),
-//        });
-//        put("\\\\", new Track[]{
-//                new Track(0, 2, "string \"\\\" case-sensitively"),
-//        });
+        put("\\)", new Track[]{
+                new Track(0, 2, "literal ')'"),
+        });
+        put("\\*", new Track[]{
+                new Track(0, 2, "literal '*'"),
+        });
+        put("\\+", new Track[]{
+                new Track(0, 2, "literal '+"),
+        });
+        put("\\?", new Track[]{
+                new Track(0, 2, "literal '?'"),
+        });
+        put("{", new Track[]{
+                new Track(0, 1, "literal '{'"),
+        });
+        put("}", new Track[]{
+                new Track(0, 1, "literal '}'"),
+        });
+        put("\\.", new Track[]{
+                new Track(0, 2, "literal '.'"),
+        });
+        put("\\^", new Track[]{
+                new Track(0, 2, "literal '^'"),
+        });
+        put("\\$", new Track[]{
+                new Track(0, 2, "literal '$'"),
+        });
+        put("\\\\", new Track[]{
+                new Track(0, 2, "literal '\\'"),
+        });
 //        put("[ace]", new Track[]{
 //                new Track(0, 5, "any character in the group [ace]"),
 //        });
