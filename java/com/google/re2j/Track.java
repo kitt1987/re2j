@@ -138,7 +138,7 @@ public class Track {
                 break;
             case CHAR_CLASS:
                 if (re.HasJoinTrack()) {
-                    b.append("alternation of [").append(joinComments(re.GetAllTracks())).append("]");
+                    b.append("alternation of [").append(joinComments(re.GetHeadingTracks(), re.GetTailingTracks())).append("]");
                     break;
                 }
 
