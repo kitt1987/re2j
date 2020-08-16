@@ -173,17 +173,4 @@ public class Track {
 
         return value.toString();
     }
-
-    private String joinComments(ArrayList<Track> tracks) {
-        StringBuilder value = new StringBuilder();
-        for (Track track : tracks) {
-            if (value.length() > 0) {
-                value.append(",");
-            }
-
-            value.append(track.Comments);
-        }
-
-        return value.toString();
-    }
 }
