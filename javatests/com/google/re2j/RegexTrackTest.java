@@ -216,9 +216,9 @@ public class RegexTrackTest {
         put("", new Track[]{
                 new Track(0, 0, "match empty"),
         });
-//        put("|", new Track[]{
-//                new Track(0, 1, "empty"),
-//        });
+        put("|", new Track[]{
+                new Track(0, 1, "empty"),
+        });
 //        put("|x|", new Track[]{
 //                new Track(0, 3, "any of [empty,string \"x\" case-sensitively,empty,]"),
 //                Track.EmptyMatchTrack(0),
