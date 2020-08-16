@@ -273,7 +273,10 @@ public class RegexTrackTest {
                 new Track(0, 2, "literal '\\'"),
         });
         put("[ace]", new Track[]{
-                new Track(0, 5, "any character in the group [ace]"),
+                new Track(0, 5, "character class of [ace]"),
+                new Track(0, 1, "character class"),
+                new Track(1, 4, "character class"),
+                new Track(4, 5, "character class end"),
         });
 //        put("[abc]", new Track[]{
 //                new Track(0, 5, "any character in the group [a-c]"),

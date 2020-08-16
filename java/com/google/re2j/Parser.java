@@ -1834,7 +1834,6 @@ class Parser {
         t.PushNewTrack("character class range " + Utils.runeToString(lo) + " to " + Utils.runeToString(hi));
         cc.appendFoldedRange(lo, hi);
       }
-
     }
     t.skip(1); // ']'
     t.PushNewTrack("character class end");
