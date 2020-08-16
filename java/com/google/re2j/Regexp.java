@@ -309,14 +309,14 @@ class Regexp {
           allTracks.add(joinTrack);
         }
       }
-
-      if (joinTrack != null) {
-        allTracks.remove(allTracks.size()-1);
-      }
     }
 
     // put tailing tracks
     insertTracks(allTracks, tailingTracks);
+
+    if (joinTrack != null) {
+      allTracks.remove(allTracks.size()-1);
+    }
 
     // FIXME sort them
     return allTracks;
@@ -328,10 +328,10 @@ class Regexp {
     }
 
     for (Track track : src) {
-      if (joinTrack != null && dst.size() > 0) {
+      dst.add(track);
+      if (joinTrack != null) {
         dst.add(joinTrack);
       }
-      dst.add(track);
     }
   }
 
