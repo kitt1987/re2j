@@ -213,9 +213,9 @@ public class RegexTrackTest {
         put("x{1,9876543210", new Track[]{
                 new Track(0, 14, "string \"x{1,9876543210\""),
         });
-//        put("", new Track[]{
-//                Track.EmptyMatchTrack(0)
-//        });
+        put("", new Track[]{
+                Track.EmptyMatchTrack(0)
+        });
 //        put("|", new Track[]{
 //                new Track(0, 1, "empty"),
 //        });
