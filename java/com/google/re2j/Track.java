@@ -200,7 +200,7 @@ public class Track {
             return "repeated at least " + numberToFrequency(min);
         }
 
-        throw new IllegalStateException("min:"+min+",max:"+max);
+        return "repeated " + numberToFrequency(min) + " to " + numberToFrequency(max);
     }
 
     private String joinComments(ArrayList<Track> headingTracks, ArrayList<Track> tailingTracks) {
