@@ -270,7 +270,9 @@ class Parser {
     // Empty concatenation is special case.
     if (subs.length == 0) {
       t.PushNewTrack("empty");
-      return push(newRegexp(Regexp.Op.EMPTY_MATCH));
+      Regexp empty = push(newRegexp(Regexp.Op.EMPTY_MATCH));
+      top().SetTracks(0, t.PopTracks());
+      return empty;
     }
 
     return push(collapse(subs, Regexp.Op.CONCAT));
@@ -1072,8 +1074,6 @@ class Parser {
 
       top.SetJoinTrack(popTrack);
     }
-
-    top().SetTracks(0, t.PopTracks());
 
     int n = stack.size();
     if (n != 1) {
