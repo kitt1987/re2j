@@ -288,9 +288,12 @@ public class RegexTrackTest {
                 new Track(3, 4, "literal 'c'"),
                 new Track(4, 5, "character class end"),
         });
-//        put("[a-z]", new Track[]{
-//                new Track(0, 5, "any character in the group [a-z]"),
-//        });
+        put("[a-z]", new Track[]{
+                new Track(0, 5, "character class of [range a to z]"),
+                new Track(0, 1, "character class"),
+                new Track(1, 4, "range a to z"),
+                new Track(4, 5, "character class end"),
+        });
 //        put("[a]", new Track[]{
 //                new Track(0, 3, "string \"a\" case-sensitively"),
 //        });
