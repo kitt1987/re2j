@@ -213,12 +213,20 @@ class Regexp {
     headingTracks = tracks;
   }
 
+  public ArrayList<Track> GetHeadingTracks() {
+    return headingTracks;
+  }
+
   private void SetTailingTracks(ArrayList<Track> tracks) {
     if (tailingTracks != null) {
       throw new IllegalStateException("Tailing tracks are already there");
     }
 
     tailingTracks = tracks;
+  }
+
+  public ArrayList<Track> GetTailingTracks() {
+    return tailingTracks;
   }
 
   public void SetTrack(Track track) {
