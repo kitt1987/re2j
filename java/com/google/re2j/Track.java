@@ -162,25 +162,25 @@ public class Track {
             case STAR:
                 b.append(joinComments(re.subs)).append(" repeated zero or many times");
                 if ((re.flags & RE2.NON_GREEDY) != 0) {
-                    b.append("non-greedy");
+                    b.append("(non-greedy)");
                 }
                 break;
             case PLUS:
                 b.append(joinComments(re.subs)).append(" repeated once or many times");
                 if ((re.flags & RE2.NON_GREEDY) != 0) {
-                    b.append("non-greedy");
+                    b.append("(non-greedy)");
                 }
                 break;
             case QUEST:
                 b.append(joinComments(re.subs)).append(" repeated zero or once");
                 if ((re.flags & RE2.NON_GREEDY) != 0) {
-                    b.append("non-greedy");
+                    b.append("(non-greedy)");
                 }
                 break;
             case REPEAT:
                 b.append(joinComments(re.subs)).append(" ").append(GenRepeatedRangeComments(re.min, re.max));
                 if ((re.flags & RE2.NON_GREEDY) != 0) {
-                    b.append("non-greedy");
+                    b.append("(non-greedy)");
                 }
                 break;
         }
