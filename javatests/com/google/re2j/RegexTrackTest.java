@@ -214,7 +214,7 @@ public class RegexTrackTest {
                 new Track(0, 14, "string \"x{1,9876543210\""),
         });
         put("", new Track[]{
-                Track.EmptyMatchTrack(0)
+                new Track(0, 0, ""),
         });
 //        put("|", new Track[]{
 //                new Track(0, 1, "empty"),
