@@ -276,6 +276,15 @@ class Regexp {
       case QUEST:
         SetTailingTracks(tracks);
         break;
+      case LITERAL:
+        // √ convert from a char class
+        // tracks = [ + literal + ]
+        if (tracks.size() > 1) {
+          SetHeadingTracks(tracks);
+          OverrideTopmostTrack(new Track(tracks.get(0).Start, tracks.get(tracks.size()-1).End, this));
+        } else {
+          OverrideTopmostTrack(tracks.get(0));
+        }
       default:
         if (tracks.size() != 1) {
           throw new IllegalStateException("regex must have only one track but " + tracks.size());
