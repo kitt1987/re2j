@@ -300,15 +300,15 @@ public class RegexTrackTest {
                 new Track(1, 2, "literal 'a'"),
                 new Track(2, 3, "character class end"),
         });
-//        put("\\-", new Track[]{
-//                new Track(0, 2, "string \"-\" case-sensitively"),
-//        });
-//        put("-", new Track[]{
-//                new Track(0, 1, "string \"-\" case-sensitively"),
-//        });
-//        put("\\_", new Track[]{
-//                new Track(0, 2, "string \"_\" case-sensitively"),
-//        });
+        put("\\-", new Track[]{
+                new Track(0, 2, "literal '-'"),
+        });
+        put("-", new Track[]{
+                new Track(0, 1, "literal '-'"),
+        });
+        put("\\_", new Track[]{
+                new Track(0, 2, "literal '_'"),
+        });
 //        put("abc|def", new Track[]{
 //                new Track(0, 7, "any of [string \"abc\" case-sensitively,string \"def\" case-sensitively,]"),
 //                new Track(0, 3, "string \"abc\" case-sensitively"),
