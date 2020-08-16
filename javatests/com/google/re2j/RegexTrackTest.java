@@ -198,9 +198,9 @@ public class RegexTrackTest {
                 new Track(1, 5, "quantifier: repeated at least twice"),
                 new Track(5, 6, "quantifier: non-greedy"),
         });
-//        put("x{1001", new Track[]{
-//                new Track(0, 6, "string \"x{1001\" case-sensitively"),
-//        });
+        put("x{1001", new Track[]{
+                new Track(0, 6, "string \"x{1001\""),
+        });
 //        put("x{9876543210", new Track[]{
 //                new Track(0, 12, "string \"x{9876543210\" case-sensitively"),
 //        });
