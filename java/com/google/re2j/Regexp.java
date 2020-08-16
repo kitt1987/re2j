@@ -314,7 +314,7 @@ class Regexp {
     // put tailing tracks
     insertTracks(allTracks, tailingTracks);
 
-    if (joinTrack != null) {
+    if (joinTrack != null && allTracks.size() > 0) {
       allTracks.remove(allTracks.size()-1);
     }
 
