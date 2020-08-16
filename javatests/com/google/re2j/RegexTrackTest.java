@@ -220,14 +220,12 @@ public class RegexTrackTest {
                 // FIXME
                 new Track(0, 1, "alternation of [empty,empty]"),
         });
-//        put("|x|", new Track[]{
-//                new Track(0, 3, "any of [empty,string \"x\" case-sensitively,empty,]"),
-//                Track.EmptyMatchTrack(0),
-//                new Track(0, 1, "alternative"),
-//                new Track(1, 2, "string \"x\" case-sensitively"),
-//                new Track(2, 3, "alternative"),
-//                Track.EmptyMatchTrack(3),
-//        });
+        put("|x|", new Track[]{
+                new Track(0, 3, "alternation of [empty,literal 'x',empty]"),
+                new Track(0, 1, "alternative"),
+                new Track(1, 2, "literal 'x'"),
+                new Track(2, 3, "alternative"),
+        });
 //        put(".", new Track[]{
 //                // FIXME talk about the Unicode
 //                new Track(0, 1, "any character"),
