@@ -190,6 +190,20 @@ class Regexp {
     return joinTrack != null;
   }
 
+  public void ConvertToHeadingTrack() {
+    if (topmostTrack == null) {
+      throw new IllegalStateException("topmost track must be not empty");
+    }
+
+    if (headingTracks == null) {
+      headingTracks = new ArrayList<Track>();
+    }
+
+    headingTracks.add(topmostTrack);
+    topmostTrack = null;
+    topmostOverridden = false;
+  }
+
   private void SetHeadingTracks(ArrayList<Track> tracks) {
     if (headingTracks != null) {
       throw new IllegalStateException("Heading tracks are already there");
