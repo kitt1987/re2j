@@ -285,6 +285,8 @@ class Regexp {
         } else {
           OverrideTopmostTrack(tracks.get(0));
         }
+
+        break;
       default:
         if (tracks.size() != 1) {
           throw new IllegalStateException("regex must have only one track but " + tracks.size());
