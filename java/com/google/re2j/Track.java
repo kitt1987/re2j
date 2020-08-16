@@ -146,6 +146,9 @@ public class Track {
             case BEGIN_LINE:
                 b.append("line start");
                 break;
+            case END_LINE:
+                b.append("line end");
+                break;
             case CHAR_CLASS:
                 if (re.HasJoinTrack()) {
                     b.append("alternation of [").append(joinComments(re.GetHeadingTracks(), re.GetTailingTracks())).append("]");
