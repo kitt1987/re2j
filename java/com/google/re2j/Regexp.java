@@ -263,18 +263,8 @@ class Regexp {
     if (joinTrack != null) {
       throw new IllegalStateException("literal regexp must have no join regexps");
     }
-
-    if (tailingTracks == null) {
-      tailingTracks = new ArrayList<Track>();
-    }
-
-    if (re.topmostTrack != null) {
-      tailingTracks.add(re.topmostTrack);
-    }
-
-    if (re.tailingTracks != null) {
-      tailingTracks.addAll(re.tailingTracks);
-    }
+    
+    topmostTrack = new Track(topmostTrack.Start, re.topmostTrack.End, this);
   }
 
   public ArrayList<Track> GetAllTracks() {
