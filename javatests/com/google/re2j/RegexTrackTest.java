@@ -160,7 +160,7 @@ public class RegexTrackTest {
         put("a{2,}", new Track[]{
                 new Track(0, 5, "literal 'a' repeated at least twice"),
                 new Track(0, 1, "literal 'a'"),
-                new Track(1, 5, "quantifier: repeat at least twice"),
+                new Track(1, 5, "quantifier: repeated at least twice"),
         });
 //        put("a*?", new Track[]{
 //                new Track(0, 3, "any times repetition of string \"a\" case-sensitively"),
