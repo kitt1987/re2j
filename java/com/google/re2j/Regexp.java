@@ -223,6 +223,7 @@ class Regexp {
       case CAPTURE:
       case REPEAT:
       case LEFT_PAREN:
+      case CHAR_CLASS:
         switch (rune) {
           case '(':
           case '[':
