@@ -160,9 +160,13 @@ public class Track {
                 b.append("capturing group");
                 break;
             case STAR:
+                b.append(joinComments(re.subs)).append(" repeated zero or many times");
+                break;
             case PLUS:
+                b.append(joinComments(re.subs)).append(" repeated once or many times");
+                break;
             case QUEST:
-                b.append("quantifier");
+                b.append(joinComments(re.subs)).append(" repeated zero or once");
                 break;
         }
 

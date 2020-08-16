@@ -245,6 +245,9 @@ class Regexp {
       case CONCAT:
       case CAPTURE:
       case REPEAT:
+      case STAR:
+      case PLUS:
+      case QUEST:
       case LEFT_PAREN:
       case CHAR_CLASS:
         switch (rune) {
@@ -349,12 +352,11 @@ class Regexp {
         break;
       case ALTERNATE:
       case CONCAT:
-        topmostTrack = new Track(this.GetFirstSubTrack().Start, this.GetLastSubTrack().End, this);
-        break;
       case STAR:
       case PLUS:
       case QUEST:
       case REPEAT:
+        topmostTrack = new Track(this.GetFirstSubTrack().Start, this.GetLastSubTrack().End, this);
         break;
       default:
         if (topmostTrack != null) {
