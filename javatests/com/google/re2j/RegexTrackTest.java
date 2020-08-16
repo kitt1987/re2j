@@ -217,7 +217,7 @@ public class RegexTrackTest {
                 new Track(0, 0, "match empty"),
         });
         put("|", new Track[]{
-                new Track(0, 1, "empty"),
+                new Track(0, 1, "match empty"),
         });
 //        put("|x|", new Track[]{
 //                new Track(0, 3, "any of [empty,string \"x\" case-sensitively,empty,]"),
