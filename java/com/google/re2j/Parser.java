@@ -1039,11 +1039,22 @@ class Parser {
 
     concat(t);
 
+    Track popTrack = null;
     if (swapVerticalBar()) {
+      popTrack = top().GetTopmostTrack();
       pop(); // pop vertical bar
     }
 
     alternate();
+
+    if (popTrack != null) {
+      Regexp top = top();
+      if (top.op != Regexp.Op.ALTERNATE && top.op != Regexp.Op.CHAR_CLASS) {
+        throw new IllegalStateException("the top regex must be alternation or char class but " + top.op);
+      }
+
+      top.SetJoinTrack(popTrack);
+    }
 
     int n = stack.size();
     if (n != 1) {
