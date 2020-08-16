@@ -373,11 +373,20 @@ public class RegexTrackTest {
                 new Track(6, 15, "POSIX class lowercase letters"),
                 new Track(15, 16, "character class end"),
         });
+        put("(?i)[[:^lower:]]", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 16, "character class of [case insensitive,capturing group end,character class,POSIX class negated lowercase letters]"),
+                new Track(0, 2, "non-capturing group"),
+                new Track(2, 3, "case insensitive"),
+                new Track(3, 4, "capturing group end"),
+                new Track(4, 5, "character class"),
+                new Track(5, 15, "POSIX class negated lowercase letters"),
+                new Track(15, 16, "character class end"),
+        });
     }};
 
 //  {
 
-//    {"(?i)[^[:lower:]]", "cc{0x0-0x40 0x5b-0x60 0x7b-0x17e 0x180-0x2129 0x212b-0x10ffff}"},
 //    {"(?i)[[:^lower:]]", "cc{0x0-0x40 0x5b-0x60 0x7b-0x17e 0x180-0x2129 0x212b-0x10ffff}"},
 //    {"\\d", "cc{0x30-0x39}"},
 //    {"\\D", "cc{0x0-0x2f 0x3a-0x10ffff}"},
