@@ -249,7 +249,7 @@ public class RegexTrackTest {
                 new Track(0, 2, "literal '*'"),
         });
         put("\\+", new Track[]{
-                new Track(0, 2, "literal '+"),
+                new Track(0, 2, "literal '+'"),
         });
         put("\\?", new Track[]{
                 new Track(0, 2, "literal '?'"),
