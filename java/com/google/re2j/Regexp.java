@@ -244,10 +244,6 @@ class Regexp {
       case ALTERNATE:
       case CONCAT:
       case CAPTURE:
-      case REPEAT:
-      case STAR:
-      case PLUS:
-      case QUEST:
       case LEFT_PAREN:
       case CHAR_CLASS:
         switch (rune) {
@@ -266,6 +262,12 @@ class Regexp {
           default:
             SetTailingTracks(tracks);
         }
+        break;
+      case REPEAT:
+      case STAR:
+      case PLUS:
+      case QUEST:
+        SetTailingTracks(tracks);
         break;
       default:
         if (tracks.size() != 1) {
