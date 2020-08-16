@@ -160,6 +160,32 @@ public class Track {
         Comments = b.toString();
     }
 
+    private String joinComments(ArrayList<Track> headingTracks, ArrayList<Track> tailingTracks) {
+        StringBuilder value = new StringBuilder();
+
+        if (headingTracks != null) {
+            for (Track track : headingTracks) {
+                if (value.length() > 0) {
+                    value.append(",");
+                }
+
+                value.append(track.Comments);
+            }
+        }
+
+        if (tailingTracks != null) {
+            for (Track track : tailingTracks) {
+                if (value.length() > 0) {
+                    value.append(",");
+                }
+                
+                value.append(track.Comments);
+            }
+        }
+
+        return value.toString();
+    }
+
     private String joinComments(Regexp[] subs) {
         if (subs == null) {
             return "";
