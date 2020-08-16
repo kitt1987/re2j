@@ -239,9 +239,9 @@ public class RegexTrackTest {
         put("\\|", new Track[]{
                 new Track(0, 2, "literal '|'"),
         });
-//        put("\\(", new Track[]{
-//                new Track(0, 2, "string \"(\" case-sensitively"),
-//        });
+        put("\\(", new Track[]{
+                new Track(0, 2, "literal '('"),
+        });
 //        put("\\)", new Track[]{
 //                new Track(0, 2, "string \")\" case-sensitively"),
 //        });
