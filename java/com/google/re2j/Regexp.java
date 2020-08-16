@@ -184,6 +184,7 @@ class Regexp {
 
   public void SetJoinTrack(Track track) {
     joinTrack = track;
+    BuildTopmostTrack();
   }
 
   public boolean HasJoinTrack() {
