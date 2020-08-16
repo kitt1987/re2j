@@ -1638,7 +1638,7 @@ class Parser {
       throw new PatternSyntaxException(ERR_INVALID_CHAR_RANGE, name);
     }
     cc.appendGroup(g, (flags & RE2.FOLD_CASE) != 0);
-    t.PushNewTrack("POSIX class " + CharGroup.POSIX_GROUPS.get(name));
+    t.PushNewTrack("POSIX class " + Track.POSIX_GROUPS.get(name));
     return true;
   }
 
