@@ -263,7 +263,7 @@ class Regexp {
     if (joinTrack != null) {
       throw new IllegalStateException("literal regexp must have no join regexps");
     }
-    
+
     topmostTrack = new Track(topmostTrack.Start, re.topmostTrack.End, this);
   }
 

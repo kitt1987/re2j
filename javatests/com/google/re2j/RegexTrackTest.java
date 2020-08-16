@@ -93,8 +93,6 @@ public class RegexTrackTest {
         });
         put("ab", new Track[]{
                 new Track(0, 2, "string \"ab\""),
-                new Track(0, 1, "literal 'a'"),
-                new Track(1, 2, "literal 'b'"),
         });
         put("a.b.c", new Track[]{
                 new Track(0, 5, "sequence [literal 'a',any characters including \"\\n\",literal 'b',any characters including \"\\n\",literal 'c']"),
@@ -106,9 +104,6 @@ public class RegexTrackTest {
         });
         put("abc", new Track[]{
                 new Track(0, 3, "string \"abc\""),
-                new Track(0, 1, "literal 'a'"),
-                new Track(1, 2, "literal 'b'"),
-                new Track(2, 3, "literal 'c'"),
         });
         put("a|^", new Track[]{
                 new Track(0, 3, "alternation of [literal 'a',line start]"),
