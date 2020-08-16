@@ -172,7 +172,15 @@ public class Track {
                 b.append(joinComments(re.subs)).append(" repeated");
                 if (re.max == re.min) {
                     switch (re.min) {
-                        case -1:
+                        case 1:
+                            b.append(" once");
+                            break;
+                        case 2:
+                            b.append(" twice");
+                            break;
+                        default:
+                            b.append(re.min).append(" times");
+                            break;
                     }
                 }
                 break;
