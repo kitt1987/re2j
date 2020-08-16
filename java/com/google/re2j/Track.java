@@ -185,7 +185,9 @@ public class Track {
                 break;
         }
 
-        Comments = b.toString();
+        if (b.length() > 0) {
+            Comments = b.toString();
+        }
     }
 
     private static String numberToFrequency(int num) {
