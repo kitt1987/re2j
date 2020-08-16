@@ -95,6 +95,15 @@ public class Track {
             case '(':
                 Comments = "capturing group";
                 break;
+            case '*':
+                Comments = "quantifier: repeated zero or many times";
+                break;
+            case '+':
+                Comments = "quantifier: repeated once or many times";
+                break;
+            case '?':
+                Comments = "quantifier: repeated zero or once";
+                break;
         }
     }
 

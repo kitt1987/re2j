@@ -920,7 +920,8 @@ class Parser {
           {
             repeatPos = t.pos();
             Regexp.Op op = null;
-            switch (t.pop()) {
+            int repeat = t.pop();
+            switch (repeat) {
               case '*':
                 op = Regexp.Op.STAR;
                 break;
@@ -931,6 +932,7 @@ class Parser {
                 op = Regexp.Op.QUEST;
                 break;
             }
+            t.PushNewTrack(repeat);
             repeat(op, min, max, repeatPos, t, lastRepeatPos);
             top().SetTracks(peek, t.PopTracks());
             // (min and max are now dead.)
