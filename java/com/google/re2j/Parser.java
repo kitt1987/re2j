@@ -723,14 +723,6 @@ class Parser {
 
     ArrayList<Track> PopTracks() {
       Track last = tracks.get(tracks.size()-1);
-      if (last.Start < pos) {
-        last.End(pos, str.codePointAt(last.Start));
-      } else if (tracks.size() == 1) {
-        return null;
-      } else {
-        tracks.remove(tracks.size()-1);
-      }
-
       if (last.Start == pos && last.Comments.isEmpty()) {
         if (tracks.size() == 1) {
           return null;
