@@ -174,11 +174,12 @@ public class RegexTrackTest {
                 new Track(1, 2, "quantifier: repeated once or many times"),
                 new Track(2, 3, "quantifier: non-greedy"),
         });
-//        put("a??", new Track[]{
-//                new Track(0, 3, "0 or 1 repetition of string \"a\" case-sensitively"),
-//                new Track(0, 1, "string \"a\" case-sensitively"),
-//                new Track(1, 3, "repeat zero or once(Perl extension: non-greedy)"),
-//        });
+        put("a??", new Track[]{
+                new Track(0, 3, "literal 'a' repeated zero or once(non-greedy)"),
+                new Track(0, 1, "literal 'a'"),
+                new Track(1, 2, "quantifier: repeated zero or once"),
+                new Track(2, 3, "quantifier: non-greedy"),
+        });
 //        put("a{2}?", new Track[]{
 //                new Track(0, 5, "twice repetition of string \"a\" case-sensitively"),
 //                new Track(0, 1, "string \"a\" case-sensitively"),
