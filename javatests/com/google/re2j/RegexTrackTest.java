@@ -336,8 +336,14 @@ public class RegexTrackTest {
                 new Track(2, 11, "POSIX class lowercase letters"),
                 new Track(11, 12, "character class end"),
         });
+        put("[[:^lower:]]", new Track[]{
+                new Track(0, 12, "character class of [negated,POSIX class lowercase letters]"),
+                new Track(0, 1, "character class"),
+                new Track(1, 2, "negated"),
+                new Track(2, 11, "POSIX class lowercase letters"),
+                new Track(11, 12, "character class end"),
+        });
 
-//    {"[^[:lower:]]", "cc{0x0-0x60 0x7b-0x10ffff}"},
 //    {"[[:^lower:]]", "cc{0x0-0x60 0x7b-0x10ffff}"},
 //    put("[^[:lower:]]", new Track[]{
 //            new Track(0, 12, "any character in the group [a-z]"),
