@@ -171,24 +171,32 @@ public class Track {
             case REPEAT:
                 b.append(joinComments(re.subs)).append(" repeated");
                 if (re.max == re.min) {
-                    switch (re.min) {
-                        case 1:
-                            b.append(" once");
-                            break;
-                        case 2:
-                            b.append(" twice");
-                            break;
-                        default:
-                            b.append(re.min).append(" times");
-                            break;
-                    }
-                } else {
-                    
+                    b.append(" ").append(numberToFrequency(re.min));
+                    break;
+                }
+
+                if (re.min == -1) {
+                    b.append(" at most").append(numberToFrequency(re.max));
+                }
+
+                if (re.max == -1) {
+                    b.append(" at least").append(numberToFrequency(re.min));
                 }
                 break;
         }
 
         Comments = b.toString();
+    }
+
+    private String numberToFrequency(int num) {
+        switch (num) {
+            case 1:
+                return "once";
+            case 2:
+                return "twice";
+            default:
+                return num + " times";
+        }
     }
 
     private String joinComments(ArrayList<Track> headingTracks, ArrayList<Track> tailingTracks) {
