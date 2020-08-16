@@ -179,6 +179,9 @@ public class Track {
                 break;
             case REPEAT:
                 b.append(joinComments(re.subs)).append(" ").append(GenRepeatedRangeComments(re.min, re.max));
+                if ((re.flags & RE2.NON_GREEDY) != 0) {
+                    b.append("non-greedy");
+                }
                 break;
         }
 
