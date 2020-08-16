@@ -349,6 +349,10 @@ class Regexp {
         break;
       case ALTERNATE:
       case CONCAT:
+      case STAR:
+      case PLUS:
+      case QUEST:
+      case REPEAT:
         topmostTrack = new Track(this.GetFirstSubTrack().Start, this.GetLastSubTrack().End, this);
         break;
       default:
