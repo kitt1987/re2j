@@ -155,7 +155,7 @@ public class Track {
                     break;
                 }
 
-                b.append("character class");
+                b.append("character class of [").append(joinComments(re.GetHeadingTracks(), re.GetTailingTracks())).append("]");
                 break;
             case CAPTURE:
                 b.append("capturing group (").append(joinComments(re.subs)).append(")");
