@@ -744,6 +744,10 @@ class Parser {
 
     void PushNewTrack(int rune) {
       Track last = tracks.get(tracks.size()-1);
+      if (last.Start == pos) {
+        return;
+      }
+      
       last.End(pos, rune);
       this.tracks.add(new Track(pos));
     }
