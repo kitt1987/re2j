@@ -214,10 +214,13 @@ public class RegexTrackTest {
                 new Track(0, 14, "string \"x{1,9876543210\""),
         });
         put("", new Track[]{
-                new Track(0, 0, "match empty"),
+                new Track(0, 0, "empty"),
         });
         put("|", new Track[]{
-                new Track(0, 1, "match empty"),
+                new Track(0, 1, "empty"),
+                new Track(0, 0, "empty"),
+                new Track(0, 1, "alternation"),
+                new Track(1, 1, "empty"),
         });
 //        put("|x|", new Track[]{
 //                new Track(0, 3, "any of [empty,string \"x\" case-sensitively,empty,]"),
