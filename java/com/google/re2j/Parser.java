@@ -1068,8 +1068,8 @@ class Parser {
 
     if (popTrack != null) {
       Regexp top = top();
-      if (top.op != Regexp.Op.ALTERNATE && top.op != Regexp.Op.CHAR_CLASS) {
-        throw new IllegalStateException("the top regex must be alternation or char class but " + top.op);
+      if (top.op != Regexp.Op.ALTERNATE && top.op != Regexp.Op.CHAR_CLASS && top.op != Regexp.Op.EMPTY_MATCH) {
+        throw new IllegalStateException("the top regex must be alternation or char class or empty but " + top.op);
       }
 
       top.SetJoinTrack(popTrack);
