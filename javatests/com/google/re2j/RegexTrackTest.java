@@ -186,11 +186,12 @@ public class RegexTrackTest {
                 new Track(1, 4, "quantifier: repeated twice"),
                 new Track(4, 5, "quantifier: non-greedy"),
         });
-//        put("a{2,3}?", new Track[]{
-//                new Track(0, 7, "twice to 3 times repetition of string \"a\" case-sensitively"),
-//                new Track(0, 1, "string \"a\" case-sensitively"),
-//                new Track(1, 7, "repeat twice to 3 times(Perl extension: non-greedy)"),
-//        });
+        put("a{2,3}?", new Track[]{
+                new Track(0, 7, "literal 'a' repeated twice to 3 times(non-greedy)"),
+                new Track(0, 1, "literal 'a'"),
+                new Track(1, 6, "quantifier: repeated twice to 3 times"),
+                new Track(6, 7, "quantifier: non-greedy"),
+        });
 //        put("a{2,}?", new Track[]{
 //                new Track(0, 6, "twice at least repetition of string \"a\" case-sensitively"),
 //                new Track(0, 1, "string \"a\" case-sensitively"),
