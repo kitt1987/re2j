@@ -727,6 +727,8 @@ class Parser {
         last.End(pos, str.codePointAt(last.Start));
       } else if (tracks.size() == 1) {
         return null;
+      } else {
+        tracks.remove(tracks.size()-1);
       }
 
       ArrayList<Track> pop = tracks;
