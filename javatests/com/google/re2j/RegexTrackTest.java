@@ -230,9 +230,9 @@ public class RegexTrackTest {
                 // FIXME talk about the Unicode
                 new Track(0, 1, "any characters including \"\\n\""),
         });
-//        put("^", new Track[]{
-//                new Track(0, 1, "line start"),
-//        });
+        put("^", new Track[]{
+                new Track(0, 1, "line start"),
+        });
 //        put("$", new Track[]{
 //                new Track(0, 1, "line end"),
 //        });
