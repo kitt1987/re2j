@@ -169,7 +169,7 @@ public class Track {
                 b.append(joinComments(re.subs)).append(" repeated zero or once");
                 break;
             case REPEAT:
-                b.append(joinComments(re.subs)).append(" repeated ").append(GenRepeatedRangeComments(re.min, re.min));
+                b.append(joinComments(re.subs)).append(" ").append(GenRepeatedRangeComments(re.min, re.min));
                 break;
         }
 
@@ -189,15 +189,15 @@ public class Track {
 
     public static String GenRepeatedRangeComments(int min, int max) {
         if (max == min) {
-            return numberToFrequency(min);
+            return "repeated " + numberToFrequency(min);
         }
 
         if (min == -1) {
-            return "at most " + numberToFrequency(max);
+            return "repeated at most " + numberToFrequency(max);
         }
 
         if (max == -1) {
-            return "at least " + numberToFrequency(min);
+            return "repeated at least " + numberToFrequency(min);
         }
 
         throw new IllegalStateException("min:"+min+",max:"+max);
