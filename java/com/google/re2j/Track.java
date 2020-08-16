@@ -161,6 +161,10 @@ public class Track {
     }
 
     private String joinComments(Regexp[] subs) {
+        if (subs == null) {
+            return "";
+        }
+
         StringBuilder value = new StringBuilder();
         for (Regexp sub : subs) {
             if (value.length() > 0) {
