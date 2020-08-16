@@ -1823,15 +1823,18 @@ class Parser {
           }
         }
       }
-      if ((flags & RE2.FOLD_CASE) == 0) {
-        // FIXME parse the range
-        // √ parse the range
+
+      // FIXME parse the range
+      // √ parse the range
+      if (lo == hi) {
+        t.PushNewTrack("literal '" + Utils.runeToString(lo) + "'");
+      } else {
         t.PushNewTrack("range " + Utils.runeToString(lo) + " to " + Utils.runeToString(hi));
+      }
+
+      if ((flags & RE2.FOLD_CASE) == 0) {
         cc.appendRange(lo, hi);
       } else {
-        // FIXME parse the range
-        // √ parse the range
-        t.PushNewTrack("range " + Utils.runeToString(lo) + " to " + Utils.runeToString(hi));
         cc.appendFoldedRange(lo, hi);
       }
     }
