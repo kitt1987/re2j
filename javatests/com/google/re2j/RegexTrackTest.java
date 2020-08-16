@@ -315,14 +315,14 @@ public class RegexTrackTest {
                 new Track(3, 4, "alternation"),
                 new Track(4, 7, "string \"def\""),
         });
-//        put("abc|def|ghi", new Track[]{
-//                new Track(0, 11, "any of [string \"abc\" case-sensitively,string \"def\" case-sensitively,string \"ghi\" case-sensitively,]"),
-//                new Track(0, 3, "string \"abc\" case-sensitively"),
-//                new Track(3, 4, "alternative"),
-//                new Track(4, 7, "string \"def\" case-sensitively"),
-//                new Track(7, 8, "alternative"),
-//                new Track(8, 11, "string \"ghi\" case-sensitively"),
-//        });
+        put("abc|def|ghi", new Track[]{
+                new Track(0, 11, "alternation of [string \"abc\",string \"def\",string \"ghi\"]"),
+                new Track(0, 3, "string \"abc\""),
+                new Track(3, 4, "alternation"),
+                new Track(4, 7, "string \"def\""),
+                new Track(7, 8, "alternation"),
+                new Track(8, 11, "string \"ghi\""),
+        });
 //        put("[[:lower:]]", new Track[]{
 //                new Track(0, 11, "any character in the group [a-z]"),
 //        });
