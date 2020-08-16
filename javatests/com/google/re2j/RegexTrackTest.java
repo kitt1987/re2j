@@ -137,11 +137,11 @@ public class RegexTrackTest {
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "quantifier: repeated zero or many times"),
         });
-//        put("a+", new Track[]{
-//                new Track(0, 2, "1 or more repetition of string \"a\" case-sensitively"),
-//                new Track(0, 1, "string \"a\" case-sensitively"),
-//                new Track(1, 2, "repeat at least once"),
-//        });
+        put("a+", new Track[]{
+                new Track(0, 2, "literal 'a' repeated once or many times"),
+                new Track(0, 1, "literal 'a'"),
+                new Track(1, 2, "quantifier: repeated once or many times"),
+        });
 //        put("a?", new Track[]{
 //                new Track(0, 2, "0 or 1 repetition of string \"a\" case-sensitively"),
 //                new Track(0, 1, "string \"a\" case-sensitively"),
