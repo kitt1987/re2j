@@ -1073,6 +1073,8 @@ class Parser {
       top.SetJoinTrack(popTrack);
     }
 
+    top().SetTracks(0, t.PopTracks());
+
     int n = stack.size();
     if (n != 1) {
       throw new PatternSyntaxException(ERR_MISSING_PAREN, wholeRegexp);
