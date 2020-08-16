@@ -383,11 +383,14 @@ public class RegexTrackTest {
                 new Track(5, 15, "POSIX class negated lowercase letters"),
                 new Track(15, 16, "character class end"),
         });
+        put("\\d", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 2, "non-capturing group"),
+        });
     }};
 
 //  {
 
-//    {"(?i)[[:^lower:]]", "cc{0x0-0x40 0x5b-0x60 0x7b-0x17e 0x180-0x2129 0x212b-0x10ffff}"},
 //    {"\\d", "cc{0x30-0x39}"},
 //    {"\\D", "cc{0x0-0x2f 0x3a-0x10ffff}"},
 //    {"\\s", "cc{0x9-0xa 0xc-0xd 0x20}"},
