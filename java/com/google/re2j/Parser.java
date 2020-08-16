@@ -935,8 +935,8 @@ class Parser {
                 op = Regexp.Op.QUEST;
                 break;
             }
-            t.PushNewTrack(repeat);
             repeat(op, min, max, repeatPos, t, lastRepeatPos);
+            t.PushNewTrack(repeat);
             top().SetTracks(peek, t.PopTracks());
             // (min and max are now dead.)
             break;
