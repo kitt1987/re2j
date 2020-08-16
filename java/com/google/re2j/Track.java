@@ -170,7 +170,11 @@ public class Track {
                 break;
             case REPEAT:
                 b.append(joinComments(re.subs)).append(" repeated");
-                
+                if (re.max == re.min) {
+                    switch (re.min) {
+                        case -1:
+                    }
+                }
                 break;
         }
 
