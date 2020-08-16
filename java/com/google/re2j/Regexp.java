@@ -293,11 +293,6 @@ class Regexp {
 
   public ArrayList<Track> GetAllTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
-    // put the top most track
-    if (topmostTrack != null) {
-      allTracks.add(topmostTrack);
-    }
-
     // put heading tracks
     insertTracks(allTracks, headingTracks);
 
@@ -316,6 +311,11 @@ class Regexp {
 
     if (joinTrack != null) {
       allTracks.remove(allTracks.size()-1);
+    }
+
+    // put the top most track
+    if (topmostTrack != null) {
+      allTracks.add(0, topmostTrack);
     }
 
     // FIXME sort them
