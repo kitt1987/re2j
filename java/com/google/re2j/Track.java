@@ -134,6 +134,7 @@ public class Track {
                 b.append("any characters excluding \"\\n\"");
                 break;
             case CONCAT:
+                // FIXME comments must be in order
                 b.append("sequence [").append(joinComments(re.subs)).append("]");
                 break;
             case ALTERNATE:
