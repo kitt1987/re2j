@@ -184,7 +184,7 @@ public class RegexTrackTest {
                 new Track(0, 5, "literal 'a' repeated twice(non-greedy)"),
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 4, "quantifier: repeated twice"),
-                new Track(4, 5, "repeat twice(Perl extension: non-greedy)"),
+                new Track(4, 5, "quantifier: non-greedy"),
         });
 //        put("a{2,3}?", new Track[]{
 //                new Track(0, 7, "twice to 3 times repetition of string \"a\" case-sensitively"),
