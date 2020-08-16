@@ -326,7 +326,7 @@ public class RegexTrackTest {
         put("[[:lower:]]", new Track[]{
                 new Track(0, 11, "character class of [POSIX class lowercase letters]"),
                 new Track(0, 1, "character class"),
-                new Track(0, 10, "POSIX class lowercase letters"),
+                new Track(1, 10, "POSIX class lowercase letters"),
                 new Track(10, 11, "character class end"),
         });
         // FIXME the negative sign
