@@ -281,11 +281,11 @@ public class RegexTrackTest {
                 new Track(4, 5, "character class end"),
         });
         put("[abc]", new Track[]{
-                new Track(0, 5, "character class of [literal 'a',literal 'c',literal 'e']"),
+                new Track(0, 5, "character class of [literal 'a',literal 'b',literal 'c']"),
                 new Track(0, 1, "character class"),
                 new Track(1, 2, "literal 'a'"),
-                new Track(2, 3, "literal 'c'"),
-                new Track(3, 4, "literal 'e'"),
+                new Track(2, 3, "literal 'b'"),
+                new Track(3, 4, "literal 'c'"),
                 new Track(4, 5, "character class end"),
         });
 //        put("[a-z]", new Track[]{
