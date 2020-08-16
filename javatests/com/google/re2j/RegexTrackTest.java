@@ -163,7 +163,7 @@ public class RegexTrackTest {
                 new Track(1, 5, "quantifier: repeated at least twice"),
         });
         put("a*?", new Track[]{
-                new Track(0, 3, "literal 'a' repeated zero or many times"),
+                new Track(0, 3, "literal 'a' repeated zero or many times(non-greedy)"),
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "quantifier: repeated zero or many times"),
                 new Track(2, 3, "quantifier: non-greedy"),
