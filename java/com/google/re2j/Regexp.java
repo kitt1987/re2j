@@ -323,7 +323,11 @@ class Regexp {
       allTracks.add(0, topmostTrack);
     }
 
-    // FIXME sort them
+    if (allTracks.size() <= 1) {
+      return allTracks;
+    }
+
+    // FIXME sort them and filter out empty tracks
     return allTracks;
   }
 
