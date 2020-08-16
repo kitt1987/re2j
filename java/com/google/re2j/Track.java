@@ -157,8 +157,11 @@ public class Track {
 
                 // √ get rid of the leading and tailing tracks
                 ArrayList<Track> tracks = re.GetHeadingTracks();
-                tracks.remove(0);
-                tracks.remove(tracks.size()-1);
+                if (!re.IsConvertedCharClass()) {
+                    tracks.remove(0);
+                    tracks.remove(tracks.size()-1);
+                }
+                
                 b.append("character class of [").append(joinComments(tracks, null)).append("]");
                 break;
             case CAPTURE:
