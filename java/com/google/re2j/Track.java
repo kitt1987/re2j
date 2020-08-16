@@ -168,6 +168,10 @@ public class Track {
             case QUEST:
                 b.append(joinComments(re.subs)).append(" repeated zero or once");
                 break;
+            case REPEAT:
+                
+                b.append(joinComments(re.subs)).append(" repeated zero or once");
+                break;
         }
 
         Comments = b.toString();
