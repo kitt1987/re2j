@@ -343,6 +343,7 @@ public class RegexTrackTest {
                 new Track(11, 12, "character class end"),
         });
         put("(?i)[[:lower:]]", new Track[]{
+                // FIXME the topmost track
                 new Track(0, 15, "character class of [case insensitive, capturing group end, character class, POSIX class lowercase letters]"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "case insensitive"),
