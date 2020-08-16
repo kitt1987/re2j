@@ -248,14 +248,24 @@ public class Track {
             return "";
         }
 
+        Track emptyTrack = null;
         StringBuilder value = new StringBuilder();
         for (Regexp sub : subs) {
+            if (sub.op == Regexp.Op.EMPTY_MATCH) {
+                emptyTrack = sub.GetTopmostTrack();
+                continue;
+            }
+
             if (value.length() > 0) {
                 value.append(",");
             }
 
             // We need the topmost track here
             value.append(sub.GetTopmostTrack().Comments);
+        }
+
+        if (value.length() > 0 && emptyTrack != null) {
+            value.append(",").append(emptyTrack.Comments);
         }
 
         return value.toString();
