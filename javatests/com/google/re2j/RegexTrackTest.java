@@ -204,9 +204,9 @@ public class RegexTrackTest {
         put("x{9876543210", new Track[]{
                 new Track(0, 12, "string \"x{9876543210\""),
         });
-//        put("x{9876543210,", new Track[]{
-//                new Track(0, 13, "string \"x{9876543210,\" case-sensitively"),
-//        });
+        put("x{9876543210,", new Track[]{
+                new Track(0, 13, "string \"x{9876543210,\""),
+        });
 //        put("x{2,1,", new Track[]{
 //                new Track(0, 6, "string \"x{2,1,\" case-sensitively"),
 //        });
