@@ -731,6 +731,20 @@ class Parser {
         tracks.remove(tracks.size()-1);
       }
 
+      if (last.Start == pos && last.Comments.isEmpty()) {
+        if (tracks.size() == 1) {
+          return null;
+        }
+
+        tracks.remove(tracks.size()-1);
+      } else {
+        if (last.Comments.isEmpty()) {
+          last.End(pos, str.codePointAt(last.Start));
+        } else {
+          last.End(pos);
+        }
+      }
+
       ArrayList<Track> pop = tracks;
       initTracks();
       return pop;
