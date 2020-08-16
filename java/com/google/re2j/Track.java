@@ -169,7 +169,7 @@ public class Track {
                 b.append(joinComments(re.subs)).append(" repeated zero or once");
                 break;
             case REPEAT:
-                b.append(joinComments(re.subs)).append(" ").append(GenRepeatedRangeComments(re.min, re.min));
+                b.append(joinComments(re.subs)).append(" ").append(GenRepeatedRangeComments(re.min, re.max));
                 break;
         }
 
