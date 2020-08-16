@@ -233,9 +233,9 @@ public class RegexTrackTest {
         put("^", new Track[]{
                 new Track(0, 1, "line start"),
         });
-//        put("$", new Track[]{
-//                new Track(0, 1, "line end"),
-//        });
+        put("$", new Track[]{
+                new Track(0, 1, "line end"),
+        });
 //        put("\\|", new Track[]{
 //                new Track(0, 2, "string \"|\" case-sensitively"),
 //        });
