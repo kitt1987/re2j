@@ -222,9 +222,11 @@ public class RegexTrackTest {
         });
         put("|x|", new Track[]{
                 new Track(0, 3, "alternation of [empty,literal 'x',empty]"),
+                new Track(0, 0, "empty"),
                 new Track(0, 1, "alternative"),
                 new Track(1, 2, "literal 'x'"),
                 new Track(2, 3, "alternative"),
+                new Track(3, 3, "empty"),
         });
 //        put(".", new Track[]{
 //                // FIXME talk about the Unicode
