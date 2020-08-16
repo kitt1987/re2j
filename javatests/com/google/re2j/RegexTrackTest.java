@@ -181,7 +181,7 @@ public class RegexTrackTest {
                 new Track(2, 3, "quantifier: non-greedy"),
         });
         put("a{2}?", new Track[]{
-                new Track(0, 5, "literal 'a' repeated twice"),
+                new Track(0, 5, "literal 'a' repeated twice(non-greedy)"),
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 4, "quantifier: repeated twice"),
                 new Track(1, 5, "repeat twice(Perl extension: non-greedy)"),
