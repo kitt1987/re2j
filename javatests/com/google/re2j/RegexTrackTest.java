@@ -323,9 +323,9 @@ public class RegexTrackTest {
                 new Track(7, 8, "alternation"),
                 new Track(8, 11, "string \"ghi\""),
         });
-//        put("[[:lower:]]", new Track[]{
-//                new Track(0, 11, "any character in the group [a-z]"),
-//        });
+        put("[[:lower:]]", new Track[]{
+                new Track(0, 11, "character class of [alphanumeric characters]"),
+        });
         // FIXME the negative sign
 //    {"[^[:lower:]]", "cc{0x0-0x60 0x7b-0x10ffff}"},
 //    {"[[:^lower:]]", "cc{0x0-0x60 0x7b-0x10ffff}"},
