@@ -315,6 +315,7 @@ class Regexp {
         topmostTrack = new Track(this.GetFirstTrack().Start, this.GetLastTrack().End, this);
         break;
       case ALTERNATE:
+      case CONCAT:
         topmostTrack = new Track(this.GetFirstSubTrack().Start, this.GetLastSubTrack().End, this);
         break;
       default:
