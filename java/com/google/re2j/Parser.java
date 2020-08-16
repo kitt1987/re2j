@@ -722,13 +722,13 @@ class Parser {
     }
 
     ArrayList<Track> PopTracks() {
-      ArrayList<Track> pop = tracks;
-      Track last = pop.get(pop.size()-1);
-      if (last.Start == pos) {
-        pop.remove(pop.size()-1);
+      Track last = tracks.get(tracks.size()-1);
+      if (last.Start < pos) {
+        last.End(pos, str.codePointAt(last.Start));
+      } else if (tracks.size() == 1) {
+        return null;
       }
 
-      last.End(pos, str.codePointAt(last.Start));
       ArrayList<Track> pop = tracks;
       initTracks();
       return pop;
