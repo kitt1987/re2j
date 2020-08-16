@@ -342,17 +342,9 @@ public class RegexTrackTest {
                 new Track(1, 11, "POSIX class negated lowercase letters"),
                 new Track(11, 12, "character class end"),
         });
-
-//    {"[[:^lower:]]", "cc{0x0-0x60 0x7b-0x10ffff}"},
-//    put("[^[:lower:]]", new Track[]{
-//            new Track(0, 12, "any character in the group [a-z]"),
-//    });
-//    put("[[:^lower:]]", new Track[]{
-//            new Track(0, 12, "any character in the group [a-z]"),
-//    });
-//        put("(?i)[[:lower:]]", new Track[]{
-//                new Track(0, 15, "any character in the group [a-z]"),
-//        });
+        put("(?i)[[:lower:]]", new Track[]{
+                new Track(0, 15, "any character in the group [a-z]"),
+        });
     }};
 
 //  {
