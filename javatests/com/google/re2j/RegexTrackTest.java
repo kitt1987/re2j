@@ -295,7 +295,7 @@ public class RegexTrackTest {
                 new Track(4, 5, "character class end"),
         });
         put("[a]", new Track[]{
-                new Track(0, 3, "character class of [literal 'a']"),
+                new Track(0, 3, "literal 'a'"),
                 new Track(0, 1, "character class"),
                 new Track(1, 2, "literal 'a'"),
                 new Track(2, 3, "character class end"),
