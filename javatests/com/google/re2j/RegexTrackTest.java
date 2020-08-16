@@ -218,7 +218,7 @@ public class RegexTrackTest {
         });
         put("|", new Track[]{
                 // FIXME
-                new Track(0, 1, "alternation of [empty,empty]"),
+                new Track(0, 1, "alternation of []"),
         });
         put("|x|", new Track[]{
                 new Track(0, 3, "alternation of [literal 'x',empty]"),
