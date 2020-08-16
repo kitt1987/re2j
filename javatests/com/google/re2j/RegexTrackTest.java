@@ -217,8 +217,8 @@ public class RegexTrackTest {
                 new Track(0, 0, "empty"),
         });
         put("|", new Track[]{
-                // FIXME 
-                new Track(0, 1, "alternation of [empty, empty]"),
+                // FIXME
+                new Track(0, 1, "alternation of [empty,empty]"),
         });
 //        put("|x|", new Track[]{
 //                new Track(0, 3, "any of [empty,string \"x\" case-sensitively,empty,]"),
