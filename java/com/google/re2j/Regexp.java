@@ -306,7 +306,8 @@ class Regexp {
       for (Regexp sub : subs) {
         allTracks.addAll(sub.GetAllTracks());
         if (joinTrack != null) {
-          allTracks.add(joinTrack);
+          Track last = allTracks.get(allTracks.size()-1);
+          allTracks.add(new Track(last.End, last.End+1, joinTrack.Comments));
         }
       }
     }
@@ -339,7 +340,7 @@ class Regexp {
     while (allTracks.size() > lastValidPos) {
       allTracks.remove(allTracks.size()-1);
     }
-    
+
     return allTracks;
   }
 
@@ -351,7 +352,8 @@ class Regexp {
     for (Track track : src) {
       dst.add(track);
       if (joinTrack != null) {
-        dst.add(joinTrack);
+        Track last = dst.get(dst.size()-1);
+        dst.add(new Track(last.End, last.End+1, joinTrack.Comments));
       }
     }
   }
