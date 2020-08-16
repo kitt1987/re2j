@@ -326,6 +326,19 @@ class Regexp {
     return allTracks;
   }
 
+  private void insertTracks(ArrayList<Track> dst, ArrayList<Track> src) {
+    if (src == null || src.size() == 0) {
+      return;
+    }
+
+    for (Track track : src) {
+      if (joinTrack != null && dst.size() > 0) {
+        dst.add(joinTrack);
+      }
+      dst.add(track);
+    }
+  }
+
   public void BuildTopmostTrack() {
 //    if (topmostOverridden) {
 //      throw new IllegalStateException("the topmost track has been overridden");
