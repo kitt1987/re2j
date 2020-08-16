@@ -188,7 +188,7 @@ public class Track {
         Comments = b.toString();
     }
 
-    private String numberToFrequency(int num) {
+    private static String numberToFrequency(int num) {
         switch (num) {
             case 1:
                 return "once";
@@ -197,6 +197,22 @@ public class Track {
             default:
                 return num + " times";
         }
+    }
+
+    public static String GenRepeatedRangeComments(int min, int max) {
+        if (max == min) {
+            return numberToFrequency(min);
+        }
+
+        if (min == -1) {
+            return "at most " + numberToFrequency(max);
+        }
+
+        if (max == -1) {
+            return "at least " + numberToFrequency(min);
+        }
+
+        throw new IllegalStateException("min:"+min+",max:"+max);
     }
 
     private String joinComments(ArrayList<Track> headingTracks, ArrayList<Track> tailingTracks) {

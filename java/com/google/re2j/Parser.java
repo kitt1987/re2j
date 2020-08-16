@@ -952,6 +952,7 @@ class Parser {
               top().SetTracks(peek, t.PopTracks());
               break;
             }
+            t.PushNewTrack("");
             min = minMax >> 16;
             max = (short) (minMax & 0xffff); // sign extend
             repeat(Regexp.Op.REPEAT, min, max, repeatPos, t, lastRepeatPos);
