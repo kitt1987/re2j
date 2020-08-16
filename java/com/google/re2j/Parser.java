@@ -269,7 +269,7 @@ class Parser {
 
     // Empty concatenation is special case.
     if (subs.length == 0) {
-      t.PushNewTrack("match empty");
+      t.PushNewTrack("empty");
       return push(newRegexp(Regexp.Op.EMPTY_MATCH));
     }
 
