@@ -309,12 +309,12 @@ public class RegexTrackTest {
         put("\\_", new Track[]{
                 new Track(0, 2, "literal '_'"),
         });
-//        put("abc|def", new Track[]{
-//                new Track(0, 7, "any of [string \"abc\" case-sensitively,string \"def\" case-sensitively,]"),
-//                new Track(0, 3, "string \"abc\" case-sensitively"),
-//                new Track(3, 4, "alternative"),
-//                new Track(4, 7, "string \"def\" case-sensitively"),
-//        });
+        put("abc|def", new Track[]{
+                new Track(0, 7, "alternation of [string \"abc\",string \"def\"]"),
+                new Track(0, 3, "string \"abc\""),
+                new Track(3, 4, "alternation"),
+                new Track(4, 7, "string \"def\""),
+        });
 //        put("abc|def|ghi", new Track[]{
 //                new Track(0, 11, "any of [string \"abc\" case-sensitively,string \"def\" case-sensitively,string \"ghi\" case-sensitively,]"),
 //                new Track(0, 3, "string \"abc\" case-sensitively"),
