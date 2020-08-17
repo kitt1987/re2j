@@ -393,15 +393,30 @@ public class RegexTrackTest {
                 new Track(0, 2, "character class of []"),
                 new Track(0, 2, "character class non-digits shorthand"),
         });
+        put("\\s", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 2, "character class of []"),
+                new Track(0, 2, "character class whitespace shorthand"),
+        });
+        put("\\S", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 2, "character class of []"),
+                new Track(0, 2, "character class non-whitespace shorthand"),
+        });
+        put("\\w", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 2, "character class of []"),
+                new Track(0, 2, "character class word shorthand"),
+        });
+        put("\\W", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 2, "character class of []"),
+                new Track(0, 2, "character class non-word shorthand"),
+        });
     }};
 
 //  {
 
-//    {"\\D", "cc{0x0-0x2f 0x3a-0x10ffff}"},
-//    {"\\s", "cc{0x9-0xa 0xc-0xd 0x20}"},
-//    {"\\S", "cc{0x0-0x8 0xb 0xe-0x1f 0x21-0x10ffff}"},
-//    {"\\w", "cc{0x30-0x39 0x41-0x5a 0x5f 0x61-0x7a}"},
-//    {"\\W", "cc{0x0-0x2f 0x3a-0x40 0x5b-0x5e 0x60 0x7b-0x10ffff}"},
 //    {"(?i)\\w", "cc{0x30-0x39 0x41-0x5a 0x5f 0x61-0x7a 0x17f 0x212a}"},
 //    {"(?i)\\W", "cc{0x0-0x2f 0x3a-0x40 0x5b-0x5e 0x60 0x7b-0x17e 0x180-0x2129 0x212b-0x10ffff}"},
 //    {"[^\\\\]", "cc{0x0-0x5b 0x5d-0x10ffff}"},
