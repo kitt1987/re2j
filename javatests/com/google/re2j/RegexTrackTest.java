@@ -504,11 +504,12 @@ public class RegexTrackTest {
         });
         put("(?:ab)*", new Track[]{
                 // FIXME the topmost track
-                new Track(0, 3, "sequence [literal 'a' repeated zero or many times,literal '{']"),
-                new Track(0, 2, "literal 'a' repeated zero or many times"),
-                new Track(0, 1, "literal 'a'"),
-                new Track(1, 2, "quantifier: repeated zero or many times"),
-                new Track(2, 3, "literal '{'"),
+                new Track(5, 7, "string \"ab\" repeated zero or many times"),
+                new Track(5, 6, "string \"ab\""),
+                new Track(0, 2, "non-capturing group"),
+                new Track(2, 3, "mod modifier end"),
+                new Track(3, 4, "literal '{'"),
+                new Track(6, 7, "quantifier: repeated zero or many times"),
         });
     }};
 
