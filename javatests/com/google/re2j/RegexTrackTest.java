@@ -437,18 +437,6 @@ public class RegexTrackTest {
                 new Track(2, 4, "literal '\\'"),
                 new Track(4, 5, "character class end"),
         });
-        put("[\\p{Braille}]", new Track[]{
-                // FIXME the topmost track
-                new Track(0, 5, "character class of [negated,literal '\\']"),
-                new Track(0, 1, "character class"),
-                new Track(1, 2, "negated"),
-                new Track(2, 4, "literal '\\'"),
-                new Track(4, 5, "character class end"),
-        });
-    }};
-
-//  {
-
 //    //  { "\\C", "byte{}" },  // probably never
 //
 //    // Unicode, negatives, and a double negative.
@@ -471,6 +459,18 @@ public class RegexTrackTest {
 //    // Hex, octal.
 //    {"[\\012-\\234]\\141", "cat{cc{0xa-0x9c}lit{a}}"},
 //    {"[\\x{41}-\\x7a]\\x61", "cat{cc{0x41-0x7a}lit{a}}"},
+
+        put("a{,2}", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 5, "character class of [negated,literal '\\']"),
+                new Track(0, 1, "character class"),
+                new Track(1, 2, "negated"),
+                new Track(2, 4, "literal '\\'"),
+                new Track(4, 5, "character class end"),
+        });
+    }};
+
+//  {
 //
 //    // More interesting regular expressions.
 //    {"a{,2}", "str{a{,2}}"},
