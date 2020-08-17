@@ -506,9 +506,6 @@ public class RegexTrackTest {
 
 //  {
 //
-//    // More interesting regular expressions.
-//    {"a*{", "cat{star{lit{a}}lit{{}}"},
-//
 //    // Test precedences
 //    {"(?:ab)*", "star{str{ab}}"},
 //    {"(ab)*", "star{cap{str{ab}}}"},
