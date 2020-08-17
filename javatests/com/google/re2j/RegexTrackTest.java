@@ -496,11 +496,11 @@ public class RegexTrackTest {
         });
         put("a*{", new Track[]{
                 // FIXME the topmost track
-                new Track(0, 6, "character class of [range α to ε,literal '☺']"),
-                new Track(0, 1, "character class"),
-                new Track(1, 4, "range α to ε"),
-                new Track(4, 5, "literal '☺'"),
-                new Track(5, 6, "character class end"),
+                new Track(0, 3, "sequence [literal 'a' repeated zero or many times,literal '{']"),
+                new Track(0, 2, "literal 'a' repeated zero or many times"),
+                new Track(0, 1, "literal 'a'"),
+                new Track(1, 2, "quantifier: repeated zero or many times"),
+                new Track(5, 6, "literal '{'"),
         });
     }};
 
