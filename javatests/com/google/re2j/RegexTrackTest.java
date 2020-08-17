@@ -502,6 +502,14 @@ public class RegexTrackTest {
                 new Track(1, 2, "quantifier: repeated zero or many times"),
                 new Track(2, 3, "literal '{'"),
         });
+        put("(?:ab)*", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 3, "sequence [literal 'a' repeated zero or many times,literal '{']"),
+                new Track(0, 2, "literal 'a' repeated zero or many times"),
+                new Track(0, 1, "literal 'a'"),
+                new Track(1, 2, "quantifier: repeated zero or many times"),
+                new Track(2, 3, "literal '{'"),
+        });
     }};
 
 //  {
