@@ -500,7 +500,7 @@ public class RegexTrackTest {
                 new Track(0, 2, "literal 'a' repeated zero or many times"),
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "quantifier: repeated zero or many times"),
-                new Track(5, 6, "literal '{'"),
+                new Track(2, 6, "literal '{'"),
         });
     }};
 
