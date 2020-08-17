@@ -468,12 +468,15 @@ public class RegexTrackTest {
                 // FIXME the topmost track
                 new Track(0, 8, "string \".^$\\\""),
         });
+        put("[a-zABC]", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 8, "string \".^$\\\""),
+        });
     }};
 
 //  {
 //
 //    // More interesting regular expressions.
-//    {"\\.\\^\\$\\\\", "str{.^$\\}"},
 //    {"[a-zABC]", "cc{0x41-0x43 0x61-0x7a}"},
 //    {"[^a]", "cc{0x0-0x60 0x62-0x10ffff}"},
 //    {"[α-ε☺]", "cc{0x3b1-0x3b5 0x263a}"}, // utf-8
