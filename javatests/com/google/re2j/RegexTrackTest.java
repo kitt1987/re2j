@@ -470,14 +470,19 @@ public class RegexTrackTest {
         });
         put("[a-zABC]", new Track[]{
                 // FIXME the topmost track
-                new Track(0, 8, "string \".^$\\\""),
+                new Track(0, 8, "character class of [range a to z,literal 'A',literal 'B',literal 'C']"),
+                new Track(0, 1, "character class"),
+                new Track(1, 4, "range a to z"),
+                new Track(4, 5, "literal 'A'"),
+                new Track(5, 6, "literal 'B'"),
+                new Track(6, 7, "literal 'C'"),
+                new Track(7, 8, "character class end"),
         });
     }};
 
 //  {
 //
 //    // More interesting regular expressions.
-//    {"[a-zABC]", "cc{0x41-0x43 0x61-0x7a}"},
 //    {"[^a]", "cc{0x0-0x60 0x62-0x10ffff}"},
 //    {"[α-ε☺]", "cc{0x3b1-0x3b5 0x263a}"}, // utf-8
 //    {"a*{", "cat{star{lit{a}}lit{{}}"},
