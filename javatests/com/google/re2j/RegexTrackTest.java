@@ -494,12 +494,19 @@ public class RegexTrackTest {
                 new Track(4, 5, "literal '☺'"),
                 new Track(5, 6, "character class end"),
         });
+        put("a*{", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 6, "character class of [range α to ε,literal '☺']"),
+                new Track(0, 1, "character class"),
+                new Track(1, 4, "range α to ε"),
+                new Track(4, 5, "literal '☺'"),
+                new Track(5, 6, "character class end"),
+        });
     }};
 
 //  {
 //
 //    // More interesting regular expressions.
-//    {"[α-ε☺]", "cc{0x3b1-0x3b5 0x263a}"}, // utf-8
 //    {"a*{", "cat{star{lit{a}}lit{{}}"},
 //
 //    // Test precedences
