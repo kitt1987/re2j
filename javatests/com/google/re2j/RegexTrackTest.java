@@ -486,7 +486,7 @@ public class RegexTrackTest {
                 new Track(2, 3, "literal 'a'"),
                 new Track(3, 4, "character class end"),
         });
-        put("\"[α-ε☺]\"", new Track[]{
+        put("[α-ε☺]", new Track[]{
                 // FIXME the topmost track
                 new Track(0, 4, "character class of [negated,literal 'a']"),
                 new Track(0, 1, "character class"),
