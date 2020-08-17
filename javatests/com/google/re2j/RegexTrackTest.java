@@ -504,8 +504,18 @@ public class RegexTrackTest {
         });
 
         //    {"(?:ab)*", "star{str{ab}}"},
-        
+
         put("(?:ab)*", new Track[]{
+                // FIXME the topmost track
+                new Track(5, 7, "string \"ab\" repeated zero or many times"),
+                new Track(5, 6, "string \"ab\""),
+                new Track(0, 2, "non-capturing group"),
+                new Track(2, 3, "mod modifier end"),
+                new Track(3, 4, "literal '{'"),
+                new Track(6, 7, "quantifier: repeated zero or many times"),
+        });
+
+        put("(ab)*", new Track[]{
                 // FIXME the topmost track
                 new Track(5, 7, "string \"ab\" repeated zero or many times"),
                 new Track(5, 6, "string \"ab\""),
@@ -519,7 +529,6 @@ public class RegexTrackTest {
 //  {
 //
 //    // Test precedences
-//    {"(?:ab)*", "star{str{ab}}"},
 //    {"(ab)*", "star{cap{str{ab}}}"},
 //    {"ab|cd", "alt{str{ab}str{cd}}"},
 //    {"a(b|c)d", "cat{lit{a}cap{cc{0x62-0x63}}lit{d}}"},
