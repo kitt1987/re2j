@@ -480,7 +480,7 @@ public class RegexTrackTest {
         });
         put("[^a]", new Track[]{
                 // FIXME the topmost track
-                new Track(0, 8, "character class of [range a to z,literal 'A',literal 'B',literal 'C']"),
+                new Track(0, 4, "character class of [range a to z,literal 'A',literal 'B',literal 'C']"),
                 new Track(0, 1, "character class"),
                 new Track(1, 4, "range a to z"),
                 new Track(4, 5, "literal 'A'"),
