@@ -462,11 +462,7 @@ public class RegexTrackTest {
 
         put("a{,2}", new Track[]{
                 // FIXME the topmost track
-                new Track(0, 5, "character class of [negated,literal '\\']"),
-                new Track(0, 1, "character class"),
-                new Track(1, 2, "negated"),
-                new Track(2, 4, "literal '\\'"),
-                new Track(4, 5, "character class end"),
+                new Track(0, 5, "string \"a{,2}\""),
         });
     }};
 
