@@ -413,6 +413,11 @@ public class RegexTrackTest {
                 new Track(0, 2, "character class of []"),
                 new Track(0, 2, "character class non-word character shorthand"),
         });
+        put("(?i)\\w", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 2, "character class of []"),
+                new Track(0, 2, "character class non-word character shorthand"),
+        });
     }};
 
 //  {
