@@ -437,7 +437,7 @@ public class RegexTrackTest {
                 new Track(2, 4, "literal '\\'"),
                 new Track(4, 5, "character class end"),
         });
-        put("[\\C]", new Track[]{
+        put("[\\p{Braille}]", new Track[]{
                 // FIXME the topmost track
                 new Track(0, 5, "character class of [negated,literal '\\']"),
                 new Track(0, 1, "character class"),
