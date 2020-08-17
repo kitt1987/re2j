@@ -406,12 +406,12 @@ public class RegexTrackTest {
         put("\\w", new Track[]{
                 // FIXME the topmost track
                 new Track(0, 2, "character class of []"),
-                new Track(0, 2, "character class word shorthand"),
+                new Track(0, 2, "character class word character shorthand"),
         });
         put("\\W", new Track[]{
                 // FIXME the topmost track
                 new Track(0, 2, "character class of []"),
-                new Track(0, 2, "character class non-word shorthand"),
+                new Track(0, 2, "character class non-word character shorthand"),
         });
     }};
 
