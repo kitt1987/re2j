@@ -486,12 +486,19 @@ public class RegexTrackTest {
                 new Track(2, 3, "literal 'a'"),
                 new Track(3, 4, "character class end"),
         });
+        put("\"[α-ε☺]\"", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 4, "character class of [negated,literal 'a']"),
+                new Track(0, 1, "character class"),
+                new Track(1, 2, "negated"),
+                new Track(2, 3, "literal 'a'"),
+                new Track(3, 4, "character class end"),
+        });
     }};
 
 //  {
 //
 //    // More interesting regular expressions.
-//    {"[^a]", "cc{0x0-0x60 0x62-0x10ffff}"},
 //    {"[α-ε☺]", "cc{0x3b1-0x3b5 0x263a}"}, // utf-8
 //    {"a*{", "cat{star{lit{a}}lit{{}}"},
 //
