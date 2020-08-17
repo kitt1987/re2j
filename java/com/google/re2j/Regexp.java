@@ -212,6 +212,10 @@ class Regexp {
     return convertedCharClass;
   }
 
+  public void MarkPerlCharClass() {
+    convertedCharClass = true;
+  }
+
   private void SetHeadingTracks(ArrayList<Track> tracks) {
     if (headingTracks != null) {
       throw new IllegalStateException("Heading tracks are already there");
