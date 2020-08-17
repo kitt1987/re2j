@@ -502,6 +502,9 @@ public class RegexTrackTest {
                 new Track(1, 2, "quantifier: repeated zero or many times"),
                 new Track(2, 3, "literal '{'"),
         });
+
+        //    {"(?:ab)*", "star{str{ab}}"},
+        
         put("(?:ab)*", new Track[]{
                 // FIXME the topmost track
                 new Track(5, 7, "string \"ab\" repeated zero or many times"),
