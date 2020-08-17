@@ -429,11 +429,18 @@ public class RegexTrackTest {
                 new Track(3, 4, "capturing group end"),
                 new Track(4, 6, "character class non-word character shorthand"),
         });
+        put("[^\\\\]", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 6, "character class of []"),
+                new Track(0, 2, "non-capturing group"),
+                new Track(2, 3, "case insensitive"),
+                new Track(3, 4, "capturing group end"),
+                new Track(4, 6, "character class non-word character shorthand"),
+        });
     }};
 
 //  {
 
-//    {"(?i)\\W", "cc{0x0-0x2f 0x3a-0x40 0x5b-0x5e 0x60 0x7b-0x17e 0x180-0x2129 0x212b-0x10ffff}"},
 //    {"[^\\\\]", "cc{0x0-0x5b 0x5d-0x10ffff}"},
 //    //  { "\\C", "byte{}" },  // probably never
 //
