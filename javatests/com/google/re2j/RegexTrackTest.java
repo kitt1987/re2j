@@ -431,11 +431,11 @@ public class RegexTrackTest {
         });
         put("[^\\\\]", new Track[]{
                 // FIXME the topmost track
-                new Track(0, 6, "character class of []"),
-                new Track(0, 2, "non-capturing group"),
-                new Track(2, 3, "case insensitive"),
-                new Track(3, 4, "capturing group end"),
-                new Track(4, 6, "character class non-word character shorthand"),
+                new Track(0, 5, "character class of [negated,literal '\\']"),
+                new Track(0, 1, "character class"),
+                new Track(1, 2, "negated"),
+                new Track(2, 4, "literal '\\'"),
+                new Track(4, 5, "character class end"),
         });
     }};
 
