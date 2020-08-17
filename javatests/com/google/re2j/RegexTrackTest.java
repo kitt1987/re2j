@@ -488,11 +488,11 @@ public class RegexTrackTest {
         });
         put("[α-ε☺]", new Track[]{
                 // FIXME the topmost track
-                new Track(0, 4, "character class of [negated,literal 'a']"),
+                new Track(0, 6, "character class of [range α-ε,literal '☺']"),
                 new Track(0, 1, "character class"),
-                new Track(1, 2, "negated"),
-                new Track(2, 3, "literal 'a'"),
-                new Track(3, 4, "character class end"),
+                new Track(1, 4, "range α-ε"),
+                new Track(4, 5, "literal '☺'"),
+                new Track(5, 6, "character class end"),
         });
     }};
 
