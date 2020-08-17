@@ -388,11 +388,15 @@ public class RegexTrackTest {
                 new Track(0, 2, "character class of []"),
                 new Track(0, 2, "character class Digits shorthand"),
         });
+        put("\\D", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 2, "character class of []"),
+                new Track(0, 2, "character class Digits shorthand"),
+        });
     }};
 
 //  {
 
-//    {"\\d", "cc{0x30-0x39}"},
 //    {"\\D", "cc{0x0-0x2f 0x3a-0x10ffff}"},
 //    {"\\s", "cc{0x9-0xa 0xc-0xd 0x20}"},
 //    {"\\S", "cc{0x0-0x8 0xb 0xe-0x1f 0x21-0x10ffff}"},
