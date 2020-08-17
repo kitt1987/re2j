@@ -466,7 +466,7 @@ public class RegexTrackTest {
         });
         put("\\.\\^\\$\\\\", new Track[]{
                 // FIXME the topmost track
-                new Track(0, 5, "string \"a{,2}\""),
+                new Track(0, 8, "string \"a{,2}\""),
         });
     }};
 
