@@ -441,7 +441,6 @@ public class RegexTrackTest {
 
 //  {
 
-//    {"[^\\\\]", "cc{0x0-0x5b 0x5d-0x10ffff}"},
 //    //  { "\\C", "byte{}" },  // probably never
 //
 //    // Unicode, negatives, and a double negative.
