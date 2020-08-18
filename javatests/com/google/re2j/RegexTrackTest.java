@@ -517,12 +517,12 @@ public class RegexTrackTest {
 
         put("(ab)*", new Track[]{
                 // FIXME the topmost track
-                new Track(5, 7, "string \"ab\" repeated zero or many times"),
-                new Track(5, 6, "string \"ab\""),
-                new Track(0, 2, "non-capturing group"),
-                new Track(2, 3, "mod modifier end"),
-                new Track(3, 4, "literal '{'"),
-                new Track(6, 7, "quantifier: repeated zero or many times"),
+                new Track(0, 5, "capturing group (string \"ab\") repeated zero or many times"),
+                new Track(0, 4, "capturing group (string \"ab\")"),
+                new Track(0, 1, "capturing group"),
+                new Track(1, 3, "string \"ab\""),
+                new Track(3, 4, "capturing group end"),
+                new Track(4, 5, "quantifier: repeated zero or many times"),
         });
     }};
 
