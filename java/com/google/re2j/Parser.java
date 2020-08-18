@@ -1453,6 +1453,7 @@ class Parser {
     this.flags = re2.flags;
     if (re2.cap == 0) {
       // Just for grouping.
+      re1.SetTracks(0, re2.GetAllTracks());
       push(re1);
     } else {
       re2.op = Regexp.Op.CAPTURE;
