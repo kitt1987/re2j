@@ -487,7 +487,6 @@ public class RegexTrackTest {
                 new Track(3, 4, "character class end"),
         });
         put("[α-ε☺]", new Track[]{
-                // FIXME the topmost track
                 new Track(0, 6, "character class of [range α to ε,literal '☺']"),
                 new Track(0, 1, "character class"),
                 new Track(1, 4, "range α to ε"),
@@ -495,7 +494,6 @@ public class RegexTrackTest {
                 new Track(5, 6, "character class end"),
         });
         put("a*{", new Track[]{
-                // FIXME the topmost track
                 new Track(0, 3, "sequence [literal 'a' repeated zero or many times,literal '{']"),
                 new Track(0, 2, "literal 'a' repeated zero or many times"),
                 new Track(0, 1, "literal 'a'"),
@@ -506,7 +504,6 @@ public class RegexTrackTest {
         //    {"(?:ab)*", "star{str{ab}}"},
 
 //        put("(?:ab)*", new Track[]{
-                // FIXME the topmost track
 //                new Track(5, 7, "string \"ab\" repeated zero or many times"),
 //                new Track(5, 6, "string \"ab\""),
 //                new Track(0, 2, "non-capturing group"),
@@ -516,7 +513,6 @@ public class RegexTrackTest {
 //        });
 
         put("(ab)*", new Track[]{
-                // FIXME the topmost track
                 new Track(0, 5, "capturing group (string \"ab\") repeated zero or many times"),
                 new Track(0, 4, "capturing group (string \"ab\")"),
                 new Track(0, 1, "capturing group"),
@@ -526,7 +522,6 @@ public class RegexTrackTest {
         });
 
         put("ab|cd", new Track[]{
-                // FIXME the topmost track
                 new Track(0, 5, "alternation of [string \"ab\",string \"cd\"]"),
                 new Track(0, 2, "string \"ab\""),
                 new Track(2, 3, "alternation"),
@@ -535,7 +530,7 @@ public class RegexTrackTest {
 
         put("a(b|c)d", new Track[]{
                 // FIXME the topmost track
-                new Track(0, 5, "alternation of [string \"ab\",string \"cd\"]"),
+                new Track(0, 7, "sequence [literal 'a',capturing group (alternation of [literal 'b',literal 'c']),literal 'd']"),
                 new Track(0, 2, "string \"ab\""),
                 new Track(2, 3, "alternation"),
                 new Track(3, 5, "string \"cd\""),
