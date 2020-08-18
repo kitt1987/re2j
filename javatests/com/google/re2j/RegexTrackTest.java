@@ -542,10 +542,10 @@ public class RegexTrackTest {
         });
 
         put("(?:a)", new Track[]{
-                new Track(0, 5, "alternation of [string \"ab\",string \"cd\"]"),
-                new Track(0, 2, "string \"ab\""),
-                new Track(2, 3, "alternation"),
-                new Track(3, 5, "string \"cd\""),
+                new Track(4, 5, "literal 'a'"),
+                new Track(0, 2, "non-capturing group"),
+                new Track(2, 3, "mod modifier end"),
+                new Track(3, 4, ""),
         });
     }};
 
