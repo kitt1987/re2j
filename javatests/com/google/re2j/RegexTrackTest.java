@@ -542,13 +542,13 @@ public class RegexTrackTest {
         });
 
         //    {"(?:a)", "lit{a}"},
-//        put("(?:a)", new Track[]{
-                // FIXME fixes
-//                new Track(4, 5, "literal 'a'"),
-//                new Track(0, 2, "non-capturing group"),
-//                new Track(2, 3, "mod modifier end"),
-//                new Track(3, 4, ""),
-//        });
+        put("(?:a)", new Track[]{
+//                 FIXME fixes
+                new Track(4, 5, "literal 'a'"),
+                new Track(0, 2, "non-capturing group"),
+                new Track(2, 3, "mod modifier end"),
+                new Track(3, 4, ""),
+        });
 
         put("(?:ab)(?:cd)", new Track[]{
                 new Track(0, 5, "alternation of [string \"ab\",string \"cd\"]"),
