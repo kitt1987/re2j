@@ -550,12 +550,12 @@ public class RegexTrackTest {
                 new Track(3, 4, ""),
         });
 
-        put("(?:ab)(?:cd)", new Track[]{
-                new Track(0, 5, "alternation of [string \"ab\",string \"cd\"]"),
-                new Track(0, 2, "string \"ab\""),
-                new Track(2, 3, "alternation"),
-                new Track(3, 5, "string \"cd\""),
-        });
+//        put("(?:ab)(?:cd)", new Track[]{
+//                new Track(0, 5, "alternation of [string \"ab\",string \"cd\"]"),
+//                new Track(0, 2, "string \"ab\""),
+//                new Track(2, 3, "alternation"),
+//                new Track(3, 5, "string \"cd\""),
+//        });
     }};
 
 //  {
