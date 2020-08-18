@@ -532,12 +532,19 @@ public class RegexTrackTest {
                 new Track(2, 3, "alternation"),
                 new Track(3, 5, "string \"cd\""),
         });
+
+        put("a(b|c)d", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 5, "alternation of [string \"ab\",string \"cd\"]"),
+                new Track(0, 2, "string \"ab\""),
+                new Track(2, 3, "alternation"),
+                new Track(3, 5, "string \"cd\""),
+        });
     }};
 
 //  {
 //
 //    // Test precedences
-//    {"ab|cd", "alt{str{ab}str{cd}}"},
 //    {"a(b|c)d", "cat{lit{a}cap{cc{0x62-0x63}}lit{d}}"},
 //
 //    // Test flattening.
