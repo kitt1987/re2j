@@ -531,9 +531,15 @@ public class RegexTrackTest {
         put("a(b|c)d", new Track[]{
                 // FIXME the topmost track
                 new Track(0, 7, "sequence [literal 'a',capturing group (alternation of [literal 'b',literal 'c']),literal 'd']"),
-                new Track(0, 2, "string \"ab\""),
-                new Track(2, 3, "alternation"),
-                new Track(3, 5, "string \"cd\""),
+                new Track(0, 1, "literal 'a'"),
+                new Track(1, 6, "capturing group (alternation of [literal 'b',literal 'c'])"),
+                new Track(1, 2, "capturing group"),
+                new Track(2, 5, "alternation of [literal 'b',literal 'c']"),
+                new Track(2, 3, "literal 'b'"),
+                new Track(3, 4, "alternation"),
+                new Track(4, 5, "literal 'c'"),
+                new Track(5, 6, "capturing group end"),
+                new Track(6, 7, "literal 'd'"),
         });
     }};
 
