@@ -524,12 +524,21 @@ public class RegexTrackTest {
                 new Track(3, 4, "capturing group end"),
                 new Track(4, 5, "quantifier: repeated zero or many times"),
         });
+
+        put("ab|cd", new Track[]{
+                // FIXME the topmost track
+                new Track(0, 5, "capturing group (string \"ab\") repeated zero or many times"),
+                new Track(0, 4, "capturing group (string \"ab\")"),
+                new Track(0, 1, "capturing group"),
+                new Track(1, 3, "string \"ab\""),
+                new Track(3, 4, "capturing group end"),
+                new Track(4, 5, "quantifier: repeated zero or many times"),
+        });
     }};
 
 //  {
 //
 //    // Test precedences
-//    {"(ab)*", "star{cap{str{ab}}}"},
 //    {"ab|cd", "alt{str{ab}str{cd}}"},
 //    {"a(b|c)d", "cat{lit{a}cap{cc{0x62-0x63}}lit{d}}"},
 //
