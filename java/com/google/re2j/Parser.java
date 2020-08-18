@@ -1236,6 +1236,7 @@ class Parser {
           // End of flags, starting group or not.
         case ':':
         case ')':
+          t.PushNewTrack(c);
           if (sign < 0) {
             if (!sawFlag) {
               break loop;
@@ -1245,9 +1246,10 @@ class Parser {
           if (c == ':') {
             // Open new group
             op(Regexp.Op.LEFT_PAREN);
+            top().SetTracks(c, t.PopTracks());
           }
           this.flags = flags;
-          t.PushNewTrack(c);
+
           return;
       }
     }
