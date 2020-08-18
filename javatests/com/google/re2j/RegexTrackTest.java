@@ -541,6 +541,7 @@ public class RegexTrackTest {
                 new Track(6, 7, "literal 'd'"),
         });
 
+        //    {"(?:a)", "lit{a}"},
         put("(?:a)", new Track[]{
                 // FIXME fixes
                 new Track(4, 5, "literal 'a'"),
@@ -553,7 +554,7 @@ public class RegexTrackTest {
 //  {
 //
 //    // Test flattening.
-//    {"(?:a)", "lit{a}"},
+
 //    {"(?:ab)(?:cd)", "str{abcd}"},
 //    {"(?:a+b+)(?:c+d+)", "cat{plus{lit{a}}plus{lit{b}}plus{lit{c}}plus{lit{d}}}"},
 //    {"(?:a+|b+)|(?:c+|d+)", "alt{plus{lit{a}}plus{lit{b}}plus{lit{c}}plus{lit{d}}}"},
