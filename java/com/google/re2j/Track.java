@@ -289,6 +289,6 @@ public class Track implements Comparable<Track>  {
             return Integer.compare(Start, o.Start);
         }
 
-        return 0;
+        return Integer.compare(o.End - o.Start, End - Start);
     }
 }
