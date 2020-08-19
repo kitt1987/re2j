@@ -104,38 +104,68 @@ class Regexp {
     name = null;
   }
 
-//  public void SetTracks(ArrayList<Track> tracks) {
-//    if (this.tracks != null) {
-//      throw new IllegalStateException("tracks are already set");
-//    }
-//
-//    this.tracks = tracks;
-//  }
-//
-//  public void SetTrack(Track track) {
-//    if (this.tracks != null) {
-//      throw new IllegalStateException("tracks are already set");
-//    }
-//
-//    this.tracks = new ArrayList<Track>();
-//    this.tracks.add(track);
-//  }
-//
-//  public void PutTrack(Track track) {
-//    this.tracks.add(0, track);
-//  }
-//
-//  public void AppendTrack(Track track) {
-//    this.tracks.add(track);
-//  }
-//
-//  public void OverrideTracks(ArrayList<Track> tracks) {
-//    this.tracks = tracks;
-//  }
-//
-//  public void AddTracks(ArrayList<Track> tracks) {
-//    this.tracks.addAll(tracks);
-//  }
+  // √ New APIs
+  private int NumTracks() {
+    if (tracks == null) {
+      return 0;
+    }
+
+    return tracks.size();
+  }
+
+  private int NumSubs() {
+    if (subs == null) {
+      return 0;
+    }
+
+    return subs.length;
+  }
+
+  private int[] getTrackRange() {
+    if (NumTracks() == 0 && NumSubs() == 0) {
+      throw new IllegalStateException("Regexp has no tracks");
+    }
+
+    int start = Integer.MAX_VALUE, end = 0;
+    for (Track track : tracks) {
+      if (track.Start < start) {
+        start = track.Start;
+      }
+
+      if (track.End > end) {
+        end = track.End;
+      }
+    }
+
+    for (Regexp re : subs) {
+      if (re.tracks.get(0).Start < start) {
+        start = re.tracks.get(0).Start;
+      }
+
+      if (re.tracks.get(0).End > end) {
+        end = re.tracks.get(0).End;
+      }
+    }
+
+    return new int[]{start, end};
+  }
+
+  private void BuildTheTopmostTrack() {
+    if (NumTracks() == 0 && NumSubs() == 0) {
+      return;
+    }
+
+    if (NumTracks() == 1) {
+      // The only track is the topmost track
+      tracks.get(0).UpdateComments(this);
+      return;
+    }
+
+    tracks.add(0, new Track());
+    tracks.get(0).UpdateComments(this);
+  }
+
+  // √ New APIs
 
   public void OverrideTopmostTrack(Track track) {
     topmostTrack = track;
