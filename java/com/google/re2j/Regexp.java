@@ -174,6 +174,11 @@ class Regexp {
   }
 
   public void SetTracks(ArrayList<Track> tracks) {
+    if (tracks == null || tracks.size() == 0) {
+      // FIXME we can't yet determine whether it is a illegal state
+      return;
+    }
+
     boolean noTopmostTrack = NumTracks() == 0;
 
     this.tracks.addAll(tracks);
