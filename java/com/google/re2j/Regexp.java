@@ -71,7 +71,7 @@ class Regexp {
   private ArrayList<Track> tailingTracks;
   private Track joinTrack;
 
-  private ArrayList<Track> tracks;
+  private ArrayList<Track> tracks = new ArrayList<Track>();
 
   Regexp(Op op) {
     this.op = op;
@@ -176,6 +176,55 @@ class Regexp {
       // FIXME may exist some regexps donot want to change the topmost track after set tracks.
       rebuildTopmostTrack();
     }
+  }
+
+  public ArrayList<Track> GetAllTracks() {
+    ArrayList<Track> allTracks = new ArrayList<Track>();
+
+    for (int i = 1; i < tracks.size(); i++) {
+      allTracks.add(tracks.get(i));
+      if (joinTrack != null) {
+        Track last = allTracks.get(allTracks.size()-1);
+        allTracks.add(new Track(last.End, last.End+1, joinTrack.Comments));
+      }
+    }
+
+    // put tracks of sub regexps
+    if (subs != null && subs.length > 0) {
+      for (Regexp sub : subs) {
+        allTracks.addAll(sub.GetAllTracks());
+        if (joinTrack != null) {
+          Track last = allTracks.get(allTracks.size()-1);
+          allTracks.add(new Track(last.End, last.End+1, joinTrack.Comments));
+        }
+      }
+    }
+
+    if (joinTrack != null && allTracks.size() > 0) {
+      allTracks.remove(allTracks.size()-1);
+    }
+
+    allTracks.add(0, tracks.get(0));
+    if (allTracks.size() <= 1) {
+      return allTracks;
+    }
+
+    // FIXME sort them and filter out empty tracks
+    int lastValidPos = 0;
+    for (Track track : allTracks) {
+      if (track.Start != track.End) {
+        allTracks.set(lastValidPos, track);
+        lastValidPos++;
+      }
+    }
+
+    while (allTracks.size() > lastValidPos) {
+      allTracks.remove(allTracks.size()-1);
+    }
+
+    allTracks.sort();
+
+    return allTracks;
   }
 
   // √ New APIs
