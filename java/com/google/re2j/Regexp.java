@@ -152,9 +152,16 @@ class Regexp {
   }
 
   private void buildTopmostTrack() {
-    if (NumTracks() <= 1 && NumSubs() == 0) {
-      // The only track is the topmost track
-      return;
+    if (NumSubs() == 0) {
+      if (NumTracks() == 0) {
+        return;
+      }
+
+      if (NumTracks() == 1) {
+        // The only track is the topmost track
+        tracks.get(0).UpdateComments(this);
+        return;
+      }
     }
 
     int[] range = getTrackRange();
