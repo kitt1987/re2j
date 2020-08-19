@@ -291,6 +291,12 @@ class Regexp {
           OverrideTopmostTrack(tracks.get(0));
         }
 
+        if (tailingTracks != null) {
+          SetTailingTracks(tracks);
+        } else {
+          tailingTracks.addAll(tracks);
+        }
+
         break;
       default:
         if (tracks.size() != 1) {
