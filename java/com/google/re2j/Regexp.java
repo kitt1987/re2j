@@ -221,7 +221,7 @@ class Regexp {
       throw new IllegalStateException("Heading tracks are already there");
     }
 
-    headingTracks = tracks;
+    headingTracks = new ArrayList<Track>(tracks);
   }
 
   public ArrayList<Track> GetHeadingTracks() {
@@ -233,7 +233,7 @@ class Regexp {
       throw new IllegalStateException("Tailing tracks are already there");
     }
 
-    tailingTracks = tracks;
+    tailingTracks = new ArrayList<Track>(tracks);
   }
 
   public ArrayList<Track> GetTailingTracks() {
@@ -296,6 +296,8 @@ class Regexp {
         } else {
           tailingTracks.addAll(tracks);
         }
+
+        OverrideTopmostTrack(new Track(GetFirstTrack().Start, GetLastTrack().End, this));
 
         break;
       default:
