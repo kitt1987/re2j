@@ -415,53 +415,53 @@ class Regexp {
     topmostTrack = new Track(topmostTrack.Start, re.topmostTrack.End, this);
   }
 
-  public ArrayList<Track> GetAllTracks() {
-    ArrayList<Track> allTracks = new ArrayList<Track>();
-    // put heading tracks
-    insertTracks(allTracks, headingTracks);
-
-    // put tracks of sub regexps
-    if (subs != null && subs.length > 0) {
-      for (Regexp sub : subs) {
-        allTracks.addAll(sub.GetAllTracks());
-        if (joinTrack != null) {
-          Track last = allTracks.get(allTracks.size()-1);
-          allTracks.add(new Track(last.End, last.End+1, joinTrack.Comments));
-        }
-      }
-    }
-
-    // put tailing tracks
-    insertTracks(allTracks, tailingTracks);
-
-    if (joinTrack != null && allTracks.size() > 0) {
-      allTracks.remove(allTracks.size()-1);
-    }
-
-    // put the top most track
-    if (topmostTrack != null) {
-      allTracks.add(0, topmostTrack);
-    }
-
-    if (allTracks.size() <= 1) {
-      return allTracks;
-    }
-
-    // FIXME sort them and filter out empty tracks
-    int lastValidPos = 0;
-    for (Track track : allTracks) {
-      if (track.Start != track.End) {
-        allTracks.set(lastValidPos, track);
-        lastValidPos++;
-      }
-    }
-
-    while (allTracks.size() > lastValidPos) {
-      allTracks.remove(allTracks.size()-1);
-    }
-
-    return allTracks;
-  }
+//  public ArrayList<Track> GetAllTracks() {
+//    ArrayList<Track> allTracks = new ArrayList<Track>();
+//    // put heading tracks
+//    insertTracks(allTracks, headingTracks);
+//
+//    // put tracks of sub regexps
+//    if (subs != null && subs.length > 0) {
+//      for (Regexp sub : subs) {
+//        allTracks.addAll(sub.GetAllTracks());
+//        if (joinTrack != null) {
+//          Track last = allTracks.get(allTracks.size()-1);
+//          allTracks.add(new Track(last.End, last.End+1, joinTrack.Comments));
+//        }
+//      }
+//    }
+//
+//    // put tailing tracks
+//    insertTracks(allTracks, tailingTracks);
+//
+//    if (joinTrack != null && allTracks.size() > 0) {
+//      allTracks.remove(allTracks.size()-1);
+//    }
+//
+//    // put the top most track
+//    if (topmostTrack != null) {
+//      allTracks.add(0, topmostTrack);
+//    }
+//
+//    if (allTracks.size() <= 1) {
+//      return allTracks;
+//    }
+//
+//    // FIXME sort them and filter out empty tracks
+//    int lastValidPos = 0;
+//    for (Track track : allTracks) {
+//      if (track.Start != track.End) {
+//        allTracks.set(lastValidPos, track);
+//        lastValidPos++;
+//      }
+//    }
+//
+//    while (allTracks.size() > lastValidPos) {
+//      allTracks.remove(allTracks.size()-1);
+//    }
+//
+//    return allTracks;
+//  }
 
   private void insertTracks(ArrayList<Track> dst, ArrayList<Track> src) {
     if (src == null || src.size() == 0) {
