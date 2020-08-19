@@ -193,6 +193,16 @@ class Regexp {
     }
   }
 
+  public void SetSubs(Regexp[] subs) {
+    this.subs = subs;
+    if (NumTracks() == 0) {
+      buildTopmostTrack();
+    } else {
+      // FIXME may exist some regexps donot want to change the topmost track after set tracks.
+      rebuildTopmostTrack();
+    }
+  }
+
   public ArrayList<Track> GetAllTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
 
