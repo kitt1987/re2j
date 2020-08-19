@@ -11,6 +11,7 @@ package com.google.re2j;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -222,8 +223,7 @@ class Regexp {
       allTracks.remove(allTracks.size()-1);
     }
 
-    allTracks.sort();
-
+    Collections.sort(allTracks);
     return allTracks;
   }
 
