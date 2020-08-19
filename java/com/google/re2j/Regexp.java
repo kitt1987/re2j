@@ -284,7 +284,7 @@ class Regexp {
         // √ convert from a char class
         // tracks = [ + literal + ]
         // tracks are also could be (?:
-        if (tailingTracks != null) {
+        if (tailingTracks == null) {
           SetTailingTracks(tracks);
         } else {
           tailingTracks.addAll(tracks);
