@@ -150,19 +150,31 @@ class Regexp {
     return new int[]{start, end};
   }
 
-  private void BuildTheTopmostTrack() {
-    if (NumTracks() == 0 && NumSubs() == 0) {
-      return;
-    }
-
-    if (NumTracks() == 1) {
+  private void buildTopmostTrack() {
+    if (NumTracks() <= 1 && NumSubs() == 0) {
       // The only track is the topmost track
-      tracks.get(0).UpdateComments(this);
       return;
     }
 
-    tracks.add(0, new Track());
-    tracks.get(0).UpdateComments(this);
+    int[] range = getTrackRange();
+    tracks.add(0, new Track(range[0], range[1], this));
+  }
+
+  private void rebuildTopmostTrack() {
+    int[] range = getTrackRange();
+    tracks.set(0, new Track(range[0], range[1], this));
+  }
+
+  public void SetTracks(int rune, ArrayList<Track> tracks) {
+    boolean noTopmostTrack = NumTracks() == 0;
+
+    this.tracks.addAll(tracks);
+
+    if (noTopmostTrack) {
+      buildTopmostTrack();
+    } else {
+      rebuildTopmostTrack();
+    }
   }
 
   // √ New APIs
