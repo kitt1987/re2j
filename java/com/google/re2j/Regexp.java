@@ -165,7 +165,7 @@ class Regexp {
     tracks.set(0, new Track(range[0], range[1], this));
   }
 
-  public void SetTracks(int rune, ArrayList<Track> tracks) {
+  public void SetTracks(ArrayList<Track> tracks) {
     boolean noTopmostTrack = NumTracks() == 0;
 
     this.tracks.addAll(tracks);
@@ -173,6 +173,7 @@ class Regexp {
     if (noTopmostTrack) {
       buildTopmostTrack();
     } else {
+      // FIXME may exist some regexps donot want to change the topmost track after set tracks.
       rebuildTopmostTrack();
     }
   }
@@ -291,61 +292,62 @@ class Regexp {
   }
 
   public void SetTracks(int rune, ArrayList<Track> tracks) {
-    if (tracks == null) {
-      return;
-    }
-
-    switch (op) {
-      case ALTERNATE:
-      case CONCAT:
-      case CAPTURE:
-      case LEFT_PAREN:
-      case CHAR_CLASS:
-        switch (rune) {
-          case '(':
-          case '[':
-          case '{':
-            SetHeadingTracks(tracks);
-            break;
-          case '|':
-            if (tracks.size() != 1) {
-              throw new IllegalStateException("the join track must be single");
-            }
-
-            SetJoinTrack(tracks.get(0));
-            break;
-          default:
-            SetTailingTracks(tracks);
-        }
-        break;
-      case REPEAT:
-      case STAR:
-      case PLUS:
-      case QUEST:
-        SetTailingTracks(tracks);
-        break;
-      case LITERAL:
-        // √ convert from a char class
-        // tracks = [ + literal + ]
-        // tracks are also could be (?:
-        if (tailingTracks == null) {
-          SetTailingTracks(tracks);
-        } else {
-          tailingTracks.addAll(tracks);
-        }
-
-        OverrideTopmostTrack(new Track(GetFirstTrack().Start, GetLastTrack().End, this));
-
-        break;
-      default:
-        if (tracks.size() != 1) {
-          throw new IllegalStateException("regex must have only one track but " + tracks.size());
-        }
-
-        OverrideTopmostTrack(tracks.get(0));
-    }
-
-    BuildTopmostTrack();
+    SetTracks(tracks);
+//    if (tracks == null) {
+//      return;
+//    }
+//
+//    switch (op) {
+//      case ALTERNATE:
+//      case CONCAT:
+//      case CAPTURE:
+//      case LEFT_PAREN:
+//      case CHAR_CLASS:
+//        switch (rune) {
+//          case '(':
+//          case '[':
+//          case '{':
+//            SetHeadingTracks(tracks);
+//            break;
+//          case '|':
+//            if (tracks.size() != 1) {
+//              throw new IllegalStateException("the join track must be single");
+//            }
+//
+//            SetJoinTrack(tracks.get(0));
+//            break;
+//          default:
+//            SetTailingTracks(tracks);
+//        }
+//        break;
+//      case REPEAT:
+//      case STAR:
+//      case PLUS:
+//      case QUEST:
+//        SetTailingTracks(tracks);
+//        break;
+//      case LITERAL:
+//        // √ convert from a char class
+//        // tracks = [ + literal + ]
+//        // tracks are also could be (?:
+//        if (tailingTracks == null) {
+//          SetTailingTracks(tracks);
+//        } else {
+//          tailingTracks.addAll(tracks);
+//        }
+//
+//        OverrideTopmostTrack(new Track(GetFirstTrack().Start, GetLastTrack().End, this));
+//
+//        break;
+//      default:
+//        if (tracks.size() != 1) {
+//          throw new IllegalStateException("regex must have only one track but " + tracks.size());
+//        }
+//
+//        OverrideTopmostTrack(tracks.get(0));
+//    }
+//
+//    BuildTopmostTrack();
   }
 
   public void ConcatLiteralTracks(Regexp re) {
