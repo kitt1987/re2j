@@ -283,6 +283,7 @@ class Regexp {
       case LITERAL:
         // √ convert from a char class
         // tracks = [ + literal + ]
+        // tracks are also could be (?:
         if (tracks.size() > 1) {
           SetHeadingTracks(tracks);
           OverrideTopmostTrack(new Track(tracks.get(0).Start, tracks.get(tracks.size()-1).End, this));
