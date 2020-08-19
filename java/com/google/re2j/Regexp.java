@@ -154,23 +154,6 @@ class Regexp {
   }
 
   private void buildTopmostTrack() {
-    if (NumSubs() == 0) {
-      if (NumTracks() == 0) {
-        return;
-      }
-
-      if (NumTracks() == 1) {
-        // The only track is the topmost track
-        tracks.get(0).UpdateComments(this);
-        return;
-      }
-    }
-
-    int[] range = getTrackRange();
-    tracks.add(0, new Track(range[0], range[1], this));
-  }
-
-  private void rebuildTopmostTrack() {
     int[] range = getTrackRange();
     tracks.set(0, new Track(range[0], range[1], this));
   }
@@ -181,16 +164,14 @@ class Regexp {
       return;
     }
 
-    boolean noTopmostTrack = NumTracks() == 0;
+    if (NumTracks() == 0 || NumTracks() == 1 && NumSubs() == 0) {
+      // insert placeholder for the topmost track
+      tracks.add(0, new Track());
+    }
 
     this.tracks.addAll(tracks);
-
-    if (noTopmostTrack) {
-      buildTopmostTrack();
-    } else {
-      // FIXME may exist some regexps donot want to change the topmost track after set tracks.
-      rebuildTopmostTrack();
-    }
+    // FIXME may exist some regexps donot want to change the topmost track after set tracks.
+    buildTopmostTrack();
   }
 
   public void SetSubs(Regexp[] subs) {
@@ -199,7 +180,7 @@ class Regexp {
       buildTopmostTrack();
     } else {
       // FIXME may exist some regexps donot want to change the topmost track after set tracks.
-      rebuildTopmostTrack();
+      buildTopmostTrack();
     }
   }
 
