@@ -3,7 +3,7 @@ package com.google.re2j;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Track {
+public class Track implements Comparable<Track>  {
     static final HashMap<String, String> POSIX_GROUPS = new HashMap<String, String>();
 
     static {
@@ -281,5 +281,14 @@ public class Track {
         }
 
         return value.toString();
+    }
+
+    @Override
+    public int compareTo(Track o) {
+        if (Start != o.Start) {
+            return Integer.compare(Start, o.Start);
+        }
+
+        return 0;
     }
 }
