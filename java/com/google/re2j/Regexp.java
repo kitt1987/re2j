@@ -219,7 +219,12 @@ class Regexp {
       allTracks.remove(allTracks.size()-1);
     }
 
-    allTracks.add(0, tracks.get(0));
+    if (tracks.size() > 0) {
+      // FIXME we can't yet determine whether it is a illegal state
+      // tracks may always has its first topmost track
+      allTracks.add(0, tracks.get(0));
+    }
+
     if (allTracks.size() <= 1) {
       return allTracks;
     }
