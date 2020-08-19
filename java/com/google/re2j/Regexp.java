@@ -71,6 +71,8 @@ class Regexp {
   private ArrayList<Track> tailingTracks;
   private Track joinTrack;
 
+  private ArrayList<Track> tracks;
+
   Regexp(Op op) {
     this.op = op;
   }
