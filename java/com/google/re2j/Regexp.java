@@ -227,6 +227,10 @@ class Regexp {
     return allTracks;
   }
 
+  public Track GetTopmostTrack() {
+    return tracks.get(0);
+  }
+
   // √ New APIs
 
   public void OverrideTopmostTrack(Track track) {
@@ -234,9 +238,9 @@ class Regexp {
     topmostOverridden = true;
   }
 
-  public Track GetTopmostTrack() {
-    return topmostTrack;
-  }
+//  public Track GetTopmostTrack() {
+//    return topmostTrack;
+//  }
 
   public Track GetFirstTrack() {
     if (headingTracks != null && headingTracks.size() > 0) {
