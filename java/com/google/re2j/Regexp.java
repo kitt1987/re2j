@@ -166,7 +166,7 @@ class Regexp {
 
     if (NumTracks() == 0 || NumTracks() == 1 && NumSubs() == 0) {
       // insert placeholder for the topmost track
-      tracks.add(0, new Track());
+      this.tracks.add(0, new Track());
     }
 
     this.tracks.addAll(tracks);
