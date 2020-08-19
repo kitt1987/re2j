@@ -177,11 +177,11 @@ class Regexp {
   public void SetSubs(Regexp[] subs) {
     this.subs = subs;
     if (NumTracks() == 0) {
-      buildTopmostTrack();
-    } else {
-      // FIXME may exist some regexps donot want to change the topmost track after set tracks.
-      buildTopmostTrack();
+      // insert placeholder for the topmost track
+      this.tracks.add(0, new Track());
     }
+    // FIXME may exist some regexps donot want to change the topmost track after set tracks.
+    buildTopmostTrack();
   }
 
   public ArrayList<Track> GetAllTracks() {
