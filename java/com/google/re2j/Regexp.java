@@ -164,7 +164,7 @@ class Regexp {
       return;
     }
 
-    if (NumTracks() == 0 || NumTracks() == 1 && NumSubs() == 0) {
+    if (tracks.size() > 1 || NumTracks() == 1 && NumSubs() == 0) {
       // insert placeholder for the topmost track
       this.tracks.add(0, new Track());
     }
