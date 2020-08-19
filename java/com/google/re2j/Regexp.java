@@ -138,13 +138,15 @@ class Regexp {
       }
     }
 
-    for (Regexp re : subs) {
-      if (re.tracks.get(0).Start < start) {
-        start = re.tracks.get(0).Start;
-      }
+    if (subs != null) {
+      for (Regexp re : subs) {
+        if (re.tracks.get(0).Start < start) {
+          start = re.tracks.get(0).Start;
+        }
 
-      if (re.tracks.get(0).End > end) {
-        end = re.tracks.get(0).End;
+        if (re.tracks.get(0).End > end) {
+          end = re.tracks.get(0).End;
+        }
       }
     }
 
