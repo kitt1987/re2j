@@ -164,7 +164,11 @@ class Regexp {
       throw new IllegalStateException("Only CC can accept Perl flags");
     }
 
-    this.tracks.addAll(tracks);
+    if (tracks.size() > 1) {
+      SetTracks(tracks);
+    } else {
+      this.tracks.addAll(tracks);
+    }
   }
 
   public void SetLiteralConcatenationTracks(ArrayList<Track> thatTracks) {
