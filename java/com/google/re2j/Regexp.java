@@ -164,7 +164,7 @@ class Regexp {
       throw new IllegalStateException("Only CC can accept Perl flags");
     }
 
-    if (tracks.size() > 1) {
+    if ((NumTracks() + tracks.size()) > 1) {
       SetTracks(tracks);
     } else {
       this.tracks.addAll(tracks);
