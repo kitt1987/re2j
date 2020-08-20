@@ -340,7 +340,8 @@ class Parser {
         if (tracksRestored == null) {
           tracksRestored = new ArrayList<Track>();
         }
-        tracksRestored.addAll(sub.GetDirectTracks());
+        ArrayList<Track> tracks = sub.GetDirectTracks();
+        tracksRestored.addAll(tracks.subList(1, tracks.size()));
         System.arraycopy(sub.subs, 0, newsubs, i, sub.subs.length);
         i += sub.subs.length;
         reuse(sub);
