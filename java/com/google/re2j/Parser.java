@@ -334,8 +334,13 @@ class Parser {
     }
     Regexp[] newsubs = new Regexp[len];
     int i = 0;
+    ArrayList<Track> tracksRestored = null;
     for (Regexp sub : subs) {
       if (sub.op == op) {
+        if (tracksRestored == null) {
+          tracksRestored = new ArrayList<>();
+        }
+        tracksRestored.addAll(sub.GetDirectTracks());
         System.arraycopy(sub.subs, 0, newsubs, i, sub.subs.length);
         i += sub.subs.length;
         reuse(sub);
@@ -344,7 +349,10 @@ class Parser {
       }
     }
     Regexp re = newRegexp(op);
-    re.SetTracks();
+    if (tracksRestored != null && tracksRestored.size() > 0) {
+      re.SetTracks(tracksRestored);
+    }
+
     re.SetSubs(newsubs);
 
     if (op == Regexp.Op.ALTERNATE) {
