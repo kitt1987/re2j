@@ -1039,7 +1039,7 @@ class Parser {
             if (parsePerlClassEscape(t, cc)) {
               re.runes = cc.toArray();
               push(re);
-              top().SetTracks(t.PopTracks());
+              top().SetPerlShorthandTracks(t.PopTracks());
               break bigswitch;
             }
 
