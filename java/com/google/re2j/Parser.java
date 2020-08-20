@@ -1369,11 +1369,10 @@ class Parser {
                 .appendLiteral(dst.runes[0], dst.flags)
                 .appendLiteral(src.runes[0], src.flags)
                 .toArray();
-        dst.SetTracks(src.GetAllTracks());
         break;
     }
 
-    dst.SetTracks(0, src.GetAllTracks());
+    dst.SetTracks(src.GetAllTracks());
   }
 
   // If the top of the stack is an element followed by an opVerticalBar
