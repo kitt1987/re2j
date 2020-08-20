@@ -235,19 +235,19 @@ public class Track implements Comparable<Track>  {
 
         if (tracks != null) {
             for (int i = 1; i < tracks.size(); i++) {
-                switch (tracks.get(i).Comments) {
-                    case "character class":
-                    case "character class end":
-                    case "non-capturing group":
-                    case "case insensitive":
-                        continue;
+                String comments = tracks.get(i).Comments;
+                if (comments.equals("character class")
+                    || comments.equals("character class end")
+                    || comments.equals("non-capturing group")
+                    || comments.equals("capturing group end")) {
+                    continue;
                 }
 
                 if (value.length() > 0) {
                     value.append(",");
                 }
 
-                value.append(tracks.get(i).Comments);
+                value.append(comments);
             }
         }
 
