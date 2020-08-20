@@ -218,7 +218,7 @@ class Regexp {
   }
 
   public ArrayList<Track> GetAllTracks() {
-    ArrayList<Track> allTracks = new ArrayList<Track>();
+    ArrayList<Track> allTracks = new ArrayList<>();
 
     for (int i = 1; i < tracks.size(); i++) {
       allTracks.add(tracks.get(i));
@@ -264,6 +264,11 @@ class Regexp {
 
     while (allTracks.size() > lastValidPos) {
       allTracks.remove(allTracks.size()-1);
+    }
+
+    if (op == Op.EMPTY_MATCH && joinTrack != null) {
+      // √ for "|"
+      allTracks.add(joinTrack);
     }
 
     Collections.sort(allTracks);
