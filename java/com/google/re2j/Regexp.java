@@ -159,6 +159,10 @@ class Regexp {
   }
 
   public void SetTracks(ArrayList<Track> tracks) {
+    SetTracks(tracks, false);
+  }
+
+  public void SetTracks(ArrayList<Track> tracks, boolean keepTopmostComment) {
     if (tracks == null || tracks.size() == 0) {
       // FIXME we can't yet determine whether it is a illegal state
       return;

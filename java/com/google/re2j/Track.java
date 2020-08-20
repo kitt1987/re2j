@@ -70,6 +70,11 @@ public class Track implements Comparable<Track>  {
         UpdateComments(re);
     }
 
+    void Update(int[] range) {
+        Start = range[0];
+        End = range[1];
+    }
+
     void Update(Track that) {
         Start = that.Start;
         End = that.End;
