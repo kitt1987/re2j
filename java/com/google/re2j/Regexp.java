@@ -298,7 +298,7 @@ class Regexp {
 
   public void SetJoinTrack(Track track) {
     joinTrack = track;
-    BuildTopmostTrack();
+//    BuildTopmostTrack();
   }
 
   public boolean HasJoinTrack() {
