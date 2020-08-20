@@ -234,19 +234,15 @@ public class Track implements Comparable<Track>  {
         StringBuilder value = new StringBuilder();
 
         if (tracks != null) {
-            int begin = 1, end = tracks.size();
-            if (tracks.size() > 2) {
-                if (tracks.get(1).Comments.equals("character class")) {
-                    if (!tracks.get(end-1).Comments.equals("character class end")) {
-                        throw new IllegalStateException("CC do not match");
-                    }
-
-                    begin++;
-                    end--;
+            for (int i = 1; i < tracks.size(); i++) {
+                switch (tracks.get(i).Comments) {
+                    case "character class":
+                    case "character class end":
+                    case "non-capturing group":
+                    case "case insensitive":
+                        continue;
                 }
-            }
 
-            for (int i = begin; i < end; i++) {
                 if (value.length() > 0) {
                     value.append(",");
                 }
