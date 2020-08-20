@@ -167,6 +167,22 @@ class Regexp {
     this.tracks.addAll(tracks);
   }
 
+  public void SetLiteralConcatenationTracks(ArrayList<Track> tracks) {
+    if (this.op != Op.LITERAL) {
+      throw new IllegalStateException("Only CC can accept Perl flags");
+    }
+
+    if (tracks.size() != 1) {
+      throw new IllegalStateException("Tracks to be concatenated must be only literal");
+    }
+
+    if (this.tracks.size() != 1) {
+      throw new IllegalStateException("Tracks to be concatenated must be only literal");
+    }
+
+    tracks.get(0).Update(new Track(this.tracks.get(0).Start, tracks.get(0).End, this));
+  }
+
   public void SetTracks(ArrayList<Track> tracks) {
     if (tracks == null || tracks.size() == 0) {
       // FIXME we can't yet determine whether it is a illegal state
