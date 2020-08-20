@@ -303,24 +303,12 @@ class Regexp {
     this.op = op;
   }
 
-  public Op GetCommentOp() {
-    if (legacyOp != null) {
-      return legacyOp;
-    }
-
-    return op;
-  }
-
   // √ New APIs
 
   public void OverrideTopmostTrack(Track track) {
     topmostTrack = track;
     topmostOverridden = true;
   }
-
-//  public Track GetTopmostTrack() {
-//    return topmostTrack;
-//  }
 
   public Track GetFirstTrack() {
     if (headingTracks != null && headingTracks.size() > 0) {
