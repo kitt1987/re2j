@@ -189,7 +189,7 @@ class Regexp {
       this.tracks.add(0, new Track());
     }
     // FIXME may exist some regexps donot want to change the topmost track after set tracks.
-    buildTopmostTrack();
+    buildTopmostTrack(false);
   }
 
   public ArrayList<Track> GetAllTracks() {
