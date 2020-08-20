@@ -201,11 +201,14 @@ class Regexp {
   }
 
   public void SetSubs(Regexp[] subs) {
-    this.subs = subs;
-    if (NumTracks() == 0) {
+    // The first track must not be the topmost track and we need keep it.
+    //  if (NumTracks() == 0) {
+    if (NumSubs() == 0 && NumTracks() <= 1) {
       // insert placeholder for the topmost track
       this.tracks.add(0, new Track());
     }
+
+    this.subs = subs;
     // FIXME may exist some regexps donot want to change the topmost track after set tracks.
     buildTopmostTrack();
   }
