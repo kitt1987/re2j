@@ -155,7 +155,7 @@ class Regexp {
 
   private void buildTopmostTrack() {
     int[] range = getTrackRange();
-    tracks.set(0, new Track(range[0], range[1], this));
+    tracks.get(0).Update(new Track(range[0], range[1], this));
   }
 
   public void SetTracks(ArrayList<Track> tracks) {

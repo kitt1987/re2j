@@ -70,6 +70,14 @@ public class Track implements Comparable<Track>  {
         UpdateComments(re);
     }
 
+    void Update(Track that) {
+        Start = that.Start;
+        End = that.End;
+        if (that.Comments != null && that.Comments.length() > 0) {
+            Comments = that.Comments;
+        }
+    }
+
     void End(int end) {
         End = end;
     }
