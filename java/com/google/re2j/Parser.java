@@ -344,6 +344,7 @@ class Parser {
       }
     }
     Regexp re = newRegexp(op);
+    re.SetTracks();
     re.SetSubs(newsubs);
 
     if (op == Regexp.Op.ALTERNATE) {
