@@ -218,7 +218,7 @@ class Regexp {
   }
 
   public ArrayList<Track> GetAllTracks() {
-    ArrayList<Track> allTracks = new ArrayList<>();
+    ArrayList<Track> allTracks = new ArrayList<Track>();
 
     for (int i = 1; i < tracks.size(); i++) {
       allTracks.add(tracks.get(i));
