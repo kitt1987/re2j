@@ -316,7 +316,7 @@ class Regexp {
 
   public void SetJoinTrack(Track track) {
     joinTrack = track;
-//    BuildTopmostTrack();
+    buildTopmostTrack();
   }
 
   public boolean HasJoinTrack() {
