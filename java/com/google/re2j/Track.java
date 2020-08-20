@@ -164,14 +164,14 @@ public class Track implements Comparable<Track>  {
                 }
 
                 // √ get rid of the leading and tailing tracks
-                ArrayList<Track> tracks = re.GetHeadingTracks();
-                if (!re.IsConvertedCharClass()) {
-                    tracks = new ArrayList<Track>(tracks);
-                    tracks.remove(0);
-                    tracks.remove(tracks.size()-1);
-                }
+//                ArrayList<Track> tracks = re.GetHeadingTracks();
+//                if (!re.IsConvertedCharClass()) {
+//                    tracks = new ArrayList<Track>(tracks);
+//                    tracks.remove(0);
+//                    tracks.remove(tracks.size()-1);
+//                }
 
-                b.append("character class of [").append(joinComments(tracks)).append("]");
+                b.append("character class of [").append(joinComments(re.GetDirectTracks())).append("]");
                 break;
             case CAPTURE:
                 b.append("capturing group (").append(joinComments(re.subs)).append(")");
