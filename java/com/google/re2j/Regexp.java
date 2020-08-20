@@ -181,7 +181,7 @@ class Regexp {
     }
 
     // Just concatenate 2 topmost tracks and discard all tracks of single literals.
-    tracks.get(0).Update(new Track(this.tracks.get(0).Start, tracks.get(0).End, this));
+    this.tracks.get(0).Update(new Track(this.tracks.get(0).Start, tracks.get(0).End, this));
   }
 
   public void SetTracks(ArrayList<Track> tracks) {
