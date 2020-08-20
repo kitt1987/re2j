@@ -47,6 +47,18 @@ public class Track implements Comparable<Track>  {
         PERL_GROUPS.put("\\W", "non-word character shorthand");
     }
 
+    static boolean AllLiterals(ArrayList<Track> tracks) {
+        for (Track track : tracks) {
+            if (track.Comments.startsWith("literal") || track.Comments.startsWith("string")) {
+                continue;
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
     public int Start;
     public int End;
     public String Comments;

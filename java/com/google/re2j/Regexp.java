@@ -167,16 +167,13 @@ class Regexp {
       throw new IllegalStateException("Only CC can accept Perl flags");
     }
 
-    if (thatTracks.size() != 1) {
-      throw new IllegalStateException("Tracks to be concatenated must be only literal");
+    if (tracks.size() == 1 && Track.AllLiterals(thatTracks)) {
+      // Just concatenate 2 topmost tracks and discard all tracks of single literals.
+      tracks.get(0).Update(new Track(tracks.get(0).Start, thatTracks.get(0).End, this));
+      return;
     }
 
-    if (tracks.size() != 1) {
-      throw new IllegalStateException("Tracks to be concatenated must be only literal");
-    }
-
-    // Just concatenate 2 topmost tracks and discard all tracks of single literals.
-    tracks.get(0).Update(new Track(tracks.get(0).Start, thatTracks.get(0).End, this));
+    SetTracks(thatTracks);
   }
 
   public void OverrideTracks(ArrayList<Track> thatTracks) {
