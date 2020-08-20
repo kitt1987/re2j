@@ -71,6 +71,7 @@ class Regexp {
   private ArrayList<Track> headingTracks;
   private ArrayList<Track> tailingTracks;
   private Track joinTrack;
+  private Op legacyOp;
 
   private ArrayList<Track> tracks = new ArrayList<Track>();
 
@@ -153,20 +154,12 @@ class Regexp {
     return new int[]{start, end};
   }
 
-  private void buildTopmostTrack(boolean keepTopmostComment) {
+  private void buildTopmostTrack() {
     int[] range = getTrackRange();
-    if (keepTopmostComment) {
-      tracks.get(0).Update(range);
-    } else {
-      tracks.get(0).Update(new Track(range[0], range[1], this));
-    }
+    tracks.get(0).Update(new Track(range[0], range[1], this));
   }
 
   public void SetTracks(ArrayList<Track> tracks) {
-    SetTracks(tracks, false);
-  }
-
-  public void SetTracks(ArrayList<Track> tracks, boolean keepTopmostComment) {
     if (tracks == null || tracks.size() == 0) {
       // FIXME we can't yet determine whether it is a illegal state
       return;
@@ -179,7 +172,7 @@ class Regexp {
 
     this.tracks.addAll(tracks);
     // FIXME may exist some regexps donot want to change the topmost track after set tracks.
-    buildTopmostTrack(keepTopmostComment);
+    buildTopmostTrack();
   }
 
   public void SetSubs(Regexp[] subs) {
@@ -189,7 +182,7 @@ class Regexp {
       this.tracks.add(0, new Track());
     }
     // FIXME may exist some regexps donot want to change the topmost track after set tracks.
-    buildTopmostTrack(false);
+    buildTopmostTrack();
   }
 
   public ArrayList<Track> GetAllTracks() {
@@ -251,6 +244,11 @@ class Regexp {
 
   public final ArrayList<Track> GetDirectTracks() {
     return tracks;
+  }
+
+  public void UpdateOp(Op op) {
+    legacyOp = this.op;
+    this.op = op;
   }
 
   // √ New APIs
