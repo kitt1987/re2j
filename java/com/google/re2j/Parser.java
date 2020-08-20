@@ -1022,7 +1022,6 @@ class Parser {
 
             Regexp re = newRegexp(Regexp.Op.CHAR_CLASS);
             re.flags = flags;
-            re.MarkPerlCharClass();
 
             // Look for Unicode character group like \p{Han}
             if (t.lookingAt("\\p") || t.lookingAt("\\P")) {
