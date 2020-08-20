@@ -156,6 +156,10 @@ class Regexp {
 
   private void buildTopmostTrack() {
     int[] range = getTrackRange();
+    if (legacyOp != null) {
+      
+    }
+
     tracks.get(0).Update(new Track(range[0], range[1], this));
   }
 
