@@ -153,9 +153,13 @@ class Regexp {
     return new int[]{start, end};
   }
 
-  private void buildTopmostTrack() {
+  private void buildTopmostTrack(boolean keepTopmostComment) {
     int[] range = getTrackRange();
-    tracks.get(0).Update(new Track(range[0], range[1], this));
+    if (keepTopmostComment) {
+      tracks.get(0).Update(range);
+    } else {
+      tracks.get(0).Update(new Track(range[0], range[1], this));
+    }
   }
 
   public void SetTracks(ArrayList<Track> tracks) {
@@ -175,7 +179,7 @@ class Regexp {
 
     this.tracks.addAll(tracks);
     // FIXME may exist some regexps donot want to change the topmost track after set tracks.
-    buildTopmostTrack();
+    buildTopmostTrack(keepTopmostComment);
   }
 
   public void SetSubs(Regexp[] subs) {
