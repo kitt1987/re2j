@@ -548,13 +548,27 @@ public class RegexTrackTest {
                 new Track(9, 11, "string \"cd\""),
                 new Track(11, 12, "capturing group end"),
         });
+
+        put("(?:a+b+)(?:c+d+)", new Track[]{
+                new Track(0, 12, "string \"abcd\""),
+                new Track(0, 3, "capturing group"),
+                new Track(0, 2, "non-capturing group"),
+                new Track(2, 3, "mod modifier end"),
+                new Track(3, 5, "string \"ab\""),
+                new Track(5, 6, "capturing group end"),
+                new Track(6, 12, "string \"cd\""),
+                new Track(6, 9, "capturing group"),
+                new Track(6, 8, "non-capturing group"),
+                new Track(8, 9, "mod modifier end"),
+                new Track(9, 11, "string \"cd\""),
+                new Track(11, 12, "capturing group end"),
+        });
     }};
 
 //  {
 //
 //    // Test flattening.
 
-//    {"(?:ab)(?:cd)", "str{abcd}"},
 //    {"(?:a+b+)(?:c+d+)", "cat{plus{lit{a}}plus{lit{b}}plus{lit{c}}plus{lit{d}}}"},
 //    {"(?:a+|b+)|(?:c+|d+)", "alt{plus{lit{a}}plus{lit{b}}plus{lit{c}}plus{lit{d}}}"},
 //    {"(?:a|b)|(?:c|d)", "cc{0x61-0x64}"},
