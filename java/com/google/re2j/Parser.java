@@ -693,7 +693,7 @@ class Parser {
     Regexp re = new Regexp(Regexp.Op.LITERAL);
     re.flags = flags;
     re.runes = Utils.stringToRunes(s);
-    re.OverrideTopmostTrack(new Track(0, s.length(), re));
+    re.SetTrack(new Track(0, s.length(), re));
     return re;
   }
 
