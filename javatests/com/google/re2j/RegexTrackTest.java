@@ -525,9 +525,7 @@ public class RegexTrackTest {
                 new Track(6, 7, "literal 'd'"),
         });
 
-        //    {"(?:a)", "lit{a}"},
         put("(?:a)", new Track[]{
-//                 FIXME fixes
                 new Track(0, 5, "literal 'a'"),
                 new Track(0, 3, "capturing group"),
                 new Track(0, 2, "non-capturing group"),
@@ -536,12 +534,12 @@ public class RegexTrackTest {
                 new Track(4, 5, "capturing group end"),
         });
 
-//        put("(?:ab)(?:cd)", new Track[]{
-//                new Track(0, 5, "alternation of [string \"ab\",string \"cd\"]"),
-//                new Track(0, 2, "string \"ab\""),
-//                new Track(2, 3, "alternation"),
-//                new Track(3, 5, "string \"cd\""),
-//        });
+        put("(?:ab)(?:cd)", new Track[]{
+                new Track(0, 5, "alternation of [string \"ab\",string \"cd\"]"),
+                new Track(0, 2, "string \"ab\""),
+                new Track(2, 3, "alternation"),
+                new Track(3, 5, "string \"cd\""),
+        });
     }};
 
 //  {
