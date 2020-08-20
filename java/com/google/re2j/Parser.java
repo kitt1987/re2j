@@ -1369,7 +1369,7 @@ class Parser {
                 .appendLiteral(dst.runes[0], dst.flags)
                 .appendLiteral(src.runes[0], src.flags)
                 .toArray();
-        dst.ConvertToHeadingTrack();
+        dst.SetTracks(src.GetAllTracks());
         break;
     }
 
