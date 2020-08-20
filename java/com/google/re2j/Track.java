@@ -52,6 +52,8 @@ public class Track implements Comparable<Track>  {
     public String Comments;
 
     Track() {
+        Start = Integer.MAX_VALUE;
+        End = 0;
     }
 
     Track(int start, int end, String comments) {
