@@ -164,14 +164,6 @@ public class Track implements Comparable<Track>  {
                     break;
                 }
 
-                // √ get rid of the leading and tailing tracks
-//                ArrayList<Track> tracks = re.GetHeadingTracks();
-//                if (!re.IsConvertedCharClass()) {
-//                    tracks = new ArrayList<Track>(tracks);
-//                    tracks.remove(0);
-//                    tracks.remove(tracks.size()-1);
-//                }
-
                 b.append("character class of [").append(joinComments(re.GetDirectTracks())).append("]");
                 break;
             case CAPTURE:
@@ -242,7 +234,19 @@ public class Track implements Comparable<Track>  {
         StringBuilder value = new StringBuilder();
 
         if (tracks != null) {
-            for (int i = 1; i < tracks.size(); i++) {
+            int begin = 1, end = tracks.size();
+            if (tracks.size() > 2) {
+                if (tracks.get(1).Comments.equals("character class")) {
+                    if (!tracks.get(end-1).Comments.equals("character class end")) {
+                        throw new IllegalStateException("CC do not match");
+                    }
+
+                    begin++;
+                    end++;
+                }
+            }
+
+            for (int i = begin; i < end; i++) {
                 if (value.length() > 0) {
                     value.append(",");
                 }
