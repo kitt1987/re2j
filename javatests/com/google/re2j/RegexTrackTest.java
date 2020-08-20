@@ -384,32 +384,21 @@ public class RegexTrackTest {
                 new Track(15, 16, "character class end"),
         });
         put("\\d", new Track[]{
-                // FIXME the topmost track
                 new Track(0, 2, "character class digits shorthand"),
         });
         put("\\D", new Track[]{
-                // FIXME the topmost track
-                new Track(0, 2, "character class of []"),
                 new Track(0, 2, "character class non-digits shorthand"),
         });
         put("\\s", new Track[]{
-                // FIXME the topmost track
-                new Track(0, 2, "character class of []"),
                 new Track(0, 2, "character class whitespace shorthand"),
         });
         put("\\S", new Track[]{
-                // FIXME the topmost track
-                new Track(0, 2, "character class of []"),
                 new Track(0, 2, "character class non-whitespace shorthand"),
         });
         put("\\w", new Track[]{
-                // FIXME the topmost track
-                new Track(0, 2, "character class of []"),
                 new Track(0, 2, "character class word character shorthand"),
         });
         put("\\W", new Track[]{
-                // FIXME the topmost track
-                new Track(0, 2, "character class of []"),
                 new Track(0, 2, "character class non-word character shorthand"),
         });
         put("(?i)\\w", new Track[]{
