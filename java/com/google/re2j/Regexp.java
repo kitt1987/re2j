@@ -247,6 +247,10 @@ class Regexp {
   }
 
   public void UpdateOp(Op op) {
+    if (legacyOp != null) {
+      throw new IllegalStateException("already has a legacy OP " + legacyOp);
+    }
+
     legacyOp = this.op;
     this.op = op;
   }

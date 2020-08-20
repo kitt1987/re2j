@@ -110,7 +110,7 @@ class Parser {
       if (maybeConcat(re.runes[0], flags & ~RE2.FOLD_CASE)) {
         return null;
       }
-      re.op = Regexp.Op.LITERAL;
+      re.UpdateOp(Regexp.Op.LITERAL);
       re.runes = new int[] {re.runes[0]};
       re.flags = flags & ~RE2.FOLD_CASE;
     } else if ((re.op == Regexp.Op.CHAR_CLASS
@@ -130,7 +130,7 @@ class Parser {
       }
 
       // Rewrite as (case-insensitive) literal.
-      re.op = Regexp.Op.LITERAL;
+      re.UpdateOp(Regexp.Op.LITERAL);
       re.runes = new int[] {re.runes[0]};
       re.flags = flags | RE2.FOLD_CASE;
     } else {
@@ -306,14 +306,14 @@ class Parser {
       re.runes = new CharClass(re.runes).cleanClass().toArray();
       if (re.runes.length == 2 && re.runes[0] == 0 && re.runes[1] == Unicode.MAX_RUNE) {
         re.runes = null;
-        re.op = Regexp.Op.ANY_CHAR;
+        re.UpdateOp(Regexp.Op.ANY_CHAR);
       } else if (re.runes.length == 4
           && re.runes[0] == 0
           && re.runes[1] == '\n' - 1
           && re.runes[2] == '\n' + 1
           && re.runes[3] == Unicode.MAX_RUNE) {
         re.runes = null;
-        re.op = Regexp.Op.ANY_CHAR_NOT_NL;
+        re.UpdateOp(Regexp.Op.ANY_CHAR_NOT_NL);
       }
     }
   }
@@ -617,7 +617,7 @@ class Parser {
           case 0:
           case 1:
             // Impossible but handle.
-            re.op = Regexp.Op.EMPTY_MATCH;
+            re.UpdateOp(Regexp.Op.EMPTY_MATCH);
             re.SetSubs(null);
             break;
           case 2:
@@ -638,7 +638,7 @@ class Parser {
     if (re.op == Regexp.Op.LITERAL) {
       re.runes = Utils.subarray(re.runes, n, re.runes.length);
       if (re.runes.length == 0) {
-        re.op = Regexp.Op.EMPTY_MATCH;
+        re.UpdateOp(Regexp.Op.EMPTY_MATCH);
       }
     }
     return re;
@@ -672,7 +672,7 @@ class Parser {
       re.SetSubs(subarray(re.subs, 1, re.subs.length));
       switch (re.subs.length) {
         case 0:
-          re.op = Regexp.Op.EMPTY_MATCH;
+          re.UpdateOp(Regexp.Op.EMPTY_MATCH);
           re.SetSubs(Regexp.EMPTY_SUBS);
           break;
         case 1:
@@ -1346,7 +1346,7 @@ class Parser {
       case ANY_CHAR_NOT_NL:
         // src might add \n
         if (matchRune(src, '\n')) {
-          dst.op = Regexp.Op.ANY_CHAR;
+          dst.UpdateOp(Regexp.Op.ANY_CHAR);
         }
         break;
       case CHAR_CLASS:
@@ -1363,7 +1363,7 @@ class Parser {
         if (src.runes[0] == dst.runes[0] && src.flags == dst.flags) {
           break;
         }
-        dst.op = Regexp.Op.CHAR_CLASS;
+        dst.UpdateOp(Regexp.Op.CHAR_CLASS);
         dst.runes =
             new CharClass()
                 .appendLiteral(dst.runes[0], dst.flags)
@@ -1454,7 +1454,7 @@ class Parser {
       re1.SetTracks(0, re2.GetAllTracks());
       push(re1);
     } else {
-      re2.op = Regexp.Op.CAPTURE;
+      re2.UpdateOp(Regexp.Op.CAPTURE);
       re2.SetSubs(new Regexp[] {re1});
       push(re2);
     }
