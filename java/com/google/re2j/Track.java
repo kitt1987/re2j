@@ -118,7 +118,7 @@ public class Track implements Comparable<Track>  {
     void UpdateComments(Regexp re) {
         StringBuilder b = new StringBuilder();
 
-        switch (re.op) {
+        switch (re.GetCommentOp()) {
             case LITERAL:
                 if (re.runes.length > 1) {
                     b.append("string ");

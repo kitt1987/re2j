@@ -157,7 +157,7 @@ class Regexp {
   private void buildTopmostTrack() {
     int[] range = getTrackRange();
     if (legacyOp != null) {
-      
+
     }
 
     tracks.get(0).Update(new Track(range[0], range[1], this));
@@ -257,6 +257,14 @@ class Regexp {
 
     legacyOp = this.op;
     this.op = op;
+  }
+
+  public Op GetCommentOp() {
+    if (legacyOp != null) {
+      return legacyOp;
+    }
+
+    return op;
   }
 
   // √ New APIs
