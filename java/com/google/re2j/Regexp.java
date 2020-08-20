@@ -276,7 +276,13 @@ class Regexp {
       throw new IllegalStateException("already has a legacy OP " + legacyOp);
     }
 
-    legacyOp = this.op;
+    switch (this.op) {
+      case LEFT_PAREN:
+        break;
+      default:
+        legacyOp = this.op;
+    }
+    
     this.op = op;
   }
 
