@@ -338,7 +338,7 @@ class Parser {
     for (Regexp sub : subs) {
       if (sub.op == op) {
         if (tracksRestored == null) {
-          tracksRestored = new ArrayList<>();
+          tracksRestored = new ArrayList<Track>();
         }
         tracksRestored.addAll(sub.GetDirectTracks());
         System.arraycopy(sub.subs, 0, newsubs, i, sub.subs.length);
