@@ -159,6 +159,14 @@ class Regexp {
     tracks.get(0).Update(new Track(range[0], range[1], this));
   }
 
+  public void SetPerlShorthandTracks(ArrayList<Track> tracks) {
+    if (this.op != Op.CHAR_CLASS) {
+      throw new IllegalStateException("Only CC can accept Perl flags");
+    }
+
+    this.tracks.addAll(tracks);
+  }
+
   public void SetTracks(ArrayList<Track> tracks) {
     if (tracks == null || tracks.size() == 0) {
       // FIXME we can't yet determine whether it is a illegal state

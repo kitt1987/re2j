@@ -158,6 +158,7 @@ public class Track implements Comparable<Track>  {
                 b.append("line end");
                 break;
             case CHAR_CLASS:
+                // a. converted form alternation
                 if (re.HasJoinTrack()) {
                     b.append("alternation of [").append(joinComments(re.GetDirectTracks())).append("]");
                     break;
