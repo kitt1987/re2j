@@ -242,7 +242,7 @@ public class Track implements Comparable<Track>  {
                     }
 
                     begin++;
-                    end++;
+                    end--;
                 }
             }
 
