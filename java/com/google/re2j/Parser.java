@@ -271,7 +271,7 @@ class Parser {
     if (subs.length == 0) {
       t.PushNewTrack("empty");
       Regexp empty = push(newRegexp(Regexp.Op.EMPTY_MATCH));
-      top().SetTracks(0, t.PopTracks());
+      top().SetTracks(t.PopTracks());
       return empty;
     }
 
@@ -868,7 +868,7 @@ class Parser {
 //            throw new IllegalStateException("a literal regex must have only 1 track");
 //          }
 
-          top().SetTracks(peek, tracks);
+          top().SetTracks(tracks);
           break;
 
         case '(':
@@ -879,19 +879,19 @@ class Parser {
           }
           op(Regexp.Op.LEFT_PAREN).cap = ++numCap;
           t.skip(1); // '('
-          top().SetTracks(peek, t.PopTracks());
+          top().SetTracks(t.PopTracks());
           break;
 
         case '|':
           parseVerticalBar(t);
           t.skip(1); // '|'
-          top().SetTracks(peek, t.PopTracks());
+          top().SetTracks(t.PopTracks());
           break;
 
         case ')':
           parseRightParen(t);
           t.skip(1); // ')'
-          top().SetTracks(peek, t.PopTracks());
+          top().SetTracks(t.PopTracks());
           break;
 
         case '^':
@@ -901,7 +901,7 @@ class Parser {
             op(Regexp.Op.BEGIN_LINE);
           }
           t.skip(1); // '^'
-          top().SetTracks(peek, t.PopTracks());
+          top().SetTracks(t.PopTracks());
           break;
 
         case '$':
@@ -911,7 +911,7 @@ class Parser {
             op(Regexp.Op.END_LINE);
           }
           t.skip(1); // '$'
-          top().SetTracks(peek, t.PopTracks());
+          top().SetTracks(t.PopTracks());
           break;
 
         case '.':
@@ -921,12 +921,12 @@ class Parser {
             op(Regexp.Op.ANY_CHAR_NOT_NL);
           }
           t.skip(1); // '.'
-          top().SetTracks(peek, t.PopTracks());
+          top().SetTracks(t.PopTracks());
           break;
 
         case '[':
           parseClass(t);
-          top().SetTracks(peek, t.PopTracks());
+          top().SetTracks(t.PopTracks());
           break;
 
         case '*':
@@ -949,7 +949,7 @@ class Parser {
             }
             t.PushNewTrack(repeat);
             repeat(op, min, max, repeatPos, t, lastRepeatPos);
-            top().SetTracks(peek, t.PopTracks());
+            top().SetTracks(t.PopTracks());
             // (min and max are now dead.)
             break;
           }
@@ -961,14 +961,14 @@ class Parser {
               // If the repeat cannot be parsed, { is a literal.
               t.rewindTo(repeatPos);
               literal(t.pop()); // '{'
-              top().SetTracks(peek, t.PopTracks());
+              top().SetTracks(t.PopTracks());
               break;
             }
             min = minMax >> 16;
             max = (short) (minMax & 0xffff); // sign extend
             t.PushNewTrack("quantifier: " + Track.GenRepeatedRangeComments(min, max));
             repeat(Regexp.Op.REPEAT, min, max, repeatPos, t, lastRepeatPos);
-            top().SetTracks(peek, t.PopTracks());
+            top().SetTracks(t.PopTracks());
             break;
           }
 
@@ -981,15 +981,15 @@ class Parser {
               switch (c) {
                 case 'A':
                   op(Regexp.Op.BEGIN_TEXT);
-                  top().SetTracks(peek, t.PopTracks());
+                  top().SetTracks(t.PopTracks());
                   break bigswitch;
                 case 'b':
                   op(Regexp.Op.WORD_BOUNDARY);
-                  top().SetTracks(peek, t.PopTracks());
+                  top().SetTracks(t.PopTracks());
                   break bigswitch;
                 case 'B':
                   op(Regexp.Op.NO_WORD_BOUNDARY);
-                  top().SetTracks(peek, t.PopTracks());
+                  top().SetTracks(t.PopTracks());
                   break bigswitch;
                 case 'C':
                   // any byte; not supported
@@ -1006,13 +1006,13 @@ class Parser {
                     t.skipString("\\E");
                     for (int j = 0; j < lit.length(); j++) {
                       literal(lit.charAt(j));
-                      top().SetTracks(peek, t.PopTracks());
+                      top().SetTracks(t.PopTracks());
                     }
                     break bigswitch;
                   }
                 case 'z':
                   op(Regexp.Op.END_TEXT);
-                  top().SetTracks(peek, t.PopTracks());
+                  top().SetTracks(t.PopTracks());
                   break bigswitch;
                 default:
                   t.rewindTo(savedPos);
@@ -1029,7 +1029,7 @@ class Parser {
               if (parseUnicodeClass(t, cc)) {
                 re.runes = cc.toArray();
                 push(re);
-                top().SetTracks(peek, t.PopTracks());
+                top().SetTracks(t.PopTracks());
                 break bigswitch;
               }
             }
@@ -1048,7 +1048,7 @@ class Parser {
 
             // Ordinary single-character escape.
             literal(parseEscape(t));
-            top().SetTracks(peek, t.PopTracks());
+            top().SetTracks(t.PopTracks());
             break;
           }
       }
@@ -1178,7 +1178,7 @@ class Parser {
       }
       re.name = name;
       // √ Save the left parenthesis as well as its name track
-      top().SetTracks(startRune, t.PopTracks());
+      top().SetTracks(t.PopTracks());
       return;
     }
 
@@ -1244,7 +1244,7 @@ class Parser {
           if (c == ':') {
             // Open new group
             op(Regexp.Op.LEFT_PAREN);
-            top().SetTracks(c, t.PopTracks());
+            top().SetTracks(t.PopTracks());
           }
           this.flags = flags;
 
@@ -1323,7 +1323,7 @@ class Parser {
   // parseVerticalBar handles a | in the input.
   private void parseVerticalBar(StringIterator t) {
     concat(t);
-    top().SetTracks(0, t.PopTracks());
+    top().SetTracks(t.PopTracks());
 
     // The concatenation we just parsed is on top of the stack.
     // If it sits above an opVerticalBar, swap it below
@@ -1450,7 +1450,7 @@ class Parser {
     this.flags = re2.flags;
     if (re2.cap == 0) {
       // Just for grouping.
-      re1.SetTracks(0, re2.GetAllTracks());
+      re1.SetTracks(re2.GetAllTracks());
       push(re1);
     } else {
       re2.UpdateOp(Regexp.Op.CAPTURE);

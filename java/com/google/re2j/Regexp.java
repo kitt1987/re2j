@@ -65,11 +65,6 @@ class Regexp {
   // Do update copy ctor when adding new fields!
 
   // Tracks from StringIterator
-  private Track topmostTrack;
-  private boolean topmostOverridden;
-  private boolean convertedCharClass;
-  private ArrayList<Track> headingTracks;
-  private ArrayList<Track> tailingTracks;
   private Track joinTrack;
   private Op legacyOp;
 
@@ -90,11 +85,8 @@ class Regexp {
     this.cap = that.cap;
     this.name = that.name;
     this.namedGroups = that.namedGroups;
-    this.topmostTrack = that.topmostTrack;
-    this.topmostOverridden = that.topmostOverridden;
-    this.convertedCharClass = that.convertedCharClass;
-    this.headingTracks = that.headingTracks;
-    this.tailingTracks = that.tailingTracks;
+    this.legacyOp = that.legacyOp;
+    this.tracks.addAll(that.tracks);
     this.joinTrack = that.joinTrack;
   }
 
@@ -106,7 +98,6 @@ class Regexp {
     name = null;
   }
 
-  // √ New APIs
   private int NumTracks() {
     if (tracks == null) {
       return 0;
@@ -303,53 +294,6 @@ class Regexp {
     this.op = op;
   }
 
-  // √ New APIs
-
-  public void OverrideTopmostTrack(Track track) {
-    topmostTrack = track;
-    topmostOverridden = true;
-  }
-
-  public Track GetFirstTrack() {
-    if (headingTracks != null && headingTracks.size() > 0) {
-      return headingTracks.get(0);
-    }
-
-    if (tailingTracks != null && tailingTracks.size() > 0) {
-      return tailingTracks.get(0);
-    }
-
-    return null;
-  }
-
-  public Track GetLastTrack() {
-    if (tailingTracks != null && tailingTracks.size() > 0) {
-      return tailingTracks.get(tailingTracks.size()-1);
-    }
-
-    if (headingTracks != null && headingTracks.size() > 0) {
-      return headingTracks.get(headingTracks.size()-1);
-    }
-
-    return null;
-  }
-
-  public Track GetFirstSubTrack() {
-    if (subs == null || subs.length == 0) {
-      return null;
-    }
-
-    return subs[0].GetTopmostTrack();
-  }
-
-  public Track GetLastSubTrack() {
-    if (subs == null || subs.length == 0) {
-      return null;
-    }
-
-    return subs[subs.length-1].GetTopmostTrack();
-  }
-
   public void SetJoinTrack(Track track) {
     joinTrack = track;
     buildTopmostTrack();
@@ -359,223 +303,10 @@ class Regexp {
     return joinTrack != null;
   }
 
-  public void ConvertToHeadingTrack() {
-    if (topmostTrack == null) {
-      throw new IllegalStateException("topmost track must be not empty");
-    }
-
-    if (headingTracks == null) {
-      headingTracks = new ArrayList<Track>();
-    }
-
-    headingTracks.add(topmostTrack);
-    topmostTrack = null;
-    topmostOverridden = false;
-    convertedCharClass = true;
-  }
-
-  public boolean IsConvertedCharClass() {
-    return convertedCharClass;
-  }
-
-  public void MarkPerlCharClass() {
-    convertedCharClass = true;
-  }
-
-  private void SetHeadingTracks(ArrayList<Track> tracks) {
-    if (headingTracks != null) {
-      throw new IllegalStateException("Heading tracks are already there");
-    }
-
-    headingTracks = new ArrayList<Track>(tracks);
-  }
-
-  public ArrayList<Track> GetHeadingTracks() {
-    return headingTracks;
-  }
-
-  private void SetTailingTracks(ArrayList<Track> tracks) {
-    if (tailingTracks != null) {
-      throw new IllegalStateException("Tailing tracks are already there");
-    }
-
-    tailingTracks = new ArrayList<Track>(tracks);
-  }
-
-  public ArrayList<Track> GetTailingTracks() {
-    return tailingTracks;
-  }
-
   public void SetTrack(Track track) {
     ArrayList<Track> tracks = new ArrayList<Track>(1);
     tracks.add(track);
     SetTracks(tracks);
-  }
-
-  public void SetTracks(int rune, ArrayList<Track> tracks) {
-    SetTracks(tracks);
-//    if (tracks == null) {
-//      return;
-//    }
-//
-//    switch (op) {
-//      case ALTERNATE:
-//      case CONCAT:
-//      case CAPTURE:
-//      case LEFT_PAREN:
-//      case CHAR_CLASS:
-//        switch (rune) {
-//          case '(':
-//          case '[':
-//          case '{':
-//            SetHeadingTracks(tracks);
-//            break;
-//          case '|':
-//            if (tracks.size() != 1) {
-//              throw new IllegalStateException("the join track must be single");
-//            }
-//
-//            SetJoinTrack(tracks.get(0));
-//            break;
-//          default:
-//            SetTailingTracks(tracks);
-//        }
-//        break;
-//      case REPEAT:
-//      case STAR:
-//      case PLUS:
-//      case QUEST:
-//        SetTailingTracks(tracks);
-//        break;
-//      case LITERAL:
-//        // √ convert from a char class
-//        // tracks = [ + literal + ]
-//        // tracks are also could be (?:
-//        if (tailingTracks == null) {
-//          SetTailingTracks(tracks);
-//        } else {
-//          tailingTracks.addAll(tracks);
-//        }
-//
-//        OverrideTopmostTrack(new Track(GetFirstTrack().Start, GetLastTrack().End, this));
-//
-//        break;
-//      default:
-//        if (tracks.size() != 1) {
-//          throw new IllegalStateException("regex must have only one track but " + tracks.size());
-//        }
-//
-//        OverrideTopmostTrack(tracks.get(0));
-//    }
-//
-//    BuildTopmostTrack();
-  }
-
-  public void ConcatLiteralTracks(Regexp re) {
-    if (re.headingTracks != null) {
-      throw new IllegalStateException("heading tracks of literal regexp must be empty");
-    }
-
-    if (re.subs != null && re.subs.length > 0) {
-      throw new IllegalStateException("literal regexp must have no sub regexps");
-    }
-
-    if (joinTrack != null) {
-      throw new IllegalStateException("literal regexp must have no join regexps");
-    }
-
-    topmostTrack = new Track(topmostTrack.Start, re.topmostTrack.End, this);
-  }
-
-//  public ArrayList<Track> GetAllTracks() {
-//    ArrayList<Track> allTracks = new ArrayList<Track>();
-//    // put heading tracks
-//    insertTracks(allTracks, headingTracks);
-//
-//    // put tracks of sub regexps
-//    if (subs != null && subs.length > 0) {
-//      for (Regexp sub : subs) {
-//        allTracks.addAll(sub.GetAllTracks());
-//        if (joinTrack != null) {
-//          Track last = allTracks.get(allTracks.size()-1);
-//          allTracks.add(new Track(last.End, last.End+1, joinTrack.Comments));
-//        }
-//      }
-//    }
-//
-//    // put tailing tracks
-//    insertTracks(allTracks, tailingTracks);
-//
-//    if (joinTrack != null && allTracks.size() > 0) {
-//      allTracks.remove(allTracks.size()-1);
-//    }
-//
-//    // put the top most track
-//    if (topmostTrack != null) {
-//      allTracks.add(0, topmostTrack);
-//    }
-//
-//    if (allTracks.size() <= 1) {
-//      return allTracks;
-//    }
-//
-//    // FIXME sort them and filter out empty tracks
-//    int lastValidPos = 0;
-//    for (Track track : allTracks) {
-//      if (track.Start != track.End) {
-//        allTracks.set(lastValidPos, track);
-//        lastValidPos++;
-//      }
-//    }
-//
-//    while (allTracks.size() > lastValidPos) {
-//      allTracks.remove(allTracks.size()-1);
-//    }
-//
-//    return allTracks;
-//  }
-
-  private void insertTracks(ArrayList<Track> dst, ArrayList<Track> src) {
-    if (src == null || src.size() == 0) {
-      return;
-    }
-
-    for (Track track : src) {
-      dst.add(track);
-      if (joinTrack != null) {
-        Track last = dst.get(dst.size()-1);
-        dst.add(new Track(last.End, last.End+1, joinTrack.Comments));
-      }
-    }
-  }
-
-  public void BuildTopmostTrack() {
-//    if (topmostOverridden) {
-//      throw new IllegalStateException("the topmost track has been overridden");
-//    }
-
-    switch (op) {
-      case CAPTURE:
-      case CHAR_CLASS:
-        // must be transformed from an alternation
-        // build from tracks
-        topmostTrack = new Track(this.GetFirstTrack().Start, this.GetLastTrack().End, this);
-        break;
-      case ALTERNATE:
-      case CONCAT:
-        topmostTrack = new Track(this.GetFirstSubTrack().Start, this.GetLastSubTrack().End, this);
-        break;
-      case STAR:
-      case PLUS:
-      case QUEST:
-      case REPEAT:
-        topmostTrack = new Track(this.GetFirstSubTrack().Start, this.GetLastTrack().End, this);
-        break;
-      default:
-        if (topmostTrack != null) {
-          topmostTrack.UpdateComments(this);
-        }
-    }
   }
 
   @Override
