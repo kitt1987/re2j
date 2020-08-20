@@ -347,11 +347,11 @@ class Parser {
     re.SetSubs(newsubs);
 
     if (op == Regexp.Op.ALTERNATE) {
-      re.SetSubs(factor(re.subs, re.flags));
+      re.subs = factor(re.subs, re.flags);
       if (re.subs.length == 1) {
         Regexp old = re;
         re = re.subs[0];
-        re.OverrideTopmostTrack(old.GetTopmostTrack());
+        re.OverrideTracks(old.GetDirectTracks());
         reuse(old);
       }
     }

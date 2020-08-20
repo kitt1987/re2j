@@ -188,6 +188,11 @@ class Regexp {
     tracks.get(0).Update(new Track(tracks.get(0).Start, thatTracks.get(0).End, this));
   }
 
+  public void OverrideTracks(ArrayList<Track> thatTracks) {
+    // override all tracks as well as the topmost one. for factor()
+    tracks = new ArrayList<Track>(thatTracks);
+  }
+
   public void SetTracks(ArrayList<Track> tracks) {
     if (tracks == null || tracks.size() == 0) {
       // FIXME we can't yet determine whether it is a illegal state
