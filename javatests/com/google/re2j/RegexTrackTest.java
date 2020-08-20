@@ -385,7 +385,6 @@ public class RegexTrackTest {
         });
         put("\\d", new Track[]{
                 // FIXME the topmost track
-                new Track(0, 2, "character class of []"),
                 new Track(0, 2, "character class digits shorthand"),
         });
         put("\\D", new Track[]{
