@@ -528,10 +528,12 @@ public class RegexTrackTest {
         //    {"(?:a)", "lit{a}"},
         put("(?:a)", new Track[]{
 //                 FIXME fixes
-                new Track(4, 5, "literal 'a'"),
+                new Track(0, 5, "literal 'a'"),
+                new Track(0, 3, "capturing group"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "mod modifier end"),
-                new Track(3, 4, ""),
+                new Track(3, 4, "literal 'a'"),
+                new Track(4, 5, "capturing group end"),
         });
 
 //        put("(?:ab)(?:cd)", new Track[]{
