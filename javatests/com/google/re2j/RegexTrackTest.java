@@ -466,10 +466,6 @@ public class RegexTrackTest {
         put("\\.\\^\\$\\\\", new Track[]{
                 // FIXME the topmost track
                 new Track(0, 8, "string \".^$\\\""),
-                new Track(0, 2, "literal '.'"),
-                new Track(2, 4, "literal '^'"),
-                new Track(4, 6, "literal '$'"),
-                new Track(6, 8, "literal '\\'"),
         });
         put("[a-zABC]", new Track[]{
                 // FIXME the topmost track
