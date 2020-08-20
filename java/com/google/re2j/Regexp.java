@@ -282,7 +282,7 @@ class Regexp {
       default:
         legacyOp = this.op;
     }
-    
+
     this.op = op;
   }
 
