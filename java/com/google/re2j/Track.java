@@ -171,7 +171,7 @@ public class Track implements Comparable<Track>  {
                     tracks.remove(tracks.size()-1);
                 }
 
-                b.append("character class of [").append(joinComments(tracks, null)).append("]");
+                b.append("character class of [").append(joinComments(tracks)).append("]");
                 break;
             case CAPTURE:
                 b.append("capturing group (").append(joinComments(re.subs)).append(")");
@@ -237,26 +237,16 @@ public class Track implements Comparable<Track>  {
         return "repeated " + numberToFrequency(min) + " to " + numberToFrequency(max);
     }
 
-    private String joinComments(ArrayList<Track> headingTracks, ArrayList<Track> tailingTracks) {
+    private String joinComments(ArrayList<Track> tracks) {
         StringBuilder value = new StringBuilder();
 
-        if (headingTracks != null) {
-            for (Track track : headingTracks) {
+        if (tracks != null) {
+            for (int i = 1; i < tracks.size(); i++) {
                 if (value.length() > 0) {
                     value.append(",");
                 }
 
-                value.append(track.Comments);
-            }
-        }
-
-        if (tailingTracks != null) {
-            for (Track track : tailingTracks) {
-                if (value.length() > 0) {
-                    value.append(",");
-                }
-
-                value.append(track.Comments);
+                value.append(tracks.get(i).Comments);
             }
         }
 

@@ -241,6 +241,10 @@ class Regexp {
     return tracks.get(0);
   }
 
+  public final ArrayList<Track> GetDirectTracks() {
+    return tracks;
+  }
+
   // √ New APIs
 
   public void OverrideTopmostTrack(Track track) {
