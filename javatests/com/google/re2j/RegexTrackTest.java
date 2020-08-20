@@ -343,8 +343,7 @@ public class RegexTrackTest {
                 new Track(11, 12, "character class end"),
         });
         put("(?i)[[:lower:]]", new Track[]{
-                // FIXME the topmost track
-                new Track(0, 15, "character class of [case insensitive,capturing group end,character class,POSIX class lowercase letters]"),
+                new Track(0, 15, "character class of [case insensitive,POSIX class lowercase letters]"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "case insensitive"),
                 new Track(3, 4, "capturing group end"),
@@ -353,8 +352,7 @@ public class RegexTrackTest {
                 new Track(14, 15, "character class end"),
         });
         put("(?i)[a-z]", new Track[]{
-                // FIXME the topmost track
-                new Track(0, 9, "character class of [case insensitive,capturing group end,character class,range a to z]"),
+                new Track(0, 9, "character class of [case insensitive,range a to z]"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "case insensitive"),
                 new Track(3, 4, "capturing group end"),
@@ -363,8 +361,7 @@ public class RegexTrackTest {
                 new Track(8, 9, "character class end"),
         });
         put("(?i)[^[:lower:]]", new Track[]{
-                // FIXME the topmost track
-                new Track(0, 16, "character class of [case insensitive,capturing group end,character class,negated,POSIX class lowercase letters]"),
+                new Track(0, 16, "character class of [case insensitive,negated,POSIX class lowercase letters]"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "case insensitive"),
                 new Track(3, 4, "capturing group end"),
@@ -374,8 +371,7 @@ public class RegexTrackTest {
                 new Track(15, 16, "character class end"),
         });
         put("(?i)[[:^lower:]]", new Track[]{
-                // FIXME the topmost track
-                new Track(0, 16, "character class of [case insensitive,capturing group end,character class,POSIX class negated lowercase letters]"),
+                new Track(0, 16, "character class of [case insensitive,POSIX class negated lowercase letters]"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "case insensitive"),
                 new Track(3, 4, "capturing group end"),
