@@ -201,7 +201,7 @@ class Regexp {
   }
 
   public void SetSubs(Regexp[] subs) {
-    // The first track must not be the topmost track and we need keep it.
+    // √ The first track must not be the topmost track and we need keep it.
     //  if (NumTracks() == 0) {
     if (NumSubs() == 0 && NumTracks() <= 1) {
       // insert placeholder for the topmost track
