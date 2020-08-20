@@ -48,6 +48,7 @@ public class Track implements Comparable<Track>  {
     }
 
     static boolean AllLiterals(ArrayList<Track> tracks) {
+        // FIXME optimize
         for (Track track : tracks) {
             if (track.Comments.startsWith("literal") || track.Comments.startsWith("string")) {
                 continue;
