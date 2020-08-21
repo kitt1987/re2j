@@ -65,7 +65,7 @@ class Regexp {
   // Do update copy ctor when adding new fields!
 
   // Tracks from StringIterator
-  private Track joinTrack;
+  private Track jointTrack;
   private Op legacyOp;
 
   private ArrayList<Track> tracks = new ArrayList<Track>();
@@ -87,7 +87,7 @@ class Regexp {
     this.namedGroups = that.namedGroups;
     this.legacyOp = that.legacyOp;
     this.tracks.addAll(that.tracks);
-    this.joinTrack = that.joinTrack;
+    this.jointTrack = that.jointTrack;
   }
 
   void reinit() {
@@ -116,7 +116,7 @@ class Regexp {
 
   public void FreeTracks() {
     tracks.clear();
-    joinTrack = null;
+    jointTrack = null;
   }
 
   private int[] getTrackRange() {
@@ -220,9 +220,9 @@ class Regexp {
 
     for (int i = 1; i < tracks.size(); i++) {
       allTracks.add(tracks.get(i));
-      if (joinTrack != null) {
+      if (jointTrack != null) {
         Track last = allTracks.get(allTracks.size()-1);
-        allTracks.add(new Track(last.End, last.End+1, joinTrack.Comments));
+        allTracks.add(new Track(last.End, last.End+1, jointTrack.Comments));
       }
     }
 
@@ -230,14 +230,14 @@ class Regexp {
     if (subs != null && subs.length > 0) {
       for (Regexp sub : subs) {
         allTracks.addAll(sub.GetAllTracks());
-        if (joinTrack != null) {
+        if (jointTrack != null) {
           Track last = allTracks.get(allTracks.size()-1);
-          allTracks.add(new Track(last.End, last.End+1, joinTrack.Comments));
+          allTracks.add(new Track(last.End, last.End+1, jointTrack.Comments));
         }
       }
     }
 
-    if (joinTrack != null && allTracks.size() > 0) {
+    if (jointTrack != null && allTracks.size() > 0) {
       allTracks.remove(allTracks.size()-1);
     }
 
@@ -264,9 +264,9 @@ class Regexp {
       allTracks.remove(allTracks.size()-1);
     }
 
-    if (op == Op.EMPTY_MATCH && joinTrack != null) {
+    if (op == Op.EMPTY_MATCH && jointTrack != null) {
       // √ for "|"
-      allTracks.add(joinTrack);
+      allTracks.add(jointTrack);
     }
 
     Collections.sort(allTracks);
@@ -297,12 +297,12 @@ class Regexp {
   }
 
   public void SetJoinTrack(Track track) {
-    joinTrack = track;
+    jointTrack = track;
     buildTopmostTrack();
   }
 
   public boolean HasJoinTrack() {
-    return joinTrack != null;
+    return jointTrack != null;
   }
 
   public void SetTrack(Track track) {
