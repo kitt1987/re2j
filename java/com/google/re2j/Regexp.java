@@ -239,8 +239,8 @@ class Regexp {
 
         break;
       case EMPTY_MATCH:
-        if (NumTracks() > 0) {
-          throw new IllegalStateException("number tracks of empty match must be 0 but " + NumTracks());
+        if (NumTracks() > 1) {
+          throw new IllegalStateException("number tracks of empty match must be 1 but " + NumTracks());
         }
 
         if (NumSubs() > 0) {
