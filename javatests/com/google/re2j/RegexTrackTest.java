@@ -587,6 +587,7 @@ public class RegexTrackTest {
                 new Track(8, 9, "capturing group end"),
                 // √ wrong position
                 new Track(8, 9, "alternation"),
+
                 new Track(10, 13, "capturing group"),
                 new Track(10, 12, "non-capturing group"),
                 new Track(12, 13, "mod modifier end"),
