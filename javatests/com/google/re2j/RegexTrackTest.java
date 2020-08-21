@@ -585,7 +585,8 @@ public class RegexTrackTest {
                 new Track(6, 7, "literal 'b'"),
                 new Track(7, 8, "quantifier: repeated once or many times"),
                 new Track(8, 9, "capturing group end"),
-                new Track(9, 10, "alternation"),
+                // √ wrong position
+                new Track(8, 9, "alternation"),
                 new Track(10, 13, "capturing group"),
                 new Track(10, 12, "non-capturing group"),
                 new Track(12, 13, "mod modifier end"),
