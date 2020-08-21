@@ -253,7 +253,10 @@ class Regexp {
         }
         break;
       default:
-        allTracks.addAll(tracks.subList(1, tracks.size()));
+        if (tracks.size() > 1) {
+          allTracks.addAll(tracks.subList(1, tracks.size()));
+        }
+        
         // put tracks of sub regexps
         if (subs != null && subs.length > 0) {
           for (Regexp sub : subs) {
