@@ -993,11 +993,11 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-//        for (String regexp : PARSE_TESTS.keySet()) {
-//            testRegexpTrack(regexp);
-//        }
+        for (String regexp : PARSE_TESTS.keySet()) {
+            testRegexpTrack(regexp);
+        }
 
-        testRegexpTrack("(?:a)");
+//        testRegexpTrack("(?:a)");
     }
 
     private void testRegexpTrack(String regexp) throws PatternSyntaxException {
