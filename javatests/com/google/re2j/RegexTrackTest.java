@@ -562,10 +562,7 @@ public class RegexTrackTest {
                 new Track(6, 7, "quantifier: repeated once or many times"),
                 new Track(7, 8, "capturing group end"),
                 new Track(8, 11, "capturing group"),
-                new Track(8, 11, "capturing group"),
                 new Track(8, 10, "non-capturing group"),
-                new Track(8, 10, "non-capturing group"),
-                new Track(10, 11, "mod modifier end"),
                 new Track(10, 11, "mod modifier end"),
                 new Track(11, 13, "literal 'c' repeated once or many times"),
                 new Track(11, 12, "literal 'c'"),
@@ -573,7 +570,6 @@ public class RegexTrackTest {
                 new Track(13, 15, "literal 'd' repeated once or many times"),
                 new Track(13, 14, "literal 'd'"),
                 new Track(14, 15, "quantifier: repeated once or many times"),
-                new Track(15, 16, "capturing group end"),
                 new Track(15, 16, "capturing group end"),
         });
     }};
