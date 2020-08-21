@@ -540,8 +540,7 @@ public class RegexTrackTest {
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "mod modifier end"),
                 // FIXME concatenate sequential literals
-                new Track(3, 4, "literal 'a'"),
-                new Track(4, 5, "literal 'b'"),
+                new Track(3, 4, "string \"ab\""),
 
                 new Track(5, 6, "capturing group end"),
 
@@ -549,8 +548,7 @@ public class RegexTrackTest {
                 new Track(6, 8, "non-capturing group"),
                 new Track(8, 9, "mod modifier end"),
                 // FIXME concatenate sequential literals
-                new Track(9, 10, "literal 'c'"),
-                new Track(10, 11, "literal 'd'"),
+                new Track(9, 11, "string \"cd\""),
 
                 new Track(11, 12, "capturing group end"),
         });
