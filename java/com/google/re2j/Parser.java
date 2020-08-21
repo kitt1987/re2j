@@ -1255,6 +1255,7 @@ class Parser {
           if (c == ':') {
             // Open new group
             op(Regexp.Op.LEFT_PAREN);
+            // √ this is not a group end. may not build a topmost track
 //            top().SetTracks(t.PopTracks());
           }
           this.flags = flags;
