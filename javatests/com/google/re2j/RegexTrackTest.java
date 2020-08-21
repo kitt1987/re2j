@@ -998,11 +998,11 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-//        for (String regexp : PARSE_TESTS.keySet()) {
-//            testRegexpTrack(regexp);
-//        }
+        for (String regexp : PARSE_TESTS.keySet()) {
+            testRegexpTrack(regexp);
+        }
 
-        testRegexpTrack("(?:ab)(?:cd)");
+//        testRegexpTrack("(?:ab)(?:cd)");
     }
 
     private void testRegexpTrack(String regexp) throws PatternSyntaxException {
