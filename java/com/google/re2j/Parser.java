@@ -874,6 +874,7 @@ class Parser {
       switch (peek) {
         default:
           literal(t.pop());
+          t.PushNewTrack();
           ArrayList<Track> tracks = t.PopTracks();
 //          if (tracks.size() != 1) {
 //            throw new IllegalStateException("a literal regex must have only 1 track");
