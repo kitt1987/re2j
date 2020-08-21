@@ -1255,7 +1255,7 @@ class Parser {
           if (c == ':') {
             // Open new group
             op(Regexp.Op.LEFT_PAREN);
-            top().SetTracks(t.PopTracks());
+//            top().SetTracks(t.PopTracks());
           }
           this.flags = flags;
 
