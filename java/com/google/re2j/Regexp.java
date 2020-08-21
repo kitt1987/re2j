@@ -114,7 +114,7 @@ class Regexp {
     return subs.length;
   }
 
-  private void freeTracks() {
+  public void FreeTracks() {
     tracks.clear();
     joinTrack = null;
   }
