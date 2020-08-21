@@ -83,6 +83,7 @@ class Parser {
     if (re.subs != null && re.subs.length > 0) {
       re.subs[0] = free;
     }
+    re.freeTracks();
     free = re;
   }
 

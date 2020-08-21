@@ -114,6 +114,11 @@ class Regexp {
     return subs.length;
   }
 
+  private void freeTracks() {
+    tracks.clear();
+    joinTrack = null;
+  }
+
   private int[] getTrackRange() {
     if (NumTracks() == 0 && NumSubs() == 0) {
       throw new IllegalStateException("Regexp has no tracks");
