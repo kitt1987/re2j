@@ -245,6 +245,10 @@ class Regexp {
           }
         }
 
+        if (jointTrack != null && allTracks.size() > 0) {
+          allTracks.remove(allTracks.size()-1);
+        }
+
         break;
       case EMPTY_MATCH:
         if (NumTracks() > 0) {
@@ -261,26 +265,22 @@ class Regexp {
         }
         break;
       default:
-    }
+        allTracks.addAll(tracks.subList(1, tracks.size()));
+        // put tracks of sub regexps
+        if (subs != null && subs.length > 0) {
+          for (Regexp sub : subs) {
+            allTracks.addAll(sub.GetAllTracks());
+            if (jointTrack != null) {
+              Track last = allTracks.get(allTracks.size()-1);
+              allTracks.add(new Track(last.End, last.End+1, jointTrack.Comments));
+            }
+          }
 
-    // put tracks of sub regexps
-    if (subs != null && subs.length > 0) {
-      for (Regexp sub : subs) {
-        allTracks.addAll(sub.GetAllTracks());
-        if (jointTrack != null) {
-          Track last = allTracks.get(allTracks.size()-1);
-          allTracks.add(new Track(last.End, last.End+1, jointTrack.Comments));
+          if (jointTrack != null && allTracks.size() > 0) {
+            allTracks.remove(allTracks.size()-1);
+          }
         }
-      }
-
-      if (jointTrack != null && allTracks.size() > 0) {
-        allTracks.remove(allTracks.size()-1);
-      }
     }
-
-//    if (jointTrack != null && allTracks.size() > 0) {
-//      allTracks.remove(allTracks.size()-1);
-//    }
 
     if (tracks.size() > 0) {
       // FIXME we can't yet determine whether it is a illegal state
@@ -292,7 +292,6 @@ class Regexp {
       return allTracks;
     }
 
-    // FIXME sort them and filter out empty tracks
     int lastValidPos = 0;
     for (Track track : allTracks) {
       if (track.Start != track.End) {
