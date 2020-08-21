@@ -47,10 +47,14 @@ public class Track implements Comparable<Track>  {
         PERL_GROUPS.put("\\W", "non-word character shorthand");
     }
 
+    static boolean IsLiteral(Track track) {
+        return track.Comments.startsWith("literal") || track.Comments.startsWith("string");
+    }
+
     static boolean AllLiterals(ArrayList<Track> tracks) {
         // FIXME optimize
         for (Track track : tracks) {
-            if (track.Comments.startsWith("literal") || track.Comments.startsWith("string")) {
+            if (IsLiteral(track)) {
                 continue;
             }
 

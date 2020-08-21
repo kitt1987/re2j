@@ -172,7 +172,11 @@ class Regexp {
       throw new IllegalStateException("Only CC can accept Perl flags");
     }
 
-    if (tracks.size() == 1 && Track.AllLiterals(thatTracks)) {
+    if (thatTracks.size() == 0) {
+      throw new IllegalStateException("Can't concatenate empty tracks");
+    }
+
+    if (Track.IsLiteral(tracks.get(tracks.size()-1)) && Track.AllLiterals(thatTracks)) {
       // Just concatenate 2 topmost tracks and discard all tracks of single literals.
       tracks.get(0).Update(new Track(tracks.get(0).Start, thatTracks.get(0).End, this));
       return;
