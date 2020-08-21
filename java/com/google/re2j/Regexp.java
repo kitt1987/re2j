@@ -218,13 +218,14 @@ class Regexp {
   public ArrayList<Track> GetAllTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
 
-    for (int i = 1; i < tracks.size(); i++) {
-      allTracks.add(tracks.get(i));
-      if (jointTrack != null) {
-        Track last = allTracks.get(allTracks.size()-1);
-        allTracks.add(new Track(last.End, last.End+1, jointTrack.Comments));
-      }
-    }
+    allTracks.addAll(tracks.subList(1, tracks.size()));
+//    for (int i = 1; i < tracks.size(); i++) {
+//      allTracks.add(tracks.get(i));
+//      if (jointTrack != null) {
+//        Track last = allTracks.get(allTracks.size()-1);
+//        allTracks.add(new Track(last.End, last.End+1, jointTrack.Comments));
+//      }
+//    }
 
     // put tracks of sub regexps
     if (subs != null && subs.length > 0) {
@@ -235,11 +236,15 @@ class Regexp {
           allTracks.add(new Track(last.End, last.End+1, jointTrack.Comments));
         }
       }
+
+      if (jointTrack != null && allTracks.size() > 0) {
+        allTracks.remove(allTracks.size()-1);
+      }
     }
 
-    if (jointTrack != null && allTracks.size() > 0) {
-      allTracks.remove(allTracks.size()-1);
-    }
+//    if (jointTrack != null && allTracks.size() > 0) {
+//      allTracks.remove(allTracks.size()-1);
+//    }
 
     if (tracks.size() > 0) {
       // FIXME we can't yet determine whether it is a illegal state
