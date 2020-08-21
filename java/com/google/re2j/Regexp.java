@@ -218,18 +218,6 @@ class Regexp {
   public ArrayList<Track> GetAllTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
 
-    if (op == Op.CHAR_CLASS) {
-      for (int i = 1; i < tracks.size(); i++) {
-        allTracks.add(tracks.get(i));
-        if (jointTrack != null) {
-          Track last = allTracks.get(allTracks.size()-1);
-          allTracks.add(new Track(last.End, last.End+1, jointTrack.Comments));
-        }
-      }
-    } else {
-      allTracks.addAll(tracks.subList(1, tracks.size()));
-    }
-
     switch (op) {
       case CHAR_CLASS:
         if (NumSubs() > 0) {
