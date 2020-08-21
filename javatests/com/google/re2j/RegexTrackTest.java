@@ -995,15 +995,21 @@ public class RegexTrackTest {
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
         for (String regexp : PARSE_TESTS.keySet()) {
-            Regexp re = Parser.parse(regexp, TEST_FLAGS);
-            Track[] testTracks = PARSE_TESTS.get(regexp);
-            ArrayList<Track> tracks = re.GetAllTracks();
-            assertEquals(regexp, testTracks.length, tracks.size());
-            for (int i = 0; i < testTracks.length; i++) {
-                assertEquals(regexp+"@"+i+":start", testTracks[i].Start, tracks.get(i).Start);
-                assertEquals(regexp+"@"+i+":end", testTracks[i].End, tracks.get(i).End);
-                assertEquals(regexp+"@"+i+":info", testTracks[i].Comments, tracks.get(i).Comments);
-            }
+            testRegexpTrack(regexp);
+        }
+
+//        testRegexpTrack(regexp);
+    }
+
+    private void testRegexpTrack(String regexp) throws PatternSyntaxException {
+        Regexp re = Parser.parse(regexp, TEST_FLAGS);
+        Track[] testTracks = PARSE_TESTS.get(regexp);
+        ArrayList<Track> tracks = re.GetAllTracks();
+        assertEquals(regexp, testTracks.length, tracks.size());
+        for (int i = 0; i < testTracks.length; i++) {
+            assertEquals(regexp+"@"+i+":start", testTracks[i].Start, tracks.get(i).Start);
+            assertEquals(regexp+"@"+i+":end", testTracks[i].End, tracks.get(i).End);
+            assertEquals(regexp+"@"+i+":info", testTracks[i].Comments, tracks.get(i).Comments);
         }
     }
 }
