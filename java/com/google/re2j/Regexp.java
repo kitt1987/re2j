@@ -218,14 +218,50 @@ class Regexp {
   public ArrayList<Track> GetAllTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
 
-    allTracks.addAll(tracks.subList(1, tracks.size()));
-//    for (int i = 1; i < tracks.size(); i++) {
-//      allTracks.add(tracks.get(i));
-//      if (jointTrack != null) {
-//        Track last = allTracks.get(allTracks.size()-1);
-//        allTracks.add(new Track(last.End, last.End+1, jointTrack.Comments));
-//      }
-//    }
+    if (op == Op.CHAR_CLASS) {
+      for (int i = 1; i < tracks.size(); i++) {
+        allTracks.add(tracks.get(i));
+        if (jointTrack != null) {
+          Track last = allTracks.get(allTracks.size()-1);
+          allTracks.add(new Track(last.End, last.End+1, jointTrack.Comments));
+        }
+      }
+    } else {
+      allTracks.addAll(tracks.subList(1, tracks.size()));
+    }
+
+    switch (op) {
+      case CHAR_CLASS:
+        if (NumSubs() > 0) {
+          throw new IllegalStateException("number subs of CC must be 0 but " + NumSubs());
+        }
+
+        // √ If the joint track exists, join all tracks except the topmost.
+        for (int i = 1; i < tracks.size(); i++) {
+          allTracks.add(tracks.get(i));
+          if (jointTrack != null) {
+            Track last = allTracks.get(allTracks.size()-1);
+            allTracks.add(new Track(last.End, last.End+1, jointTrack.Comments));
+          }
+        }
+
+        break;
+      case EMPTY_MATCH:
+        if (NumTracks() > 0) {
+          throw new IllegalStateException("number tracks of empty match must be 0 but " + NumTracks());
+        }
+
+        if (NumSubs() > 0) {
+          throw new IllegalStateException("number subs of empty match must be 0 but " + NumSubs());
+        }
+
+        // √ for "|"
+        if (jointTrack != null) {
+          allTracks.add(jointTrack);
+        }
+        break;
+      default:
+    }
 
     // put tracks of sub regexps
     if (subs != null && subs.length > 0) {
@@ -267,11 +303,6 @@ class Regexp {
 
     while (allTracks.size() > lastValidPos) {
       allTracks.remove(allTracks.size()-1);
-    }
-
-    if (op == Op.EMPTY_MATCH && jointTrack != null) {
-      // √ for "|"
-      allTracks.add(jointTrack);
     }
 
     Collections.sort(allTracks);
