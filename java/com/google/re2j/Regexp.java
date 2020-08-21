@@ -179,6 +179,10 @@ class Regexp {
     if (Track.IsLiteral(tracks.get(tracks.size()-1)) && Track.AllLiterals(thatTracks)) {
       // Just concatenate 2 topmost tracks and discard all tracks of single literals.
       tracks.get(0).Update(new Track(tracks.get(0).Start, thatTracks.get(0).End, this));
+      if (tracks.size() > 1) {
+        Track last = tracks.get(tracks.size()-1);
+        last.Update(new Track(last.Start, tracks.get(0).End, tracks.get(0).Comments));
+      }
       return;
     }
 
