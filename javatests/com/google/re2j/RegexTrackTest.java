@@ -527,7 +527,6 @@ public class RegexTrackTest {
 
         put("(?:a)", new Track[]{
                 new Track(0, 5, "literal 'a'"),
-                new Track(0, 5, "capturing group"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "mod modifier end"),
                 new Track(3, 4, "literal 'a'"),
@@ -998,7 +997,7 @@ public class RegexTrackTest {
 //            testRegexpTrack(regexp);
 //        }
 
-        testRegexpTrack("(?:a)");
+        testRegexpTrack("(?:ab)(?:cd)");
     }
 
     private void testRegexpTrack(String regexp) throws PatternSyntaxException {
