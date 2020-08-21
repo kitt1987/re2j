@@ -182,6 +182,7 @@ class Regexp {
       return;
     }
 
+    this.tracks.add(0, new Track());
     SetTracks(thatTracks);
   }
 
