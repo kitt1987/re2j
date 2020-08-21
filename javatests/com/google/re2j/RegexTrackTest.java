@@ -597,7 +597,6 @@ public class RegexTrackTest {
                 new Track(16, 17, "literal 'd'"),
                 new Track(17, 18, "quantifier: repeated once or many times"),
                 new Track(18, 19, "capturing group end"),
-                new Track(19, 20, "alternation"),
         });
     }};
 
