@@ -1002,7 +1002,7 @@ public class RegexTrackTest {
 //            testRegexpTrack(regexp);
 //        }
 
-        testRegexpTrack("(?:a+b+)(?:c+d+)");
+        testRegexpTrack("(?:a)");
     }
 
     private void testRegexpTrack(String regexp) throws PatternSyntaxException {
