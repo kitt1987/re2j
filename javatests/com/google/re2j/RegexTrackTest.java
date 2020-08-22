@@ -1002,7 +1002,7 @@ public class RegexTrackTest {
 //            testRegexpTrack(regexp);
 //        }
 
-        testRegexpTrack("(?:a)");
+        testRegexpTrack("(?:ab)(?:cd)");
     }
 
     private void testRegexpTrack(String regexp) throws PatternSyntaxException {
