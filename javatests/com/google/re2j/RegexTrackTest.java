@@ -534,22 +534,20 @@ public class RegexTrackTest {
         });
 
         put("(?:ab)(?:cd)", new Track[]{
-                new Track(0, 12, "string \"abcd\""),
+                new Track(0, 12, "group of string \"abcd\""),
 
-                new Track(0, 6, "string \"ab\""),
+                new Track(0, 6, "group of string \"ab\""),
+                new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "mod modifier end"),
-                // FIXME concatenate sequential literals
                 new Track(3, 5, "string \"ab\""),
-
                 new Track(5, 6, "capturing group end"),
 
-                new Track(6, 12, "string \"cd\""),
+                new Track(6, 12, "group of string \"cd\""),
+                new Track(6, 9, "non-capturing group"),
                 new Track(6, 8, "non-capturing group"),
                 new Track(8, 9, "mod modifier end"),
-                // FIXME concatenate sequential literals
                 new Track(9, 11, "string \"cd\""),
-
                 new Track(11, 12, "capturing group end"),
         });
 
