@@ -598,7 +598,7 @@ public class RegexTrackTest {
                 new Track(9, 10, "alternation"),
 
                 new Track(10, 19, "group of alternation of [literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
-                new Track(10, 13, "capturing group"),
+                new Track(10, 13, "non-capturing group"),
                 new Track(10, 12, "non-capturing group"),
                 new Track(12, 13, "mod modifier end"),
                 new Track(13, 15, "literal 'c' repeated once or many times"),
