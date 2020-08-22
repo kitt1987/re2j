@@ -236,13 +236,13 @@ class Regexp {
         // √ If the joint track exists, join all tracks except the topmost.
         for (int i = 1; i < tracks.size(); i++) {
           allTracks.add(tracks.get(i));
-          if (jointTracks != null) {
+          if (jointTracks.size() > 0) {
             Track last = allTracks.get(allTracks.size()-1);
             allTracks.add(new Track(last.End, last.End+1, jointTracks.get(i-1).Comments));
           }
         }
 
-        if (jointTracks != null && allTracks.size() > 0) {
+        if (jointTracks.size() > 0 && allTracks.size() > 0) {
           allTracks.remove(allTracks.size()-1);
         }
 
@@ -275,13 +275,13 @@ class Regexp {
           for (int i = 0; i < subs.length; i++) {
             Regexp sub = subs[i];
             allTracks.addAll(sub.GetAllTracks());
-            if (jointTracks != null) {
+            if (jointTracks.size() > 0) {
               Track last = allTracks.get(allTracks.size()-1);
               allTracks.add(new Track(last.End, last.End+1, jointTracks.get(i).Comments));
             }
           }
 
-          if (jointTracks != null && allTracks.size() > 0) {
+          if (jointTracks.size() > 0 && allTracks.size() > 0) {
             allTracks.remove(allTracks.size()-1);
           }
         }
@@ -352,7 +352,7 @@ class Regexp {
   }
 
   public boolean HasJoinTrack() {
-    return jointTracks != null;
+    return jointTracks.size() > 0;
   }
 
   public void SetTrack(Track track) {
