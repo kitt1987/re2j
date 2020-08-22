@@ -348,6 +348,7 @@ class Regexp {
 
   public void SetJointTrack(Track track) {
     jointTracks.add(track);
+    Collections.sort(jointTracks);
     buildTopmostTrack();
   }
 
