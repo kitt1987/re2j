@@ -259,7 +259,7 @@ class Regexp {
         // √ for "|"
         if (jointTracks.size() > 0) {
           if (jointTracks.size() != 1) {
-            throw new IllegalStateException("number subs of empty match must be at most 1 but " + NumSubs());
+            throw new IllegalStateException("number jointTracks of empty match must be at most 1 but " + NumSubs());
           }
 
           allTracks.add(jointTracks.get(0));
