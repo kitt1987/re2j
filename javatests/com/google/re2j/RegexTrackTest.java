@@ -570,7 +570,6 @@ public class RegexTrackTest {
 
                 new Track(8, 16, "group of sequence [literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
 
-                new Track(8, 13, "literal 'c' repeated once or many times"),
                 // FIXME the start pos is not correct
                 new Track(8, 11, "non-capturing group"),
                 new Track(8, 10, "non-capturing group"),
