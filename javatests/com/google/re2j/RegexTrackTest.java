@@ -581,8 +581,9 @@ public class RegexTrackTest {
                 new Track(15, 16, "capturing group end"),
         });
         put("(?:a+|b+)|(?:c+|d+)", new Track[]{
-                new Track(0, 19, "alternation of [literal 'a' repeated once or many times,literal 'b' repeated once or many times,literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
-                new Track(0, 3, "capturing group"),
+                new Track(0, 19, "group of alternation of [literal 'a' repeated once or many times,literal 'b' repeated once or many times,literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
+                new Track(0, 9, "group of alternation of [literal 'a' repeated once or many times,literal 'b' repeated once or many times]"),
+                new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "mod modifier end"),
                 new Track(3, 5, "literal 'a' repeated once or many times"),
@@ -593,9 +594,10 @@ public class RegexTrackTest {
                 new Track(6, 7, "literal 'b'"),
                 new Track(7, 8, "quantifier: repeated once or many times"),
                 new Track(8, 9, "capturing group end"),
-                // √ wrong position
-                new Track(8, 9, "alternation"),
+                // √ wrong position. should be 9, 10
+                new Track(9, 10, "alternation"),
 
+                new Track(10, 19, "group of alternation of [literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
                 new Track(10, 13, "capturing group"),
                 new Track(10, 12, "non-capturing group"),
                 new Track(12, 13, "mod modifier end"),
