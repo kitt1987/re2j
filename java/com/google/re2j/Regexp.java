@@ -116,7 +116,7 @@ class Regexp {
 
   public void FreeTracks() {
     tracks.clear();
-    jointTracks = null;
+    jointTracks.clear();
   }
 
   private int[] getTrackRange() {
