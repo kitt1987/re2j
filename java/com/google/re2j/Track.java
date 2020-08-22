@@ -108,8 +108,7 @@ public class Track implements Comparable<Track>  {
     }
 
     void End(int end, String comments) {
-        End = end;
-        Comments = comments;
+        End(end, comments, false);
     }
 
     void End(int end, String comments, boolean group) {
@@ -119,8 +118,13 @@ public class Track implements Comparable<Track>  {
     }
 
     void End(int end, int rune) {
+        End(end, rune, false);
+    }
+
+    void End(int end, int rune, boolean group) {
         End = end;
         UpdateComments(rune);
+        this.group = group;
     }
 
     void UpdateComments(int rune) {
