@@ -335,17 +335,16 @@ class Parser {
     }
     Regexp[] newsubs = new Regexp[len];
     int i = 0;
-    ArrayList<Track> tracksRestored = null;
+    ArrayList<Track> tracksRestored = new ArrayList<Track>();
+    ArrayList<Track> jointTracksRestored = new ArrayList<Track>();
     for (Regexp sub : subs) {
       if (sub.op == op) {
-        if (tracksRestored == null) {
-          tracksRestored = new ArrayList<Track>();
-        }
         ArrayList<Track> tracks = sub.GetDirectTracks();
         // FIXME keep the topmost track or not, that's a question.
         // For concat, it seems good to keep it.
 //        tracksRestored.addAll(tracks.subList(1, tracks.size()));
         tracksRestored.addAll(tracks);
+        jointTracksRestored.addAll(sub.GetJointTracks());
         System.arraycopy(sub.subs, 0, newsubs, i, sub.subs.length);
         i += sub.subs.length;
         reuse(sub);
@@ -354,7 +353,11 @@ class Parser {
       }
     }
     Regexp re = newRegexp(op);
-    if (tracksRestored != null && tracksRestored.size() > 0) {
+    if (jointTracksRestored.size() > 0) {
+      re.SetJointTracks(jointTracksRestored);
+    }
+
+    if (tracksRestored.size() > 0) {
       re.SetTracks(tracksRestored);
     }
 

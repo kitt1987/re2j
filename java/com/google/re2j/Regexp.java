@@ -321,6 +321,10 @@ class Regexp {
     return tracks;
   }
 
+  public final ArrayList<Track> GetJointTracks() {
+    return jointTracks;
+  }
+
   public boolean HasGroupTrack() {
     for (Track track : tracks) {
       if (track.IsGroup()) {
@@ -348,6 +352,11 @@ class Regexp {
 
   public void SetJointTrack(Track track) {
     jointTracks.add(track);
+    buildTopmostTrack();
+  }
+
+  public void SetJointTracks(ArrayList<Track> tracks) {
+    jointTracks.addAll(tracks);
     buildTopmostTrack();
   }
 
