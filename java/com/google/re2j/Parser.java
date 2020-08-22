@@ -1104,7 +1104,7 @@ class Parser {
         throw new IllegalStateException("the top regex must be alternation or char class or empty but " + top.op);
       }
 
-      top.SetJoinTrack(popTrack);
+      top.SetJointTrack(popTrack);
     }
 
     int n = stack.size();
@@ -1469,7 +1469,7 @@ class Parser {
         throw new IllegalStateException("the top regex must be alternation or char class but " + top.op);
       }
 
-      top.SetJoinTrack(popTrack);
+      top.SetJointTrack(popTrack);
     }
 
     int n = stack.size();

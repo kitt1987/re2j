@@ -65,7 +65,7 @@ class Regexp {
   // Do update copy ctor when adding new fields!
 
   // Tracks from StringIterator
-  private Track jointTrack;
+  private ArrayList<Track> jointTracks = new ArrayList<Track>();
   private Op legacyOp;
 
   private ArrayList<Track> tracks = new ArrayList<Track>();
@@ -87,7 +87,7 @@ class Regexp {
     this.namedGroups = that.namedGroups;
     this.legacyOp = that.legacyOp;
     this.tracks.addAll(that.tracks);
-    this.jointTrack = that.jointTrack;
+    this.jointTracks.addAll(that.jointTracks);
   }
 
   void reinit() {
@@ -116,7 +116,7 @@ class Regexp {
 
   public void FreeTracks() {
     tracks.clear();
-    jointTrack = null;
+    jointTracks = null;
   }
 
   private int[] getTrackRange() {
@@ -236,13 +236,13 @@ class Regexp {
         // √ If the joint track exists, join all tracks except the topmost.
         for (int i = 1; i < tracks.size(); i++) {
           allTracks.add(tracks.get(i));
-          if (jointTrack != null) {
+          if (jointTracks != null) {
             Track last = allTracks.get(allTracks.size()-1);
-            allTracks.add(new Track(last.End, last.End+1, jointTrack.Comments));
+            allTracks.add(new Track(last.End, last.End+1, jointTracks.get(i-1).Comments));
           }
         }
 
-        if (jointTrack != null && allTracks.size() > 0) {
+        if (jointTracks != null && allTracks.size() > 0) {
           allTracks.remove(allTracks.size()-1);
         }
 
@@ -257,8 +257,12 @@ class Regexp {
         }
 
         // √ for "|"
-        if (jointTrack != null) {
-          allTracks.add(jointTrack);
+        if (jointTracks.size() > 0) {
+          if (jointTracks.size() != 1) {
+            throw new IllegalStateException("number subs of empty match must be at most 1 but " + NumSubs());
+          }
+
+          allTracks.add(jointTracks.get(0));
         }
         break;
       default:
@@ -270,13 +274,13 @@ class Regexp {
         if (subs != null && subs.length > 0) {
           for (Regexp sub : subs) {
             allTracks.addAll(sub.GetAllTracks());
-            if (jointTrack != null) {
+            if (jointTracks != null) {
               Track last = allTracks.get(allTracks.size()-1);
-              allTracks.add(new Track(last.End, last.End+1, jointTrack.Comments));
+              allTracks.add(new Track(last.End, last.End+1, jointTracks.Comments));
             }
           }
 
-          if (jointTrack != null && allTracks.size() > 0) {
+          if (jointTracks != null && allTracks.size() > 0) {
             allTracks.remove(allTracks.size()-1);
           }
         }
@@ -341,13 +345,13 @@ class Regexp {
     this.op = op;
   }
 
-  public void SetJoinTrack(Track track) {
-    jointTrack = track;
+  public void SetJointTrack(Track track) {
+    jointTracks.add(track);
     buildTopmostTrack();
   }
 
   public boolean HasJoinTrack() {
-    return jointTrack != null;
+    return jointTracks != null;
   }
 
   public void SetTrack(Track track) {
