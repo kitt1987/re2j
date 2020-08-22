@@ -1152,7 +1152,6 @@ class Parser {
   // Sets numCap.
   private void parsePerlFlags(StringIterator t) throws PatternSyntaxException {
     int startPos = t.pos();
-    int startRune = t.peek();
 
     // Check for named captures, first introduced in Python's regexp library.
     // As usual, there are three slightly different syntaxes:
