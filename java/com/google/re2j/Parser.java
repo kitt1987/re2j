@@ -776,7 +776,7 @@ class Parser {
         return;
       }
 
-      last.End(pos, rune);
+      last.End(pos, rune, true);
       this.tracks.add(new Track(pos));
     }
 
