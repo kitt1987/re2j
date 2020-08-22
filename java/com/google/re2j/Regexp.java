@@ -238,12 +238,8 @@ class Regexp {
           allTracks.add(tracks.get(i));
           if (HasJoinTrack() && i < tracks.size()-2) {
             Track last = allTracks.get(allTracks.size()-1);
-            allTracks.add(new Track(last.End, last.End+1, jointTracks.get(i-1).Comments));
+            allTracks.add(jointTracks.get(i-1));
           }
-        }
-
-        if (HasJoinTrack() && allTracks.size() > 0) {
-          allTracks.remove(allTracks.size()-1);
         }
 
         break;
@@ -277,7 +273,7 @@ class Regexp {
             allTracks.addAll(sub.GetAllTracks());
             if (HasJoinTrack() && i < subs.length-1) {
               Track last = allTracks.get(allTracks.size()-1);
-              allTracks.add(new Track(last.End, last.End+1, jointTracks.get(i).Comments));
+              allTracks.add(jointTracks.get(i));
             }
           }
         }
