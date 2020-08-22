@@ -316,6 +316,16 @@ class Regexp {
     return tracks;
   }
 
+  public boolean HasGroupTrack() {
+    for (Track track : tracks) {
+      if (track.IsGroup()) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   public void UpdateOp(Op op) {
     if (legacyOp != null) {
       throw new IllegalStateException("already has a legacy OP " + legacyOp);

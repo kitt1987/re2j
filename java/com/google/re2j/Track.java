@@ -226,6 +226,9 @@ public class Track implements Comparable<Track>  {
         }
 
         if (b.length() > 0) {
+            if (re.HasGroupTrack()) {
+                b.insert(0, "group of ");
+            }
             Comments = b.toString();
         }
     }
