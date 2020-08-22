@@ -353,15 +353,15 @@ class Parser {
       }
     }
     Regexp re = newRegexp(op);
-    if (jointTracksRestored.size() > 0) {
-      re.SetJointTracks(jointTracksRestored);
-    }
-
     if (tracksRestored.size() > 0) {
       re.SetTracks(tracksRestored);
     }
 
     re.SetSubs(newsubs);
+
+    if (jointTracksRestored.size() > 0) {
+      re.SetJointTracks(jointTracksRestored);
+    }
 
     if (op == Regexp.Op.ALTERNATE) {
       re.subs = factor(re.subs, re.flags);
