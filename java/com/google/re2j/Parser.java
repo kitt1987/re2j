@@ -763,6 +763,12 @@ class Parser {
       this.tracks.add(new Track(pos));
     }
 
+    void PushNewGroupTrack(String comments) {
+      Track last = tracks.get(tracks.size()-1);
+      last.End(pos, comments, true);
+      this.tracks.add(new Track(pos));
+    }
+
     void PushNewTrack(int rune) {
       Track last = tracks.get(tracks.size()-1);
       if (last.Start == pos) {
@@ -1183,7 +1189,7 @@ class Parser {
             ERR_INVALID_NAMED_CAPTURE, s.substring(0, end)); // "(?P<name>"
       }
       // √ Save the name track
-      t.PushNewTrack("group name \"" + name + "\"");
+      t.PushNewGroupTrack("group name \"" + name + "\"");
 
       // Like ordinary capture, but named.
       Regexp re = op(Regexp.Op.LEFT_PAREN);
@@ -1200,7 +1206,7 @@ class Parser {
     // Non-capturing group.  Might also twiddle Perl flags.
     t.skip(2); // "(?"
     // √ Save the flag track
-    t.PushNewTrack("non-capturing group");
+    t.PushNewGroupTrack("non-capturing group");
     int flags = this.flags;
     int sign = +1;
     boolean sawFlag = false;
