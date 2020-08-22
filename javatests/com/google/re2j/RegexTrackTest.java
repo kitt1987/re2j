@@ -555,8 +555,10 @@ public class RegexTrackTest {
 
         put("(?:a+b+)(?:c+d+)", new Track[]{
                 new Track(0, 16, "sequence [literal 'a' repeated once or many times,literal 'b' repeated once or many times,literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
-                new Track(0, 8, "literal 'a' repeated once or many times"),
+                new Track(0, 8, "sequence [literal 'a' repeated once or many times,literal 'b' repeated once or many times]"),
+
                 new Track(0, 5, "literal 'a' repeated once or many times"),
+                // FIXME the start pos is not correct
                 new Track(0, 4, "literal 'a'"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "mod modifier end"),
@@ -566,7 +568,10 @@ public class RegexTrackTest {
                 new Track(5, 6, "literal 'b'"),
                 new Track(6, 7, "quantifier: repeated once or many times"),
                 new Track(7, 8, "capturing group end"),
+                new Track(8, 16, "sequence [literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
+
                 new Track(8, 13, "literal 'c' repeated once or many times"),
+                // FIXME the start pos is not correct
                 new Track(8, 12, "literal 'c'"),
                 new Track(8, 10, "non-capturing group"),
                 new Track(10, 11, "mod modifier end"),
