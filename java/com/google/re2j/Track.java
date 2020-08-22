@@ -68,6 +68,8 @@ public class Track implements Comparable<Track>  {
     public int End;
     public String Comments;
 
+    private boolean group;
+
     Track() {
         Start = Integer.MAX_VALUE;
         End = 0;
@@ -87,6 +89,10 @@ public class Track implements Comparable<Track>  {
         Start = start;
         End = end;
         UpdateComments(re);
+    }
+
+    boolean IsGroup() {
+        return group;
     }
 
     void Update(Track that) {
