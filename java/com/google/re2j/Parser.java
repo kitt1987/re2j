@@ -342,6 +342,8 @@ class Parser {
           tracksRestored = new ArrayList<Track>();
         }
         ArrayList<Track> tracks = sub.GetDirectTracks();
+        // FIXME keep the topmost track or not, that's a question.
+        // For concat, it seems good to keep it.
         tracksRestored.addAll(tracks.subList(1, tracks.size()));
         System.arraycopy(sub.subs, 0, newsubs, i, sub.subs.length);
         i += sub.subs.length;
