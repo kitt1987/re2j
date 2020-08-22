@@ -236,13 +236,13 @@ class Regexp {
         // √ If the joint track exists, join all tracks except the topmost.
         for (int i = 1; i < tracks.size(); i++) {
           allTracks.add(tracks.get(i));
-          if (jointTracks.size() > 0) {
+          if (HasJoinTrack()) {
             Track last = allTracks.get(allTracks.size()-1);
             allTracks.add(new Track(last.End, last.End+1, jointTracks.get(i-1).Comments));
           }
         }
 
-        if (jointTracks.size() > 0 && allTracks.size() > 0) {
+        if (HasJoinTrack() && allTracks.size() > 0) {
           allTracks.remove(allTracks.size()-1);
         }
 
@@ -257,7 +257,7 @@ class Regexp {
         }
 
         // √ for "|"
-        if (jointTracks.size() > 0) {
+        if (HasJoinTrack()) {
           if (jointTracks.size() != 1) {
             throw new IllegalStateException("number jointTracks of empty match must be at most 1 but " + NumSubs());
           }
@@ -275,13 +275,13 @@ class Regexp {
           for (int i = 0; i < subs.length; i++) {
             Regexp sub = subs[i];
             allTracks.addAll(sub.GetAllTracks());
-            if (jointTracks.size() > 0) {
+            if (HasJoinTrack()) {
               Track last = allTracks.get(allTracks.size()-1);
               allTracks.add(new Track(last.End, last.End+1, jointTracks.get(i).Comments));
             }
           }
 
-          if (jointTracks.size() > 0 && allTracks.size() > 0) {
+          if (HasJoinTrack() && allTracks.size() > 0) {
             allTracks.remove(allTracks.size()-1);
           }
         }
