@@ -1266,7 +1266,7 @@ class Parser {
           // End of flags, starting group or not.
         case ':':
         case ')':
-          t.PushNewTrack(c);
+          t.PushNewGroupTrack(c);
           if (sign < 0) {
             if (!sawFlag) {
               break loop;
