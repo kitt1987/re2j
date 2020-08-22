@@ -236,8 +236,7 @@ class Regexp {
         // √ If the joint track exists, join all tracks except the topmost.
         for (int i = 1; i < tracks.size(); i++) {
           allTracks.add(tracks.get(i));
-          if (HasJoinTrack() && i < tracks.size()-2) {
-            Track last = allTracks.get(allTracks.size()-1);
+          if (HasJoinTrack() && i < jointTracks.size()-1) {
             allTracks.add(jointTracks.get(i-1));
           }
         }
@@ -271,7 +270,7 @@ class Regexp {
           for (int i = 0; i < subs.length; i++) {
             Regexp sub = subs[i];
             allTracks.addAll(sub.GetAllTracks());
-            if (HasJoinTrack() && i < subs.length-1) {
+            if (HasJoinTrack() && i < jointTracks.size()) {
               allTracks.add(jointTracks.get(i));
             }
           }
