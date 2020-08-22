@@ -207,7 +207,12 @@ public class Track implements Comparable<Track>  {
                 b.append("capturing group (").append(joinComments(re.subs)).append(")");
                 break;
             case LEFT_PAREN:
-                b.append("capturing group");
+                // FIXME identify the non-capturing groups
+                if (re.GetDirectTracks().size() > 1) {
+                    b.append("non-capturing group");
+                } else {
+                    b.append("capturing group");
+                }
                 break;
             case STAR:
                 b.append(joinComments(re.subs)).append(" repeated zero or many times");
