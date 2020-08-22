@@ -1002,7 +1002,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?i)\\W");
+        testRegexpTrack("(?:a+|b+)|(?:c+|d+)");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
