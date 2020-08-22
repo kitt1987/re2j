@@ -272,7 +272,6 @@ class Regexp {
             Regexp sub = subs[i];
             allTracks.addAll(sub.GetAllTracks());
             if (HasJoinTrack() && i < subs.length-1) {
-              Track last = allTracks.get(allTracks.size()-1);
               allTracks.add(jointTracks.get(i));
             }
           }
