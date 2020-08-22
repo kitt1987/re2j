@@ -763,11 +763,11 @@ class Parser {
       this.tracks.add(new Track(pos));
     }
 
-    void PushNewGroupTrack(String comments) {
-      Track last = tracks.get(tracks.size()-1);
-      last.End(pos, comments, true);
-      this.tracks.add(new Track(pos));
-    }
+//    void PushNewGroupTrack(String comments) {
+//      Track last = tracks.get(tracks.size()-1);
+//      last.End(pos, comments, true);
+//      this.tracks.add(new Track(pos));
+//    }
 
     void PushNewGroupTrack(int rune) {
       Track last = tracks.get(tracks.size()-1);
@@ -1200,7 +1200,7 @@ class Parser {
             ERR_INVALID_NAMED_CAPTURE, s.substring(0, end)); // "(?P<name>"
       }
       // √ Save the name track
-      t.PushNewGroupTrack("group name \"" + name + "\"");
+      t.PushNewTrack("group name \"" + name + "\"");
 
       // Like ordinary capture, but named.
       Regexp re = op(Regexp.Op.LEFT_PAREN);
@@ -1217,7 +1217,7 @@ class Parser {
     // Non-capturing group.  Might also twiddle Perl flags.
     t.skip(2); // "(?"
     // √ Save the flag track
-    t.PushNewGroupTrack("non-capturing group");
+    t.PushNewTrack("non-capturing group");
     int flags = this.flags;
     int sign = +1;
     boolean sawFlag = false;
@@ -1266,7 +1266,6 @@ class Parser {
           // End of flags, starting group or not.
         case ':':
         case ')':
-          t.PushNewGroupTrack(c);
           if (sign < 0) {
             if (!sawFlag) {
               break loop;
@@ -1274,13 +1273,16 @@ class Parser {
             flags = ~flags;
           }
           if (c == ':') {
+            t.PushNewGroupTrack(c);
             // Open new group
             op(Regexp.Op.LEFT_PAREN);
             // √ this is not a group end. may not build a topmost track
             top().SetTracks(t.PopTracks());
+          } else {
+            t.PushNewTrack(c);
           }
-          this.flags = flags;
 
+          this.flags = flags;
           return;
       }
     }
