@@ -272,11 +272,12 @@ class Regexp {
 
         // put tracks of sub regexps
         if (subs != null && subs.length > 0) {
-          for (Regexp sub : subs) {
+          for (int i = 0; i < subs.length; i++) {
+            Regexp sub = subs[i];
             allTracks.addAll(sub.GetAllTracks());
             if (jointTracks != null) {
               Track last = allTracks.get(allTracks.size()-1);
-              allTracks.add(new Track(last.End, last.End+1, jointTracks.Comments));
+              allTracks.add(new Track(last.End, last.End+1, jointTracks.get(i).Comments));
             }
           }
 
