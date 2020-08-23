@@ -49,7 +49,7 @@ public class Track implements Comparable<Track>  {
 
     static final HashMap<Regexp.Op, Integer> OpKeyRuneMap = new HashMap<Regexp.Op, Integer>();
     static {
-        OpKeyRuneMap.put("\\d", "digits shorthand");
+        OpKeyRuneMap.put(Regexp.Op.EMPTY_MATCH, (int) 'a');
     }
 
     static boolean IsLiteral(Track track) {
