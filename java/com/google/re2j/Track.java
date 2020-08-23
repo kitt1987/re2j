@@ -52,9 +52,9 @@ public class Track implements Comparable<Track>  {
         OpKeyRuneMap.put(Regexp.Op.LITERAL, "rune");
         OpKeyRuneMap.put(Regexp.Op.CHAR_CLASS, "[");
         OpKeyRuneMap.put(Regexp.Op.ANY_CHAR_NOT_NL, ".");
-        OpKeyRuneMap.put(Regexp.Op.ANY_CHAR, ".");
-        OpKeyRuneMap.put(Regexp.Op.BEGIN_LINE, "^");
-        OpKeyRuneMap.put(Regexp.Op.END_LINE, "$");
+        OpKeyRuneMap.put(Regexp.Op.ANY_CHAR, ".:s");
+        OpKeyRuneMap.put(Regexp.Op.BEGIN_LINE, "^:m");
+        OpKeyRuneMap.put(Regexp.Op.END_LINE, "$:m");
         OpKeyRuneMap.put(Regexp.Op.BEGIN_TEXT, "^");
         OpKeyRuneMap.put(Regexp.Op.END_TEXT, "$");
         OpKeyRuneMap.put(Regexp.Op.WORD_BOUNDARY, "\\b");
@@ -72,6 +72,10 @@ public class Track implements Comparable<Track>  {
 
     static final HashMap<String, String> CommentMap = new HashMap<String, String>();
     static {
+        CommentMap.put(".:s", "any characters including \"\\n\"");
+        CommentMap.put(".", "any characters excluding \"\\n\"");
+        CommentMap.put("^:m", "line start");
+        CommentMap.put("$:m", "line end");
         CommentMap.put("[:alnum:]", "alphanumeric characters");
         CommentMap.put("[:^alnum:]", "negated alphanumeric characters");
         CommentMap.put("[:alpha:]", "alphabetic characters");
@@ -113,6 +117,11 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("+", "quantifier: repeated once or many times");
         CommentMap.put("?", "quantifier: repeated zero or once");
         CommentMap.put("|", "alternation");
+        CommentMap.put(":i", "case insensitive");
+        CommentMap.put(":m", "multi-line: '^' and '$' match at the start and end of each line");
+        CommentMap.put(":s", "single-line: dot also matches line breaks");
+        CommentMap.put(":U", "ungreedy quantifiers");
+        CommentMap.put(":-", "negative modifier");
     }
 
     static boolean IsLiteral(Track track) {
