@@ -263,14 +263,8 @@ class Regexp {
           throw new IllegalStateException("number subs of CC must be 0 but " + NumSubs());
         }
 
-        // √ If the joint track exists, join all tracks except the topmost.
-        for (int i = 1; i < tracks.size(); i++) {
-          allTracks.add(tracks.get(i));
-          if (HasJoinTrack() && i <= jointTracks.size()) {
-            allTracks.add(jointTracks.get(i-1));
-          }
-        }
-
+        allTracks.addAll(tracks.subList(1, tracks.size()));
+        allTracks.addAll(jointTracks);
         break;
       case EMPTY_MATCH:
         if (NumTracks() > 1) {
@@ -298,13 +292,11 @@ class Regexp {
         // put tracks of sub regexps
         if (subs != null && subs.length > 0) {
           for (int i = 0; i < subs.length; i++) {
-            Regexp sub = subs[i];
-            allTracks.addAll(sub.GetAllTracks());
-            if (HasJoinTrack() && i < jointTracks.size()) {
-              allTracks.add(jointTracks.get(i));
-            }
+            allTracks.addAll(subs[i].GetAllTracks());
           }
         }
+
+        allTracks.addAll(jointTracks);
     }
 
     if (tracks.size() > 0) {
