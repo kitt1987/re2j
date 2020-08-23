@@ -287,7 +287,8 @@ public class Track implements Comparable<Track>  {
                 if (comments.equals("character class")
                     || comments.equals("character class end")
                     || comments.equals("non-capturing group")
-                    || comments.equals("capturing group end")) {
+                    || comments.equals("capturing group end")
+                    || comments.equals("mod modifier end")) {
                     continue;
                 }
 
