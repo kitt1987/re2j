@@ -49,6 +49,7 @@ public class Track implements Comparable<Track>  {
 
     static final HashMap<Regexp.Op, String> OpKeyRuneMap = new HashMap<Regexp.Op, String>();
     static {
+        OpKeyRuneMap.put(Regexp.Op.LITERAL, "rune");
         OpKeyRuneMap.put(Regexp.Op.CHAR_CLASS, "[");
         OpKeyRuneMap.put(Regexp.Op.ANY_CHAR_NOT_NL, ".");
         OpKeyRuneMap.put(Regexp.Op.ANY_CHAR, ".");
@@ -99,6 +100,19 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("[:^word:]", "negated word characters");
         CommentMap.put("[:xdigit:]", "hexadecimal digits");
         CommentMap.put("[:^xdigit:]", "negated hexadecimal digits");
+        CommentMap.put("\\d", "digits shorthand");
+        CommentMap.put("\\D", "non-digits shorthand");
+        CommentMap.put("\\s", "whitespace shorthand");
+        CommentMap.put("\\S", "non-whitespace shorthand");
+        CommentMap.put("\\w", "word character shorthand");
+        CommentMap.put("\\W", "non-word character shorthand");
+        CommentMap.put(":", "mod modifier end");
+        CommentMap.put(")", "capturing group end");
+        CommentMap.put("(", "capturing group");
+        CommentMap.put("*", "quantifier: repeated zero or many times");
+        CommentMap.put("+", "quantifier: repeated once or many times");
+        CommentMap.put("?", "quantifier: repeated zero or once");
+        CommentMap.put("|", "alternation");
     }
 
     static boolean IsLiteral(Track track) {
