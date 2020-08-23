@@ -1413,7 +1413,7 @@ class Parser {
         break;
     }
 
-    dst.SetLiteralConcatenationTracks(src.GetAllTracks());
+    dst.SetTracks(src.GetAllTracks());
   }
 
   // If the top of the stack is an element followed by an opVerticalBar

@@ -168,8 +168,31 @@ class Regexp {
   }
 
   public void SetLiteralConcatenationTracks(ArrayList<Track> thatTracks) {
-    if (op != Op.LITERAL && op != Op.CHAR_CLASS) {
-      throw new IllegalStateException("Only CC and literal can concat to each other");
+    if (op != Op.LITERAL) {
+      throw new IllegalStateException("Only literal can concat to each other");
+    }
+
+    if (thatTracks.size() == 0) {
+      throw new IllegalStateException("Can't concatenate empty tracks");
+    }
+
+    if (Track.IsLiteral(tracks.get(tracks.size()-1)) && Track.AllLiterals(thatTracks)) {
+      // Just concatenate 2 topmost tracks and discard all tracks of single literals.
+      tracks.get(0).Update(new Track(tracks.get(0).Start, thatTracks.get(0).End, this));
+      if (tracks.size() > 1) {
+        Track last = tracks.get(tracks.size()-1);
+        last.Update(new Track(last.Start, tracks.get(0).End, tracks.get(0).Comments));
+      }
+      return;
+    }
+
+    this.tracks.add(0, new Track());
+    SetTracks(thatTracks);
+  }
+
+  public void SetCharClassConcatenationTracks(ArrayList<Track> thatTracks) {
+    if (op != Op.CHAR_CLASS) {
+      throw new IllegalStateException("Only CC can concat to literals");
     }
 
     if (thatTracks.size() == 0) {
