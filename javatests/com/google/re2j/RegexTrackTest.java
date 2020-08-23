@@ -570,7 +570,6 @@ public class RegexTrackTest {
 
                 new Track(8, 16, "group of sequence [literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
 
-                // FIXME the start pos is not correct
                 new Track(8, 11, "non-capturing group"),
                 new Track(8, 10, "non-capturing group"),
                 new Track(10, 11, "mod modifier end"),
@@ -632,6 +631,14 @@ public class RegexTrackTest {
                 new Track(14, 15, "capturing group end"),
         });
 
+        put("a|.", new Track[]{
+                new Track(0, 5, "group of literal 'a'"),
+                new Track(0, 3, "non-capturing group"),
+                new Track(0, 2, "non-capturing group"),
+                new Track(2, 3, "mod modifier end"),
+                new Track(3, 4, "literal 'a'"),
+                new Track(4, 5, "capturing group end"),
+        });
     }};
 
 //  {
@@ -1024,7 +1031,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?:a|b)|(?:c|d)");
+        testRegexpTrack("a|.");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
