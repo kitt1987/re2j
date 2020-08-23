@@ -71,7 +71,34 @@ public class Track implements Comparable<Track>  {
 
     static final HashMap<String, String> CommentMap = new HashMap<String, String>();
     static {
-        CommentMap.put();
+        CommentMap.put("[:alnum:]", "alphanumeric characters");
+        CommentMap.put("[:^alnum:]", "negated alphanumeric characters");
+        CommentMap.put("[:alpha:]", "alphabetic characters");
+        CommentMap.put("[:^alpha:]", "negated alphabetic characters");
+        CommentMap.put("[:ascii:]", "ASCII characters");
+        CommentMap.put("[:^ascii:]", "negated ASCII characters");
+        CommentMap.put("[:blank:]", "space and tab");
+        CommentMap.put("[:^blank:]", "negated space and tab");
+        CommentMap.put("[:cntrl:]", "control characters");
+        CommentMap.put("[:^cntrl:]", "negated control characters");
+        CommentMap.put("[:digit:]", "digits");
+        CommentMap.put("[:^digit:]", "negated digits");
+        CommentMap.put("[:graph:]", "visible characters");
+        CommentMap.put("[:^graph:]", "negated visible characters");
+        CommentMap.put("[:lower:]", "lowercase letters");
+        CommentMap.put("[:^lower:]", "negated lowercase letters");
+        CommentMap.put("[:print:]", "visible characters and spaces");
+        CommentMap.put("[:^print:]", "negated visible characters and spaces");
+        CommentMap.put("[:punct:]", "punctuation");
+        CommentMap.put("[:^punct:]", "negated punctuation");
+        CommentMap.put("[:space:]", "whitespace characters, including line breaks");
+        CommentMap.put("[:^space:]", "negated whitespace characters, including line breaks");
+        CommentMap.put("[:upper:]", "uppercase letters");
+        CommentMap.put("[:^upper:]", "negated uppercase letters");
+        CommentMap.put("[:word:]", "word characters");
+        CommentMap.put("[:^word:]", "negated word characters");
+        CommentMap.put("[:xdigit:]", "hexadecimal digits");
+        CommentMap.put("[:^xdigit:]", "negated hexadecimal digits");
     }
 
     static boolean IsLiteral(Track track) {
