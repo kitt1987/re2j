@@ -486,14 +486,14 @@ public class RegexTrackTest {
                 new Track(2, 3, "literal '{'"),
         });
 
-        //    {"(?:ab)*", "star{str{ab}}"},
-
         put("(?:ab)*", new Track[]{
-                new Track(5, 7, "string \"ab\" repeated zero or many times"),
-                new Track(5, 6, "string \"ab\""),
+                new Track(0, 7, "group of string \"ab\" repeated zero or many times"),
+                new Track(0, 6, "group of string \"ab\""),
+                new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "mod modifier end"),
-                new Track(3, 4, "literal '{'"),
+                new Track(3, 5, "string \"ab\""),
+                new Track(5, 6, "capturing group end"),
                 new Track(6, 7, "quantifier: repeated zero or many times"),
         });
 
@@ -596,9 +596,7 @@ public class RegexTrackTest {
                 new Track(6, 7, "literal 'b'"),
                 new Track(7, 8, "quantifier: repeated once or many times"),
                 new Track(8, 9, "capturing group end"),
-                // √ wrong position. should be 9, 10
                 new Track(9, 10, "alternation"),
-
                 new Track(10, 19, "group of alternation of [literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
                 new Track(10, 13, "non-capturing group"),
                 new Track(10, 12, "non-capturing group"),
@@ -612,13 +610,41 @@ public class RegexTrackTest {
                 new Track(17, 18, "quantifier: repeated once or many times"),
                 new Track(18, 19, "capturing group end"),
         });
+        put("(?:a|b)|(?:c|d)", new Track[]{
+                new Track(0, 19, "group of alternation of [literal 'a' repeated once or many times,literal 'b' repeated once or many times,literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
+                new Track(0, 9, "group of alternation of [literal 'a' repeated once or many times,literal 'b' repeated once or many times]"),
+                new Track(0, 3, "non-capturing group"),
+                new Track(0, 2, "non-capturing group"),
+                new Track(2, 3, "mod modifier end"),
+                new Track(3, 5, "literal 'a' repeated once or many times"),
+                new Track(3, 4, "literal 'a'"),
+                new Track(4, 5, "quantifier: repeated once or many times"),
+                new Track(5, 6, "alternation"),
+                new Track(6, 8, "literal 'b' repeated once or many times"),
+                new Track(6, 7, "literal 'b'"),
+                new Track(7, 8, "quantifier: repeated once or many times"),
+                new Track(8, 9, "capturing group end"),
+                new Track(9, 10, "alternation"),
+                new Track(10, 19, "group of alternation of [literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
+                new Track(10, 13, "non-capturing group"),
+                new Track(10, 12, "non-capturing group"),
+                new Track(12, 13, "mod modifier end"),
+                new Track(13, 15, "literal 'c' repeated once or many times"),
+                new Track(13, 14, "literal 'c'"),
+                new Track(14, 15, "quantifier: repeated once or many times"),
+                new Track(15, 16, "alternation"),
+                new Track(16, 18, "literal 'd' repeated once or many times"),
+                new Track(16, 17, "literal 'd'"),
+                new Track(17, 18, "quantifier: repeated once or many times"),
+                new Track(18, 19, "capturing group end"),
+        });
+
     }};
 
 //  {
 //
 //    // Test flattening.
 
-//    {"(?:a+|b+)|(?:c+|d+)", "alt{plus{lit{a}}plus{lit{b}}plus{lit{c}}plus{lit{d}}}"},
 //    {"(?:a|b)|(?:c|d)", "cc{0x61-0x64}"},
 //    {"a|.", "dot{}"},
 //    {".|a", "dot{}"},
@@ -1006,7 +1032,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?:ab)*");
+        testRegexpTrack("(?:a|b)|(?:c|d)");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
