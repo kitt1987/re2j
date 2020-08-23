@@ -526,7 +526,8 @@ public class RegexTrackTest {
         });
 
         put("(?:a)", new Track[]{
-                new Track(0, 5, "literal 'a'"),
+                new Track(0, 5, "group of literal 'a'"),
+                new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "mod modifier end"),
                 new Track(3, 4, "literal 'a'"),
