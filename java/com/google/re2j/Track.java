@@ -69,6 +69,11 @@ public class Track implements Comparable<Track>  {
         OpKeyRuneMap.put(Regexp.Op.VERTICAL_BAR, (int) '|');
     }
 
+    static final HashMap<Integer, String> CommentMap = new HashMap<Integer, String>();
+    static {
+        CommentMap.put();
+    }
+
     static boolean IsLiteral(Track track) {
         return track.Comments.startsWith("literal") || track.Comments.startsWith("string");
     }
