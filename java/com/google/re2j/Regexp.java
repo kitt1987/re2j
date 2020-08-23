@@ -224,7 +224,9 @@ class Regexp {
       return;
     }
 
-    if (NumTracks() == 0 && tracks.size() > 1 || NumTracks() == 1 && NumSubs() == 0) {
+    if (NumTracks() == 0 && tracks.size() > 1
+            || NumTracks() == 1 && NumSubs() == 0
+            || op == Op.CHAR_CLASS && NumTracks() > 0) {
       // will generate a new topmost track and insert a placeholder for it
       this.tracks.add(0, new Track());
     }
