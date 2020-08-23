@@ -1106,12 +1106,7 @@ class Parser {
     alternate();
 
     if (popTrack != null) {
-      Regexp top = top();
-      if (top.op != Regexp.Op.ALTERNATE && top.op != Regexp.Op.CHAR_CLASS && top.op != Regexp.Op.EMPTY_MATCH) {
-        throw new IllegalStateException("the top regex must be alternation or char class or empty but " + top.op);
-      }
-
-      top.SetJointTracks(popTrack);
+      top().SetJointTracks(popTrack);
     }
 
     int n = stack.size();
