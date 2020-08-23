@@ -611,8 +611,9 @@ public class RegexTrackTest {
                 new Track(18, 19, "capturing group end"),
         });
         put("(?:a|b)|(?:c|d)", new Track[]{
-                new Track(0, 15, "group of alternation of [literal 'a',literal 'b',group of alternation of [literal 'c',literal 'd'],literal 'c',alternation,literal 'd']"),
-                new Track(0, 8, "group of alternation of [literal 'c',literal 'd',mod modifier end]"),
+                // FIXME
+                new Track(0, 15, "group of alternation of [group of alternation of [literal 'a',literal 'b'],literal 'a',literal 'b',group of alternation of [literal 'c',literal 'd'],literal 'c',alternation,literal 'd']"),
+                new Track(0, 8, "group of alternation of [literal 'a',literal 'b']"),
                 new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "mod modifier end"),
@@ -621,7 +622,7 @@ public class RegexTrackTest {
                 new Track(5, 6, "literal 'b'"),
                 new Track(6, 7, "capturing group end"),
                 new Track(7, 8, "alternation"),
-                new Track(8, 15, "group of alternation of [literal 'c',literal 'd',mod modifier end]"),
+                new Track(8, 15, "group of alternation of [literal 'c',literal 'd']"),
                 new Track(8, 11, "non-capturing group"),
                 new Track(8, 10, "non-capturing group"),
                 new Track(10, 11, "mod modifier end"),
