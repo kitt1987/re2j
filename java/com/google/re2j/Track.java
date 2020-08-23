@@ -47,6 +47,11 @@ public class Track implements Comparable<Track>  {
         PERL_GROUPS.put("\\W", "non-word character shorthand");
     }
 
+    static final HashMap<Regexp.Op, Integer> OpKeyRuneMap = new HashMap<Regexp.Op, Integer>();
+    static {
+        OpKeyRuneMap.put("\\d", "digits shorthand");
+    }
+
     static boolean IsLiteral(Track track) {
         return track.Comments.startsWith("literal") || track.Comments.startsWith("string");
     }
