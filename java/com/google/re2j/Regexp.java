@@ -168,8 +168,8 @@ class Regexp {
   }
 
   public void SetLiteralConcatenationTracks(ArrayList<Track> thatTracks) {
-    if (op != Op.LITERAL) {
-      throw new IllegalStateException("Only CC can accept Perl flags");
+    if (op != Op.LITERAL && op != Op.CHAR_CLASS) {
+      throw new IllegalStateException("Only CC and literal can concat to each other");
     }
 
     if (thatTracks.size() == 0) {
