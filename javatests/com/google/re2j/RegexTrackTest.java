@@ -646,10 +646,23 @@ public class RegexTrackTest {
         });
 
         put("(?:[abc]|A|Z|hello|world)", new Track[]{
-                new Track(0, 3, "any characters including \"\\n\""),
-                new Track(0, 1, "any characters including \"\\n\""),
-                new Track(1, 2, "alternation"),
-                new Track(2, 3, "literal 'a'"),
+                new Track(0, 25, "group of alternation of [character class of [literal 'a',literal 'b',literal 'c',literal 'A',literal 'Z'],string \"hello\",string \"world\"]"),
+                new Track(0, 3, "non-capturing group"),
+                new Track(0, 2, "non-capturing group"),
+                new Track(2, 3, "mod modifier end"),
+
+                new Track(3, 12, "character class of [literal 'a',literal 'b',literal 'c',literal 'A',literal 'Z']"),
+                new Track(3, 4, "character class"),
+                new Track(4, 5, "literal 'a'"),
+                new Track(5, 6, "literal 'b'"),
+                new Track(6, 7, "literal 'c'"),
+                new Track(7, 8, "character class end"),
+                new Track(8, 19, "alternation"),
+                new Track(9, 10, "literal 'A'"),
+                new Track(11, 12, "literal 'Z'"),
+                new Track(13, 18, "string \"hello\""),
+                new Track(19, 24, "string \"world\""),
+                new Track(24, 25, "capturing group end"),
         });
     }};
 
