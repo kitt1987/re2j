@@ -1004,7 +1004,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("a|b");
+        testRegexpTrack("(?:a)");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
