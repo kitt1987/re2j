@@ -611,7 +611,8 @@ public class RegexTrackTest {
                 new Track(18, 19, "capturing group end"),
         });
         put("(?:a|b)|(?:c|d)", new Track[]{
-                new Track(0, 17, "group of alternation of [literal 'a',literal 'b',mod modifier end,group of alternation of [literal 'c',literal 'd',mod modifier end],mod modifier end,literal 'c',alternation,literal 'd']"),
+                new Track(0, 17, "group of alternation of [literal 'a',literal 'b',group of alternation of [literal 'c',literal 'd'],literal 'c',alternation,literal 'd']"),
+                new Track(0, 8, "group of alternation of [literal 'c',literal 'd',mod modifier end]"),
                 new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "mod modifier end"),
