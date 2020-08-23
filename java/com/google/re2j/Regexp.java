@@ -360,9 +360,6 @@ class Regexp {
         legacyOp = this.op;
     }
 
-    // √ prepend a new topmost to make tracks be a sub tree
-    this.tracks.add(0, new Track());
-
     this.op = op;
   }
 
