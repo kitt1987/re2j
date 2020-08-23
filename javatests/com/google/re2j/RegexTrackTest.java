@@ -637,7 +637,6 @@ public class RegexTrackTest {
 //
 //    // Test flattening.
 
-//    {"(?:a|b)|(?:c|d)", "cc{0x61-0x64}"},
 //    {"a|.", "dot{}"},
 //    {".|a", "dot{}"},
 //    {"(?:[abc]|A|Z|hello|world)", "alt{cc{0x41 0x5a 0x61-0x63}str{hello}str{world}}"},
