@@ -1396,6 +1396,7 @@ class Parser {
           dst.runes = new CharClass(dst.runes).appendLiteral(src.runes[0], src.flags).toArray();
         } else {
           dst.runes = new CharClass(dst.runes).appendClass(src.runes).toArray();
+          dst.NewTopmostPlaceholder();
         }
 
         break;

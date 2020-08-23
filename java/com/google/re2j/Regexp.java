@@ -218,6 +218,12 @@ class Regexp {
     tracks = new ArrayList<Track>(thatTracks);
   }
 
+  public void NewTopmostPlaceholder() {
+    if (NumTracks() > 1) {
+      this.tracks.add(0, new Track());
+    }
+  }
+
   public void SetTracks(ArrayList<Track> tracks) {
     if (tracks == null || tracks.size() == 0) {
       // FIXME we can't yet determine whether it is a illegal state
@@ -225,8 +231,7 @@ class Regexp {
     }
 
     if (NumTracks() == 0 && tracks.size() > 1
-            || NumTracks() == 1 && NumSubs() == 0
-            || op == Op.CHAR_CLASS && NumTracks() > 0) {
+            || NumTracks() == 1 && NumSubs() == 0) {
       // will generate a new topmost track and insert a placeholder for it
       this.tracks.add(0, new Track());
     }
