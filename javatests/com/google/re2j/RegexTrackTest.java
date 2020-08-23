@@ -644,13 +644,19 @@ public class RegexTrackTest {
                 new Track(1, 2, "alternation"),
                 new Track(2, 3, "literal 'a'"),
         });
+
+        put("(?:[abc]|A|Z|hello|world)", new Track[]{
+                new Track(0, 3, "any characters including \"\\n\""),
+                new Track(0, 1, "any characters including \"\\n\""),
+                new Track(1, 2, "alternation"),
+                new Track(2, 3, "literal 'a'"),
+        });
     }};
 
 //  {
 //
 //    // Test flattening.
 
-//    {".|a", "dot{}"},
 //    {"(?:[abc]|A|Z|hello|world)", "alt{cc{0x41 0x5a 0x61-0x63}str{hello}str{world}}"},
 //    {"(?:[abc]|A|Z)", "cc{0x41 0x5a 0x61-0x63}"},
 //
@@ -1035,7 +1041,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("a|.");
+        testRegexpTrack("(?:[abc]|A|Z|hello|world)");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
