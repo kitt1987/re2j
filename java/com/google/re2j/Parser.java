@@ -1096,6 +1096,10 @@ class Parser {
     ArrayList<Track> popTrack = null;
     if (swapVerticalBar()) {
       popTrack = top().GetDirectTracks();
+      if (popTrack.size() > 1) {
+        // √ The first track is the topmost track
+        popTrack.remove(0);
+      }
       pop(); // pop vertical bar
     }
 
