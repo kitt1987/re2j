@@ -611,7 +611,7 @@ public class RegexTrackTest {
                 new Track(18, 19, "capturing group end"),
         });
         put("(?:a|b)|(?:c|d)", new Track[]{
-                // FIXME
+                // FIXME literals should not exist in the topmost track again
                 new Track(0, 15, "group of alternation of [group of alternation of [literal 'a',literal 'b'],literal 'a',literal 'b',group of alternation of [literal 'c',literal 'd'],literal 'c',alternation,literal 'd']"),
                 new Track(0, 8, "group of alternation of [literal 'a',literal 'b']"),
                 new Track(0, 3, "non-capturing group"),
