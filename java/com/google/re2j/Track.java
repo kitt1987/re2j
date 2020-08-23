@@ -147,6 +147,9 @@ public class Track implements Comparable<Track>  {
             case '?':
                 Comments = "quantifier: repeated zero or once";
                 break;
+            case '|':
+                Comments = "alternation";
+                break;
             default:
                 Comments = "literal '" + Utils.runeToString(rune) + "'";
         }

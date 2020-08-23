@@ -1093,9 +1093,9 @@ class Parser {
 
     concat(t);
 
-    Track popTrack = null;
+    ArrayList<Track> popTrack = null;
     if (swapVerticalBar()) {
-      popTrack = top().GetTopmostTrack();
+      popTrack = top().GetDirectTracks();
       pop(); // pop vertical bar
     }
 
@@ -1107,7 +1107,7 @@ class Parser {
         throw new IllegalStateException("the top regex must be alternation or char class or empty but " + top.op);
       }
 
-      top.SetJointTrack(popTrack);
+      top.SetJointTracks(popTrack);
     }
 
     int n = stack.size();
