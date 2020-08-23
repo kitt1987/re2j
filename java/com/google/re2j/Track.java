@@ -47,29 +47,29 @@ public class Track implements Comparable<Track>  {
         PERL_GROUPS.put("\\W", "non-word character shorthand");
     }
 
-    static final HashMap<Regexp.Op, Integer> OpKeyRuneMap = new HashMap<Regexp.Op, Integer>();
+    static final HashMap<Regexp.Op, String> OpKeyRuneMap = new HashMap<Regexp.Op, String>();
     static {
-        OpKeyRuneMap.put(Regexp.Op.CHAR_CLASS, (int) '[');
-        OpKeyRuneMap.put(Regexp.Op.ANY_CHAR_NOT_NL, (int) '.');
-        OpKeyRuneMap.put(Regexp.Op.ANY_CHAR, (int) '.');
-        OpKeyRuneMap.put(Regexp.Op.BEGIN_LINE, (int) '^');
-        OpKeyRuneMap.put(Regexp.Op.END_LINE, (int) '$');
-        OpKeyRuneMap.put(Regexp.Op.BEGIN_TEXT, (int) '^');
-        OpKeyRuneMap.put(Regexp.Op.END_TEXT, (int) '$');
-        OpKeyRuneMap.put(Regexp.Op.WORD_BOUNDARY, (int) '\b');
-        OpKeyRuneMap.put(Regexp.Op.NO_WORD_BOUNDARY, (int) '\B');
-        OpKeyRuneMap.put(Regexp.Op.CAPTURE, (int) '(');
-        OpKeyRuneMap.put(Regexp.Op.STAR, (int) '*');
-        OpKeyRuneMap.put(Regexp.Op.PLUS, (int) '+');
-        OpKeyRuneMap.put(Regexp.Op.QUEST, (int) '?');
-        OpKeyRuneMap.put(Regexp.Op.REPEAT, (int) '{');
-        OpKeyRuneMap.put(Regexp.Op.CONCAT, (int) '');
-        OpKeyRuneMap.put(Regexp.Op.ALTERNATE, (int) '|');
-        OpKeyRuneMap.put(Regexp.Op.LEFT_PAREN, (int) '(');
-        OpKeyRuneMap.put(Regexp.Op.VERTICAL_BAR, (int) '|');
+        OpKeyRuneMap.put(Regexp.Op.CHAR_CLASS, "[");
+        OpKeyRuneMap.put(Regexp.Op.ANY_CHAR_NOT_NL, ".");
+        OpKeyRuneMap.put(Regexp.Op.ANY_CHAR, ".");
+        OpKeyRuneMap.put(Regexp.Op.BEGIN_LINE, "^");
+        OpKeyRuneMap.put(Regexp.Op.END_LINE, "$");
+        OpKeyRuneMap.put(Regexp.Op.BEGIN_TEXT, "^");
+        OpKeyRuneMap.put(Regexp.Op.END_TEXT, "$");
+        OpKeyRuneMap.put(Regexp.Op.WORD_BOUNDARY, "\\b");
+        OpKeyRuneMap.put(Regexp.Op.NO_WORD_BOUNDARY, "\\B");
+        OpKeyRuneMap.put(Regexp.Op.CAPTURE, "(");
+        OpKeyRuneMap.put(Regexp.Op.STAR, "*");
+        OpKeyRuneMap.put(Regexp.Op.PLUS, "+");
+        OpKeyRuneMap.put(Regexp.Op.QUEST, "?");
+        OpKeyRuneMap.put(Regexp.Op.REPEAT, "{");
+        OpKeyRuneMap.put(Regexp.Op.CONCAT, "");
+        OpKeyRuneMap.put(Regexp.Op.ALTERNATE, "|");
+        OpKeyRuneMap.put(Regexp.Op.LEFT_PAREN, "(");
+        OpKeyRuneMap.put(Regexp.Op.VERTICAL_BAR, "|");
     }
 
-    static final HashMap<Integer, String> CommentMap = new HashMap<Integer, String>();
+    static final HashMap<String, String> CommentMap = new HashMap<String, String>();
     static {
         CommentMap.put();
     }
