@@ -49,7 +49,24 @@ public class Track implements Comparable<Track>  {
 
     static final HashMap<Regexp.Op, Integer> OpKeyRuneMap = new HashMap<Regexp.Op, Integer>();
     static {
-        OpKeyRuneMap.put(Regexp.Op.EMPTY_MATCH, (int) 'a');
+        OpKeyRuneMap.put(Regexp.Op.CHAR_CLASS, (int) '[');
+        OpKeyRuneMap.put(Regexp.Op.ANY_CHAR_NOT_NL, (int) '.');
+        OpKeyRuneMap.put(Regexp.Op.ANY_CHAR, (int) '.');
+        OpKeyRuneMap.put(Regexp.Op.BEGIN_LINE, (int) '^');
+        OpKeyRuneMap.put(Regexp.Op.END_LINE, (int) '$');
+        OpKeyRuneMap.put(Regexp.Op.BEGIN_TEXT, (int) '^');
+        OpKeyRuneMap.put(Regexp.Op.END_TEXT, (int) '$');
+        OpKeyRuneMap.put(Regexp.Op.WORD_BOUNDARY, (int) '\b');
+        OpKeyRuneMap.put(Regexp.Op.NO_WORD_BOUNDARY, (int) '\B');
+        OpKeyRuneMap.put(Regexp.Op.CAPTURE, (int) '(');
+        OpKeyRuneMap.put(Regexp.Op.STAR, (int) '*');
+        OpKeyRuneMap.put(Regexp.Op.PLUS, (int) '+');
+        OpKeyRuneMap.put(Regexp.Op.QUEST, (int) '?');
+        OpKeyRuneMap.put(Regexp.Op.REPEAT, (int) '{');
+        OpKeyRuneMap.put(Regexp.Op.CONCAT, (int) '');
+        OpKeyRuneMap.put(Regexp.Op.ALTERNATE, (int) '|');
+        OpKeyRuneMap.put(Regexp.Op.LEFT_PAREN, (int) '(');
+        OpKeyRuneMap.put(Regexp.Op.VERTICAL_BAR, (int) '|');
     }
 
     static boolean IsLiteral(Track track) {
