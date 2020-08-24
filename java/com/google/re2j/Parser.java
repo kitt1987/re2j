@@ -235,7 +235,8 @@ class Parser {
       if (t.more() && t.lookingAt('?')) {
         t.skip(1); // '?'
         flags ^= RE2.NON_GREEDY;
-        t.PushNewTrack("quantifier: non-greedy");
+//        t.PushNewTrack("quantifier: non-greedy");
+        t.PushNewTrack();
       }
       if (lastRepeatPos != -1) {
         // In Perl it is not allowed to stack repetition operators:
@@ -270,7 +271,9 @@ class Parser {
 
     // Empty concatenation is special case.
     if (subs.length == 0) {
-      t.PushNewTrack("empty");
+//      t.PushNewTrack("empty");
+      // FIXME we need identify an empty track to a track should be omitted
+      t.PushNewTrack();
       Regexp empty = push(newRegexp(Regexp.Op.EMPTY_MATCH));
       top().SetTracks(t.PopTracks());
       return empty;
@@ -739,43 +742,43 @@ class Parser {
       initTracks();
     }
 
-    ArrayList<Track> PopTracks() {
-      Track last = tracks.get(tracks.size()-1);
-      if (last.Start == pos && (last.Comments == null || last.Comments.isEmpty())) {
-        if (tracks.size() == 1) {
-          return null;
-        }
+//    ArrayList<Track> PopTracks() {
+//      Track last = tracks.get(tracks.size()-1);
+//      if (last.Start == pos && (last.Comments == null || last.Comments.isEmpty())) {
+//        if (tracks.size() == 1) {
+//          return null;
+//        }
+//
+//        tracks.remove(tracks.size()-1);
+//      } else {
+//        if (last.Comments == null || last.Comments.isEmpty()) {
+//          last.End(pos, str.codePointAt(last.Start));
+//        } else {
+//          last.End(pos);
+//        }
+//      }
+//
+//      ArrayList<Track> pop = tracks;
+//      initTracks();
+//      return pop;
+//    }
 
-        tracks.remove(tracks.size()-1);
-      } else {
-        if (last.Comments == null || last.Comments.isEmpty()) {
-          last.End(pos, str.codePointAt(last.Start));
-        } else {
-          last.End(pos);
-        }
-      }
+//    void PushNewTrack(String comments) {
+//      Track last = tracks.get(tracks.size()-1);
+//      last.End(pos, comments);
+//      this.tracks.add(new Track(pos));
+//    }
 
-      ArrayList<Track> pop = tracks;
-      initTracks();
-      return pop;
-    }
-
-    void PushNewTrack(String comments) {
-      Track last = tracks.get(tracks.size()-1);
-      last.End(pos, comments);
-      this.tracks.add(new Track(pos));
-    }
-
-    void PushNewGroupTrack(int rune) {
-      Track last = tracks.get(tracks.size()-1);
-      if (last.Start == pos) {
-        // √ Empty track is disallowed.
-        return;
-      }
-
-      last.End(pos, rune, true);
-      this.tracks.add(new Track(pos));
-    }
+//    void PushNewGroupTrack(int rune) {
+//      Track last = tracks.get(tracks.size()-1);
+//      if (last.Start == pos) {
+//        // √ Empty track is disallowed.
+//        return;
+//      }
+//
+//      last.End(pos, rune, true);
+//      this.tracks.add(new Track(pos));
+//    }
 
 //    void PushNewTrack(int rune) {
 //      Track last = tracks.get(tracks.size()-1);
@@ -787,6 +790,12 @@ class Parser {
 //      last.End(pos, rune);
 //      this.tracks.add(new Track(pos));
 //    }
+
+    ArrayList<Track> PopTracks() {
+      ArrayList<Track> pop = tracks;
+      initTracks();
+      return pop;
+    }
 
     void PushNewTrack() {
       Track last = tracks.get(tracks.size()-1);
@@ -898,7 +907,8 @@ class Parser {
         default:
           int rune = t.pop();
           literal(rune);
-          t.PushNewTrack(rune);
+//          t.PushNewTrack(rune);
+          t.PushNewTrack();
           ArrayList<Track> tracks = t.PopTracks();
 //          if (tracks.size() != 1) {
 //            throw new IllegalStateException("a literal regex must have only 1 track");
@@ -983,7 +993,8 @@ class Parser {
                 op = Regexp.Op.QUEST;
                 break;
             }
-            t.PushNewTrack(repeat);
+//            t.PushNewTrack(repeat);
+            t.PushNewTrack();
             repeat(op, min, max, repeatPos, t, lastRepeatPos);
             top().SetTracks(t.PopTracks());
             // (min and max are now dead.)
@@ -1002,7 +1013,8 @@ class Parser {
             }
             min = minMax >> 16;
             max = (short) (minMax & 0xffff); // sign extend
-            t.PushNewTrack("quantifier: " + Track.GenRepeatedRangeComments(min, max));
+//            t.PushNewTrack("quantifier: " + Track.GenRepeatedRangeComments(min, max));
+            t.PushNewTrack();
             repeat(Regexp.Op.REPEAT, min, max, repeatPos, t, lastRepeatPos);
             top().SetTracks(t.PopTracks());
             break;
@@ -1202,8 +1214,8 @@ class Parser {
             ERR_INVALID_NAMED_CAPTURE, s.substring(0, end)); // "(?P<name>"
       }
       // √ Save the name track
-      t.PushNewTrack("group name \"" + name + "\"");
-
+//      t.PushNewTrack("group name \"" + name + "\"");
+      t.PushNewTrack();
       // Like ordinary capture, but named.
       Regexp re = op(Regexp.Op.LEFT_PAREN);
       re.cap = ++numCap;
