@@ -145,7 +145,22 @@ public class Track implements Comparable<Track>  {
     public int End;
     public String Comments;
 
+    private String text;
+
     private boolean group;
+
+    Track(int start) {
+        Start = start;
+    }
+
+    void Freeze(int end, String text) {
+        if (text.length() != end - Start) {
+            throw new IllegalStateException("text '"+ text +"' doesn't match the position range[" + Start + "," + end + "]");
+        }
+
+        End = end;
+        this.text = text;
+    }
 
     Track() {
         Start = Integer.MAX_VALUE;
@@ -156,10 +171,6 @@ public class Track implements Comparable<Track>  {
         Start = start;
         End = end;
         Comments = comments;
-    }
-
-    Track(int start) {
-        Start = start;
     }
 
     Track(int start, int end, Regexp re) {
