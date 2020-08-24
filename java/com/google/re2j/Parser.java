@@ -743,6 +743,8 @@ class Parser {
     }
 
     ArrayList<Track> PopTracks() {
+      Track last = tracks.get(tracks.size()-1);
+      last.Freeze(pos, str.substring(last.Start, pos));
       ArrayList<Track> pop = tracks;
       initTracks();
       return pop;
