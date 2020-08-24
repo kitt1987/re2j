@@ -168,7 +168,7 @@ class Parser {
     // √ concatenate two literals to build a string
     // Push re1 into re2.
     re2.runes = concatRunes(re2.runes, re1.runes);
-    re2.SetLiteralConcatenationTracks(re1.GetAllTracks());
+    re2.SetTracks(re1.GetAllTracks());
 
     // Reuse re1 if possible.
     if (r >= 0) {
@@ -742,55 +742,6 @@ class Parser {
       initTracks();
     }
 
-//    ArrayList<Track> PopTracks() {
-//      Track last = tracks.get(tracks.size()-1);
-//      if (last.Start == pos && (last.Comments == null || last.Comments.isEmpty())) {
-//        if (tracks.size() == 1) {
-//          return null;
-//        }
-//
-//        tracks.remove(tracks.size()-1);
-//      } else {
-//        if (last.Comments == null || last.Comments.isEmpty()) {
-//          last.End(pos, str.codePointAt(last.Start));
-//        } else {
-//          last.End(pos);
-//        }
-//      }
-//
-//      ArrayList<Track> pop = tracks;
-//      initTracks();
-//      return pop;
-//    }
-
-//    void PushNewTrack(String comments) {
-//      Track last = tracks.get(tracks.size()-1);
-//      last.End(pos, comments);
-//      this.tracks.add(new Track(pos));
-//    }
-
-//    void PushNewGroupTrack(int rune) {
-//      Track last = tracks.get(tracks.size()-1);
-//      if (last.Start == pos) {
-//        // √ Empty track is disallowed.
-//        return;
-//      }
-//
-//      last.End(pos, rune, true);
-//      this.tracks.add(new Track(pos));
-//    }
-
-//    void PushNewTrack(int rune) {
-//      Track last = tracks.get(tracks.size()-1);
-//      if (last.Start == pos) {
-//        // √ Empty track is disallowed.
-//        return;
-//      }
-//
-//      last.End(pos, rune);
-//      this.tracks.add(new Track(pos));
-//    }
-
     ArrayList<Track> PopTracks() {
       ArrayList<Track> pop = tracks;
       initTracks();
@@ -799,7 +750,7 @@ class Parser {
 
     void PushNewTrack() {
       Track last = tracks.get(tracks.size()-1);
-      last.End(pos, str.substring(last.Start, pos));
+      last.Freeze(pos, str.substring(last.Start, pos));
       this.tracks.add(new Track(pos));
     }
 
@@ -1087,7 +1038,7 @@ class Parser {
             if (parsePerlClassEscape(t, cc)) {
               re.runes = cc.toArray();
               push(re);
-              top().SetPerlShorthandTracks(t.PopTracks());
+              top().SetTracks(t.PopTracks());
               break bigswitch;
             }
 
@@ -1411,7 +1362,7 @@ class Parser {
           dst.runes = new CharClass(dst.runes).appendLiteral(src.runes[0], src.flags).toArray();
         } else {
           dst.runes = new CharClass(dst.runes).appendClass(src.runes).toArray();
-          dst.NewTopmostPlaceholder();
+//          dst.NewTopmostPlaceholder();
         }
 
         break;
