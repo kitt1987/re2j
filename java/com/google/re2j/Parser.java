@@ -1231,7 +1231,8 @@ class Parser {
     // Non-capturing group.  Might also twiddle Perl flags.
     t.skip(2); // "(?"
     // √ Save the flag track
-    t.PushNewTrack("non-capturing group");
+//    t.PushNewTrack("non-capturing group");
+    t.PushNewTrack();
     int flags = this.flags;
     int sign = +1;
     boolean sawFlag = false;
@@ -1246,22 +1247,26 @@ class Parser {
         case 'i':
           flags |= RE2.FOLD_CASE;
           sawFlag = true;
-          t.PushNewTrack("case insensitive");
+//          t.PushNewTrack("case insensitive");
+          t.PushNewTrack();
           break;
         case 'm':
           flags &= ~RE2.ONE_LINE;
           sawFlag = true;
-          t.PushNewTrack("multi-line: '^' and '$' match at the start and end of each line");
+//          t.PushNewTrack("multi-line: '^' and '$' match at the start and end of each line");
+          t.PushNewTrack();
           break;
         case 's':
           flags |= RE2.DOT_NL;
           sawFlag = true;
-          t.PushNewTrack("single-line: dot also matches line breaks");
+//          t.PushNewTrack("single-line: dot also matches line breaks");
+          t.PushNewTrack();
           break;
         case 'U':
           flags |= RE2.NON_GREEDY;
           sawFlag = true;
-          t.PushNewTrack("ungreedy quantifiers");
+//          t.PushNewTrack("ungreedy quantifiers");
+          t.PushNewTrack();
           break;
 
           // Switch to negation.
@@ -1274,7 +1279,8 @@ class Parser {
           // We'll invert flags again before using it below.
           flags = ~flags;
           sawFlag = false;
-          t.PushNewTrack("negative modifier");
+//          t.PushNewTrack("negative modifier");
+          t.PushNewTrack();
           break;
 
           // End of flags, starting group or not.
@@ -1287,13 +1293,15 @@ class Parser {
             flags = ~flags;
           }
           if (c == ':') {
-            t.PushNewGroupTrack(c);
+//            t.PushNewGroupTrack(c);
+            t.PushNewTrack();
             // Open new group
             op(Regexp.Op.LEFT_PAREN);
             // √ this is not a group end. may not build a topmost track
             top().SetTracks(t.PopTracks());
           } else {
-            t.PushNewTrack(c);
+//            t.PushNewTrack(c);
+            t.PushNewTrack();
           }
 
           this.flags = flags;
@@ -1665,7 +1673,8 @@ class Parser {
       return false;
     }
     cc.appendGroup(g, (flags & RE2.FOLD_CASE) != 0);
-    t.PushNewTrack("character class " + Track.PERL_GROUPS.get(t.from(beforePos)));
+//    t.PushNewTrack("character class " + Track.PERL_GROUPS.get(t.from(beforePos)));
+    t.PushNewTrack();
     return true;
   }
 
@@ -1689,7 +1698,8 @@ class Parser {
       throw new PatternSyntaxException(ERR_INVALID_CHAR_RANGE, name);
     }
     cc.appendGroup(g, (flags & RE2.FOLD_CASE) != 0);
-    t.PushNewTrack("POSIX class " + Track.POSIX_GROUPS.get(name));
+//    t.PushNewTrack("POSIX class " + Track.POSIX_GROUPS.get(name));
+    t.PushNewTrack();
     return true;
   }
 
@@ -1743,9 +1753,11 @@ class Parser {
     }
 
     if (c == 'p') {
-      t.PushNewTrack("unicode category");
+//      t.PushNewTrack("unicode category");
+      t.PushNewTrack();
     } else {
-      t.PushNewTrack("negated unicode category");
+//      t.PushNewTrack("negated unicode category");
+      t.PushNewTrack();
     }
 
     c = t.pop();
@@ -1795,7 +1807,8 @@ class Parser {
 
     // FIXME parse blocks
     // √ parse blocks
-    t.PushNewTrack("Unicode block " + name);
+//    t.PushNewTrack("Unicode block " + name);
+    t.PushNewTrack();
     return true;
   }
 
@@ -1807,7 +1820,8 @@ class Parser {
   private void parseClass(StringIterator t) throws PatternSyntaxException {
     int startPos = t.pos();
     t.skip(1); // '['
-    t.PushNewTrack("character class");
+//    t.PushNewTrack("character class");
+    t.PushNewTrack();
     Regexp re = newRegexp(Regexp.Op.CHAR_CLASS);
     re.flags = flags;
     CharClass cc = new CharClass();
@@ -1816,7 +1830,8 @@ class Parser {
     if (t.more() && t.lookingAt('^')) {
       sign = -1;
       t.skip(1); // '^'
-      t.PushNewTrack("negated");
+//      t.PushNewTrack("negated");
+      t.PushNewTrack();
 
       // If character class does not match \n, add it here,
       // so that negation later will do the right thing.
@@ -1878,9 +1893,11 @@ class Parser {
       // FIXME parse the range
       // √ parse the range
       if (lo == hi) {
-        t.PushNewTrack("literal '" + Utils.runeToString(lo) + "'");
+//        t.PushNewTrack("literal '" + Utils.runeToString(lo) + "'");
+        t.PushNewTrack();
       } else {
-        t.PushNewTrack("range " + Utils.runeToString(lo) + " to " + Utils.runeToString(hi));
+//        t.PushNewTrack("range " + Utils.runeToString(lo) + " to " + Utils.runeToString(hi));
+        t.PushNewTrack();
       }
 
       if ((flags & RE2.FOLD_CASE) == 0) {
@@ -1890,7 +1907,8 @@ class Parser {
       }
     }
     t.skip(1); // ']'
-    t.PushNewTrack("character class end");
+//    t.PushNewTrack("character class end");
+    t.PushNewTrack();
 
     cc.cleanClass();
     if (sign < 0) {
