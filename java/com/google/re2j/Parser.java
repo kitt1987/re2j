@@ -766,12 +766,6 @@ class Parser {
       this.tracks.add(new Track(pos));
     }
 
-//    void PushNewGroupTrack(String comments) {
-//      Track last = tracks.get(tracks.size()-1);
-//      last.End(pos, comments, true);
-//      this.tracks.add(new Track(pos));
-//    }
-
     void PushNewGroupTrack(int rune) {
       Track last = tracks.get(tracks.size()-1);
       if (last.Start == pos) {
@@ -783,14 +777,20 @@ class Parser {
       this.tracks.add(new Track(pos));
     }
 
-    void PushNewTrack(int rune) {
-      Track last = tracks.get(tracks.size()-1);
-      if (last.Start == pos) {
-        // √ Empty track is disallowed.
-        return;
-      }
+//    void PushNewTrack(int rune) {
+//      Track last = tracks.get(tracks.size()-1);
+//      if (last.Start == pos) {
+//        // √ Empty track is disallowed.
+//        return;
+//      }
+//
+//      last.End(pos, rune);
+//      this.tracks.add(new Track(pos));
+//    }
 
-      last.End(pos, rune);
+    void PushNewTrack() {
+      Track last = tracks.get(tracks.size()-1);
+      last.End(pos, str.substring(last.Start, pos));
       this.tracks.add(new Track(pos));
     }
 
