@@ -138,6 +138,13 @@ class Regexp {
     allTracks.addAll(tracks);
     allTracks.addAll(jointTracks);
 
+    // put tracks of sub regexps
+    if (subs != null && subs.length > 0) {
+      for (int i = 0; i < subs.length; i++) {
+        allTracks.addAll(subs[i].GetAllTracks());
+      }
+    }
+
     if (allTracks.size() <= 1) {
       return allTracks;
     }
