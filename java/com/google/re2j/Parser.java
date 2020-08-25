@@ -1432,9 +1432,9 @@ class Parser {
   private void parseRightParen(StringIterator t) throws PatternSyntaxException {
     concat(t);
 
-    Track popTrack = null;
+    ArrayList<Track> popTrack = null;
     if (swapVerticalBar()) {
-      popTrack = top().GetTopmostTrack();
+      popTrack = top().GetAllTracks();
       pop(); // pop vertical bar
     }
     alternate();
@@ -1445,7 +1445,7 @@ class Parser {
         throw new IllegalStateException("the top regex must be alternation or char class but " + top.op);
       }
 
-      top.SetJointTrack(popTrack);
+      top.SetJointTracks(popTrack);
     }
 
     int n = stack.size();

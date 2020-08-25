@@ -304,13 +304,7 @@ class Regexp {
 
     this.op = op;
   }
-
-  public void SetJointTrack(Track track) {
-    jointTracks.add(track);
-    Collections.sort(jointTracks);
-//    buildTopmostTrack();
-  }
-
+  
   public void SetJointTracks(ArrayList<Track> tracks) {
     jointTracks.addAll(tracks);
 //    buildTopmostTrack();
