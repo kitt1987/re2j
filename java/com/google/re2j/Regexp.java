@@ -132,11 +132,24 @@ class Regexp {
     this.subs = subs;
   }
 
-  public ArrayList<Track> GetTopmostTracks() {
-    ArrayList<Track> tracks = new ArrayList<>();
+  public Track GetTopmostTrack() {
+    ArrayList<Track> allTracks = new ArrayList<>();
     if (NumSubs() == 0 && NumTracks() <= 1) {
-      return tracks;
+      return null;
     }
+
+    allTracks.addAll(tracks);
+    allTracks.addAll(jointTracks);
+    if (subs != null && subs.length > 0) {
+      for (int i = 0; i < subs.length; i++) {
+        Track topmost = subs[i].GetTopmostTrack();
+        if (topmost != null) {
+          allTracks.add(topmost);
+        }
+      }
+    }
+
+    // FIXME build topmost
   }
 
   public ArrayList<Track> GetAllTracks() {
