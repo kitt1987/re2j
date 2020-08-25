@@ -113,6 +113,7 @@ public class Track implements Comparable<Track>  {
         CommentMap.put(":", "mod modifier end");
         CommentMap.put(")", "capturing group end");
         CommentMap.put("(", "capturing group");
+        CommentMap.put("(:", "non-capturing group");
         CommentMap.put("*", "quantifier: repeated zero or many times");
         CommentMap.put("+", "quantifier: repeated once or many times");
         CommentMap.put("?", "quantifier: repeated zero or once");
