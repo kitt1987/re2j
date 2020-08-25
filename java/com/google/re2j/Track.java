@@ -123,6 +123,8 @@ public class Track implements Comparable<Track>  {
         CommentMap.put(":s", "single-line: dot also matches line breaks");
         CommentMap.put(":U", "ungreedy quantifiers");
         CommentMap.put(":-", "negative modifier");
+        CommentMap.put("[", "character class");
+        CommentMap.put("]", "character class end");
     }
 
     public int Start;
@@ -144,7 +146,16 @@ public class Track implements Comparable<Track>  {
 
         End = end;
         this.text = text;
-        this.Comments = CommentMap.get(text);
+        String comment = CommentMap.get(text);
+        if (comment.length() > 0) {
+            this.Comments = comment;
+        } else {
+            if (text.length() > 1) {
+                this.Comments = "string \"" + text + "\"";
+            } else {
+                this.Comments = "literal '" + text + "'";
+            }
+        }
     }
 
     Track() {
