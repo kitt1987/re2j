@@ -147,26 +147,6 @@ class Regexp {
     return new int[]{start, end};
   }
 
-  public Track GetTopmostTrack() {
-    ArrayList<Track> allTracks = new ArrayList<Track>();
-    if (NumSubs() == 0 && NumTracks() <= 1) {
-      return null;
-    }
-
-    allTracks.addAll(tracks);
-    allTracks.addAll(jointTracks);
-    if (subs != null && subs.length > 0) {
-      for (Regexp sub : subs) {
-        Track topmost = sub.GetTopmostTrack();
-        if (topmost != null) {
-          allTracks.add(topmost);
-        }
-      }
-    }
-
-    return Track.JoinTracks(allTracks);
-  }
-
   public ArrayList<Track> GetAllTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
     ArrayList<Track> topmostTracks = new ArrayList<Track>();
@@ -184,10 +164,10 @@ class Regexp {
     ArrayList<Track> forTopmost = new ArrayList<>(allTracks);
     forTopmost.addAll(topmostTracks);
 
+    allTracks.add(Track.JoinTracks(forTopmost));
     allTracks.addAll(tracks);
     allTracks.addAll(jointTracks);
     allTracks.addAll(subTracks);
-    allTracks.add(0, Track.JoinTracks())
 
     if (allTracks.size() <= 1) {
       return allTracks;
