@@ -127,6 +127,32 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("]", "character class end");
     }
 
+    private static int[] getTrackRange(ArrayList<Track> tracks) {
+        int start = Integer.MAX_VALUE, end = 0;
+        for (Track track : tracks) {
+            if (track.Start < start) {
+                start = track.Start;
+            }
+
+            if (track.End > end) {
+                end = track.End;
+            }
+        }
+
+        return new int[]{start, end};
+    }
+
+    static Track JoinTracks(ArrayList<Track> tracks) {
+        int[] range = getTrackRange(tracks);
+        // FIXME build topmost
+        StringBuilder b = new StringBuilder();
+        for (Track track : tracks) {
+            b.append(track.Comments).append(",");
+        }
+
+        return new Track(range[0], range[1], b.toString());
+    }
+
     public int Start;
     public int End;
     public String Comments;

@@ -132,8 +132,23 @@ class Regexp {
     this.subs = subs;
   }
 
+  private int[] getTrackRange(ArrayList<Track> tracks) {
+    int start = Integer.MAX_VALUE, end = 0;
+    for (Track track : tracks) {
+      if (track.Start < start) {
+        start = track.Start;
+      }
+
+      if (track.End > end) {
+        end = track.End;
+      }
+    }
+
+    return new int[]{start, end};
+  }
+
   public Track GetTopmostTrack() {
-    ArrayList<Track> allTracks = new ArrayList<>();
+    ArrayList<Track> allTracks = new ArrayList<Track>();
     if (NumSubs() == 0 && NumTracks() <= 1) {
       return null;
     }
@@ -150,6 +165,7 @@ class Regexp {
     }
 
     // FIXME build topmost
+    return Track.JoinTracks(allTracks);
   }
 
   public ArrayList<Track> GetAllTracks() {
