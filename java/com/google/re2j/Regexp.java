@@ -161,16 +161,17 @@ class Regexp {
       }
     }
 
+    allTracks.addAll(tracks);
+    allTracks.addAll(jointTracks);
+
     ArrayList<Track> forTopmost = new ArrayList<Track>(allTracks);
     forTopmost.addAll(topmostTracks);
 
     Track topmost = Track.JoinTracks(forTopmost);
     if (topmost != null) {
-      allTracks.add(topmost);
+      allTracks.add(0, topmost);
     }
 
-    allTracks.addAll(tracks);
-    allTracks.addAll(jointTracks);
     allTracks.addAll(subTracks);
 
     if (allTracks.size() <= 1) {
