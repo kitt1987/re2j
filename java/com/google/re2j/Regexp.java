@@ -132,8 +132,11 @@ class Regexp {
     this.subs = subs;
   }
 
-  public ArrayList<Track> GetTopmostTrack() {
-
+  public ArrayList<Track> GetTopmostTracks() {
+    ArrayList<Track> tracks = new ArrayList<>();
+    if (NumSubs() == 0 && NumTracks() <= 1) {
+      return tracks;
+    }
   }
 
   public ArrayList<Track> GetAllTracks() {
