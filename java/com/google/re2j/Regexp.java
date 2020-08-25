@@ -164,7 +164,11 @@ class Regexp {
     ArrayList<Track> forTopmost = new ArrayList<Track>(allTracks);
     forTopmost.addAll(topmostTracks);
 
-    allTracks.add(Track.JoinTracks(forTopmost));
+    Track topmost = Track.JoinTracks(forTopmost);
+    if (topmost != null) {
+      allTracks.add(topmost);
+    }
+
     allTracks.addAll(tracks);
     allTracks.addAll(jointTracks);
     allTracks.addAll(subTracks);

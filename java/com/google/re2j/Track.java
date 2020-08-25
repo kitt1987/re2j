@@ -143,6 +143,10 @@ public class Track implements Comparable<Track>  {
     }
 
     static Track JoinTracks(ArrayList<Track> tracks) {
+        if (tracks.isEmpty()) {
+            return null;
+        }
+
         int[] range = getTrackRange(tracks);
         // FIXME build topmost
         StringBuilder b = new StringBuilder();
