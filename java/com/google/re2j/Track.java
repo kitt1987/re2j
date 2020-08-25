@@ -189,6 +189,11 @@ public class Track implements Comparable<Track>  {
         End = 0;
     }
 
+    Track(String text) {
+        Start = 0;
+        Freeze(text.length(), text);
+    }
+
     Track(int start, int end, String comments) {
         Start = start;
         End = end;
