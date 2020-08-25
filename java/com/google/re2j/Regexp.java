@@ -156,15 +156,14 @@ class Regexp {
     allTracks.addAll(tracks);
     allTracks.addAll(jointTracks);
     if (subs != null && subs.length > 0) {
-      for (int i = 0; i < subs.length; i++) {
-        Track topmost = subs[i].GetTopmostTrack();
+      for (Regexp sub : subs) {
+        Track topmost = sub.GetTopmostTrack();
         if (topmost != null) {
           allTracks.add(topmost);
         }
       }
     }
 
-    // FIXME build topmost
     return Track.JoinTracks(allTracks);
   }
 
@@ -201,77 +200,6 @@ class Regexp {
     return allTracks;
   }
 
-//  public ArrayList<Track> GetAllTracks() {
-//    ArrayList<Track> allTracks = new ArrayList<Track>();
-//
-//    switch (op) {
-//      case CHAR_CLASS:
-//        if (NumSubs() > 0) {
-//          throw new IllegalStateException("number subs of CC must be 0 but " + NumSubs());
-//        }
-//
-//        allTracks.addAll(tracks.subList(1, tracks.size()));
-//        allTracks.addAll(jointTracks);
-//        break;
-//      case EMPTY_MATCH:
-//        if (NumTracks() > 1) {
-//          throw new IllegalStateException("number tracks of empty match must be 1 but " + NumTracks());
-//        }
-//
-//        if (NumSubs() > 0) {
-//          throw new IllegalStateException("number subs of empty match must be 0 but " + NumSubs());
-//        }
-//
-//        // √ for "|"
-//        if (HasJoinTrack()) {
-//          if (jointTracks.size() != 1) {
-//            throw new IllegalStateException("number jointTracks of empty match must be at most 1 but " + NumSubs());
-//          }
-//
-//          allTracks.add(jointTracks.get(0));
-//        }
-//        break;
-//      default:
-//        if (tracks.size() > 1) {
-//          allTracks.addAll(tracks.subList(1, tracks.size()));
-//        }
-//
-//        // put tracks of sub regexps
-//        if (subs != null && subs.length > 0) {
-//          for (int i = 0; i < subs.length; i++) {
-//            allTracks.addAll(subs[i].GetAllTracks());
-//          }
-//        }
-//
-//        allTracks.addAll(jointTracks);
-//    }
-//
-//    if (tracks.size() > 0) {
-//      // FIXME we can't yet determine whether it is a illegal state
-//      // tracks may always has its first topmost track
-//      allTracks.add(0, tracks.get(0));
-//    }
-//
-//    if (allTracks.size() <= 1) {
-//      return allTracks;
-//    }
-//
-//    int lastValidPos = 0;
-//    for (Track track : allTracks) {
-//      if (track.Start != track.End) {
-//        allTracks.set(lastValidPos, track);
-//        lastValidPos++;
-//      }
-//    }
-//
-//    while (allTracks.size() > lastValidPos) {
-//      allTracks.remove(allTracks.size()-1);
-//    }
-//
-//    Collections.sort(allTracks);
-//    return allTracks;
-//  }
-
   public final ArrayList<Track> GetDirectTracks() {
     return tracks;
   }
@@ -304,10 +232,9 @@ class Regexp {
 
     this.op = op;
   }
-  
+
   public void SetJointTracks(ArrayList<Track> tracks) {
     jointTracks.addAll(tracks);
-//    buildTopmostTrack();
   }
 
   public boolean HasJoinTrack() {
