@@ -195,12 +195,6 @@ public class Track implements Comparable<Track>  {
         Comments = comments;
     }
 
-    Track(int start, int end, Regexp re) {
-        Start = start;
-        End = end;
-        UpdateComments(re);
-    }
-
     boolean IsGroup() {
         return group;
     }
@@ -312,34 +306,6 @@ public class Track implements Comparable<Track>  {
 
                 value.append(comments);
             }
-        }
-
-        return value.toString();
-    }
-
-    private String joinComments(Regexp[] subs) {
-        if (subs == null) {
-            return "";
-        }
-
-        Track emptyTrack = null;
-        StringBuilder value = new StringBuilder();
-        for (Regexp sub : subs) {
-            if (sub.op == Regexp.Op.EMPTY_MATCH) {
-                emptyTrack = sub.GetTopmostTrack();
-                continue;
-            }
-
-            if (value.length() > 0) {
-                value.append(",");
-            }
-
-            // We need the topmost track here
-            value.append(sub.GetTopmostTrack().Comments);
-        }
-
-        if (value.length() > 0 && emptyTrack != null) {
-            value.append(",").append(emptyTrack.Comments);
         }
 
         return value.toString();
