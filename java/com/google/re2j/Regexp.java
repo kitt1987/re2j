@@ -9,6 +9,7 @@
 
 package com.google.re2j;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -62,6 +63,8 @@ class Regexp {
   Map<String, Integer> namedGroups; // map of group name -> capturing index
   // Do update copy ctor when adding new fields!
 
+  private RegexpTracks tracks = new RegexpTracks();
+
   Regexp(Op op) {
     this.op = op;
   }
@@ -77,6 +80,7 @@ class Regexp {
     this.cap = that.cap;
     this.name = that.name;
     this.namedGroups = that.namedGroups;
+    this.tracks = new RegexpTracks(that.tracks);
   }
 
   void reinit() {
@@ -85,6 +89,7 @@ class Regexp {
     runes = null;
     cap = min = max = 0;
     name = null;
+    tracks.Clear();
   }
 
   @Override
@@ -92,6 +97,18 @@ class Regexp {
     StringBuilder out = new StringBuilder();
     appendTo(out);
     return out.toString();
+  }
+
+  public void SetTracks(ArrayList<Track> tracks) {
+    this.tracks.SetTracks(tracks);
+  }
+
+  public ArrayList<Track> GetTracks() {
+    return this.tracks.GetTracks();
+  }
+
+  public ArrayList<Track> GetAllTracks() {
+    return this.tracks.GetAllTracks();
   }
 
   private static void quoteIfHyphen(StringBuilder out, int rune) {

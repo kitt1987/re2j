@@ -167,6 +167,9 @@ class Parser {
     // Push re1 into re2.
     re2.runes = concatRunes(re2.runes, re1.runes);
 
+    // √ concat tracks
+    re2.SetTracks(re1.GetTracks());
+
     // Reuse re1 if possible.
     if (r >= 0) {
       re1.runes = new int[] {r};
@@ -706,9 +709,38 @@ class Parser {
     private final String str; // a stream of UTF-16 codes
     private int pos = 0; // current position in UTF-16 string
 
+    private ArrayList<Track> tracks = new ArrayList<Track>();
+
     StringIterator(String str) {
       this.str = str;
     }
+
+    ArrayList<Track> PopTracks() {
+      if (tracks.size() == 0) {
+        return tracks;
+      }
+
+      Track last = tracks.get(tracks.size()-1);
+      last.Freeze(pos, str.substring(last.Start, pos));
+      ArrayList<Track> pop = tracks;
+      initTracks();
+      return pop;
+    }
+
+    void PushNewTrack() {
+      if (tracks.size() > 0) {
+        Track last = tracks.get(tracks.size()-1);
+        last.Freeze(pos, str.substring(last.Start, pos));
+      }
+
+      this.tracks.add(new Track(pos));
+    }
+
+    private void initTracks() {
+      this.tracks = new ArrayList<Track>();
+      this.tracks.add(new Track(pos));
+    }
+
 
     // Returns the cursor position.  Do not interpret the result!
     int pos() {
@@ -798,6 +830,10 @@ class Parser {
     int lastRepeatPos = -1, min = -1, max = -1;
     StringIterator t = new StringIterator(wholeRegexp);
     while (t.more()) {
+      t.PushNewTrack();
+      if (stack.size() > 0) {
+        stack.get(stack.size()-1).SetTracks(t.PopTracks());
+      }
       int repeatPos = -1;
       bigswitch:
       switch (t.peek()) {
