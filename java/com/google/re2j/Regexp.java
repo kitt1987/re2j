@@ -64,10 +64,6 @@ class Regexp {
   Map<String, Integer> namedGroups; // map of group name -> capturing index
   // Do update copy ctor when adding new fields!
 
-  // Tracks from StringIterator
-  private ArrayList<Track> jointTracks = new ArrayList<Track>();
-  private Op legacyOp;
-
   private ArrayList<Track> tracks = new ArrayList<Track>();
 
   Regexp(Op op) {
@@ -85,9 +81,7 @@ class Regexp {
     this.cap = that.cap;
     this.name = that.name;
     this.namedGroups = that.namedGroups;
-    this.legacyOp = that.legacyOp;
     this.tracks.addAll(that.tracks);
-    this.jointTracks.addAll(that.jointTracks);
   }
 
   void reinit() {
@@ -116,7 +110,6 @@ class Regexp {
 
   public void FreeTracks() {
     tracks.clear();
-    jointTracks.clear();
   }
 
   public void OverrideTracks(ArrayList<Track> thatTracks) {
@@ -130,21 +123,6 @@ class Regexp {
 
   public void SetSubs(Regexp[] subs) {
     this.subs = subs;
-  }
-
-  private int[] getTrackRange(ArrayList<Track> tracks) {
-    int start = Integer.MAX_VALUE, end = 0;
-    for (Track track : tracks) {
-      if (track.Start < start) {
-        start = track.Start;
-      }
-
-      if (track.End > end) {
-        end = track.End;
-      }
-    }
-
-    return new int[]{start, end};
   }
 
   public ArrayList<Track> GetAllTracks() {
@@ -162,7 +140,6 @@ class Regexp {
     }
 
     allTracks.addAll(tracks);
-    allTracks.addAll(jointTracks);
 
     ArrayList<Track> forTopmost = new ArrayList<Track>(allTracks);
     forTopmost.addAll(topmostTracks);
@@ -198,41 +175,8 @@ class Regexp {
     return tracks;
   }
 
-  public final ArrayList<Track> GetJointTracks() {
-    return jointTracks;
-  }
-
-  public boolean HasGroupTrack() {
-    for (Track track : tracks) {
-      if (track.IsGroup()) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
   public void UpdateOp(Op op) {
-    if (legacyOp != null) {
-      throw new IllegalStateException("already has a legacy OP " + legacyOp);
-    }
-
-    switch (this.op) {
-      case LEFT_PAREN:
-        break;
-      default:
-        legacyOp = this.op;
-    }
-
     this.op = op;
-  }
-
-  public void SetJointTracks(ArrayList<Track> tracks) {
-    jointTracks.addAll(tracks);
-  }
-
-  public boolean HasJoinTrack() {
-    return jointTracks.size() > 0;
   }
 
   public void SetTrack(Track track) {

@@ -347,7 +347,6 @@ class Parser {
         // For concat, it seems good to keep it.
 //        tracksRestored.addAll(tracks.subList(1, tracks.size()));
         tracksRestored.addAll(tracks);
-        jointTracksRestored.addAll(sub.GetJointTracks());
         System.arraycopy(sub.subs, 0, newsubs, i, sub.subs.length);
         i += sub.subs.length;
         reuse(sub);
@@ -361,10 +360,6 @@ class Parser {
     }
 
     re.SetSubs(newsubs);
-
-    if (jointTracksRestored.size() > 0) {
-      re.SetJointTracks(jointTracksRestored);
-    }
 
     if (op == Regexp.Op.ALTERNATE) {
       re.subs = factor(re.subs, re.flags);
@@ -1061,10 +1056,6 @@ class Parser {
     ArrayList<Track> popTrack = null;
     if (swapVerticalBar()) {
       popTrack = top().GetDirectTracks();
-      if (popTrack.size() > 1) {
-        // √ The first track is the topmost track
-        popTrack.remove(0);
-      }
       pop(); // pop vertical bar
     }
 
@@ -1333,6 +1324,7 @@ class Parser {
   // parseVerticalBar handles a | in the input.
   private void parseVerticalBar(StringIterator t) {
     concat(t);
+    // Push track of the vertical bar
     top().SetTracks(t.PopTracks());
 
     // The concatenation we just parsed is on top of the stack.
@@ -1364,7 +1356,6 @@ class Parser {
           dst.runes = new CharClass(dst.runes).appendLiteral(src.runes[0], src.flags).toArray();
         } else {
           dst.runes = new CharClass(dst.runes).appendClass(src.runes).toArray();
-//          dst.NewTopmostPlaceholder();
         }
 
         break;
@@ -1406,7 +1397,6 @@ class Parser {
         stack.set(n - 3, re3);
       }
       mergeCharClass(re3, re1);
-      re3.SetTrack(stack.get(n - 2).GetAllTracks());
       reuse(re1);
       pop();
       return true;
@@ -1423,6 +1413,9 @@ class Parser {
         }
         stack.set(n - 2, re1);
         stack.set(n - 1, re2);
+
+        // FIXME Keep the top tracks
+
         return true;
       }
     }
@@ -1433,21 +1426,10 @@ class Parser {
   private void parseRightParen(StringIterator t) throws PatternSyntaxException {
     concat(t);
 
-    ArrayList<Track> popTrack = null;
     if (swapVerticalBar()) {
-      popTrack = top().GetAllTracks();
       pop(); // pop vertical bar
     }
     alternate();
-
-    if (popTrack != null) {
-      Regexp top = top();
-      if (top.op != Regexp.Op.ALTERNATE && top.op != Regexp.Op.CHAR_CLASS) {
-        throw new IllegalStateException("the top regex must be alternation or char class but " + top.op);
-      }
-
-      top.SetJointTracks(popTrack);
-    }
 
     int n = stack.size();
     if (n < 2) {
