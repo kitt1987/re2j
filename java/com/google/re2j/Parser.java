@@ -1406,6 +1406,7 @@ class Parser {
         stack.set(n - 3, re3);
       }
       mergeCharClass(re3, re1);
+      re3.SetTrack(stack.get(n - 2).GetAllTracks());
       reuse(re1);
       pop();
       return true;
