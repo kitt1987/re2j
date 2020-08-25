@@ -272,10 +272,6 @@ class Regexp {
 //    return allTracks;
 //  }
 
-  public Track GetTopmostTrack() {
-    return tracks.get(0);
-  }
-
   public final ArrayList<Track> GetDirectTracks() {
     return tracks;
   }
