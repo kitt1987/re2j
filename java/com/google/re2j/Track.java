@@ -124,23 +124,6 @@ public class Track implements Comparable<Track>  {
         CommentMap.put(":-", "negative modifier");
     }
 
-    static boolean IsLiteral(Track track) {
-        return track.Comments.startsWith("literal") || track.Comments.startsWith("string");
-    }
-
-    static boolean AllLiterals(ArrayList<Track> tracks) {
-        // FIXME optimize
-        for (Track track : tracks) {
-            if (IsLiteral(track)) {
-                continue;
-            }
-
-            return false;
-        }
-
-        return true;
-    }
-
     public int Start;
     public int End;
     public String Comments;
@@ -160,6 +143,7 @@ public class Track implements Comparable<Track>  {
 
         End = end;
         this.text = text;
+        this.Comments = CommentMap.get(text);
     }
 
     Track() {
