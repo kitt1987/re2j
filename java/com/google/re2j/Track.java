@@ -184,11 +184,6 @@ public class Track implements Comparable<Track>  {
         }
     }
 
-    Track() {
-        Start = Integer.MAX_VALUE;
-        End = 0;
-    }
-
     Track(String text) {
         Start = 0;
         Freeze(text.length(), text);
