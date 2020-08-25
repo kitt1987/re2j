@@ -161,7 +161,7 @@ class Regexp {
       }
     }
 
-    ArrayList<Track> forTopmost = new ArrayList<>(allTracks);
+    ArrayList<Track> forTopmost = new ArrayList<Track>(allTracks);
     forTopmost.addAll(topmostTracks);
 
     allTracks.add(Track.JoinTracks(forTopmost));
