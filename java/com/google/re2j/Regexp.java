@@ -169,6 +169,7 @@ class Regexp {
 
   public ArrayList<Track> GetAllTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
+    ArrayList<Track> topmostTracks = new ArrayList<Track>();
 
     allTracks.addAll(tracks);
     allTracks.addAll(jointTracks);
@@ -176,7 +177,9 @@ class Regexp {
     // put tracks of sub regexps
     if (subs != null && subs.length > 0) {
       for (int i = 0; i < subs.length; i++) {
-        allTracks.addAll(subs[i].GetAllTracks());
+        ArrayList<Track> tracks = subs[i].GetAllTracks();
+        allTracks.addAll(tracks);
+        topmostTracks.add(tracks.get(0));
       }
     }
 
