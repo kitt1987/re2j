@@ -170,18 +170,24 @@ class Regexp {
   public ArrayList<Track> GetAllTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>();
     ArrayList<Track> topmostTracks = new ArrayList<Track>();
-
-    allTracks.addAll(tracks);
-    allTracks.addAll(jointTracks);
+    ArrayList<Track> subTracks = new ArrayList<Track>();
 
     // put tracks of sub regexps
     if (subs != null && subs.length > 0) {
       for (int i = 0; i < subs.length; i++) {
         ArrayList<Track> tracks = subs[i].GetAllTracks();
-        allTracks.addAll(tracks);
+        subTracks.addAll(tracks);
         topmostTracks.add(tracks.get(0));
       }
     }
+
+    ArrayList<Track> forTopmost = new ArrayList<>(allTracks);
+    forTopmost.addAll(topmostTracks);
+
+    allTracks.addAll(tracks);
+    allTracks.addAll(jointTracks);
+    allTracks.addAll(subTracks);
+    allTracks.add(0, Track.JoinTracks())
 
     if (allTracks.size() <= 1) {
       return allTracks;
