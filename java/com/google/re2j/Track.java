@@ -147,7 +147,7 @@ public class Track implements Comparable<Track>  {
         End = end;
         this.text = text;
         String comment = CommentMap.get(text);
-        if (comment.length() > 0) {
+        if (comment != null) {
             this.Comments = comment;
         } else {
             if (text.length() > 1) {
