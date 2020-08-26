@@ -99,8 +99,24 @@ class Regexp {
     return out.toString();
   }
 
+  public RegexpTracks GetTracksObject() {
+    return this.tracks;
+  }
+
+  public void OverrideTracks(RegexpTracks tracks) {
+    this.tracks = tracks;
+  }
+
   public void SetTracks(ArrayList<Track> tracks) {
     this.tracks.SetTracks(tracks);
+  }
+
+  public void SetTopmostTracks(ArrayList<Track> tracks) {
+    this.tracks.SetTopmostTracks(tracks);
+  }
+
+  public ArrayList<Track> GetTopmostTracks() {
+    return this.tracks.GetTopmostTracks();
   }
 
   public ArrayList<Track> GetTracks() {

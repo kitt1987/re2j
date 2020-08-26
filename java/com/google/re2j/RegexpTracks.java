@@ -8,7 +8,7 @@ public class RegexpTracks {
     private ArrayList<Track> tracks = new ArrayList<Track>();
 
     RegexpTracks() {
-
+        topmostTracks.add(Track.NewPlaceholder(0, 0));
     }
 
     RegexpTracks(RegexpTracks that) {
@@ -18,11 +18,13 @@ public class RegexpTracks {
 
     public void Clear() {
         topmostTracks.clear();
+        topmostTracks.add(Track.NewPlaceholder(0, 0));
         tracks.clear();
     }
 
     public void SetTracks(ArrayList<Track> tracks) {
         this.tracks.addAll(tracks);
+        resetTheTopmostTrack();
         buildTopmostTracks();
     }
 
@@ -39,10 +41,46 @@ public class RegexpTracks {
         Collections.sort(topmostTracks);
     }
 
+    public static RegexpTracks JoinTracks(RegexpTracks a, RegexpTracks b) {
+        RegexpTracks c = new RegexpTracks();
+        c.tracks.addAll(a.tracks);
+        c.tracks.addAll(b.tracks);
+
+        c.topmostTracks.addAll(a.tracks);
+        // FIXME Possibly need to insert individually.
+        c.topmostTracks.addAll(b.tracks);
+        return c;
+    }
+
+    private void resetTheTopmostTrack() {
+        // The first topmost track is ours.
+        topmostTracks.remove(0);
+        insertTopmostTrack(Track.NewPlaceholder(0, 0));
+    }
+
     private void buildTopmostTracks() {
         for (Track topmost : topmostTracks) {
+            if (!topmost.IsPlaceholder()) {
+                continue;
+            }
 
+            topmost.Freeze(findTracks(topmost.Start, topmost.End));
         }
+    }
+
+    private ArrayList<Track> findTracks(int start, int end) {
+        ArrayList<Track> matched = new ArrayList<Track>();
+        for (Track track : tracks) {
+            if (track.Start >= start && track.End <= end) {
+                matched.add(track);
+            }
+        }
+
+        if (matched.size() == 0) {
+            throw new IllegalStateException("no track matches the range [" + start + "," + end + ")");
+        }
+
+        return matched;
     }
 
     private boolean insertTopmostTrack(Track track) {
@@ -60,11 +98,16 @@ public class RegexpTracks {
             }
         }
 
+        topmostTracks.add(track);
         return hasOverlappedTracks;
     }
 
     public ArrayList<Track> GetTracks() {
         return this.tracks;
+    }
+
+    public ArrayList<Track> GetTopmostTracks() {
+        return this.topmostTracks;
     }
 
     public ArrayList<Track> GetAllTracks() {

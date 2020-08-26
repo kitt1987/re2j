@@ -329,12 +329,16 @@ class Parser {
     for (Regexp sub : subs) {
       len += (sub.op == op) ? sub.subs.length : 1;
     }
+    ArrayList<Track> topmosts = new ArrayList<Track>();
+    ArrayList<Track> tracks = new ArrayList<Track>();
     Regexp[] newsubs = new Regexp[len];
     int i = 0;
     for (Regexp sub : subs) {
+      topmosts.addAll(sub.GetTopmostTracks());
       if (sub.op == op) {
         System.arraycopy(sub.subs, 0, newsubs, i, sub.subs.length);
         i += sub.subs.length;
+        tracks.addAll(sub.GetTracks());
         reuse(sub);
       } else {
         newsubs[i++] = sub;
@@ -342,12 +346,16 @@ class Parser {
     }
     Regexp re = newRegexp(op);
     re.subs = newsubs;
+    re.SetTopmostTracks(topmosts);
+    re.SetTracks(tracks);
 
     if (op == Regexp.Op.ALTERNATE) {
+      // Ignore tracks effected by factored subs.
       re.subs = factor(re.subs, re.flags);
       if (re.subs.length == 1) {
         Regexp old = re;
         re = re.subs[0];
+        re.OverrideTracks(RegexpTracks.JoinTracks(old.GetTracksObject(), re.GetTracksObject()));
         reuse(old);
       }
     }

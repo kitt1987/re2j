@@ -127,6 +127,10 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("]", "character class end");
     }
 
+    static Track NewPlaceholder(int start, int end) {
+        return new Track(start, end, true);
+    }
+
     private static int[] getTrackRange(ArrayList<Track> tracks) {
         int start = Integer.MAX_VALUE, end = 0;
         for (Track track : tracks) {
@@ -142,31 +146,28 @@ public class Track implements Comparable<Track>  {
         return new int[]{start, end};
     }
 
-    static Track JoinTracks(ArrayList<Track> tracks) {
-        if (tracks.isEmpty()) {
-            return null;
-        }
-
-        int[] range = getTrackRange(tracks);
-        // FIXME build topmost
-        StringBuilder b = new StringBuilder();
-        for (Track track : tracks) {
-            b.append(track.Comments).append(",");
-        }
-
-        return new Track(range[0], range[1], b.toString());
-    }
-
     public int Start;
     public int End;
     public String Comments;
 
     private String text;
 
-    private boolean group;
+    private boolean placeholder;
 
     Track(int start) {
         Start = start;
+    }
+
+    Track(int start, int end, boolean placeholder) {
+        Start = start;
+        End = end;
+        this.placeholder = placeholder;
+    }
+
+    void Freeze(ArrayList<Track> tracks) {
+        // FIXME build comment of topmost tracks
+        Comments = "topmost track of " + tracks.size() + " tracks";
+        placeholder = false;
     }
 
     void Freeze(int end, String text) {
@@ -191,7 +192,7 @@ public class Track implements Comparable<Track>  {
     void UpdateRange(int start, int end) {
         Start = start;
         End = end;
-        // FIXME mark as a placeholder
+        placeholder = true;
     }
 
     Track(String text) {
@@ -205,8 +206,8 @@ public class Track implements Comparable<Track>  {
         Comments = comments;
     }
 
-    boolean IsGroup() {
-        return group;
+    boolean IsPlaceholder() {
+        return placeholder;
     }
 
     void Update(Track that) {
@@ -228,7 +229,6 @@ public class Track implements Comparable<Track>  {
     void End(int end, String comments, boolean group) {
         End = end;
         Comments = comments;
-        this.group = group;
     }
 
     void End(int end, int rune) {
@@ -238,7 +238,6 @@ public class Track implements Comparable<Track>  {
     void End(int end, int rune, boolean group) {
         End = end;
         UpdateComments(rune);
-        this.group = group;
     }
 
     void UpdateComments(int rune) {
