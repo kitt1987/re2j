@@ -8,7 +8,7 @@ public class RegexpTracks {
     private ArrayList<Track> tracks = new ArrayList<Track>();
 
     RegexpTracks() {
-        topmostTracks.add(Track.NewPlaceholder(0, 0));
+        topmostTracks.add(Track.NewPlaceholder(tracks));
     }
 
     RegexpTracks(RegexpTracks that) {
@@ -18,11 +18,15 @@ public class RegexpTracks {
 
     public void Clear() {
         topmostTracks.clear();
-        topmostTracks.add(Track.NewPlaceholder(0, 0));
         tracks.clear();
+        topmostTracks.add(Track.NewPlaceholder(tracks));
     }
 
     public void SetTracks(ArrayList<Track> tracks) {
+        if (tracks.size() == 0) {
+            return;
+        }
+
         this.tracks.addAll(tracks);
         resetTheTopmostTrack();
         buildTopmostTracks();
@@ -41,21 +45,10 @@ public class RegexpTracks {
         Collections.sort(topmostTracks);
     }
 
-    public static RegexpTracks JoinTracks(RegexpTracks a, RegexpTracks b) {
-        RegexpTracks c = new RegexpTracks();
-        c.tracks.addAll(a.tracks);
-        c.tracks.addAll(b.tracks);
-
-        c.topmostTracks.addAll(a.tracks);
-        // FIXME Possibly need to insert individually.
-        c.topmostTracks.addAll(b.tracks);
-        return c;
-    }
-
     private void resetTheTopmostTrack() {
         // The first topmost track is ours.
         topmostTracks.remove(0);
-        insertTopmostTrack(Track.NewPlaceholder(0, 0));
+        insertTopmostTrack(Track.NewPlaceholder(tracks));
     }
 
     private void buildTopmostTracks() {
@@ -112,5 +105,16 @@ public class RegexpTracks {
 
     public ArrayList<Track> GetAllTracks() {
         return this.tracks;
+    }
+
+    public static RegexpTracks JoinTracks(RegexpTracks a, RegexpTracks b) {
+        RegexpTracks c = new RegexpTracks();
+        c.tracks.addAll(a.tracks);
+        c.tracks.addAll(b.tracks);
+
+        c.topmostTracks.addAll(a.tracks);
+        // FIXME Possibly need to insert individually.
+        c.topmostTracks.addAll(b.tracks);
+        return c;
     }
 }

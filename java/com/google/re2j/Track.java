@@ -127,8 +127,9 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("]", "character class end");
     }
 
-    static Track NewPlaceholder(int start, int end) {
-        return new Track(start, end, true);
+    static Track NewPlaceholder(ArrayList<Track> tracks) {
+        int[] range = getTrackRange(tracks);
+        return new Track(range[0], range[1], true);
     }
 
     private static int[] getTrackRange(ArrayList<Track> tracks) {
@@ -146,8 +147,8 @@ public class Track implements Comparable<Track>  {
         return new int[]{start, end};
     }
 
-    public int Start;
-    public int End;
+    public int Start = Integer.MAX_VALUE;
+    public int End = Integer.MIN_VALUE;
     public String Comments;
 
     private String text;
@@ -171,6 +172,10 @@ public class Track implements Comparable<Track>  {
     }
 
     void Freeze(int end, String text) {
+        if (text.isEmpty()) {
+            throw new IllegalStateException("Can't freeze a empty track");
+        }
+
         if (text.length() != end - Start) {
             throw new IllegalStateException("text '"+ text +"' doesn't match the position range[" + Start + "," + end + "]");
         }
@@ -210,34 +215,8 @@ public class Track implements Comparable<Track>  {
         return placeholder;
     }
 
-    void Update(Track that) {
-        Start = that.Start;
-        End = that.End;
-        if (that.Comments != null && that.Comments.length() > 0) {
-            Comments = that.Comments;
-        }
-    }
-
-    void End(int end) {
-        End = end;
-    }
-
-    void End(int end, String comments) {
-        End(end, comments, false);
-    }
-
-    void End(int end, String comments, boolean group) {
-        End = end;
-        Comments = comments;
-    }
-
-    void End(int end, int rune) {
-        End(end, rune, false);
-    }
-
-    void End(int end, int rune, boolean group) {
-        End = end;
-        UpdateComments(rune);
+    boolean IsNothing() {
+        return (Start == Integer.MAX_VALUE || End == Integer.MIN_VALUE) && Comments == null;
     }
 
     void UpdateComments(int rune) {

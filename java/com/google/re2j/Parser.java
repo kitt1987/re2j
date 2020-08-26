@@ -256,6 +256,7 @@ class Parser {
     re.max = max;
     re.flags = flags;
     re.subs = new Regexp[] {sub};
+    re.SetTopmostTracks(sub.GetTopmostTracks());
     stack.set(n - 1, re);
   }
 
@@ -329,12 +330,12 @@ class Parser {
     for (Regexp sub : subs) {
       len += (sub.op == op) ? sub.subs.length : 1;
     }
-    ArrayList<Track> topmosts = new ArrayList<Track>();
+    ArrayList<Track> topmost = new ArrayList<Track>();
     ArrayList<Track> tracks = new ArrayList<Track>();
     Regexp[] newsubs = new Regexp[len];
     int i = 0;
     for (Regexp sub : subs) {
-      topmosts.addAll(sub.GetTopmostTracks());
+      topmost.addAll(sub.GetTopmostTracks());
       if (sub.op == op) {
         System.arraycopy(sub.subs, 0, newsubs, i, sub.subs.length);
         i += sub.subs.length;
@@ -346,7 +347,7 @@ class Parser {
     }
     Regexp re = newRegexp(op);
     re.subs = newsubs;
-    re.SetTopmostTracks(topmosts);
+    re.SetTopmostTracks(topmost);
     re.SetTracks(tracks);
 
     if (op == Regexp.Op.ALTERNATE) {
@@ -729,7 +730,12 @@ class Parser {
       }
 
       Track last = tracks.get(tracks.size()-1);
-      last.Freeze(pos, str.substring(last.Start, pos));
+      if (last.IsNothing()) {
+        tracks.remove(tracks.size()-1);
+      } else {
+        last.Freeze(pos, str.substring(last.Start, pos));
+      }
+
       ArrayList<Track> pop = tracks;
       initTracks();
       return pop;
@@ -1013,10 +1019,18 @@ class Parser {
     }
 
     concat();
+    RegexpTracks tracksRestored = null;
     if (swapVerticalBar()) {
+      tracksRestored = stack.get(stack.size() - 1).GetTracksObject();
       pop(); // pop vertical bar
     }
     alternate();
+
+    if (tracksRestored != null) {
+      Regexp top = stack.get(stack.size() - 1);
+      top.SetTracks(tracksRestored.GetTracks());
+      top.SetTopmostTracks(tracksRestored.GetTopmostTracks());
+    }
 
     int n = stack.size();
     if (n != 1) {
@@ -1296,6 +1310,8 @@ class Parser {
                 .toArray();
         break;
     }
+
+    dst.OverrideTracks(RegexpTracks.JoinTracks(dst.GetTracksObject(), src.GetTracksObject()));
   }
 
   // If the top of the stack is an element followed by an opVerticalBar
@@ -1344,10 +1360,18 @@ class Parser {
   // parseRightParen handles a ')' in the input.
   private void parseRightParen() throws PatternSyntaxException {
     concat();
+    RegexpTracks tracksRestored = null;
     if (swapVerticalBar()) {
+      tracksRestored = stack.get(stack.size() - 1).GetTracksObject();
       pop(); // pop vertical bar
     }
     alternate();
+
+    if (tracksRestored != null) {
+      Regexp top = stack.get(stack.size() - 1);
+      top.SetTracks(tracksRestored.GetTracks());
+      top.SetTopmostTracks(tracksRestored.GetTopmostTracks());
+    }
 
     int n = stack.size();
     if (n < 2) {
@@ -1362,10 +1386,14 @@ class Parser {
     this.flags = re2.flags;
     if (re2.cap == 0) {
       // Just for grouping.
+      RegexpTracks tracks = re2.GetTracksObject();
+      re1.SetTracks(tracks.GetTracks());
+      re1.SetTopmostTracks(tracks.GetTopmostTracks());
       push(re1);
     } else {
       re2.op = Regexp.Op.CAPTURE;
       re2.subs = new Regexp[] {re1};
+      re2.SetTopmostTracks(re1.GetTopmostTracks());
       push(re2);
     }
   }
