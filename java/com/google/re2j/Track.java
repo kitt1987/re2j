@@ -1,6 +1,7 @@
 package com.google.re2j;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Track implements Comparable<Track>  {
@@ -132,6 +133,13 @@ public class Track implements Comparable<Track>  {
         return new Track(range[0], range[1], true);
     }
 
+    static Track NewTopmost(ArrayList<Track> tracks) {
+        int[] range = getTrackRange(tracks);
+        Track topmost = new Track(range[0], range[1], false);
+        topmost.Freeze(tracks);
+        return topmost;
+    }
+
     private static int[] getTrackRange(ArrayList<Track> tracks) {
         int start = Integer.MAX_VALUE, end = 0;
         for (Track track : tracks) {
@@ -167,7 +175,12 @@ public class Track implements Comparable<Track>  {
 
     void Freeze(ArrayList<Track> tracks) {
         // FIXME build comment of topmost tracks
-        Comments = "topmost track of " + tracks.size() + " tracks";
+        String joined = "";
+        for (Track track : tracks) {
+            joined += track.Comments + ",";
+        }
+
+        Comments = "topmost track of [" + joined + "]";
         placeholder = false;
     }
 

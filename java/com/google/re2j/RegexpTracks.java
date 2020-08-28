@@ -4,55 +4,54 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class RegexpTracks {
-    private ArrayList<Track> topmostTracks = new ArrayList<Track>();
-    private ArrayList<Track> tracks = new ArrayList<Track>();
+    // composed tracks of the current regexp
+    private final ArrayList<Track> composedTracks = new ArrayList<Track>();
+
+    // all elementary tracks of the current regexp
+    private final ArrayList<Track> tracks = new ArrayList<Track>();
 
     RegexpTracks() {
-        topmostTracks.add(Track.NewPlaceholder(tracks));
-    }
-
-    RegexpTracks(RegexpTracks that) {
-        topmostTracks.addAll(that.topmostTracks);
-        tracks.addAll(that.tracks);
     }
 
     public void Clear() {
-        topmostTracks.clear();
+        composedTracks.clear();
         tracks.clear();
-        topmostTracks.add(Track.NewPlaceholder(tracks));
     }
 
-    public void SetTracks(ArrayList<Track> tracks) {
-        if (tracks.size() == 0) {
-            return;
-        }
+    public ArrayList<Track> GetTracks() {
+        return tracks;
+    }
 
+    public ArrayList<Track> GetComposedTracks() {
+        return composedTracks;
+    }
+
+    public void ComposeTracks(ArrayList<Track> tracks) {
+        // FIXME tracks must be sequential. Validate them.
         this.tracks.addAll(tracks);
-        resetTheTopmostTrack();
-        buildTopmostTracks();
+        if (tracks.size() > 1) {
+            insertComposedTrack(Track.NewPlaceholder(tracks));
+            buildComposedTracks();
+        }
     }
 
-    public void SetTopmostTracks(ArrayList<Track> tracks) {
-        boolean hasOverlappedTracks = false;
+    public void AddTracks(RegexpTracks tracks) {
+        this.tracks.addAll(tracks.GetTracks());
+        Collections.sort(this.tracks);
+        this.composedTracks.addAll(tracks.GetComposedTracks());
+        Collections.sort(this.composedTracks);
+        // FIXME validate composedTracks
+    }
+
+    private void composeTracks() {
+        ArrayList<Track> 
         for (Track track : tracks) {
-            hasOverlappedTracks |= insertTopmostTrack(track);
-        }
 
-        if (hasOverlappedTracks) {
-            buildTopmostTracks();
         }
-
-        Collections.sort(topmostTracks);
     }
 
-    private void resetTheTopmostTrack() {
-        // The first topmost track is ours.
-        topmostTracks.remove(0);
-        insertTopmostTrack(Track.NewPlaceholder(tracks));
-    }
-
-    private void buildTopmostTracks() {
-        for (Track topmost : topmostTracks) {
+    private void buildComposedTracks() {
+        for (Track topmost : composedTracks) {
             if (!topmost.IsPlaceholder()) {
                 continue;
             }
@@ -76,9 +75,9 @@ public class RegexpTracks {
         return matched;
     }
 
-    private boolean insertTopmostTrack(Track track) {
+    private boolean insertComposedTrack(Track track) {
         boolean hasOverlappedTracks = false;
-        for (Track topmost : topmostTracks) {
+        for (Track topmost : composedTracks) {
             if (topmost.Start <= track.Start && topmost.End > track.Start) {
                 topmost.UpdateRange(topmost.Start, track.Start);
                 hasOverlappedTracks = true;
@@ -91,30 +90,7 @@ public class RegexpTracks {
             }
         }
 
-        topmostTracks.add(track);
+        composedTracks.add(track);
         return hasOverlappedTracks;
-    }
-
-    public ArrayList<Track> GetTracks() {
-        return this.tracks;
-    }
-
-    public ArrayList<Track> GetTopmostTracks() {
-        return this.topmostTracks;
-    }
-
-    public ArrayList<Track> GetAllTracks() {
-        return this.tracks;
-    }
-
-    public static RegexpTracks JoinTracks(RegexpTracks a, RegexpTracks b) {
-        RegexpTracks c = new RegexpTracks();
-        c.tracks.addAll(a.tracks);
-        c.tracks.addAll(b.tracks);
-
-        c.topmostTracks.addAll(a.tracks);
-        // FIXME Possibly need to insert individually.
-        c.topmostTracks.addAll(b.tracks);
-        return c;
     }
 }

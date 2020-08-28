@@ -168,7 +168,7 @@ class Parser {
     re2.runes = concatRunes(re2.runes, re1.runes);
 
     // √ concat tracks
-    re2.SetTracks(re1.GetTracks());
+    re2.Tracks.AddTracks(re1.Tracks);
 
     // Reuse re1 if possible.
     if (r >= 0) {
@@ -234,6 +234,7 @@ class Parser {
     if ((flags & RE2.PERL_X) != 0) {
       if (t.more() && t.lookingAt('?')) {
         t.skip(1); // '?'
+        t.PushNewTrack();
         flags ^= RE2.NON_GREEDY;
       }
       if (lastRepeatPos != -1) {
@@ -256,7 +257,6 @@ class Parser {
     re.max = max;
     re.flags = flags;
     re.subs = new Regexp[] {sub};
-    re.SetTopmostTracks(sub.GetTopmostTracks());
     stack.set(n - 1, re);
   }
 
@@ -330,16 +330,14 @@ class Parser {
     for (Regexp sub : subs) {
       len += (sub.op == op) ? sub.subs.length : 1;
     }
-    ArrayList<Track> topmost = new ArrayList<Track>();
-    ArrayList<Track> tracks = new ArrayList<Track>();
+    ArrayList<RegexpTracks> recycled = new ArrayList<RegexpTracks>();
     Regexp[] newsubs = new Regexp[len];
     int i = 0;
     for (Regexp sub : subs) {
-      topmost.addAll(sub.GetTopmostTracks());
       if (sub.op == op) {
         System.arraycopy(sub.subs, 0, newsubs, i, sub.subs.length);
         i += sub.subs.length;
-        tracks.addAll(sub.GetTracks());
+        recycled.add(sub.Tracks);
         reuse(sub);
       } else {
         newsubs[i++] = sub;
@@ -347,8 +345,9 @@ class Parser {
     }
     Regexp re = newRegexp(op);
     re.subs = newsubs;
-    re.SetTopmostTracks(topmost);
-    re.SetTracks(tracks);
+    for (RegexpTracks tracks : recycled) {
+      re.Tracks.AddTracks(tracks);
+    }
 
     if (op == Regexp.Op.ALTERNATE) {
       // Ignore tracks effected by factored subs.
@@ -356,7 +355,7 @@ class Parser {
       if (re.subs.length == 1) {
         Regexp old = re;
         re = re.subs[0];
-        re.OverrideTracks(RegexpTracks.JoinTracks(old.GetTracksObject(), re.GetTracksObject()));
+        re.Tracks.AddTracks(old.Tracks);
         reuse(old);
       }
     }
@@ -744,6 +743,10 @@ class Parser {
     void PushNewTrack() {
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
+        if (last.Start == pos) {
+          return;
+        }
+
         last.Freeze(pos, str.substring(last.Start, pos));
       }
 
@@ -846,7 +849,7 @@ class Parser {
     while (t.more()) {
       t.PushNewTrack();
       if (stack.size() > 0) {
-        stack.get(stack.size()-1).SetTracks(t.PopTracks());
+        stack.get(stack.size()-1).Tracks.ComposeTracks(t.PopTracks());
       }
       int repeatPos = -1;
       bigswitch:
@@ -1018,18 +1021,21 @@ class Parser {
       lastRepeatPos = repeatPos;
     }
 
+    if (stack.size() > 0) {
+      stack.get(stack.size()-1).Tracks.ComposeTracks(t.PopTracks());
+    }
+
     concat();
     RegexpTracks tracksRestored = null;
     if (swapVerticalBar()) {
-      tracksRestored = stack.get(stack.size() - 1).GetTracksObject();
+      tracksRestored = stack.get(stack.size() - 1).Tracks;
       pop(); // pop vertical bar
     }
     alternate();
 
     if (tracksRestored != null) {
       Regexp top = stack.get(stack.size() - 1);
-      top.SetTracks(tracksRestored.GetTracks());
-      top.SetTopmostTracks(tracksRestored.GetTopmostTracks());
+      top.Tracks.AddTracks(tracksRestored);
     }
 
     int n = stack.size();
@@ -1120,6 +1126,7 @@ class Parser {
       String name = s.substring(4, end); // "name"
       t.skipString(name);
       t.skip(5); // "(?P<>"
+      t.PushNewTrack();
       if (!isValidCaptureName(name)) {
         throw new PatternSyntaxException(
             ERR_INVALID_NAMED_CAPTURE, s.substring(0, end)); // "(?P<name>"
@@ -1136,12 +1143,14 @@ class Parser {
 
     // Non-capturing group.  Might also twiddle Perl flags.
     t.skip(2); // "(?"
+    t.PushNewTrack();
     int flags = this.flags;
     int sign = +1;
     boolean sawFlag = false;
     loop:
     while (t.more()) {
       int c = t.pop();
+      t.PushNewTrack();
       switch (c) {
         default:
           break loop;
@@ -1311,7 +1320,7 @@ class Parser {
         break;
     }
 
-    dst.OverrideTracks(RegexpTracks.JoinTracks(dst.GetTracksObject(), src.GetTracksObject()));
+    dst.Tracks.AddTracks(src.Tracks);
   }
 
   // If the top of the stack is an element followed by an opVerticalBar
@@ -1362,15 +1371,14 @@ class Parser {
     concat();
     RegexpTracks tracksRestored = null;
     if (swapVerticalBar()) {
-      tracksRestored = stack.get(stack.size() - 1).GetTracksObject();
+      tracksRestored = stack.get(stack.size() - 1).Tracks;
       pop(); // pop vertical bar
     }
     alternate();
 
     if (tracksRestored != null) {
       Regexp top = stack.get(stack.size() - 1);
-      top.SetTracks(tracksRestored.GetTracks());
-      top.SetTopmostTracks(tracksRestored.GetTopmostTracks());
+      top.Tracks.AddTracks(tracksRestored);
     }
 
     int n = stack.size();
@@ -1386,14 +1394,12 @@ class Parser {
     this.flags = re2.flags;
     if (re2.cap == 0) {
       // Just for grouping.
-      RegexpTracks tracks = re2.GetTracksObject();
-      re1.SetTracks(tracks.GetTracks());
-      re1.SetTopmostTracks(tracks.GetTopmostTracks());
+      re1.Tracks.AddTracks(re2.Tracks);
       push(re1);
     } else {
       re2.op = Regexp.Op.CAPTURE;
       re2.subs = new Regexp[] {re1};
-      re2.SetTopmostTracks(re1.GetTopmostTracks());
+      re2.Tracks.AddTracks(re1.Tracks);
       push(re2);
     }
   }
@@ -1444,6 +1450,7 @@ class Parser {
           r = r * 8 + t.peek() - '0';
           t.skip(1); // digit
         }
+        t.PushNewTrack();
         return r;
 
         // Hexadecimal escapes.
@@ -1480,6 +1487,7 @@ class Parser {
           if (nhex == 0) {
             break bigswitch;
           }
+          t.PushNewTrack();
           return r;
         }
 
@@ -1493,6 +1501,7 @@ class Parser {
         if (x < 0 || y < 0) {
           break;
         }
+        t.PushNewTrack();
         return x * 16 + y;
 
         // C escapes.  There is no case 'b', to avoid misparsing
@@ -1502,16 +1511,22 @@ class Parser {
         // If you want a backspace, embed a literal backspace
         // character or use \x08.
       case 'a':
+        t.PushNewTrack();
         return 7; // No \a in Java
       case 'f':
+        t.PushNewTrack();
         return '\f';
       case 'n':
+        t.PushNewTrack();
         return '\n';
       case 'r':
+        t.PushNewTrack();
         return '\r';
       case 't':
+        t.PushNewTrack();
         return '\t';
       case 'v':
+        t.PushNewTrack();
         return 11; // No \v in Java
     }
     throw new PatternSyntaxException(ERR_INVALID_ESCAPE, t.from(startPos));
@@ -1532,7 +1547,9 @@ class Parser {
       return parseEscape(t);
     }
 
-    return t.pop();
+    int rv = t.pop();
+    t.PushNewTrack();
+    return rv;
   }
 
   // parsePerlClassEscape parses a leading Perl character class escape like \d
@@ -1549,6 +1566,7 @@ class Parser {
       return false;
     }
     t.pop(); // e.g. advance past 'd' in "\\d"
+    t.PushNewTrack();
     CharGroup g = CharGroup.PERL_GROUPS.get(t.from(beforePos));
     if (g == null) {
       return false;
@@ -1577,6 +1595,7 @@ class Parser {
       throw new PatternSyntaxException(ERR_INVALID_CHAR_RANGE, name);
     }
     cc.appendGroup(g, (flags & RE2.FOLD_CASE) != 0);
+    t.PushNewTrack();
     return true;
   }
 
@@ -1628,6 +1647,9 @@ class Parser {
       t.rewindTo(startPos);
       throw new PatternSyntaxException(ERR_INVALID_CHAR_RANGE, t.rest());
     }
+
+    t.PushNewTrack();
+
     c = t.pop();
     String name;
     if (c != '{') {
@@ -1647,6 +1669,8 @@ class Parser {
       // Don't use skip(end) because it assumes UTF-16 coding, and
       // StringIterator doesn't guarantee that.
     }
+
+    t.PushNewTrack();
 
     // Group can have leading negation too.
     //  \p{^Han} == \P{Han}, \P{^Han} == \p{Han}.
@@ -1698,6 +1722,8 @@ class Parser {
         cc.appendRange('\n', '\n');
       }
     }
+
+    t.PushNewTrack();
 
     boolean first = true; // ']' and '-' are okay as first char in class
     while (!t.more() || t.peek() != ']' || first) {
@@ -1755,6 +1781,7 @@ class Parser {
       }
     }
     t.skip(1); // ']'
+    t.PushNewTrack();
 
     cc.cleanClass();
     if (sign < 0) {
