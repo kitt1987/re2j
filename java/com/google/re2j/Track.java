@@ -134,6 +134,10 @@ public class Track implements Comparable<Track>  {
     }
 
     static Track NewTopmost(ArrayList<Track> tracks) {
+        if (tracks.size() == 1) {
+            return tracks.get(0);
+        }
+
         int[] range = getTrackRange(tracks);
         Track topmost = new Track(range[0], range[1], false);
         topmost.Freeze(tracks);
@@ -150,6 +154,10 @@ public class Track implements Comparable<Track>  {
             if (track.End > end) {
                 end = track.End;
             }
+        }
+
+        if (start >= end) {
+            throw new IllegalStateException("illegal range");
         }
 
         return new int[]{start, end};
@@ -208,6 +216,10 @@ public class Track implements Comparable<Track>  {
     }
 
     void UpdateRange(int start, int end) {
+        if (start >= end) {
+            throw new IllegalStateException("illegal range");
+        }
+
         Start = start;
         End = end;
         placeholder = true;

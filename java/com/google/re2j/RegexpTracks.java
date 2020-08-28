@@ -27,7 +27,7 @@ public class RegexpTracks {
     }
 
     public void ComposeTracks(ArrayList<Track> tracks) {
-        // FIXME tracks must be sequential. Validate them.
+        // FIXME tracks must be consecutive. Validate them.
         this.tracks.addAll(tracks);
         if (tracks.size() > 1) {
             insertComposedTrack(Track.NewPlaceholder(tracks));
@@ -39,14 +39,35 @@ public class RegexpTracks {
         this.tracks.addAll(tracks.GetTracks());
         Collections.sort(this.tracks);
         this.composedTracks.addAll(tracks.GetComposedTracks());
+        composeTracks();
         Collections.sort(this.composedTracks);
         // FIXME validate composedTracks
     }
 
     private void composeTracks() {
-        ArrayList<Track> 
-        for (Track track : tracks) {
+        if (tracks.size() <= 1) {
+            return;
+        }
 
+        ArrayList<Track> consecutive = new ArrayList<Track>();
+        for (Track track : tracks) {
+            if (consecutive.size() == 0 || consecutive.get(consecutive.size()-1).End == track.Start) {
+                consecutive.add(track);
+                continue;
+            }
+
+            if (consecutive.size() > 1) {
+                if (insertComposedTrack(Track.NewPlaceholder(consecutive))) {
+                    buildComposedTracks();
+                }
+            }
+
+            consecutive.clear();
+            consecutive.add(track);
+        }
+
+        if (consecutive.size() > 1 && insertComposedTrack(Track.NewPlaceholder(consecutive))) {
+            buildComposedTracks();
         }
     }
 
@@ -77,20 +98,50 @@ public class RegexpTracks {
 
     private boolean insertComposedTrack(Track track) {
         boolean hasOverlappedTracks = false;
-        for (Track topmost : composedTracks) {
-            if (topmost.Start <= track.Start && topmost.End > track.Start) {
-                topmost.UpdateRange(topmost.Start, track.Start);
+        for (Track composed : composedTracks) {
+            if (track.Start >= composed.End || track.End <= composed.Start) {
+                continue;
+            }
+
+            // track.Start < composed.End && track.End > composed.Start
+
+            if (track.Start == composed.Start && track.End == composed.End) {
+                if (hasOverlappedTracks) {
+                    throw new IllegalStateException("composed tracks should not overlap each other");
+                }
+                return false;
+            }
+
+            if (track.Start >= composed.Start) {
+                if (track.End <= composed.End) {
+                    // the composed contains track
+                    return false;
+                }
+
+                if (track.Start == composed.Start) {
+                    // track contains the composed
+                    composed.UpdateRange(composed.Start, track.End);
+                    return true;
+                }
+
+                // divide the composed track
+                composed.UpdateRange(composed.Start, track.Start);
                 hasOverlappedTracks = true;
                 continue;
             }
 
-            if (topmost.Start >= track.Start && topmost.Start < track.End) {
-                topmost.UpdateRange(track.End, topmost.End);
-                hasOverlappedTracks = true;
+            // else track.Start < composed.Start
+            if (track.End >= composed.End) {
+                // track contains the composed
+                composed.UpdateRange(track.Start, track.End);
+                return true;
             }
+
+            composed.UpdateRange(track.End, composed.End);
+            hasOverlappedTracks = true;
         }
 
         composedTracks.add(track);
-        return hasOverlappedTracks;
+        return hasOverlappedTracks | track.IsPlaceholder();
     }
 }

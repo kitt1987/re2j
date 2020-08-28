@@ -138,6 +138,7 @@ class Regexp {
       }
     }
 
+    // FIXME the topmost track may already exists in the composed track list.
     Track topmost = GetTopmostTrack();
     if (topmost != null) {
       tracks.add(topmost);
