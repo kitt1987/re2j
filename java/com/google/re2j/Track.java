@@ -127,6 +127,56 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("]", "character class end");
     }
 
+    static final HashMap<String, String> TopmostCommentMap = new HashMap<String, String>();
+    static {
+        TopmostCommentMap.put(".:s", "any characters including \"\\n\"");
+        TopmostCommentMap.put(".", "any characters excluding \"\\n\"");
+        TopmostCommentMap.put("^:m", "line start");
+        TopmostCommentMap.put("$:m", "line end");
+        TopmostCommentMap.put("[:alnum:]", "alphanumeric characters");
+        TopmostCommentMap.put("[:^alnum:]", "negated alphanumeric characters");
+        TopmostCommentMap.put("[:alpha:]", "alphabetic characters");
+        TopmostCommentMap.put("[:^alpha:]", "negated alphabetic characters");
+        TopmostCommentMap.put("[:ascii:]", "ASCII characters");
+        TopmostCommentMap.put("[:^ascii:]", "negated ASCII characters");
+        TopmostCommentMap.put("[:blank:]", "space and tab");
+        TopmostCommentMap.put("[:^blank:]", "negated space and tab");
+        TopmostCommentMap.put("[:cntrl:]", "control characters");
+        TopmostCommentMap.put("[:^cntrl:]", "negated control characters");
+        TopmostCommentMap.put("[:digit:]", "digits");
+        TopmostCommentMap.put("[:^digit:]", "negated digits");
+        TopmostCommentMap.put("[:graph:]", "visible characters");
+        TopmostCommentMap.put("[:^graph:]", "negated visible characters");
+        TopmostCommentMap.put("[:lower:]", "lowercase letters");
+        TopmostCommentMap.put("[:^lower:]", "negated lowercase letters");
+        TopmostCommentMap.put("[:print:]", "visible characters and spaces");
+        TopmostCommentMap.put("[:^print:]", "negated visible characters and spaces");
+        TopmostCommentMap.put("[:punct:]", "punctuation");
+        TopmostCommentMap.put("[:^punct:]", "negated punctuation");
+        TopmostCommentMap.put("[:space:]", "whitespace characters, including line breaks");
+        TopmostCommentMap.put("[:^space:]", "negated whitespace characters, including line breaks");
+        TopmostCommentMap.put("[:upper:]", "uppercase letters");
+        TopmostCommentMap.put("[:^upper:]", "negated uppercase letters");
+        TopmostCommentMap.put("[:word:]", "word characters");
+        TopmostCommentMap.put("[:^word:]", "negated word characters");
+        TopmostCommentMap.put("[:xdigit:]", "hexadecimal digits");
+        TopmostCommentMap.put("[:^xdigit:]", "negated hexadecimal digits");
+        TopmostCommentMap.put("\\d", "digits");
+        TopmostCommentMap.put("\\D", "non-digits");
+        TopmostCommentMap.put("\\s", "whitespace");
+        TopmostCommentMap.put("\\S", "non-whitespace");
+        TopmostCommentMap.put("\\w", "word character");
+        TopmostCommentMap.put("\\W", "non-word character");
+        TopmostCommentMap.put("*", "repeated zero or many times");
+        TopmostCommentMap.put("+", "repeated once or many times");
+        TopmostCommentMap.put("?", "repeated zero or once");
+        TopmostCommentMap.put(":i", "case insensitive");
+        TopmostCommentMap.put(":m", "multi-line: '^' and '$' match at the start and end of each line");
+        TopmostCommentMap.put(":s", "single-line: dot also matches line breaks");
+        TopmostCommentMap.put(":U", "ungreedy");
+        TopmostCommentMap.put(":-", "negative");
+    }
+
     static Track NewPlaceholder(ArrayList<Track> tracks) {
         int[] range = getTrackRange(tracks);
         return new Track(range[0], range[1], true);
@@ -165,6 +215,7 @@ public class Track implements Comparable<Track>  {
     public int Start = Integer.MAX_VALUE;
     public int End = Integer.MIN_VALUE;
     public String Comments;
+    public String TopmostComments;
 
     private String text;
 
@@ -202,15 +253,18 @@ public class Track implements Comparable<Track>  {
 
         End = end;
         this.text = text;
-        String comment = CommentMap.get(text);
-        if (comment != null) {
-            this.Comments = comment;
-        } else {
+        this.Comments = CommentMap.get(text);
+        if (this.Comments == null) {
             if (text.length() > 1) {
                 this.Comments = "string \"" + text + "\"";
             } else {
                 this.Comments = "literal '" + text + "'";
             }
+        }
+
+        this.TopmostComments = TopmostCommentMap.get(text);
+        if (this.TopmostComments == null) {
+            this.TopmostComments = "";
         }
     }
 
