@@ -60,9 +60,9 @@ public class Track implements Comparable<Track>  {
         OpKeyRuneMap.put(Regexp.Op.WORD_BOUNDARY, "\\b");
         OpKeyRuneMap.put(Regexp.Op.NO_WORD_BOUNDARY, "\\B");
         OpKeyRuneMap.put(Regexp.Op.CAPTURE, "(");
-        OpKeyRuneMap.put(Regexp.Op.STAR, "*");
-        OpKeyRuneMap.put(Regexp.Op.PLUS, "+");
-        OpKeyRuneMap.put(Regexp.Op.QUEST, "?");
+        OpKeyRuneMap.put(Regexp.Op.STAR, "repeated zero or many times");
+        OpKeyRuneMap.put(Regexp.Op.PLUS, "repeated once or many times");
+        OpKeyRuneMap.put(Regexp.Op.QUEST, "repeated zero or once");
         OpKeyRuneMap.put(Regexp.Op.REPEAT, "{");
         OpKeyRuneMap.put(Regexp.Op.CONCAT, "");
         OpKeyRuneMap.put(Regexp.Op.ALTERNATE, "|");
@@ -269,19 +269,9 @@ public class Track implements Comparable<Track>  {
                 b.append("capturing group (").append(joinComments(tracks)).append(")");
                 break;
             case STAR:
-                b.append(joinComments(tracks)).append(" repeated zero or many times");
-                if ((re.flags & RE2.NON_GREEDY) != 0) {
-                    b.append("(non-greedy)");
-                }
-                break;
             case PLUS:
-                b.append(joinComments(tracks)).append(" repeated once or many times");
-                if ((re.flags & RE2.NON_GREEDY) != 0) {
-                    b.append("(non-greedy)");
-                }
-                break;
             case QUEST:
-                b.append(joinComments(tracks)).append(" repeated zero or once");
+                b.append(joinComments(tracks)).append(" ").append(OpKeyRuneMap.get(re.op));
                 if ((re.flags & RE2.NON_GREEDY) != 0) {
                     b.append("(non-greedy)");
                 }
@@ -295,6 +285,10 @@ public class Track implements Comparable<Track>  {
             default:
                 throw new IllegalStateException("unsupported composed regexp " + re.op);
         }
+
+        // FIXME considering flags here
+
+        return b.toString();
     }
 
     private static String numberToFrequency(int num) {
