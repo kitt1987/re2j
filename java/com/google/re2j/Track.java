@@ -232,7 +232,9 @@ public class Track implements Comparable<Track>  {
     }
 
     private String getComments(ArrayList<Track> tracks, Regexp re) {
-        
+        switch (re.op) {
+            
+        }
     }
 
     private static String numberToFrequency(int num) {
