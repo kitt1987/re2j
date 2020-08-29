@@ -261,11 +261,12 @@ public class Track implements Comparable<Track>  {
             } else {
                 this.Comments = "literal '" + text + "'";
             }
-        }
-
-        this.TopmostComments = TopmostCommentMap.get(text);
-        if (this.TopmostComments == null) {
-            this.TopmostComments = "";
+            this.TopmostComments = this.Comments;
+        } else {
+            this.TopmostComments = TopmostCommentMap.get(text);
+            if (this.TopmostComments == null) {
+                this.TopmostComments = "";
+            }
         }
     }
 
