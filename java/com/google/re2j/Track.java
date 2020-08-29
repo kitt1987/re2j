@@ -265,6 +265,9 @@ public class Track implements Comparable<Track>  {
 
                 b.append("character class of [").append(joinComments(tracks)).append("]");
                 break;
+            case CAPTURE:
+                b.append("capturing group (").append(joinComments(tracks)).append(")");
+                break;
             default:
                 throw new IllegalStateException("unsupported composed regexp " + re.op);
         }
