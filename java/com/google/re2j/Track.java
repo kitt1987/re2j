@@ -253,6 +253,11 @@ public class Track implements Comparable<Track>  {
                 // FIXME comments must be in order
                 b.append("sequence [").append(joinComments(tracks)).append("]");
                 break;
+            case ALTERNATE:
+                b.append("alternation of [").append(joinComments(tracks)).append("]");
+                break;
+            default:
+                throw new IllegalStateException("unsupported composed regexp " + re.op);
         }
     }
 
