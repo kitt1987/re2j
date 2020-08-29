@@ -269,6 +269,9 @@ public class Track implements Comparable<Track>  {
                     b.append("(non-greedy)");
                 }
                 break;
+            case LEFT_PAREN:
+                // FIXME
+                b.append("non-capturing group");
             default:
                 throw new IllegalStateException("unsupported composed regexp " + re.op);
         }
