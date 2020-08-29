@@ -49,16 +49,6 @@ public class Track implements Comparable<Track>  {
 
     static final HashMap<Regexp.Op, String> OpKeyRuneMap = new HashMap<Regexp.Op, String>();
     static {
-        OpKeyRuneMap.put(Regexp.Op.CHAR_CLASS, "[");
-        OpKeyRuneMap.put(Regexp.Op.ANY_CHAR_NOT_NL, ".");
-        OpKeyRuneMap.put(Regexp.Op.ANY_CHAR, ".:s");
-        OpKeyRuneMap.put(Regexp.Op.BEGIN_LINE, "^:m");
-        OpKeyRuneMap.put(Regexp.Op.END_LINE, "$:m");
-        OpKeyRuneMap.put(Regexp.Op.BEGIN_TEXT, "^");
-        OpKeyRuneMap.put(Regexp.Op.END_TEXT, "$");
-        OpKeyRuneMap.put(Regexp.Op.WORD_BOUNDARY, "\\b");
-        OpKeyRuneMap.put(Regexp.Op.NO_WORD_BOUNDARY, "\\B");
-        OpKeyRuneMap.put(Regexp.Op.CAPTURE, "(");
         OpKeyRuneMap.put(Regexp.Op.STAR, "repeated zero or many times");
         OpKeyRuneMap.put(Regexp.Op.PLUS, "repeated once or many times");
         OpKeyRuneMap.put(Regexp.Op.QUEST, "repeated zero or once");
@@ -66,6 +56,7 @@ public class Track implements Comparable<Track>  {
         OpKeyRuneMap.put(Regexp.Op.CONCAT, "sequence");
         OpKeyRuneMap.put(Regexp.Op.ALTERNATE, "alternation");
         OpKeyRuneMap.put(Regexp.Op.CAPTURE, "capturing group");
+        OpKeyRuneMap.put(Regexp.Op.CHAR_CLASS, "character class");
     }
 
     static final HashMap<String, String> CommentMap = new HashMap<String, String>();
@@ -108,6 +99,8 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("\\S", "non-whitespace shorthand");
         CommentMap.put("\\w", "word character shorthand");
         CommentMap.put("\\W", "non-word character shorthand");
+        CommentMap.put("\\b", "word boundary");
+        CommentMap.put("\\B", "non-word boundary");
         CommentMap.put(":", "mod modifier end");
         CommentMap.put(")", "capturing group end");
         CommentMap.put("(", "capturing group");
@@ -248,11 +241,10 @@ public class Track implements Comparable<Track>  {
                     b.append("'");
                 }
             case CONCAT:
-                // FIXME comments must be in order
-                b.append("sequence [").append(joinComments(tracks)).append("]");
-                break;
             case ALTERNATE:
-                b.append("alternation of [").append(joinComments(tracks)).append("]");
+            case CAPTURE:
+                // FIXME comments must be in order
+                b.append(OpKeyRuneMap.get(re.op)).append(" of [").append(joinComments(tracks)).append("]");
                 break;
             case CHAR_CLASS:
                 // FIXME converted form alternation
@@ -262,9 +254,6 @@ public class Track implements Comparable<Track>  {
 //                }
 
                 b.append("character class of [").append(joinComments(tracks)).append("]");
-                break;
-            case CAPTURE:
-                b.append("capturing group [").append(joinComments(tracks)).append("]");
                 break;
             case STAR:
             case PLUS:
