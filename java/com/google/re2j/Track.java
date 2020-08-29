@@ -235,7 +235,7 @@ public class Track implements Comparable<Track>  {
         // FIXME build comment of topmost tracks
         String joined = "";
         for (Track track : tracks) {
-            joined += track.Comments + ",";
+            joined += track.TopmostComments + ",";
         }
 
         Comments = "topmost track of [" + joined + "]";
