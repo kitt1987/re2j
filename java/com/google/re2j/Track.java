@@ -268,6 +268,30 @@ public class Track implements Comparable<Track>  {
             case CAPTURE:
                 b.append("capturing group (").append(joinComments(tracks)).append(")");
                 break;
+            case STAR:
+                b.append(joinComments(tracks)).append(" repeated zero or many times");
+                if ((re.flags & RE2.NON_GREEDY) != 0) {
+                    b.append("(non-greedy)");
+                }
+                break;
+            case PLUS:
+                b.append(joinComments(tracks)).append(" repeated once or many times");
+                if ((re.flags & RE2.NON_GREEDY) != 0) {
+                    b.append("(non-greedy)");
+                }
+                break;
+            case QUEST:
+                b.append(joinComments(tracks)).append(" repeated zero or once");
+                if ((re.flags & RE2.NON_GREEDY) != 0) {
+                    b.append("(non-greedy)");
+                }
+                break;
+            case REPEAT:
+                b.append(joinComments(tracks)).append(" ").append(GenRepeatedRangeComments(re.min, re.max));
+                if ((re.flags & RE2.NON_GREEDY) != 0) {
+                    b.append("(non-greedy)");
+                }
+                break;
             default:
                 throw new IllegalStateException("unsupported composed regexp " + re.op);
         }
