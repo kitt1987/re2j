@@ -49,7 +49,6 @@ public class Track implements Comparable<Track>  {
 
     static final HashMap<Regexp.Op, String> OpKeyRuneMap = new HashMap<Regexp.Op, String>();
     static {
-        OpKeyRuneMap.put(Regexp.Op.LITERAL, "rune");
         OpKeyRuneMap.put(Regexp.Op.CHAR_CLASS, "[");
         OpKeyRuneMap.put(Regexp.Op.ANY_CHAR_NOT_NL, ".");
         OpKeyRuneMap.put(Regexp.Op.ANY_CHAR, ".:s");
@@ -64,10 +63,9 @@ public class Track implements Comparable<Track>  {
         OpKeyRuneMap.put(Regexp.Op.PLUS, "repeated once or many times");
         OpKeyRuneMap.put(Regexp.Op.QUEST, "repeated zero or once");
         OpKeyRuneMap.put(Regexp.Op.REPEAT, "{");
-        OpKeyRuneMap.put(Regexp.Op.CONCAT, "");
-        OpKeyRuneMap.put(Regexp.Op.ALTERNATE, "|");
-        OpKeyRuneMap.put(Regexp.Op.LEFT_PAREN, "(");
-        OpKeyRuneMap.put(Regexp.Op.VERTICAL_BAR, "|");
+        OpKeyRuneMap.put(Regexp.Op.CONCAT, "sequence");
+        OpKeyRuneMap.put(Regexp.Op.ALTERNATE, "alternation");
+        OpKeyRuneMap.put(Regexp.Op.CAPTURE, "capturing group");
     }
 
     static final HashMap<String, String> CommentMap = new HashMap<String, String>();
@@ -257,16 +255,16 @@ public class Track implements Comparable<Track>  {
                 b.append("alternation of [").append(joinComments(tracks)).append("]");
                 break;
             case CHAR_CLASS:
-                // a. converted form alternation
-                if (re.HasJoinTrack()) {
-                    b.append("alternation of [").append(joinComments(re.GetDirectTracks())).append("]");
-                    break;
-                }
+                // FIXME converted form alternation
+//                if (re.HasJoinTrack()) {
+//                    b.append("alternation of [").append(joinComments(re.GetDirectTracks())).append("]");
+//                    break;
+//                }
 
                 b.append("character class of [").append(joinComments(tracks)).append("]");
                 break;
             case CAPTURE:
-                b.append("capturing group (").append(joinComments(tracks)).append(")");
+                b.append("capturing group [").append(joinComments(tracks)).append("]");
                 break;
             case STAR:
             case PLUS:
