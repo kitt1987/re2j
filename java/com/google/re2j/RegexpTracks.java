@@ -38,7 +38,6 @@ public class RegexpTracks {
             return;
         }
 
-        composeTracks();
         Collections.sort(this.composedTracks);
     }
 
@@ -46,11 +45,11 @@ public class RegexpTracks {
         this.tracks.addAll(tracks.GetTracks());
         Collections.sort(this.tracks);
         this.composedTracks.addAll(tracks.GetComposedTracks());
-        composeTracks();
         Collections.sort(this.composedTracks);
         // FIXME validate composedTracks
     }
 
+    // we can't concat consecutive tracks. they are probably not composed together.
     private void composeTracks() {
         if (tracks.size() <= 1) {
             return;
