@@ -241,6 +241,8 @@ public class Track implements Comparable<Track>  {
                     b.append(Utils.runeToString(re.runes[0]));
                     b.append("'");
                 }
+
+                break;
             case CONCAT:
             case ALTERNATE:
             case CAPTURE:
