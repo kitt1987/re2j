@@ -256,6 +256,15 @@ public class Track implements Comparable<Track>  {
             case ALTERNATE:
                 b.append("alternation of [").append(joinComments(tracks)).append("]");
                 break;
+            case CHAR_CLASS:
+                // a. converted form alternation
+                if (re.HasJoinTrack()) {
+                    b.append("alternation of [").append(joinComments(re.GetDirectTracks())).append("]");
+                    break;
+                }
+
+                b.append("character class of [").append(joinComments(tracks)).append("]");
+                break;
             default:
                 throw new IllegalStateException("unsupported composed regexp " + re.op);
         }
