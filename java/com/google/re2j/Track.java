@@ -232,6 +232,8 @@ public class Track implements Comparable<Track>  {
     }
 
     private String getComments(ArrayList<Track> tracks, Regexp re) {
+        StringBuilder b = new StringBuilder();
+
         switch (re.op) {
             case LITERAL:
                 if (re.runes.length > 1) {
