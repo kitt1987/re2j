@@ -99,11 +99,15 @@ class Regexp {
   public Map.Entry<Track, Boolean> GetTopmostTrack() {
     ArrayList<Track> composed = new ArrayList<Track>(Tracks.GetComposedTracks());
     for (Track track : Tracks.GetTracks()) {
+      boolean overlapped = false;
       for (Track com : composed) {
         if (track.Start >= com.Start && track.End <= com.End) {
-          continue;
+          overlapped = true;
+          break;
         }
+      }
 
+      if (!overlapped) {
         composed.add(track);
       }
     }
