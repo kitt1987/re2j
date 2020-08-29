@@ -132,14 +132,14 @@ public class Track implements Comparable<Track>  {
         return new Track(range[0], range[1], true);
     }
 
-    static Track NewTopmost(ArrayList<Track> tracks) {
+    static Track NewTopmost(ArrayList<Track> tracks, Regexp re) {
         if (tracks.size() <= 1) {
             return tracks.get(0);
         }
 
         int[] range = getTrackRange(tracks);
         Track topmost = new Track(range[0], range[1], false);
-        topmost.Freeze(tracks);
+        topmost.Freeze(tracks, re);
         return topmost;
     }
 
@@ -180,7 +180,7 @@ public class Track implements Comparable<Track>  {
         this.placeholder = placeholder;
     }
 
-    void Freeze(ArrayList<Track> tracks) {
+    void Freeze(ArrayList<Track> tracks, Regexp re) {
         // FIXME build comment of topmost tracks
         String joined = "";
         for (Track track : tracks) {

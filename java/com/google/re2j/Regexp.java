@@ -61,7 +61,7 @@ class Regexp {
   Map<String, Integer> namedGroups; // map of group name -> capturing index
   // Do update copy ctor when adding new fields!
 
-  final RegexpTracks Tracks = new RegexpTracks();
+  final RegexpTracks Tracks = new RegexpTracks(this);
 
   Regexp(Op op) {
     this.op = op;
@@ -142,7 +142,7 @@ class Regexp {
     }
 
     Collections.sort(composed);
-    return new AbstractMap.SimpleEntry<Track, Boolean>(Track.NewTopmost(composed), true);
+    return new AbstractMap.SimpleEntry<Track, Boolean>(Track.NewTopmost(composed, this), true);
   }
 
   public ArrayList<Track> GetAllTracks() {

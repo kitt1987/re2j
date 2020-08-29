@@ -12,7 +12,10 @@ public class RegexpTracks {
     // all elementary tracks of the current regexp
     private final ArrayList<Track> tracks = new ArrayList<Track>();
 
-    RegexpTracks() {
+    private Regexp re;
+
+    RegexpTracks(Regexp re) {
+        this.re = re;
     }
 
     public void Clear() {
@@ -53,32 +56,32 @@ public class RegexpTracks {
     }
 
     // we can't concat consecutive tracks. they are probably not composed together.
-    private void composeTracks() {
-        if (tracks.size() <= 1) {
-            return;
-        }
-
-        ArrayList<Track> consecutive = new ArrayList<Track>();
-        for (Track track : tracks) {
-            if (consecutive.size() == 0 || consecutive.get(consecutive.size()-1).End == track.Start) {
-                consecutive.add(track);
-                continue;
-            }
-
-            if (consecutive.size() > 1) {
-                if (insertComposedTrack(Track.NewPlaceholder(consecutive))) {
-                    buildComposedTracks();
-                }
-            }
-
-            consecutive.clear();
-            consecutive.add(track);
-        }
-
-        if (consecutive.size() > 1 && insertComposedTrack(Track.NewPlaceholder(consecutive))) {
-            buildComposedTracks();
-        }
-    }
+//    private void composeTracks() {
+//        if (tracks.size() <= 1) {
+//            return;
+//        }
+//
+//        ArrayList<Track> consecutive = new ArrayList<Track>();
+//        for (Track track : tracks) {
+//            if (consecutive.size() == 0 || consecutive.get(consecutive.size()-1).End == track.Start) {
+//                consecutive.add(track);
+//                continue;
+//            }
+//
+//            if (consecutive.size() > 1) {
+//                if (insertComposedTrack(Track.NewPlaceholder(consecutive))) {
+//                    buildComposedTracks();
+//                }
+//            }
+//
+//            consecutive.clear();
+//            consecutive.add(track);
+//        }
+//
+//        if (consecutive.size() > 1 && insertComposedTrack(Track.NewPlaceholder(consecutive))) {
+//            buildComposedTracks();
+//        }
+//    }
 
     private void buildComposedTracks() {
         for (Track topmost : composedTracks) {
@@ -86,7 +89,7 @@ public class RegexpTracks {
                 continue;
             }
 
-            topmost.Freeze(findTracks(topmost.Start, topmost.End));
+            topmost.Freeze(findTracks(topmost.Start, topmost.End), re);
         }
     }
 
