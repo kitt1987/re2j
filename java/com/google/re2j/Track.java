@@ -181,13 +181,7 @@ public class Track implements Comparable<Track>  {
     }
 
     void Freeze(ArrayList<Track> tracks, Regexp re) {
-        // FIXME build comment of topmost tracks
-        String joined = "";
-        for (Track track : tracks) {
-            joined += track.Comments + ",";
-        }
-
-        Comments = "topmost track of [" + joined + "]";
+        Comments = getComments(tracks, re);
         placeholder = false;
     }
 
@@ -237,32 +231,8 @@ public class Track implements Comparable<Track>  {
         return placeholder;
     }
 
-    void UpdateComments(int rune) {
-        switch (rune) {
-            case ':':
-                Comments = "mod modifier end";
-                break;
-            case ')':
-                Comments = "capturing group end";
-                break;
-            case '(':
-                Comments = "capturing group";
-                break;
-            case '*':
-                Comments = "quantifier: repeated zero or many times";
-                break;
-            case '+':
-                Comments = "quantifier: repeated once or many times";
-                break;
-            case '?':
-                Comments = "quantifier: repeated zero or once";
-                break;
-            case '|':
-                Comments = "alternation";
-                break;
-            default:
-                Comments = "literal '" + Utils.runeToString(rune) + "'";
-        }
+    private String getComments(ArrayList<Track> tracks, Regexp re) {
+
     }
 
     private static String numberToFrequency(int num) {
