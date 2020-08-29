@@ -272,6 +272,7 @@ public class Track implements Comparable<Track>  {
             case LEFT_PAREN:
                 // FIXME
                 b.append("non-capturing group");
+                break;
             default:
                 throw new IllegalStateException("unsupported composed regexp " + re.op);
         }
