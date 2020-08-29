@@ -249,6 +249,10 @@ public class Track implements Comparable<Track>  {
                     b.append(Utils.runeToString(re.runes[0]));
                     b.append("'");
                 }
+            case CONCAT:
+                // FIXME comments must be in order
+                b.append("sequence [").append(joinComments(tracks)).append("]");
+                break;
         }
     }
 
