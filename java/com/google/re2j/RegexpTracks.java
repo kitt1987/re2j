@@ -75,10 +75,13 @@ public class RegexpTracks {
         if (tracks.get(0).End != that.tracks.get(0).Start) {
             throw new IllegalStateException("concatenated tracks should be consecutive");
         }
-        ArrayList<Track> tmp = new ArrayList<Track>(2);
-        tmp.addAll(tracks);
-        tmp.addAll(that.tracks);
-        tracks.get(0).Freeze(tmp, re);
+
+        StringBuilder b = new StringBuilder();
+        for (int r : re.runes) {
+            b.appendCodePoint(r);
+        }
+
+        tracks.get(0).Freeze(that.tracks.get(0).End, b.toString());
     }
 
     // we can't concat consecutive tracks. they are probably not composed together.
