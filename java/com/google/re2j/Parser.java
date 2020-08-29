@@ -168,7 +168,7 @@ class Parser {
     re2.runes = concatRunes(re2.runes, re1.runes);
 
     // √ concat tracks
-    re2.Tracks.AddTracks(re1.Tracks);
+    re2.Tracks.ConcatLiterals(re1.Tracks);
 
     // Reuse re1 if possible.
     if (r >= 0) {
@@ -1344,6 +1344,7 @@ class Parser {
         stack.set(n - 3, re3);
       }
       mergeCharClass(re3, re1);
+      re3.Tracks.SetFlagCCFromAlternation();
       reuse(re1);
       pop();
       return true;

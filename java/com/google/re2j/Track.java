@@ -224,8 +224,9 @@ public class Track implements Comparable<Track>  {
 
     private String getComments(ArrayList<Track> tracks, Regexp re) {
         StringBuilder b = new StringBuilder();
+        Regexp.Op op = re.op;
 
-        switch (re.op) {
+        switch (op) {
             case LITERAL:
                 if (re.runes.length > 1) {
                     b.append("string ");
@@ -243,17 +244,12 @@ public class Track implements Comparable<Track>  {
             case CONCAT:
             case ALTERNATE:
             case CAPTURE:
-                // FIXME comments must be in order
-                b.append(OpKeyRuneMap.get(re.op)).append(" of [").append(joinComments(tracks)).append("]");
-                break;
             case CHAR_CLASS:
-                // FIXME converted form alternation
-//                if (re.HasJoinTrack()) {
-//                    b.append("alternation of [").append(joinComments(re.GetDirectTracks())).append("]");
-//                    break;
-//                }
-
-                b.append("character class of [").append(joinComments(tracks)).append("]");
+                if (op == Regexp.Op.CHAR_CLASS && re.Tracks.IsFromAlternation()) {
+                    op = Regexp.Op.ALTERNATE;
+                }
+                // FIXME comments must be in order
+                b.append(OpKeyRuneMap.get(op)).append(" of [").append(joinComments(tracks)).append("]");
                 break;
             case STAR:
             case PLUS:

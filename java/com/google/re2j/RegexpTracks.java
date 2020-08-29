@@ -12,7 +12,7 @@ public class RegexpTracks {
     // all elementary tracks of the current regexp
     private final ArrayList<Track> tracks = new ArrayList<Track>();
 
-    private Regexp re;
+    private final Regexp re;
 
     RegexpTracks(Regexp re) {
         this.re = re;
@@ -53,6 +53,32 @@ public class RegexpTracks {
         this.composedTracks.addAll(tracks.GetComposedTracks());
         Collections.sort(this.composedTracks);
         // FIXME validate composedTracks
+    }
+
+    public void ConcatLiterals(RegexpTracks that) {
+        if (composedTracks.size() > 0) {
+            throw new IllegalStateException("literal track should have no composed track but " + composedTracks.size());
+        }
+
+        if (this.tracks.size() > 1) {
+            throw new IllegalStateException("literal track should have only 1 track but " + tracks.size());
+        }
+
+        if (that.composedTracks.size() > 0) {
+            throw new IllegalStateException("literal track should have no composed track but " + that.composedTracks.size());
+        }
+
+        if (that.tracks.size() > 1) {
+            throw new IllegalStateException("literal track should have only 1 track but " + that.tracks.size());
+        }
+
+        if (tracks.get(0).End != that.tracks.get(0).Start) {
+            throw new IllegalStateException("concatenated tracks should be consecutive");
+        }
+        ArrayList<Track> tmp = new ArrayList<Track>(2);
+        tmp.addAll(tracks);
+        tmp.addAll(that.tracks);
+        tracks.get(0).Freeze(tmp, re);
     }
 
     // we can't concat consecutive tracks. they are probably not composed together.
@@ -155,5 +181,13 @@ public class RegexpTracks {
 
         composedTracks.add(track);
         return hasOverlappedTracks | track.IsPlaceholder();
+    }
+
+    private boolean ccFromAlternation;
+    public void SetFlagCCFromAlternation() {
+        ccFromAlternation = true;
+    }
+    public boolean IsFromAlternation() {
+        return ccFromAlternation;
     }
 }
