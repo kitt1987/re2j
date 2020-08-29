@@ -239,6 +239,7 @@ public class Track implements Comparable<Track>  {
         }
 
         Comments = "topmost track of [" + joined + "]";
+        TopmostComments = Comments;
         placeholder = false;
     }
 
