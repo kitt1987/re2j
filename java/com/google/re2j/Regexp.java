@@ -9,10 +9,7 @@
 
 package com.google.re2j;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Regular expression abstract syntax tree. Produced by parser, used by compiler. NB, this
@@ -99,15 +96,26 @@ class Regexp {
     return out.toString();
   }
 
-  public Track GetTopmostTrack() {
+  public Map.Entry<Track, Boolean> GetTopmostTrack() {
     ArrayList<Track> composed = new ArrayList<Track>(Tracks.GetComposedTracks());
-    if (subs != null) {
-      for (Regexp sub : subs) {
-        Track topmost = sub.GetTopmostTrack();
-        if (topmost != null) {
-          composed.add(topmost);
+    for (Track track : Tracks.GetTracks()) {
+      for (Track com : composed) {
+        if (track.Start >= com.Start && track.End <= com.End) {
           continue;
         }
+
+        composed.add(track);
+      }
+    }
+
+    if (subs != null) {
+      for (Regexp sub : subs) {
+        Map.Entry<Track, Boolean> topmost = sub.GetTopmostTrack();
+        if (topmost != null) {
+          composed.add(topmost.getKey());
+          continue;
+        }
+
         if (sub.Tracks.GetComposedTracks().size() > 0) {
           throw new IllegalStateException("an elementary track must not have any composed tracks");
         }
@@ -125,27 +133,32 @@ class Regexp {
       return null;
     }
 
+    if (composed.size() == 1) {
+      return new AbstractMap.SimpleEntry<Track, Boolean>(composed.get(0), false);
+    }
+
     Collections.sort(composed);
-    return Track.NewTopmost(composed);
+    return new AbstractMap.SimpleEntry<Track, Boolean>(Track.NewTopmost(composed), true);
   }
 
   public ArrayList<Track> GetAllTracks() {
-    ArrayList<Track> tracks = new ArrayList<Track>(Tracks.GetComposedTracks());
-    tracks.addAll(Tracks.GetTracks());
+    ArrayList<Track> allTracks = new ArrayList<Track>(Tracks.GetComposedTracks());
     if (subs != null) {
       for (Regexp sub : subs) {
-        tracks.addAll(sub.GetAllTracks());
+        allTracks.addAll(sub.GetAllTracks());
       }
     }
 
-    // FIXME the topmost track may already exists in the composed track list.
-    Track topmost = GetTopmostTrack();
-    if (topmost != null) {
-      tracks.add(topmost);
+    // If there exists only one composed track, it does be the topmost track.
+    Map.Entry<Track, Boolean> topmost = GetTopmostTrack();
+    if (topmost != null && topmost.getValue()) {
+      allTracks.add(topmost.getKey());
     }
 
-    Collections.sort(tracks);
-    return tracks;
+    allTracks.addAll(Tracks.GetTracks());
+
+    Collections.sort(allTracks);
+    return allTracks;
   }
 
   private static void quoteIfHyphen(StringBuilder out, int rune) {

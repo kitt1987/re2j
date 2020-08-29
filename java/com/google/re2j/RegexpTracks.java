@@ -27,12 +27,19 @@ public class RegexpTracks {
     }
 
     public void ComposeTracks(ArrayList<Track> tracks) {
+        if (tracks.size() == 0) {
+            return;
+        }
         // FIXME tracks must be consecutive. Validate them.
         this.tracks.addAll(tracks);
         if (tracks.size() > 1) {
             insertComposedTrack(Track.NewPlaceholder(tracks));
             buildComposedTracks();
+            return;
         }
+
+        composeTracks();
+        Collections.sort(this.composedTracks);
     }
 
     public void AddTracks(RegexpTracks tracks) {

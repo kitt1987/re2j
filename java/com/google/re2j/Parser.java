@@ -729,7 +729,7 @@ class Parser {
       }
 
       Track last = tracks.get(tracks.size()-1);
-      if (last.IsNothing()) {
+      if (last.Start == pos) {
         tracks.remove(tracks.size()-1);
       } else {
         last.Freeze(pos, str.substring(last.Start, pos));

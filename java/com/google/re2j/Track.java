@@ -1,7 +1,6 @@
 package com.google.re2j;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class Track implements Comparable<Track>  {
@@ -134,7 +133,7 @@ public class Track implements Comparable<Track>  {
     }
 
     static Track NewTopmost(ArrayList<Track> tracks) {
-        if (tracks.size() == 1) {
+        if (tracks.size() <= 1) {
             return tracks.get(0);
         }
 
@@ -238,10 +237,6 @@ public class Track implements Comparable<Track>  {
 
     boolean IsPlaceholder() {
         return placeholder;
-    }
-
-    boolean IsNothing() {
-        return (Start == Integer.MAX_VALUE || End == Integer.MIN_VALUE) && Comments == null;
     }
 
     void UpdateComments(int rune) {
