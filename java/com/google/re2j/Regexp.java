@@ -97,6 +97,7 @@ class Regexp {
   }
 
   public Map.Entry<Track, Boolean> GetTopmostTrack() {
+    // FIXME it probably has more than 1 topmost tracks if consecutive tracks exist.
     ArrayList<Track> composed = new ArrayList<Track>(Tracks.GetComposedTracks());
     for (Track track : Tracks.GetTracks()) {
       boolean overlapped = false;
