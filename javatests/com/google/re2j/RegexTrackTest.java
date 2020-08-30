@@ -646,7 +646,7 @@ public class RegexTrackTest {
         });
 
         put("(?:[abc]|A|Z|hello|world)", new Track[]{
-                new Track(0, 25, "group of alternation of [character class of [literal 'a',literal 'b',literal 'c'],literal 'A',literal 'Z',string \"hello\",string \"world\"]"),
+                new Track(0, 25, "alternation of [character class of [literal 'a',literal 'b',literal 'c'],literal 'A',literal 'Z',string \"hello\",string \"world\"]"),
                 new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "mod modifier end"),
