@@ -46,24 +46,46 @@ public class RegexpTracks {
         }
         allTracks.addAll(tracks);
 
-        for (int i = 0; i < allTracks.size(); i++) {
-            ArrayList<Track> tmp = new ArrayList<Track>(tracks);
-            for (int j = i+1; j < allTracks.size(); j++) {
-
-            }
-        }
+//        for (int i = 0; i < allTracks.size(); i++) {
+//            ArrayList<Track> tmp = new ArrayList<Track>(tracks);
+//            for (int j = i+1; j < allTracks.size(); j++) {
+//
+//            }
+//        }
 
         ArrayList<Track> availableComposed = composedTracks;
+        ArrayList<Track> availableTracks = tracks;
         for (Track top : topmostTracks) {
             allTracks.add(top);
-            ArrayList<Track> tmp = new ArrayList<Track>(tracks);
+            ArrayList<Track> tmpComposed = new ArrayList<Track>(tracks);
             for (Track composed : availableComposed) {
                 if (composed.End <= top.Start || composed.Start >= top.End) {
-                    tmp.add(composed);
+                    tmpComposed.add(composed);
                 }
             }
-            availableComposed = tmp;
+            availableComposed = tmpComposed;
+
+            ArrayList<Track> tmpTracks = new ArrayList<Track>(tracks);
+            for (Track track : availableTracks) {
+                if (track.End <= top.Start || track.Start >= top.End) {
+                    tmpTracks.add(track);
+                }
+            }
+            availableTracks = tmpTracks;
         }
+
+        for (Track composed : availableComposed) {
+            allTracks.add(composed);
+            ArrayList<Track> tmpTracks = new ArrayList<Track>(tracks);
+            for (Track track : availableTracks) {
+                if (track.End <= composed.Start || track.Start >= composed.End) {
+                    tmpTracks.add(track);
+                }
+            }
+            availableTracks = tmpTracks;
+        }
+
+        allTracks.addAll(availableTracks);
         return allTracks;
     }
 
