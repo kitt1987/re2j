@@ -119,6 +119,7 @@ public class Track implements Comparable<Track>  {
         CommentMap.put(":-", "negative modifier");
         CommentMap.put("[", "character class");
         CommentMap.put("]", "character class end");
+        CommentMap.put("\\", "escape");
     }
 
     static Track NewComposedTrack(ArrayList<Track> tracks, Regexp re) {
