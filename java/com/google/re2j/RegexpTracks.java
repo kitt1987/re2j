@@ -47,6 +47,12 @@ public class RegexpTracks {
             if (allTracks.size() > 0) {
                 startPos = allTracks.get(allTracks.size()-1).End;
             }
+
+            if (itop < topmostTracks.size()) {
+                if (topmostTracks.get(itop).Start == startPos) {
+                    
+                }
+            }
         }
 
         return allTracks;
