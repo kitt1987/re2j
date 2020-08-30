@@ -663,6 +663,7 @@ public class RegexTrackTest {
                 new Track(11, 12, "literal 'Z'"),
                 new Track(12, 13, "alternation"),
                 new Track(13, 18, "string \"hello\""),
+                new Track(18, 19, "alternation"),
                 new Track(19, 24, "string \"world\""),
                 new Track(24, 25, "capturing group end"),
         });
