@@ -50,7 +50,7 @@ public class RegexpTracks {
         // FIXME tracks must be consecutive. Validate them.
         this.tracks.addAll(tracks);
         if (tracks.size() > 1) {
-            insertComposedTrack(Track.NewPlaceholder(tracks));
+            insertComposedTrack(composedTracks, Track.NewPlaceholder(tracks));
             scanAndComposeTracks(composedTracks);
         }
 
@@ -101,20 +101,21 @@ public class RegexpTracks {
 
     private void composeTopmostTracks() {
         // FIXME concat composed tracks and topmost tracks of subs
-        if (composedTracks.size() <= 1) {
+        ArrayList<Track> topmost = GetTopmostTracks();
+        if (topmost.size() <= 1) {
             return;
         }
 
         boolean needToCompose = false;
         ArrayList<Track> consecutive = new ArrayList<Track>();
-        for (Track track : composedTracks) {
+        for (Track track : topmost) {
             if (consecutive.size() == 0 || consecutive.get(consecutive.size()-1).End == track.Start) {
                 consecutive.add(track);
                 continue;
             }
 
             if (consecutive.size() > 1) {
-                needToCompose |= insertComposedTrack(Track.NewPlaceholder(consecutive));
+                needToCompose |= insertComposedTrack(topmostTracks, Track.NewPlaceholder(consecutive));
             }
 
             consecutive.clear();
@@ -122,7 +123,7 @@ public class RegexpTracks {
         }
 
         if (consecutive.size() > 1) {
-            needToCompose |= insertComposedTrack(Track.NewPlaceholder(consecutive));
+            needToCompose |= insertComposedTrack(topmostTracks, Track.NewPlaceholder(consecutive));
         }
 
         if (needToCompose) {
@@ -155,9 +156,9 @@ public class RegexpTracks {
         return matched;
     }
 
-    private boolean insertComposedTrack(Track track) {
+    private boolean insertComposedTrack(ArrayList<Track> list, Track track) {
         boolean hasOverlappedTracks = false;
-        for (Track composed : composedTracks) {
+        for (Track composed : list) {
             if (track.Start >= composed.End || track.End <= composed.Start) {
                 continue;
             }
@@ -200,7 +201,7 @@ public class RegexpTracks {
             hasOverlappedTracks = true;
         }
 
-        composedTracks.add(track);
+        list.add(track);
         return hasOverlappedTracks | track.IsPlaceholder();
     }
 
