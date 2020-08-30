@@ -161,7 +161,6 @@ class Regexp {
     }
 
     allTracks.addAll(Tracks.GetTracks());
-
     Collections.sort(allTracks);
     return allTracks;
   }
