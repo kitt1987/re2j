@@ -45,8 +45,15 @@ public class RegexpTracks {
             allTracks.addAll(sub.Tracks.GetComposedTracks());
         }
 
+        ArrayList<Track> availableComposed = composedTracks;
         for (Track top : topmostTracks) {
-            
+            ArrayList<Track> tmp = new ArrayList<Track>(tracks);
+            for (Track composed : availableComposed) {
+                if (composed.End <= top.Start || composed.Start >= top.End) {
+                    tmp.add(composed);
+                }
+            }
+            availableComposed = tmp;
         }
         return allTracks;
     }
