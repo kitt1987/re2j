@@ -50,7 +50,7 @@ public class RegexpTracks {
 
             if (itop < topmostTracks.size()) {
                 if (topmostTracks.get(itop).Start == startPos) {
-                    
+
                 }
             }
         }
