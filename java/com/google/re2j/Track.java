@@ -307,12 +307,20 @@ public class Track implements Comparable<Track>  {
 
         if (tracks != null) {
             for (int i = 1; i < tracks.size(); i++) {
-                String comments = tracks.get(i).Comments;
-                if (comments.equals("character class")
-                        || comments.equals("character class end")
-                        || comments.equals("non-capturing group")
-                        || comments.equals("capturing group end")
-                        || comments.equals("mod modifier end")) {
+                Track track = tracks.get(i);
+                if (track.text.length() == 1) {
+                    switch (track.text.charAt(0)) {
+                        case '[':
+                        case ']':
+                        case ':':
+                        case '(':
+                        case ')':
+                        case '|':
+                            continue;
+                    }
+                }
+
+                if (track.text.equals("(?")) {
                     continue;
                 }
 
@@ -320,7 +328,7 @@ public class Track implements Comparable<Track>  {
                     value.append(",");
                 }
 
-                value.append(comments);
+                value.append(track.Comments);
             }
         }
 
