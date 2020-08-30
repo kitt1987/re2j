@@ -39,8 +39,9 @@ public class RegexpTracks {
     }
 
     public ArrayList<Track> GetTopmostTracks() {
+        ArrayList<Track> allTracks = new ArrayList<Track>();
         for (Track track : tracks) {
-
+            
         }
     }
 
