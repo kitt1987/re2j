@@ -308,20 +308,22 @@ public class Track implements Comparable<Track>  {
         if (tracks != null) {
             for (int i = 1; i < tracks.size(); i++) {
                 Track track = tracks.get(i);
-                if (track.text.length() == 1) {
-                    switch (track.text.charAt(0)) {
-                        case '[':
-                        case ']':
-                        case ':':
-                        case '(':
-                        case ')':
-                        case '|':
-                            continue;
+                if (track.text != null) {
+                    if (track.text.length() == 1) {
+                        switch (track.text.charAt(0)) {
+                            case '[':
+                            case ']':
+                            case ':':
+                            case '(':
+                            case ')':
+                            case '|':
+                                continue;
+                        }
                     }
-                }
 
-                if (track.text.equals("(?")) {
-                    continue;
+                    if (track.text.equals("(?")) {
+                        continue;
+                    }
                 }
 
                 if (value.length() > 0) {
