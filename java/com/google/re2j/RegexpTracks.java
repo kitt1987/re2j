@@ -39,7 +39,9 @@ public class RegexpTracks {
     }
 
     public ArrayList<Track> GetTopmostTracks() {
-
+        for (Track track : tracks) {
+            
+        }
     }
 
     // Only tracks scanned in a single parser loop can be composed together.
