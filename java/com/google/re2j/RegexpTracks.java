@@ -51,7 +51,7 @@ public class RegexpTracks {
         this.tracks.addAll(tracks);
         if (tracks.size() > 1) {
             insertComposedTrack(Track.NewPlaceholder(tracks));
-            buildComposedTracks();
+            scanAndComposeTracks(composedTracks);
         }
 
         Collections.sort(this.composedTracks);
@@ -100,39 +100,42 @@ public class RegexpTracks {
     }
 
     private void composeTopmostTracks() {
-        if (tracks.size() <= 1) {
+        if (composedTracks.size() <= 1) {
             return;
         }
 
+        boolean needToCompose = false;
         ArrayList<Track> consecutive = new ArrayList<Track>();
-        for (Track track : tracks) {
+        for (Track track : composedTracks) {
             if (consecutive.size() == 0 || consecutive.get(consecutive.size()-1).End == track.Start) {
                 consecutive.add(track);
                 continue;
             }
 
             if (consecutive.size() > 1) {
-                if (insertComposedTrack(Track.NewPlaceholder(consecutive))) {
-                    buildComposedTracks();
-                }
+                needToCompose |= insertComposedTrack(Track.NewPlaceholder(consecutive));
             }
 
             consecutive.clear();
             consecutive.add(track);
         }
 
-        if (consecutive.size() > 1 && insertComposedTrack(Track.NewPlaceholder(consecutive))) {
-            buildComposedTracks();
+        if (consecutive.size() > 1) {
+            needToCompose |= insertComposedTrack(Track.NewPlaceholder(consecutive));
+        }
+
+        if (needToCompose) {
+            scanAndComposeTracks(topmostTracks);
         }
     }
 
-    private void buildComposedTracks() {
-        for (Track topmost : composedTracks) {
-            if (!topmost.IsPlaceholder()) {
+    private void scanAndComposeTracks(ArrayList<Track> tracks) {
+        for (Track track : tracks) {
+            if (!track.IsPlaceholder()) {
                 continue;
             }
 
-            topmost.Freeze(findTracks(topmost.Start, topmost.End), re);
+            track.Freeze(findTracks(track.Start, track.End), re);
         }
     }
 
