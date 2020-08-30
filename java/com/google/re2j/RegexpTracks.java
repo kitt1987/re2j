@@ -38,12 +38,12 @@ public class RegexpTracks {
         return composedTracks;
     }
 
-    public ArrayList<Track> GetTopmostTracks() {
+    public ArrayList<Track> GetTopTracks() {
         ArrayList<Track> allTracks = new ArrayList<Track>();
         ArrayList<Track> availableSubs = new ArrayList<Track>();
         if (re.subs != null) {
             for (Regexp sub : re.subs) {
-                allTracks.addAll(sub.Tracks.GetTopmostTracks());
+                availableSubs.addAll(sub.Tracks.GetTopTracks());
             }
         }
 
@@ -153,7 +153,7 @@ public class RegexpTracks {
 
     private void composeTopmostTracks() {
         // FIXME concat tracks, composed tracks and topmost tracks of subs
-        ArrayList<Track> topmost = GetTopmostTracks();
+        ArrayList<Track> topmost = GetTopTracks();
         if (topmost.size() <= 1) {
             return;
         }
