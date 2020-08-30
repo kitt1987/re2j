@@ -40,12 +40,10 @@ public class RegexpTracks {
 
     public ArrayList<Track> GetTopmostTracks() {
         ArrayList<Track> allTracks = new ArrayList<Track>(tracks);
-        ArrayList<Track> subs = new ArrayList<Track>();
+        allTracks.addAll(composedTracks);
         for (Regexp sub : re.subs) {
-            subs.addAll(sub.Tracks.GetComposedTracks());
+            allTracks.addAll(sub.Tracks.GetComposedTracks());
         }
-
-        Collections.sort(subs);
 
         // it = index of tracks, ic = index of composed tracks, itop = index of topmost tracks
         int it = 0, ic = 0, isub = 0;
