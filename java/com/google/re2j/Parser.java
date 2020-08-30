@@ -1567,12 +1567,12 @@ class Parser {
       return false;
     }
     t.pop(); // e.g. advance past 'd' in "\\d"
-    t.PushNewTrack();
     CharGroup g = CharGroup.PERL_GROUPS.get(t.from(beforePos));
     if (g == null) {
       return false;
     }
     cc.appendGroup(g, (flags & RE2.FOLD_CASE) != 0);
+    t.PushNewTrack();
     return true;
   }
 
