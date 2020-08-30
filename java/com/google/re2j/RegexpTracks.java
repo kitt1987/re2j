@@ -123,7 +123,7 @@ public class RegexpTracks {
     }
 
     private void composeTopmostTracks() {
-        // FIXME concat composed tracks and topmost tracks of subs
+        // FIXME concat tracks, composed tracks and topmost tracks of subs
         ArrayList<Track> topmost = GetTopmostTracks();
         if (topmost.size() <= 1) {
             return;
