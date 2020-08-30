@@ -1412,6 +1412,7 @@ class Parser {
   private static int parseEscape(StringIterator t) throws PatternSyntaxException {
     int startPos = t.pos();
     t.skip(1); // '\\'
+    t.PushNewTrack();
     if (!t.more()) {
       throw new PatternSyntaxException(ERR_TRAILING_BACKSLASH);
     }
