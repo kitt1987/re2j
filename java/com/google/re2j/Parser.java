@@ -753,6 +753,19 @@ class Parser {
       this.tracks.add(new Track(pos));
     }
 
+    void PushNewLiteralTrack() {
+      if (tracks.size() > 0) {
+        Track last = tracks.get(tracks.size()-1);
+        if (last.Start == pos) {
+          return;
+        }
+
+        last.FreezePlainText(pos, str.substring(last.Start, pos));
+      }
+
+      this.tracks.add(new Track(pos));
+    }
+
     private void initTracks() {
       this.tracks = new ArrayList<Track>();
       this.tracks.add(new Track(pos));
@@ -1425,6 +1438,7 @@ class Parser {
           // PCRE is not quite so rigorous: it accepts things like
           // \q, but we don't.  We once rejected \_, but too many
           // programs and people insist on using it, so allow \_.
+          t.PushNewLiteralTrack();
           return c;
         }
         break;
