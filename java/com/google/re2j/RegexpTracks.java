@@ -48,8 +48,8 @@ public class RegexpTracks {
         Collections.sort(subs);
 
         // it = index of tracks, ic = index of composed tracks, itop = index of topmost tracks
-        int it = 0, ic = 0, itop = 0, isub = 0;
-        while (it < tracks.size() || ic < composedTracks.size() || itop < topmostTracks.size() || isub < subs.size()) {
+        int it = 0, ic = 0, isub = 0;
+        while (it < tracks.size() || ic < composedTracks.size() || isub < subs.size()) {
             int startPos = 0;
             if (allTracks.size() > 0) {
                 startPos = allTracks.get(allTracks.size()-1).End;
