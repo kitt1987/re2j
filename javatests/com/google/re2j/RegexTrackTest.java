@@ -271,6 +271,8 @@ public class RegexTrackTest {
         });
         put("\\\\", new Track[]{
                 new Track(0, 2, "literal '\\'"),
+                new Track(0, 1, "escape"),
+                new Track(1, 2, "literal '\\'"),
         });
         put("[ace]", new Track[]{
                 new Track(0, 5, "character class of [literal 'a',literal 'c',literal 'e']"),
