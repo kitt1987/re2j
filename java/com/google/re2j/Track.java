@@ -156,7 +156,7 @@ public class Track implements Comparable<Track>  {
     public String Comments;
 
     private String text;
-
+    private boolean omitInComposed;
     private boolean placeholder;
 
     Track(int start) {
@@ -185,6 +185,25 @@ public class Track implements Comparable<Track>  {
 
         End = end;
         this.text = text;
+        if (text.length() == 1) {
+            switch (text.charAt(0)) {
+                case '[':
+                case ']':
+                case ':':
+                case '(':
+                case ')':
+                case '|':
+                case '*':
+                case '+':
+                case '?':
+                    omitInComposed = true;
+            }
+        } else if (text.length() == 2) {
+            if (text.equals("(?") || text.equals("*?") || text.equals("+?") || text.equals("??")) {
+                omitInComposed = true;
+            }
+        }
+
         this.Comments = CommentMap.get(text);
         if (this.Comments == null) {
             if (text.length() > 1) {
@@ -309,24 +328,9 @@ public class Track implements Comparable<Track>  {
         StringBuilder value = new StringBuilder();
 
         if (tracks != null) {
-            for (int i = 0; i < tracks.size(); i++) {
-                Track track = tracks.get(i);
-                if (track.text != null) {
-                    if (track.text.length() == 1) {
-                        switch (track.text.charAt(0)) {
-                            case '[':
-                            case ']':
-                            case ':':
-                            case '(':
-                            case ')':
-                            case '|':
-                                continue;
-                        }
-                    }
-
-                    if (track.text.equals("(?")) {
-                        continue;
-                    }
+            for (Track track : tracks) {
+                if (track.omitInComposed) {
+                    continue;
                 }
 
                 if (value.length() > 0) {
