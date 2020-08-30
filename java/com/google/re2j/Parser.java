@@ -1470,7 +1470,7 @@ class Parser {
           r = r * 8 + t.peek() - '0';
           t.skip(1); // digit
         }
-        t.PushNewLiteralTrack("");
+        t.PushNewLiteralTrack("octal " + r);
         return r;
 
         // Hexadecimal escapes.
@@ -1507,7 +1507,7 @@ class Parser {
           if (nhex == 0) {
             break bigswitch;
           }
-          t.PushNewTrack();
+          t.PushNewLiteralTrack("hexadecimal " + r);
           return r;
         }
 
@@ -1521,7 +1521,8 @@ class Parser {
         if (x < 0 || y < 0) {
           break;
         }
-        t.PushNewTrack();
+        r = x * 16 + y;
+        t.PushNewLiteralTrack("hexadecimal " + r);
         return x * 16 + y;
 
         // C escapes.  There is no case 'b', to avoid misparsing
@@ -1531,22 +1532,23 @@ class Parser {
         // If you want a backspace, embed a literal backspace
         // character or use \x08.
       case 'a':
-        t.PushNewTrack();
+        t.PushNewLiteralTrack("\\a");
         return 7; // No \a in Java
       case 'f':
-        t.PushNewTrack();
+        t.PushNewLiteralTrack("\\f");
         return '\f';
       case 'n':
-        t.PushNewTrack();
+        t.PushNewLiteralTrack("\\n");
         return '\n';
       case 'r':
+        t.PushNewLiteralTrack("\\r");
         t.PushNewTrack();
         return '\r';
       case 't':
-        t.PushNewTrack();
+        t.PushNewLiteralTrack("\\t");
         return '\t';
       case 'v':
-        t.PushNewTrack();
+        t.PushNewLiteralTrack("\\v");
         return 11; // No \v in Java
     }
     throw new PatternSyntaxException(ERR_INVALID_ESCAPE, t.from(startPos));
