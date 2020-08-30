@@ -45,21 +45,9 @@ public class RegexpTracks {
             allTracks.addAll(sub.Tracks.GetComposedTracks());
         }
 
-        // it = index of tracks, ic = index of composed tracks, itop = index of topmost tracks
-        int it = 0, ic = 0, isub = 0;
-        while (it < tracks.size() || ic < composedTracks.size() || isub < subs.size()) {
-            int startPos = 0;
-            if (allTracks.size() > 0) {
-                startPos = allTracks.get(allTracks.size()-1).End;
-            }
-
-            if (itop < topmostTracks.size()) {
-                if (topmostTracks.get(itop).Start == startPos) {
-
-                }
-            }
+        for (Track top : topmostTracks) {
+            
         }
-
         return allTracks;
     }
 
