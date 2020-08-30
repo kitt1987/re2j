@@ -309,7 +309,7 @@ public class Track implements Comparable<Track>  {
         StringBuilder value = new StringBuilder();
 
         if (tracks != null) {
-            for (int i = 1; i < tracks.size(); i++) {
+            for (int i = 0; i < tracks.size(); i++) {
                 Track track = tracks.get(i);
                 if (track.text != null) {
                     if (track.text.length() == 1) {
