@@ -147,20 +147,13 @@ class Regexp {
 //  }
 
   public ArrayList<Track> GetAllTracks() {
-    ArrayList<Track> allTracks = new ArrayList<Track>(Tracks.GetComposedTracks());
+    ArrayList<Track> allTracks = new ArrayList<Track>(Tracks.GetAll());
     if (subs != null) {
       for (Regexp sub : subs) {
         allTracks.addAll(sub.GetAllTracks());
       }
     }
 
-    // If there exists only one composed track, it does be the topmost track.
-    Map.Entry<Track, Boolean> topmost = GetTopmostTrack();
-    if (topmost != null && topmost.getValue()) {
-      allTracks.add(topmost.getKey());
-    }
-
-    allTracks.addAll(Tracks.GetTracks());
     Collections.sort(allTracks);
     return allTracks;
   }
