@@ -39,19 +39,11 @@ public class RegexpTracks {
     }
 
     public ArrayList<Track> GetTopmostTracks() {
-        ArrayList<Track> allTracks = new ArrayList<Track>(topmostTracks);
-        allTracks.addAll(composedTracks);
+        ArrayList<Track> allTracks = new ArrayList<Track>();
+        ArrayList<Track> availableSubs = new ArrayList<Track>();
         for (Regexp sub : re.subs) {
-            allTracks.addAll(sub.Tracks.GetComposedTracks());
+            allTracks.addAll(sub.Tracks.GetTopmostTracks());
         }
-        allTracks.addAll(tracks);
-
-//        for (int i = 0; i < allTracks.size(); i++) {
-//            ArrayList<Track> tmp = new ArrayList<Track>(tracks);
-//            for (int j = i+1; j < allTracks.size(); j++) {
-//
-//            }
-//        }
 
         ArrayList<Track> availableComposed = composedTracks;
         ArrayList<Track> availableTracks = tracks;
@@ -65,6 +57,14 @@ public class RegexpTracks {
             }
             availableComposed = tmpComposed;
 
+            ArrayList<Track> tmpSubs = new ArrayList<Track>(tracks);
+            for (Track sub : availableSubs) {
+                if (sub.End <= top.Start || sub.Start >= top.End) {
+                    tmpSubs.add(sub);
+                }
+            }
+            availableSubs = tmpSubs;
+
             ArrayList<Track> tmpTracks = new ArrayList<Track>(tracks);
             for (Track track : availableTracks) {
                 if (track.End <= top.Start || track.Start >= top.End) {
@@ -73,6 +73,8 @@ public class RegexpTracks {
             }
             availableTracks = tmpTracks;
         }
+
+        allTracks.addAll(availableSubs);
 
         for (Track composed : availableComposed) {
             allTracks.add(composed);
