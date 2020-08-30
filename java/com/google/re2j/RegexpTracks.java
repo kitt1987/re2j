@@ -41,8 +41,10 @@ public class RegexpTracks {
     public ArrayList<Track> GetTopmostTracks() {
         ArrayList<Track> allTracks = new ArrayList<Track>();
         ArrayList<Track> availableSubs = new ArrayList<Track>();
-        for (Regexp sub : re.subs) {
-            allTracks.addAll(sub.Tracks.GetTopmostTracks());
+        if (re.subs != null) {
+            for (Regexp sub : re.subs) {
+                allTracks.addAll(sub.Tracks.GetTopmostTracks());
+            }
         }
 
         ArrayList<Track> availableComposed = composedTracks;
