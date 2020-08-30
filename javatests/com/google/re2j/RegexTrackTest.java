@@ -1056,7 +1056,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?:[abc]|A|Z|hello|world)");
+        testRegexpTrack("a??");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
