@@ -106,8 +106,11 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("(", "capturing group");
         CommentMap.put("(?", "non-capturing group start");
         CommentMap.put("*", "quantifier: repeated zero or many times");
+        CommentMap.put("*?", "quantifier: repeated zero or many times(non-greedy)");
         CommentMap.put("+", "quantifier: repeated once or many times");
+        CommentMap.put("+?", "quantifier: repeated once or many times(non-greedy)");
         CommentMap.put("?", "quantifier: repeated zero or once");
+        CommentMap.put("??", "quantifier: repeated zero or once(non-greedy)");
         CommentMap.put("|", "alternation");
         CommentMap.put(":i", "case insensitive");
         CommentMap.put(":m", "multi-line: '^' and '$' match at the start and end of each line");
