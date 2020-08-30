@@ -40,8 +40,13 @@ public class RegexpTracks {
 
     public ArrayList<Track> GetTopmostTracks() {
         ArrayList<Track> allTracks = new ArrayList<Track>();
+        ArrayList<Track> subs = new ArrayList<Track>();
+        for (Regexp sub : re.subs) {
+
+        }
+        
         // it = index of tracks, ic = index of composed tracks, itop = index of topmost tracks
-        int it = 0, ic = 0, itop = 0;
+        int it = 0, ic = 0, itop = 0, isub = 0;
         while (it < tracks.size() || ic < composedTracks.size() || itop < topmostTracks.size()) {
             int startPos = 0;
             if (allTracks.size() > 0) {
