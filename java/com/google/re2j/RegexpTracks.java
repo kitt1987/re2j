@@ -41,10 +41,15 @@ public class RegexpTracks {
     public ArrayList<Track> GetTopmostTracks() {
         ArrayList<Track> allTracks = new ArrayList<Track>();
         // it = index of tracks, ic = index of composed tracks, itop = index of topmost tracks
-        int it, ic, itop;
-        for (Track track : tracks) {
-
+        int it = 0, ic = 0, itop = 0;
+        while (it < tracks.size() || ic < composedTracks.size() || itop < topmostTracks.size()) {
+            int startPos = 0;
+            if (allTracks.size() > 0) {
+                startPos = allTracks.get(allTracks.size()-1).End;
+            }
         }
+
+        return allTracks;
     }
 
     // Only tracks scanned in a single parser loop can be composed together.
