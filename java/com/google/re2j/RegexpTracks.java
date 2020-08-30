@@ -50,7 +50,7 @@ public class RegexpTracks {
         ArrayList<Track> availableTracks = tracks;
         for (Track top : topmostTracks) {
             allTracks.add(top);
-            ArrayList<Track> tmpComposed = new ArrayList<Track>(tracks);
+            ArrayList<Track> tmpComposed = new ArrayList<Track>();
             for (Track composed : availableComposed) {
                 if (composed.End <= top.Start || composed.Start >= top.End) {
                     tmpComposed.add(composed);
@@ -58,7 +58,7 @@ public class RegexpTracks {
             }
             availableComposed = tmpComposed;
 
-            ArrayList<Track> tmpSubs = new ArrayList<Track>(tracks);
+            ArrayList<Track> tmpSubs = new ArrayList<Track>();
             for (Track sub : availableSubs) {
                 if (sub.End <= top.Start || sub.Start >= top.End) {
                     tmpSubs.add(sub);
@@ -66,7 +66,7 @@ public class RegexpTracks {
             }
             availableSubs = tmpSubs;
 
-            ArrayList<Track> tmpTracks = new ArrayList<Track>(tracks);
+            ArrayList<Track> tmpTracks = new ArrayList<Track>();
             for (Track track : availableTracks) {
                 if (track.End <= top.Start || track.Start >= top.End) {
                     tmpTracks.add(track);
@@ -79,7 +79,7 @@ public class RegexpTracks {
 
         for (Track composed : availableComposed) {
             allTracks.add(composed);
-            ArrayList<Track> tmpTracks = new ArrayList<Track>(tracks);
+            ArrayList<Track> tmpTracks = new ArrayList<Track>();
             for (Track track : availableTracks) {
                 if (track.End <= composed.Start || track.Start >= composed.End) {
                     tmpTracks.add(track);
