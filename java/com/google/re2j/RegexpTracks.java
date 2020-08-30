@@ -30,6 +30,13 @@ public class RegexpTracks {
         tracks.clear();
     }
 
+    public ArrayList<Track> GetAll() {
+        ArrayList<Track> allTracks = new ArrayList<Track>(topmostTracks);
+        allTracks.addAll(composedTracks);
+        allTracks.addAll(tracks);
+        return allTracks;
+    }
+
     public ArrayList<Track> GetTracks() {
         return tracks;
     }
