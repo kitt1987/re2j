@@ -177,8 +177,7 @@ public class RegexTrackTest {
         put("a??", new Track[]{
                 new Track(0, 3, "literal 'a' repeated zero or once(non-greedy)"),
                 new Track(0, 1, "literal 'a'"),
-                new Track(1, 2, "quantifier: repeated zero or once"),
-                new Track(2, 3, "quantifier: non-greedy"),
+                new Track(1, 3, "quantifier: repeated zero or once(non-greedy)"),
         });
         put("a{2}?", new Track[]{
                 new Track(0, 5, "literal 'a' repeated twice(non-greedy)"),
@@ -1056,7 +1055,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("a??");
+        testRegexpTrack("(?:[abc]|A|Z|hello|world)");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
