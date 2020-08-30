@@ -39,7 +39,7 @@ public class RegexpTracks {
     }
 
     public ArrayList<Track> GetTopmostTracks() {
-        ArrayList<Track> allTracks = new ArrayList<Track>();
+        ArrayList<Track> allTracks = new ArrayList<Track>(tracks);
         ArrayList<Track> subs = new ArrayList<Track>();
         for (Regexp sub : re.subs) {
             subs.addAll(sub.Tracks.GetComposedTracks());
