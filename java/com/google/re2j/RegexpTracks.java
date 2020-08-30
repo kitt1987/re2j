@@ -37,14 +37,6 @@ public class RegexpTracks {
         return allTracks;
     }
 
-    public ArrayList<Track> GetTracks() {
-        return tracks;
-    }
-
-    public ArrayList<Track> GetComposedTracks() {
-        return composedTracks;
-    }
-
     public ArrayList<Track> GetTopTracks() {
         ArrayList<Track> allTracks = new ArrayList<Track>();
         ArrayList<Track> availableSubs = new ArrayList<Track>();
