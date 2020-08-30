@@ -118,14 +118,9 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("]", "character class end");
     }
 
-    static Track NewPlaceholder(ArrayList<Track> tracks) {
-        int[] range = getTrackRange(tracks);
-        return new Track(range[0], range[1], true);
-    }
-
-    static Track NewTopmost(ArrayList<Track> tracks, Regexp re) {
+    static Track NewComposedTrack(ArrayList<Track> tracks, Regexp re) {
         if (tracks.size() <= 1) {
-            return tracks.get(0);
+            throw new IllegalStateException("need to compose at least 2 tracks");
         }
 
         int[] range = getTrackRange(tracks);

@@ -101,7 +101,7 @@ public class RegexpTracks {
         // FIXME tracks must be consecutive. Validate them.
         this.tracks.addAll(tracks);
         if (tracks.size() > 1) {
-            insertComposedTrack(composedTracks, Track.NewPlaceholder(tracks));
+            insertComposedTrack(composedTracks, Track.NewComposedTrack(tracks, re));
             scanAndComposeTracks(composedTracks);
         }
 
@@ -166,7 +166,7 @@ public class RegexpTracks {
             }
 
             if (consecutive.size() > 1) {
-                needToCompose |= insertComposedTrack(topmostTracks, Track.NewPlaceholder(consecutive));
+                needToCompose |= insertComposedTrack(topmostTracks, Track.NewComposedTrack(consecutive, re));
             }
 
             consecutive.clear();
@@ -174,7 +174,7 @@ public class RegexpTracks {
         }
 
         if (consecutive.size() > 1) {
-            needToCompose |= insertComposedTrack(topmostTracks, Track.NewPlaceholder(consecutive));
+            needToCompose |= insertComposedTrack(topmostTracks, Track.NewComposedTrack(consecutive, re));
         }
 
         if (needToCompose) {
