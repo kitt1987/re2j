@@ -285,7 +285,8 @@ public class Track implements Comparable<Track>  {
                 }
                 break;
             case LEFT_PAREN:
-                // FIXME
+                // FIXME omit in composed tracks if no flags set
+                omitInComposed = true;
                 b.append("non-capturing group");
                 break;
             default:
