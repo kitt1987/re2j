@@ -39,14 +39,23 @@ public class RegexpTracks {
     }
 
     public ArrayList<Track> GetTopmostTracks() {
-        ArrayList<Track> allTracks = new ArrayList<Track>(tracks);
+        ArrayList<Track> allTracks = new ArrayList<Track>(topmostTracks);
         allTracks.addAll(composedTracks);
         for (Regexp sub : re.subs) {
             allTracks.addAll(sub.Tracks.GetComposedTracks());
         }
+        allTracks.addAll(tracks);
+
+        for (int i = 0; i < allTracks.size(); i++) {
+            ArrayList<Track> tmp = new ArrayList<Track>(tracks);
+            for (int j = i+1; j < allTracks.size(); j++) {
+
+            }
+        }
 
         ArrayList<Track> availableComposed = composedTracks;
         for (Track top : topmostTracks) {
+            allTracks.add(top);
             ArrayList<Track> tmp = new ArrayList<Track>(tracks);
             for (Track composed : availableComposed) {
                 if (composed.End <= top.Start || composed.Start >= top.End) {
