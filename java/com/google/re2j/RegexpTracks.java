@@ -40,6 +40,8 @@ public class RegexpTracks {
 
     public ArrayList<Track> GetTopmostTracks() {
         ArrayList<Track> allTracks = new ArrayList<Track>();
+        // it = index of tracks, ic = index of composed tracks, itop = index of topmost tracks
+        int it, ic, itop;
         for (Track track : tracks) {
 
         }
