@@ -88,6 +88,7 @@ public class RegexpTracks {
         }
 
         allTracks.addAll(availableTracks);
+        Collections.sort(allTracks);
         return allTracks;
     }
 
