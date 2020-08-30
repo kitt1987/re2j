@@ -38,6 +38,10 @@ public class RegexpTracks {
         return composedTracks;
     }
 
+    public ArrayList<Track> GetTopmostTracks() {
+
+    }
+
     // Only tracks scanned in a single parser loop can be composed together.
     public void ComposeTracks(ArrayList<Track> tracks) {
         if (tracks.size() == 0) {
