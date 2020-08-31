@@ -730,7 +730,7 @@ class Parser {
       }
 
       Track last = tracks.get(tracks.size()-1);
-      if (last.Start == pos) {
+      if (last.Start == pos && last.IsNothing()) {
         tracks.remove(tracks.size()-1);
       } else {
         last.Freeze(pos, str.substring(last.Start, pos));
@@ -744,7 +744,7 @@ class Parser {
     void PushNewTrack() {
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
-        if (last.Start == pos) {
+        if (last.Start == pos && last.IsNothing()) {
           return;
         }
 
@@ -757,7 +757,7 @@ class Parser {
     void PushNewLiteralTrack(String literals) {
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
-        if (last.Start == pos) {
+        if (last.Start == pos && literals.isEmpty()) {
           return;
         }
 
