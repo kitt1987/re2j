@@ -2,6 +2,7 @@ package com.google.re2j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Track implements Comparable<Track>  {
     static final HashMap<String, String> POSIX_GROUPS = new HashMap<String, String>();
@@ -337,6 +338,38 @@ public class Track implements Comparable<Track>  {
         }
 
         return "repeated " + numberToFrequency(min) + " to " + numberToFrequency(max);
+    }
+
+    private String joinComments(ArrayList<Track> tracks, boolean unique) {
+        StringBuilder value = new StringBuilder();
+        Map<String, Boolean> uniqueMap = null;
+        if (unique) {
+            uniqueMap = new HashMap<String, Boolean>(tracks.size());
+        }
+
+        if (tracks != null) {
+            for (Track track : tracks) {
+                if (track.omitInComposed) {
+                    continue;
+                }
+
+                if (uniqueMap != null) {
+                    if (uniqueMap.get(track.Comments)) {
+                        continue;
+                    }
+
+                    uniqueMap.put(track.Comments, true);
+                }
+
+                if (value.length() > 0) {
+                    value.append(",");
+                }
+
+                value.append(track.Comments);
+            }
+        }
+
+        return value.toString();
     }
 
     private String joinComments(ArrayList<Track> tracks) {
