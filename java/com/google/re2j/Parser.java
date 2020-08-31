@@ -887,12 +887,12 @@ class Parser {
           break;
 
         case '|':
-          parseVerticalBar();
+          parseVerticalBar(t);
           t.skip(1); // '|'
           break;
 
         case ')':
-          parseRightParen();
+          parseRightParen(t);
           t.skip(1); // ')'
           break;
 
@@ -1043,7 +1043,7 @@ class Parser {
       stack.get(stack.size()-1).Tracks.ComposeTracks(t.PopTracks());
     }
 
-    concat();
+    concat(t);
     RegexpTracks tracksRestored = null;
     if (swapVerticalBar()) {
       tracksRestored = stack.get(stack.size() - 1).Tracks;
@@ -1290,8 +1290,8 @@ class Parser {
   }
 
   // parseVerticalBar handles a | in the input.
-  private void parseVerticalBar() {
-    concat();
+  private void parseVerticalBar(StringIterator t) {
+    concat(t);
 
     // The concatenation we just parsed is on top of the stack.
     // If it sits above an opVerticalBar, swap it below
@@ -1386,8 +1386,8 @@ class Parser {
   }
 
   // parseRightParen handles a ')' in the input.
-  private void parseRightParen() throws PatternSyntaxException {
-    concat();
+  private void parseRightParen(StringIterator t) throws PatternSyntaxException {
+    concat(t);
     RegexpTracks tracksRestored = null;
     if (swapVerticalBar()) {
       tracksRestored = stack.get(stack.size() - 1).Tracks;
