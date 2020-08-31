@@ -369,6 +369,11 @@ public class Track implements Comparable<Track>  {
             return Integer.compare(Start, o.Start);
         }
 
-        return Integer.compare(o.End - o.Start, End - Start);
+        int oRange = o.End - o.Start, range = End - Start;
+        if (oRange > 1 || range > 1) {
+            return Integer.compare(o.End - o.Start, End - Start);
+        }
+
+        return Integer.compare(End, o.End);
     }
 }
