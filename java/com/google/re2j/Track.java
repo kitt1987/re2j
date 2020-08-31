@@ -181,7 +181,11 @@ public class Track implements Comparable<Track>  {
 
         End = end;
         this.text = text;
-        this.Comments = text;
+        if (text.length() > 1) {
+            this.Comments = text;
+        } else {
+            this.Comments = "literal '" + text + "'";
+        }
     }
 
     void Freeze(int end, String text) {
