@@ -221,7 +221,7 @@ public class RegexTrackTest {
                 new Track(0, 1, "alternation"),
         });
         put("|x|", new Track[]{
-                new Track(0, 3, "alternation of [literal 'x',empty]"),
+                new Track(0, 3, "alternation of [empty string,literal 'x']"),
                 new Track(0, 1, "alternation"),
                 new Track(1, 2, "literal 'x'"),
                 new Track(2, 3, "alternation"),
