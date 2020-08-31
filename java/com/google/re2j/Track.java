@@ -283,7 +283,10 @@ public class Track implements Comparable<Track>  {
                     op = Regexp.Op.ALTERNATE;
                 }
                 // FIXME comments must be in order
-                b.append(OpKeyRuneMap.get(op)).append(" of [").append(joinComments(tracks)).append("]");
+                b.append(OpKeyRuneMap.get(op))
+                        .append(" of [")
+                        .append(joinComments(tracks, op == Regexp.Op.ALTERNATE))
+                        .append("]");
                 break;
             case STAR:
             case PLUS:
