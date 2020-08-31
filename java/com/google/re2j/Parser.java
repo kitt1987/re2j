@@ -261,8 +261,8 @@ class Parser {
   }
 
   // concat replaces the top of the stack (above the topmost '|' or '(') with
-  // its concatenation.concat
-  private Regexp () {
+  // its concatenation.
+  private Regexp concat() {
     maybeConcat(-1, 0);
 
     // Scan down to find pseudo-operator | or (.
