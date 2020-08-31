@@ -1056,6 +1056,7 @@ class Parser {
     if (tracksRestored != null) {
       Regexp top = stack.get(stack.size() - 1);
       top.Tracks.AddTracks(tracksRestored);
+      top.Tracks.ComposeTopmostTracks();
     }
 
     int n = stack.size();
@@ -1400,6 +1401,7 @@ class Parser {
     if (tracksRestored != null) {
       Regexp top = stack.get(stack.size() - 1);
       top.Tracks.AddTracks(tracksRestored);
+      top.Tracks.ComposeTopmostTracks();
     }
 
     int n = stack.size();
