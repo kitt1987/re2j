@@ -256,7 +256,7 @@ class Parser {
     re.min = min;
     re.max = max;
     re.flags = flags;
-    re.subs = new Regexp[] {sub};
+    re.UpdateSubsAndTracks(new Regexp[] {sub});
     stack.set(n - 1, re);
   }
 
@@ -347,10 +347,10 @@ class Parser {
       }
     }
     Regexp re = newRegexp(op);
-    re.subs = newsubs;
     for (RegexpTracks tracks : recycled) {
       re.Tracks.AddTracks(tracks);
     }
+    re.UpdateSubsAndTracks(newsubs);
 
     if (op == Regexp.Op.ALTERNATE) {
       // Ignore tracks effected by factored subs.
@@ -466,7 +466,7 @@ class Parser {
         // Recurse.
         Regexp suffix = collapse(subarray(array, s + start, s + i), Regexp.Op.ALTERNATE);
         Regexp re = newRegexp(Regexp.Op.CONCAT);
-        re.subs = new Regexp[] {prefix, suffix};
+        re.UpdateSubsAndTracks(new Regexp[] {prefix, suffix});
         array[lenout++] = re;
       }
 
@@ -525,7 +525,7 @@ class Parser {
         // recurse
         Regexp suffix = collapse(subarray(array, s + start, s + i), Regexp.Op.ALTERNATE);
         Regexp re = newRegexp(Regexp.Op.CONCAT);
-        re.subs = new Regexp[] {prefix, suffix};
+        re.UpdateSubsAndTracks(new Regexp[] {prefix, suffix});
         array[lenout++] = re;
       }
 
@@ -624,7 +624,7 @@ class Parser {
           case 1:
             // Impossible but handle.
             re.op = Regexp.Op.EMPTY_MATCH;
-            re.subs = null;
+            re.UpdateSubsAndTracks(null);
             break;
           case 2:
             {
@@ -634,7 +634,7 @@ class Parser {
               break;
             }
           default:
-            re.subs = subarray(re.subs, 1, re.subs.length);
+            re.UpdateSubsAndTracks(subarray(re.subs, 1, re.subs.length));
             break;
         }
       }
@@ -675,11 +675,11 @@ class Parser {
       if (reuse) {
         reuse(re.subs[0]);
       }
-      re.subs = subarray(re.subs, 1, re.subs.length);
+      re.UpdateSubsAndTracks(subarray(re.subs, 1, re.subs.length));
       switch (re.subs.length) {
         case 0:
           re.op = Regexp.Op.EMPTY_MATCH;
-          re.subs = Regexp.EMPTY_SUBS;
+          re.UpdateSubsAndTracks(Regexp.EMPTY_SUBS);
           break;
         case 1:
           Regexp old = re;
@@ -1419,7 +1419,7 @@ class Parser {
       push(re1);
     } else {
       re2.op = Regexp.Op.CAPTURE;
-      re2.subs = new Regexp[] {re1};
+      re2.UpdateSubsAndTracks(new Regexp[] {re1});
       re2.Tracks.AddTracks(re1.Tracks);
       push(re2);
     }

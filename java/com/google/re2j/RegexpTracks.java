@@ -106,7 +106,7 @@ public class RegexpTracks {
         }
 
         Collections.sort(this.composedTracks);
-        composeTopmostTracks();
+        ComposeTopmostTracks();
     }
 
     // concat two RegexpTracks
@@ -150,7 +150,7 @@ public class RegexpTracks {
         tracks.get(0).Freeze(that.tracks.get(0).End, b.toString());
     }
 
-    private void composeTopmostTracks() {
+    public void ComposeTopmostTracks() {
         // FIXME concat tracks, composed tracks and topmost tracks of subs
         ArrayList<Track> topmost = GetTopTracks();
         if (topmost.size() <= 1) {

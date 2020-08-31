@@ -96,55 +96,10 @@ class Regexp {
     return out.toString();
   }
 
-//  public Map.Entry<Track, Boolean> GetTopmostTrack() {
-//    // FIXME it probably has more than 1 topmost tracks if inconsecutive tracks exist.
-//    ArrayList<Track> composed = new ArrayList<Track>(Tracks.GetComposedTracks());
-//    for (Track track : Tracks.GetTracks()) {
-//      boolean overlapped = false;
-//      for (Track com : composed) {
-//        if (track.Start >= com.Start && track.End <= com.End) {
-//          overlapped = true;
-//          break;
-//        }
-//      }
-//
-//      if (!overlapped) {
-//        composed.add(track);
-//      }
-//    }
-//
-//    if (subs != null) {
-//      for (Regexp sub : subs) {
-//        Map.Entry<Track, Boolean> topmost = sub.GetTopmostTrack();
-//        if (topmost != null) {
-//          composed.add(topmost.getKey());
-//          continue;
-//        }
-//
-//        if (sub.Tracks.GetComposedTracks().size() > 0) {
-//          throw new IllegalStateException("an elementary track must not have any composed tracks");
-//        }
-//
-//        // FIXME Should compose literals
-////          if (sub.Tracks.GetTracks().size() != 1) {
-////            throw new IllegalStateException("an elementary track must have only 1 track but " + sub.Tracks.GetTracks().size());
-////          }
-//
-//        composed.add(sub.Tracks.GetTracks().get(0));
-//      }
-//    }
-//
-//    if (composed.size() == 0) {
-//      return null;
-//    }
-//
-//    if (composed.size() == 1) {
-//      return new AbstractMap.SimpleEntry<Track, Boolean>(composed.get(0), false);
-//    }
-//
-//    Collections.sort(composed);
-//    return new AbstractMap.SimpleEntry<Track, Boolean>(Track.NewTopmost(composed, this), true);
-//  }
+  public void UpdateSubsAndTracks(Regexp[] ss) {
+    subs = ss;
+    Tracks.ComposeTopmostTracks();
+  }
 
   public ArrayList<Track> GetAllTracks() {
     ArrayList<Track> allTracks = new ArrayList<Track>(Tracks.GetAll());
