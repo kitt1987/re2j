@@ -262,7 +262,7 @@ class Parser {
 
   // concat replaces the top of the stack (above the topmost '|' or '(') with
   // its concatenation.
-  private Regexp concat() {
+  private Regexp concat(StringIterator t) {
     maybeConcat(-1, 0);
 
     // Scan down to find pseudo-operator | or (.
@@ -270,6 +270,7 @@ class Parser {
 
     // Empty concatenation is special case.
     if (subs.length == 0) {
+      t.PushNewLiteralTrack("empty string");
       return push(newRegexp(Regexp.Op.EMPTY_MATCH));
     }
 
