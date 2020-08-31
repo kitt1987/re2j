@@ -322,12 +322,16 @@ public class RegexTrackTest {
         });
         put("\\-", new Track[]{
                 new Track(0, 2, "literal '-'"),
+                new Track(0, 1, "escape"),
+                new Track(1, 2, "literal '-'"),
         });
         put("-", new Track[]{
                 new Track(0, 1, "literal '-'"),
         });
         put("\\_", new Track[]{
                 new Track(0, 2, "literal '_'"),
+                new Track(0, 1, "escape"),
+                new Track(1, 2, "literal '_'"),
         });
         put("abc|def", new Track[]{
                 new Track(0, 7, "alternation of [string \"abc\",string \"def\"]"),
