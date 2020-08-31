@@ -180,10 +180,6 @@ public class Track implements Comparable<Track>  {
             throw new IllegalStateException("Can't freeze a empty track");
         }
 
-        if (text.length() != end - Start) {
-            throw new IllegalStateException("text '"+ text +"' doesn't match the position range[" + Start + "," + end + "]");
-        }
-
         End = end;
         this.text = text;
         if (text.length() > 1) {
