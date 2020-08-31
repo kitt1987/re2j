@@ -1,8 +1,6 @@
 package com.google.re2j;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Track implements Comparable<Track>  {
     static final HashMap<String, String> POSIX_GROUPS = new HashMap<String, String>();
@@ -345,9 +343,9 @@ public class Track implements Comparable<Track>  {
 
     private String joinComments(ArrayList<Track> tracks, boolean unique) {
         StringBuilder value = new StringBuilder();
-        Map<String, Boolean> uniqueMap = null;
+        Set<String> uniqueMap = null;
         if (unique) {
-            uniqueMap = new HashMap<String, Boolean>(tracks.size());
+            uniqueMap = new HashSet<String>(tracks.size());
         }
 
         if (tracks != null) {
@@ -357,11 +355,11 @@ public class Track implements Comparable<Track>  {
                 }
 
                 if (uniqueMap != null) {
-                    if (uniqueMap.get(track.Comments)) {
+                    if (uniqueMap.contains(track.Comments)) {
                         continue;
                     }
 
-                    uniqueMap.put(track.Comments, true);
+                    uniqueMap.add(track.Comments);
                 }
 
                 if (value.length() > 0) {
