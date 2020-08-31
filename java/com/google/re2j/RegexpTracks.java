@@ -34,7 +34,16 @@ public class RegexpTracks {
         ArrayList<Track> allTracks = new ArrayList<Track>(topmostTracks);
         allTracks.addAll(composedTracks);
         allTracks.addAll(tracks);
-        return allTracks;
+
+        ArrayList<Track> collapsed = new ArrayList<Track>(topmostTracks.size());
+        // omit all tracks w/ an empty range
+        for (Track track : allTracks) {
+            if (track.Start != track.End) {
+                collapsed.add(track);
+            }
+        }
+
+        return collapsed;
     }
 
     public ArrayList<Track> GetTopTracks() {
