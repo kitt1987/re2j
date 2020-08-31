@@ -64,6 +64,8 @@ public class Track implements Comparable<Track>  {
         CommentMap.put(".", "any characters excluding \"\\n\"");
         CommentMap.put("^:m", "line start");
         CommentMap.put("$:m", "line end");
+        CommentMap.put("^", "line start");
+        CommentMap.put("$", "line end");
         CommentMap.put("[:alnum:]", "alphanumeric characters");
         CommentMap.put("[:^alnum:]", "negated alphanumeric characters");
         CommentMap.put("[:alpha:]", "alphabetic characters");
