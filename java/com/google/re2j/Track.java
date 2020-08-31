@@ -254,6 +254,9 @@ public class Track implements Comparable<Track>  {
         Comments = comments;
     }
 
+    boolean IsNothing() {
+        return (text == null || text.isEmpty()) && (Comments == null || Comments.isEmpty());
+    }
     boolean IsPlaceholder() {
         return placeholder;
     }
