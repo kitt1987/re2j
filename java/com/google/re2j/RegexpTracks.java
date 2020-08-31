@@ -131,6 +131,7 @@ public class RegexpTracks {
 
     // particular cases for different types of Regexps
     public void ConcatLiterals(RegexpTracks that) {
+        // If one of Regexps is an escaped literal, it would has a composed track and two track w/ an escape sign in it
         if (composedTracks.size() > 0) {
             throw new IllegalStateException("literal track should have no composed track but " + composedTracks.size());
         }
