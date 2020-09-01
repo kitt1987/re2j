@@ -165,14 +165,12 @@ public class RegexTrackTest {
         put("a*?", new Track[]{
                 new Track(0, 3, "literal 'a' repeated zero or many times(non-greedy)"),
                 new Track(0, 1, "literal 'a'"),
-                new Track(1, 2, "quantifier: repeated zero or many times"),
-                new Track(2, 3, "quantifier: non-greedy"),
+                new Track(1, 3, "quantifier: repeated zero or many times(non-greedy)"),
         });
         put("a+?", new Track[]{
                 new Track(0, 3, "literal 'a' repeated once or many times(non-greedy)"),
                 new Track(0, 1, "literal 'a'"),
-                new Track(1, 2, "quantifier: repeated once or many times"),
-                new Track(2, 3, "quantifier: non-greedy"),
+                new Track(1, 3, "quantifier: repeated once or many times(non-greedy)"),
         });
         put("a??", new Track[]{
                 new Track(0, 3, "literal 'a' repeated zero or once(non-greedy)"),
