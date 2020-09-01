@@ -81,12 +81,12 @@ public class RegexTrackTest {
                 new Track(0, 1, "literal 'a'"),
         });
         put("a.", new Track[]{
-                new Track(0, 2, "sequence [literal 'a',any characters including \"\\n\"]"),
+                new Track(0, 2, "sequence of [literal 'a',any characters including \"\\n\"]"),
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "any characters including \"\\n\""),
         });
         put("a.b", new Track[]{
-                new Track(0, 3, "sequence [literal 'a',any characters including \"\\n\",literal 'b']"),
+                new Track(0, 3, "sequence of [literal 'a',any characters including \"\\n\",literal 'b']"),
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "any characters including \"\\n\""),
                 new Track(2, 3, "literal 'b'"),
@@ -95,7 +95,7 @@ public class RegexTrackTest {
                 new Track(0, 2, "string \"ab\""),
         });
         put("a.b.c", new Track[]{
-                new Track(0, 5, "sequence [literal 'a',any characters including \"\\n\",literal 'b',any characters including \"\\n\",literal 'c']"),
+                new Track(0, 5, "sequence of [literal 'a',any characters including \"\\n\",literal 'b',any characters including \"\\n\",literal 'c']"),
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "any characters including \"\\n\""),
                 new Track(2, 3, "literal 'b'"),
@@ -513,7 +513,7 @@ public class RegexTrackTest {
                 new Track(5, 6, "character class end"),
         });
         put("a*{", new Track[]{
-                new Track(0, 3, "sequence [literal 'a' repeated zero or many times,literal '{']"),
+                new Track(0, 3, "sequence of [literal 'a' repeated zero or many times,literal '{']"),
                 new Track(0, 2, "literal 'a' repeated zero or many times"),
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "quantifier: repeated zero or many times"),
@@ -548,7 +548,7 @@ public class RegexTrackTest {
         });
 
         put("a(b|c)d", new Track[]{
-                new Track(0, 7, "sequence [literal 'a',capturing group (alternation of [literal 'b',literal 'c']),literal 'd']"),
+                new Track(0, 7, "sequence of [literal 'a',capturing group (alternation of [literal 'b',literal 'c']),literal 'd']"),
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 6, "capturing group (alternation of [literal 'b',literal 'c'])"),
                 new Track(1, 2, "capturing group"),
