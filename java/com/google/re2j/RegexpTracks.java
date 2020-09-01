@@ -112,9 +112,9 @@ public class RegexpTracks {
         if (tracks.size() > 1) {
             insertComposedTrack(composedTracks, Track.NewComposedTrack(tracks, re));
             scanAndComposeTracks(composedTracks);
+            Collections.sort(this.composedTracks);
         }
 
-        Collections.sort(this.composedTracks);
         ComposeTopmostTracks();
     }
 
@@ -256,9 +256,21 @@ public class RegexpTracks {
 
     private ArrayList<Track> findTracks(int start, int end) {
         ArrayList<Track> matched = new ArrayList<Track>();
+        // FIXME scan tracks as well as topmost of subs
         for (Track track : tracks) {
             if (track.Start >= start && track.End <= end) {
                 matched.add(track);
+            }
+        }
+
+        if (re.subs != null) {
+            for (Regexp sub : re.subs) {
+                ArrayList<Track> topmost = sub.Tracks.GetTopTracks();
+                for (Track track : topmost) {
+                    if (track.Start >= start && track.End <= end) {
+                        matched.add(track);
+                    }
+                }
             }
         }
 
@@ -266,6 +278,7 @@ public class RegexpTracks {
             throw new IllegalStateException("no track matches the range [" + start + "," + end + ")");
         }
 
+        Collections.sort(matched);
         return matched;
     }
 
