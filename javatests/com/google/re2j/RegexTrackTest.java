@@ -125,7 +125,7 @@ public class RegexTrackTest {
         });
         put("(a)|b", new Track[]{
                 new Track(0, 5, "alternation of [capturing group of [literal 'a'],literal 'b']"),
-                new Track(0, 3, "capturing group (literal 'a')"),
+                new Track(0, 3, "capturing group of [literal 'a']"),
                 new Track(0, 1, "capturing group"),
                 new Track(1, 2, "literal 'a'"),
                 new Track(2, 3, "capturing group end"),
