@@ -1225,6 +1225,8 @@ class Parser {
 
           // Switch to negation.
         case '-':
+          // FIXME negated track
+          t.PushNewTrack();
           if (sign < 0) {
             break loop;
           }
@@ -1238,6 +1240,7 @@ class Parser {
           // End of flags, starting group or not.
         case ':':
         case ')':
+          t.PushNewTrack();
           if (sign < 0) {
             if (!sawFlag) {
               break loop;
