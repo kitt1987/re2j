@@ -327,7 +327,7 @@ public class Track implements Comparable<Track>  {
                 b.append("non-capturing group");
                 break;
             case ANY_CHAR:
-                b.append(CommentMap.get("."));
+                b.append(CommentMap.get(".:s"));
                 break;
             default:
                 throw new IllegalStateException("unsupported composed regexp " + re.op);
