@@ -178,12 +178,17 @@ public class RegexpTracks {
                 throw new IllegalStateException("concatenated tracks should be consecutive");
             }
 
-            ArrayList<Track> concats = new ArrayList<Track>(tracks);
-            concats.addAll(that.tracks);
-            topmostTracks.clear();
-            composedTracks.clear();
-            tracks.clear();
-            ComposeTracks(concats);
+//            ArrayList<Track> concats = new ArrayList<Track>(tracks);
+//            concats.addAll(that.tracks);
+//            topmostTracks.clear();
+//            composedTracks.clear();
+//            tracks.clear();
+//            ComposeTracks(concats);
+            composedTracks.addAll(that.composedTracks);
+            tracks.addAll(that.tracks);
+            Collections.sort(composedTracks);
+            Collections.sort(tracks);
+            ComposeTopmostTracks();
             return;
         }
 
