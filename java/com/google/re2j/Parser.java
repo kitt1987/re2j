@@ -756,7 +756,7 @@ class Parser {
       this.tracks.add(new Track(pos));
     }
 
-    void PushNewRepeatTrack(Regexp re) {
+    void PushNewRepetitionTrack(Regexp re) {
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
         if (last.Start == pos && last.IsNothing()) {
