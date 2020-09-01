@@ -131,24 +131,18 @@ public class RegexpTracks {
 
     // particular cases for different types of Regexps
     public void ConcatLiterals(RegexpTracks that) {
+        if (topmostTracks.size() != 0 || that.topmostTracks.size() != 0) {
+            throw new IllegalStateException("literals should not have topmost tracks");
+        }
+
         // If one of Regexps is an escaped literal, it would has a composed track and two track w/ an escape sign in it
-        if (composedTracks.size() > 0) {
-            throw new IllegalStateException("literal track should have no composed track but " + composedTracks.size());
+        if (composedTracks.size() > 0 && that.composedTracks.size() > 0
+                && composedTracks.get(composedTracks.size()-1).End != that.composedTracks.get(that.composedTracks.size()-1).Start) {
+            throw new IllegalStateException("concatenated tracks should be consecutive");
         }
 
-        if (this.tracks.size() > 1) {
-            throw new IllegalStateException("literal track should have only 1 track but " + tracks.size());
-        }
-
-        if (that.composedTracks.size() > 0) {
-            throw new IllegalStateException("literal track should have no composed track but " + that.composedTracks.size());
-        }
-
-        if (that.tracks.size() > 1) {
-            throw new IllegalStateException("literal track should have only 1 track but " + that.tracks.size());
-        }
-
-        if (tracks.get(tracks.size()-1).End != that.tracks.get(that.tracks.size()-1).Start) {
+        if (this.tracks.size() > 0 && that.tracks.size() > 0
+            && tracks.get(tracks.size()-1).End != that.tracks.get(that.tracks.size()-1).Start) {
             throw new IllegalStateException("concatenated tracks should be consecutive");
         }
 
