@@ -159,16 +159,31 @@ public class RegexpTracks {
             throw new IllegalStateException("literals should not have topmost tracks");
         }
 
-        if (composedTracks.size() > 0) {
-            throw new IllegalStateException("literal track should have no composed track but " + composedTracks.size());
+        if (composedTracks.size() > 0 || that.composedTracks.size() > 0) {
+            if (composedTracks.size() > 0) {
+                if (that.composedTracks.size() > 0
+                        && composedTracks.get(composedTracks.size()-1).End != that.composedTracks.get(0).Start) {
+                    throw new IllegalStateException("concatenated tracks should be consecutive");
+                } else if (that.tracks.size() > 0
+                        && composedTracks.get(composedTracks.size()-1).End != that.tracks.get(0).Start) {
+                    throw new IllegalStateException("concatenated tracks should be consecutive");
+                }
+            } else {
+                if (tracks.get(tracks.size()-1).End != that.composedTracks.get(0).Start) {
+                    throw new IllegalStateException("concatenated tracks should be consecutive");
+                }
+            }
+
+            ArrayList<Track> concats = new ArrayList<Track>(tracks);
+            concats.addAll(that.tracks);
+            composedTracks.clear();
+            tracks.clear();
+            ComposeTracks(concats);
+            return;
         }
 
-        if (this.tracks.size() > 1) {
+        if (tracks.size() > 1) {
             throw new IllegalStateException("literal track should have only 1 track but " + tracks.size());
-        }
-
-        if (that.composedTracks.size() > 0) {
-            throw new IllegalStateException("literal track should have no composed track but " + that.composedTracks.size());
         }
 
         if (that.tracks.size() > 1) {
