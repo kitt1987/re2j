@@ -566,7 +566,7 @@ public class RegexTrackTest {
         });
 
         put("(?:ab)(?:cd)", new Track[]{
-                new Track(0, 12, "group of string \"abcd\""),
+                new Track(0, 12, "string \"abcd\""),
 
                 new Track(0, 6, "group of string \"ab\""),
                 new Track(0, 3, "non-capturing group"),
