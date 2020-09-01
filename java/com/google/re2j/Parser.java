@@ -1436,7 +1436,6 @@ class Parser {
     } else {
       re2.op = Regexp.Op.CAPTURE;
       re2.UpdateSubsAndTracks(new Regexp[] {re1});
-      re2.Tracks.AddTracks(re1.Tracks);
       push(re2);
     }
   }
