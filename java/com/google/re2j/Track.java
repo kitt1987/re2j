@@ -310,7 +310,12 @@ public class Track implements Comparable<Track>  {
                     op = Regexp.Op.ALTERNATE;
                 }
                 // FIXME comments must be in order
-                b.append(OpKeyRuneMap.get(op))
+                String key = OpKeyRuneMap.get(op);
+                if (op == Regexp.Op.CHAR_CLASS) {
+                    key = CommentMap.get(text);
+                }
+
+                b.append(key)
                         .append(" of [")
                         .append(joinComments(tracks, op == Regexp.Op.ALTERNATE))
                         .append("]");
