@@ -158,7 +158,7 @@ public class RegexpTracks {
         if (topmostTracks.size() != 0 || that.topmostTracks.size() != 0) {
             throw new IllegalStateException("literals should not have topmost tracks");
         }
-        
+
         if (composedTracks.size() > 0) {
             throw new IllegalStateException("literal track should have no composed track but " + composedTracks.size());
         }
