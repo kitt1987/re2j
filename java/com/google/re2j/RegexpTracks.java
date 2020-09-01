@@ -151,7 +151,7 @@ public class RegexpTracks {
             b.appendCodePoint(r);
         }
 
-        tracks.get(0).Freeze(that.tracks.get(0).End, b.toString());
+        tracks.get(0).Freeze(that.tracks.get(that.tracks.size()-1).End, b.toString());
     }
 
     public void ComposeTopmostTracks() {
