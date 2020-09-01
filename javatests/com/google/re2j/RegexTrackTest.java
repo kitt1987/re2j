@@ -124,7 +124,7 @@ public class RegexTrackTest {
                 new Track(2, 3, "capturing group end"),
         });
         put("(a)|b", new Track[]{
-                new Track(0, 5, "alternation of [capturing group (literal 'a'),literal 'b']"),
+                new Track(0, 5, "alternation of [capturing group of [literal 'a'],literal 'b']"),
                 new Track(0, 3, "capturing group (literal 'a')"),
                 new Track(0, 1, "capturing group"),
                 new Track(1, 2, "literal 'a'"),
@@ -1082,7 +1082,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("[^a]");
+        testRegexpTrack("(a)|b");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
