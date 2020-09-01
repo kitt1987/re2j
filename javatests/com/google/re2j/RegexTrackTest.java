@@ -473,8 +473,15 @@ public class RegexTrackTest {
                 new Track(0, 5, "string \"a{,2}\""),
         });
         put("\\.\\^\\$\\\\", new Track[]{
-                // FIXME the topmost track
                 new Track(0, 8, "string \".^$\\\""),
+                new Track(0, 1, "escape"),
+                new Track(1, 2, "literal '.'"),
+                new Track(2, 3, "escape"),
+                new Track(3, 4, "literal '^'"),
+                new Track(4, 5, "escape"),
+                new Track(5, 6, "literal '$'"),
+                new Track(6, 7, "escape"),
+                new Track(7, 8, "literal '\\'"),
         });
         put("[a-zABC]", new Track[]{
                 // FIXME the topmost track
