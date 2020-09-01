@@ -157,22 +157,25 @@ public class RegexpTracks {
         // If one of Regexps is an escaped literal, it would has a composed track and two track w/ an escape sign in it
         if (topmostTracks.size() > 0 || that.topmostTracks.size() > 0
                 || composedTracks.size() > 0 || that.composedTracks.size() > 0) {
-            if (topmostTracks.size() > 0 || that.topmostTracks.size() > 0) {
-
+            int lastEnd, firstBegin;
+            if (topmostTracks.size() > 0) {
+                lastEnd = topmostTracks.get(topmostTracks.size()-1).End;
+            } else if (composedTracks.size() > 0) {
+                lastEnd = composedTracks.get(composedTracks.size()-1).End;
+            } else {
+                lastEnd = tracks.get(tracks.size()-1).End;
             }
 
-            if (composedTracks.size() > 0) {
-                if (that.composedTracks.size() > 0
-                        && composedTracks.get(composedTracks.size()-1).End != that.composedTracks.get(0).Start) {
-                    throw new IllegalStateException("concatenated tracks should be consecutive");
-                } else if (that.tracks.size() > 0
-                        && composedTracks.get(composedTracks.size()-1).End != that.tracks.get(0).Start) {
-                    throw new IllegalStateException("concatenated tracks should be consecutive");
-                }
+            if (that.topmostTracks.size() > 0) {
+                firstBegin = that.topmostTracks.get(0).Start;
+            } else if (composedTracks.size() > 0) {
+                firstBegin = that.composedTracks.get(0).Start;
             } else {
-                if (tracks.get(tracks.size()-1).End != that.composedTracks.get(0).Start) {
-                    throw new IllegalStateException("concatenated tracks should be consecutive");
-                }
+                firstBegin = that.tracks.get(0).Start;
+            }
+
+            if (lastEnd != firstBegin) {
+                throw new IllegalStateException("concatenated tracks should be consecutive");
             }
 
             ArrayList<Track> concats = new ArrayList<Track>(tracks);
