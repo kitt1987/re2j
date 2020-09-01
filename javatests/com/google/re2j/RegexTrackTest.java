@@ -180,8 +180,7 @@ public class RegexTrackTest {
         put("a{2}?", new Track[]{
                 new Track(0, 5, "literal 'a' repeated twice(non-greedy)"),
                 new Track(0, 1, "literal 'a'"),
-                new Track(1, 4, "quantifier: repeated twice"),
-                new Track(4, 5, "quantifier: non-greedy"),
+                new Track(1, 5, "quantifier: repeated twice(non-greedy)"),
         });
         put("a{2,3}?", new Track[]{
                 new Track(0, 7, "literal 'a' repeated twice to 3 times(non-greedy)"),
@@ -191,8 +190,7 @@ public class RegexTrackTest {
         put("a{2,}?", new Track[]{
                 new Track(0, 6, "literal 'a' repeated at least twice(non-greedy)"),
                 new Track(0, 1, "literal 'a'"),
-                new Track(1, 5, "quantifier: repeated at least twice"),
-                new Track(5, 6, "quantifier: non-greedy"),
+                new Track(1, 6, "quantifier: repeated at least twice(non-greedy)"),
         });
         put("x{1001", new Track[]{
                 new Track(0, 6, "string \"x{1001\""),
