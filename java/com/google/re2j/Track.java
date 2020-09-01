@@ -230,7 +230,11 @@ public class Track implements Comparable<Track>  {
                     omitInComposed = true;
             }
         } else if (text.length() == 2) {
-            if (text.equals("(?") || text.equals("*?") || text.equals("+?") || text.equals("??")) {
+            if (text.equals("(?")
+                    || text.equals("*?")
+                    || text.equals("+?")
+                    || text.equals("??")
+                    || text.equals("[^")) {
                 omitInComposed = true;
             }
         } else {
