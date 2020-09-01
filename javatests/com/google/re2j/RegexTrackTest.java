@@ -568,16 +568,14 @@ public class RegexTrackTest {
         put("(?:ab)(?:cd)", new Track[]{
                 new Track(0, 12, "string \"abcd\""),
 
-                new Track(0, 6, "group of string \"ab\""),
                 new Track(0, 3, "non-capturing group"),
-                new Track(0, 2, "non-capturing group"),
+                new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "mod modifier end"),
                 new Track(3, 5, "string \"ab\""),
                 new Track(5, 6, "capturing group end"),
 
-                new Track(6, 12, "group of string \"cd\""),
                 new Track(6, 9, "non-capturing group"),
-                new Track(6, 8, "non-capturing group"),
+                new Track(6, 8, "non-capturing group start"),
                 new Track(8, 9, "mod modifier end"),
                 new Track(9, 11, "string \"cd\""),
                 new Track(11, 12, "capturing group end"),
