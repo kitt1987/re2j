@@ -756,6 +756,19 @@ class Parser {
       this.tracks.add(new Track(pos));
     }
 
+    void PushNewTrack(Regexp re) {
+      if (tracks.size() > 0) {
+        Track last = tracks.get(tracks.size()-1);
+        if (last.Start == pos && last.IsNothing()) {
+          return;
+        }
+
+        last.Freeze(pos, str.substring(last.Start, pos));
+      }
+
+      this.tracks.add(new Track(pos));
+    }
+
     void PushNewLiteralTrack(String literals) {
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
