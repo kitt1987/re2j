@@ -137,12 +137,12 @@ public class RegexpTracks {
 
         // If one of Regexps is an escaped literal, it would has a composed track and two track w/ an escape sign in it
         if (composedTracks.size() > 0 && that.composedTracks.size() > 0
-                && composedTracks.get(composedTracks.size()-1).End != that.composedTracks.get(that.composedTracks.size()-1).Start) {
+                && composedTracks.get(composedTracks.size()-1).End != that.composedTracks.get(0).Start) {
             throw new IllegalStateException("concatenated tracks should be consecutive");
         }
 
         if (this.tracks.size() > 0 && that.tracks.size() > 0
-            && tracks.get(tracks.size()-1).End != that.tracks.get(that.tracks.size()-1).Start) {
+            && tracks.get(tracks.size()-1).End != that.tracks.get(0).Start) {
             throw new IllegalStateException("concatenated tracks should be consecutive");
         }
 
