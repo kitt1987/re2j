@@ -430,7 +430,7 @@ public class RegexTrackTest {
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "case insensitive"),
                 new Track(3, 4, "capturing group end"),
-                new Track(4, 6, "character class non-word character shorthand"),
+                new Track(4, 6, "non-word character shorthand"),
         });
         put("[^\\\\]", new Track[]{
                 // FIXME the topmost track
