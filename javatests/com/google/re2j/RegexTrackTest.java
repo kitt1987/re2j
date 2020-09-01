@@ -671,8 +671,8 @@ public class RegexTrackTest {
         });
 
         put(".|a", new Track[]{
-                new Track(0, 3, "any characters including \"\\n\""),
-                new Track(0, 1, "any characters including \"\\n\""),
+                new Track(0, 3, "any characters excluding \"\\n\""),
+                new Track(0, 1, "any characters excluding \"\\n\""),
                 new Track(1, 2, "alternation"),
                 new Track(2, 3, "literal 'a'"),
         });
