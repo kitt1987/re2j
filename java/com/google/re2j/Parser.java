@@ -762,7 +762,7 @@ class Parser {
           return;
         }
 
-        last.Freeze(pos, str.substring(last.Start, pos));
+        last.Freeze(pos, ":"+flag);
       }
 
       this.tracks.add(new Track(pos));
@@ -1197,25 +1197,28 @@ class Parser {
     loop:
     while (t.more()) {
       int c = t.pop();
-      t.PushNewTrack();
       switch (c) {
         default:
           break loop;
 
           // Flags.
         case 'i':
+          t.PushNewFlagTrack(c);
           flags |= RE2.FOLD_CASE;
           sawFlag = true;
           break;
         case 'm':
+          t.PushNewFlagTrack(c);
           flags &= ~RE2.ONE_LINE;
           sawFlag = true;
           break;
         case 's':
+          t.PushNewFlagTrack(c);
           flags |= RE2.DOT_NL;
           sawFlag = true;
           break;
         case 'U':
+          t.PushNewFlagTrack(c);
           flags |= RE2.NON_GREEDY;
           sawFlag = true;
           break;
