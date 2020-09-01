@@ -148,7 +148,7 @@ public class RegexpTracks {
             throw new IllegalStateException("literal track should have only 1 track but " + that.tracks.size());
         }
 
-        if (tracks.get(0).End != that.tracks.get(0).Start) {
+        if (tracks.get(tracks.size()-1).End != that.tracks.get(that.tracks.size()-1).Start) {
             throw new IllegalStateException("concatenated tracks should be consecutive");
         }
 
