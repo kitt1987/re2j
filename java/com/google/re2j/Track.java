@@ -191,6 +191,20 @@ public class Track implements Comparable<Track>  {
         }
     }
 
+    void FreezeRepeatition(int end, Regexp re) {
+        if (text.isEmpty()) {
+            throw new IllegalStateException("Can't freeze a empty track");
+        }
+
+        End = end;
+        this.text = text;
+        if (text.length() > 1) {
+            this.Comments = text;
+        } else {
+            this.Comments = "literal '" + text + "'";
+        }
+    }
+
     void Freeze(int end, String text) {
         if (text.isEmpty()) {
             throw new IllegalStateException("Can't freeze a empty track");
