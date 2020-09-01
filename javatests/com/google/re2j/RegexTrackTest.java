@@ -426,7 +426,7 @@ public class RegexTrackTest {
         });
         put("(?i)\\W", new Track[]{
                 // FIXME the topmost track
-                new Track(0, 6, "character class of [case insensitive,non-word character shorthand"),
+                new Track(0, 6, "character class of [case insensitive,non-word character shorthand]"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "case insensitive"),
                 new Track(3, 4, "capturing group end"),
