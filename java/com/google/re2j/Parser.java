@@ -234,7 +234,6 @@ class Parser {
     if ((flags & RE2.PERL_X) != 0) {
       if (t.more() && t.lookingAt('?')) {
         t.skip(1); // '?'
-        t.PushNewTrack();
         flags ^= RE2.NON_GREEDY;
       }
       if (lastRepeatPos != -1) {
