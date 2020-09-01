@@ -762,7 +762,7 @@ class Parser {
           return;
         }
 
-        last.Freeze(pos, ":"+flag);
+        last.Freeze(pos, ":"+(char)flag);
       }
 
       this.tracks.add(new Track(pos));
