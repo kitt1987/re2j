@@ -118,7 +118,7 @@ public class RegexTrackTest {
                 new Track(2, 3, "literal 'b'"),
         });
         put("(a)", new Track[]{
-                new Track(0, 3, "capturing group (literal 'a')"),
+                new Track(0, 3, "capturing group of [literal 'a']"),
                 new Track(0, 1, "capturing group"),
                 new Track(1, 2, "literal 'a'"),
                 new Track(2, 3, "capturing group end"),
