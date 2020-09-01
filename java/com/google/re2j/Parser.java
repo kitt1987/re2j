@@ -755,6 +755,19 @@ class Parser {
       this.tracks.add(new Track(pos));
     }
 
+    void PushNewFlagTrack(int flag) {
+      if (tracks.size() > 0) {
+        Track last = tracks.get(tracks.size()-1);
+        if (last.Start == pos && last.IsNothing()) {
+          return;
+        }
+
+        last.Freeze(pos, str.substring(last.Start, pos));
+      }
+
+      this.tracks.add(new Track(pos));
+    }
+
     void PushNewRepetitionTrack(Regexp re) {
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
