@@ -3,6 +3,7 @@ package com.google.re2j;
 import java.util.*;
 
 public class Track implements Comparable<Track>  {
+    static final String EscapeText = "escape";
     static final HashMap<String, String> POSIX_GROUPS = new HashMap<String, String>();
 
     static {
@@ -120,7 +121,7 @@ public class Track implements Comparable<Track>  {
         CommentMap.put(":-", "negative modifier");
         CommentMap.put("[", "character class");
         CommentMap.put("]", "character class end");
-        CommentMap.put("\\", "escape");
+        CommentMap.put("\\", EscapeText);
     }
 
     static Track NewComposedTrack(ArrayList<Track> tracks, Regexp re) {
@@ -219,7 +220,7 @@ public class Track implements Comparable<Track>  {
                 omitInComposed = true;
             }
         } else {
-            if (text.equals("escape")) {
+            if (text.equals(EscapeText)) {
                 omitInComposed = true;
             }
         }
