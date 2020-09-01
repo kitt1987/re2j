@@ -198,7 +198,10 @@ public class Track implements Comparable<Track>  {
 
         End = end;
         omitInComposed = true;
-        this.Comments = "quantifier: " + GenRepeatedRangeComments(re.min, re.max);
+        Comments = "quantifier: " + GenRepeatedRangeComments(re.min, re.max);
+        if ((re.flags & RE2.NON_GREEDY) != 0) {
+            Comments += "(non-greedy)";
+        }
     }
 
     void Freeze(int end, String text) {
