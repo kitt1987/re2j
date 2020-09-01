@@ -120,6 +120,7 @@ public class Track implements Comparable<Track>  {
         CommentMap.put(":U", "ungreedy quantifiers");
         CommentMap.put(":-", "negative modifier");
         CommentMap.put("[", "character class");
+        CommentMap.put("[^", "negated character class");
         CommentMap.put("]", "character class end");
         CommentMap.put("\\", EscapeText);
     }
