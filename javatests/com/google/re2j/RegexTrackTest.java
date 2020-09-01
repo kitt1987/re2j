@@ -474,12 +474,16 @@ public class RegexTrackTest {
         });
         put("\\.\\^\\$\\\\", new Track[]{
                 new Track(0, 8, "string \".^$\\\""),
+                new Track(0, 2, "literal '.'"),
                 new Track(0, 1, "escape"),
                 new Track(1, 2, "literal '.'"),
+                new Track(2, 4, "literal '^'"),
                 new Track(2, 3, "escape"),
                 new Track(3, 4, "literal '^'"),
+                new Track(4, 6, "literal '$'"),
                 new Track(4, 5, "escape"),
                 new Track(5, 6, "literal '$'"),
+                new Track(6, 8, "literal '\\'"),
                 new Track(6, 7, "escape"),
                 new Track(7, 8, "literal '\\'"),
         });
