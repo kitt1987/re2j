@@ -763,7 +763,7 @@ class Parser {
           return;
         }
 
-        last.Freeze(pos, str.substring(last.Start, pos));
+        last.FreezeRepetition(pos, re);
       }
 
       this.tracks.add(new Track(pos));
@@ -976,6 +976,7 @@ class Parser {
             min = minMax >> 16;
             max = (short) (minMax & 0xffff); // sign extend
             repeat(Regexp.Op.REPEAT, min, max, repeatPos, t, lastRepeatPos);
+            t.PushNewRepetitionTrack(stack.get(stack.size()-1));
             break;
           }
 
