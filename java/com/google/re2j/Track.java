@@ -218,6 +218,10 @@ public class Track implements Comparable<Track>  {
             if (text.equals("(?") || text.equals("*?") || text.equals("+?") || text.equals("??")) {
                 omitInComposed = true;
             }
+        } else {
+            if (text.equals("escape")) {
+                omitInComposed = true;
+            }
         }
 
         this.Comments = CommentMap.get(text);
