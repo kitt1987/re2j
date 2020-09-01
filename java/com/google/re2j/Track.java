@@ -183,7 +183,6 @@ public class Track implements Comparable<Track>  {
         }
 
         End = end;
-        omitInComposed = true;
         this.text = text;
         if (text.length() > 1) {
             this.Comments = text;
@@ -198,6 +197,7 @@ public class Track implements Comparable<Track>  {
         }
 
         End = end;
+        omitInComposed = true;
         this.Comments = "quantifier: " + GenRepeatedRangeComments(re.min, re.max);
     }
 
