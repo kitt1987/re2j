@@ -494,9 +494,8 @@ public class RegexTrackTest {
         });
         put("[^a]", new Track[]{
                 // FIXME the topmost track
-                new Track(0, 4, "character class of [negated,literal 'a']"),
-                new Track(0, 1, "character class"),
-                new Track(1, 2, "negated"),
+                new Track(0, 4, "negated character class of [literal 'a']"),
+                new Track(0, 2, "negated character class"),
                 new Track(2, 3, "literal 'a'"),
                 new Track(3, 4, "character class end"),
         });
