@@ -162,6 +162,7 @@ public class Track implements Comparable<Track>  {
     private String text;
     private boolean omitInComposed;
     private boolean placeholder;
+    private boolean negated;
 
     Track(int start) {
         Start = start;
@@ -233,8 +234,12 @@ public class Track implements Comparable<Track>  {
             if (text.equals("(?")
                     || text.equals("*?")
                     || text.equals("+?")
-                    || text.equals("??")
-                    || text.equals("[^")) {
+                    || text.equals("??")) {
+                omitInComposed = true;
+            }
+
+            if (text.equals("[^")) {
+                negated = true;
                 omitInComposed = true;
             }
         } else {
@@ -310,12 +315,11 @@ public class Track implements Comparable<Track>  {
                     op = Regexp.Op.ALTERNATE;
                 }
                 // FIXME comments must be in order
-                String key = OpKeyRuneMap.get(op);
-                if (op == Regexp.Op.CHAR_CLASS) {
-                    key = CommentMap.get(text);
+                if (op == Regexp.Op.CHAR_CLASS && tracks.get(0).negated) {
+                    b.append("negated ");
                 }
 
-                b.append(key)
+                b.append(OpKeyRuneMap.get(op))
                         .append(" of [")
                         .append(joinComments(tracks, op == Regexp.Op.ALTERNATE))
                         .append("]");
