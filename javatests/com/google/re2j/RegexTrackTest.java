@@ -86,20 +86,20 @@ public class RegexTrackTest {
                 new Track(1, 2, "any characters including \"\\n\""),
         });
         put("a.b", new Track[]{
-                new Track(0, 3, "sequence of [literal 'a',any characters including \"\\n\",literal 'b']"),
+                new Track(0, 3, "sequence of [literal 'a',any characters excluding \"\\n\",literal 'b']"),
                 new Track(0, 1, "literal 'a'"),
-                new Track(1, 2, "any characters including \"\\n\""),
+                new Track(1, 2, "any characters excluding \"\\n\""),
                 new Track(2, 3, "literal 'b'"),
         });
         put("ab", new Track[]{
                 new Track(0, 2, "string \"ab\""),
         });
         put("a.b.c", new Track[]{
-                new Track(0, 5, "sequence of [literal 'a',any characters including \"\\n\",literal 'b',any characters including \"\\n\",literal 'c']"),
+                new Track(0, 5, "sequence of [literal 'a',any characters excluding \"\\n\",literal 'b',any characters excluding \"\\n\",literal 'c']"),
                 new Track(0, 1, "literal 'a'"),
-                new Track(1, 2, "any characters including \"\\n\""),
+                new Track(1, 2, "any characters excluding \"\\n\""),
                 new Track(2, 3, "literal 'b'"),
-                new Track(3, 4, "any characters including \"\\n\""),
+                new Track(3, 4, "any characters excluding \"\\n\""),
                 new Track(4, 5, "literal 'c'"),
         });
         put("abc", new Track[]{
