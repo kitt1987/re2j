@@ -163,6 +163,7 @@ public class Track implements Comparable<Track>  {
     private boolean omitInComposed;
     private boolean placeholder;
     private boolean negated;
+    private boolean posix;
 
     Track(int start) {
         Start = start;
@@ -242,15 +243,23 @@ public class Track implements Comparable<Track>  {
             if (text.equals(EscapeText)) {
                 omitInComposed = true;
             }
+
+            if (text.startsWith("[:")) {
+                posix = true;
+            }
         }
 
-        this.Comments = CommentMap.get(text);
-        if (this.Comments == null) {
+        Comments = CommentMap.get(text);
+        if (Comments == null) {
             if (text.length() > 1) {
-                this.Comments = "string \"" + text + "\"";
+                Comments = "string \"" + text + "\"";
             } else {
-                this.Comments = "literal '" + text + "'";
+                Comments = "literal '" + text + "'";
             }
+        }
+
+        if (posix) {
+            Comments = "POSIX class " + Comments;
         }
     }
 
