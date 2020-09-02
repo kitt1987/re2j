@@ -1033,18 +1033,16 @@ class Parser {
                     if (i >= 0) {
                       lit = lit.substring(0, i);
                     }
-                    t.skipString(lit);
-                    if (lit.length() > 1) {
-                      t.PushNewLiteralTrack("string \"" + lit + "\"");
-                    } else {
-                      t.PushNewLiteralTrack("literal '" + lit + "'");
+
+                    for (int j = 0; j < lit.length(); j++) {
+                      t.skip(1);
+                      t.PushNewTrack();
+                      literal(lit.charAt(j));
+                      stack.get(stack.size()-1).Tracks.ComposeTracks(t.PopTracks());
                     }
+                    
                     t.skipString("\\E");
                     t.PushNewTrack();
-                    for (int j = 0; j < lit.length(); j++) {
-                      literal(lit.charAt(j));
-                    }
-                    stack.get(stack.size()-1).Tracks.ComposeTracks(t.PopTracks(), lit);
                     break bigswitch;
                   }
                 case 'z':
