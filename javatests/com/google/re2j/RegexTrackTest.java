@@ -516,9 +516,9 @@ public class RegexTrackTest {
 
         put("(?:ab)*", new Track[]{
                 new Track(0, 7, "string \"ab\" repeated zero or many times"),
-                new Track(0, 6, "group of string \"ab\""),
+                new Track(0, 6, "string \"ab\""),
                 new Track(0, 3, "non-capturing group"),
-                new Track(0, 2, "non-capturing group"),
+                new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "mod modifier end"),
                 new Track(3, 5, "string \"ab\""),
                 new Track(5, 6, "capturing group end"),
