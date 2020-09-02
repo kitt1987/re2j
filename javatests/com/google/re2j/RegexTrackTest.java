@@ -991,6 +991,17 @@ public class RegexTrackTest {
                 new Track(5, 6, "literal 'a'"),
                 new Track(6, 7, "capturing group end"),
         });
+
+        put("A|(?:A|a)", new Track[]{
+                new Track(0, 7, "case insensitive literal 'A'"),
+                new Track(0, 3, "non-capturing group"),
+                new Track(0, 2, "non-capturing group start"),
+                new Track(2, 3, "mod modifier end"),
+                new Track(3, 4, "literal 'A'"),
+                new Track(4, 5, "alternation"),
+                new Track(5, 6, "literal 'a'"),
+                new Track(6, 7, "capturing group end"),
+        });
     }};
 
 //  {
@@ -1000,7 +1011,6 @@ public class RegexTrackTest {
 //    // Bug fixes.
 //
 
-//    {"(?:A|a)", "litfold{A}"},
 //    {"A|(?:A|a)", "litfold{A}"},
 //    {"(?s).", "dot{}"},
 //    {"(?-s).", "dnl{}"},
@@ -1238,7 +1248,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?:A|a)");
+        testRegexpTrack("A|(?:A|a)");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
