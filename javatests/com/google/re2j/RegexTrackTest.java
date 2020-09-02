@@ -1061,6 +1061,26 @@ public class RegexTrackTest {
                 new Track(13, 14, "any characters excluding \"\\n\""),
                 new Track(14, 15, "capturing group end"),
         });
+
+        put("[\\x00-\\x{10FFFF}]", new Track[]{
+                // FIXME not correct
+                new Track(0, 15, "sequence of [negated,single-line: dot also matches line breaks,line start,any characters excluding \"\\n\"]"),
+                new Track(0, 8, "non-capturing group"),
+                new Track(0, 2, "non-capturing group start"),
+                new Track(2, 3, "negated"),
+                new Track(3, 4, "single-line: dot also matches line breaks"),
+                new Track(4, 5, "capturing group end"),
+                new Track(5, 7, "non-capturing group start"),
+                new Track(7, 8, "mod modifier end"),
+                new Track(8, 13, "line start"),
+                new Track(8, 11, "non-capturing group"),
+                new Track(8, 10, "non-capturing group start"),
+                new Track(10, 11, "mod modifier end"),
+                new Track(11, 12, "line start"),
+                new Track(12, 13, "capturing group end"),
+                new Track(13, 14, "any characters excluding \"\\n\""),
+                new Track(14, 15, "capturing group end"),
+        });
     }};
 
 //  {
@@ -1069,7 +1089,6 @@ public class RegexTrackTest {
 //
 //    // Bug fixes.
 //
-//    {"(?-s)(?:(?:^).)", "cat{bol{}dnl{}}"},
 //    {"[\\x00-\\x{10FFFF}]", "dot{}"},
 //    {"[^\\x00-\\x{10FFFF}]", "cc{}"},
 //    {"(?:[a][a-])", "cat{lit{a}cc{0x2d 0x61}}"},
@@ -1302,7 +1321,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?-s)(?:(?:^).)");
+        testRegexpTrack("[\\x00-\\x{10FFFF}]");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
