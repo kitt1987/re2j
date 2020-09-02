@@ -301,7 +301,8 @@ public class RegexpTracks {
                 if (track.Start == composed.Start) {
                     // track contains the composed
                     composed.UpdateRange(composed.Start, track.End);
-                    return true;
+                    hasOverlappedTracks = true;
+                    continue;
                 }
 
                 // divide the composed track
@@ -314,7 +315,8 @@ public class RegexpTracks {
             if (track.End >= composed.End) {
                 // track contains the composed
                 composed.UpdateRange(track.Start, track.End);
-                return true;
+                hasOverlappedTracks = true;
+                continue;
             }
 
             composed.UpdateRange(track.End, composed.End);
