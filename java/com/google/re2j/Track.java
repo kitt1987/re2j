@@ -354,6 +354,9 @@ public class Track implements Comparable<Track>  {
             case BEGIN_LINE:
                 b.append(CommentMap.get("^:m"));
                 break;
+            case END_LINE:
+                b.append(CommentMap.get("$:m"));
+                break;
             default:
                 throw new IllegalStateException("unsupported composed regexp " + re.op);
         }
