@@ -705,21 +705,10 @@ public class RegexTrackTest {
         });
 
         put("\\Q+|*?{[\\E", new Track[]{
-                new Track(0, 13, "alternation of [literal 'a',literal 'b',literal 'c',literal 'A',literal 'Z']"),
-                new Track(0, 3, "non-capturing group"),
-                new Track(0, 2, "non-capturing group start"),
-                new Track(2, 3, "mod modifier end"),
-                new Track(3, 8, "character class of [literal 'a',literal 'b',literal 'c']"),
-                new Track(3, 4, "character class"),
-                new Track(4, 5, "literal 'a'"),
-                new Track(5, 6, "literal 'b'"),
-                new Track(6, 7, "literal 'c'"),
-                new Track(7, 8, "character class end"),
-                new Track(8, 9, "alternation"),
-                new Track(9, 10, "literal 'A'"),
-                new Track(10, 11, "alternation"),
-                new Track(11, 12, "literal 'Z'"),
-                new Track(12, 13, "capturing group end"),
+                new Track(0, 10, "+|*?{["),
+                new Track(0, 2, "escaped string start"),
+                new Track(2, 8, "+|*?{["),
+                new Track(8, 10, "escaped string end"),
         });
     }};
 
