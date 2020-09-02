@@ -765,11 +765,11 @@ public class RegexTrackTest {
         });
 
         put("(?-m)^", new Track[]{
-                new Track(0, 5, "line start"),
+                new Track(0, 5, "word start"),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "multi-line: '^' and '$' match at the start and end of each line"),
                 new Track(3, 4, "capturing group end"),
-                new Track(4, 5, "line start"),
+                new Track(4, 5, "word start"),
         });
 
         put("(?m)$", new Track[]{
