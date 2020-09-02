@@ -893,6 +893,11 @@ public class RegexTrackTest {
                 new Track(16, 19, "string \"bcy\""),
         });
 
+        //    {
+//      "ax+y|ax+z|ay+w",
+//      "cat{lit{a}alt{cat{plus{lit{x}}lit{y}}cat{plus{lit{x}}lit{z}}cat{plus{lit{y}}lit{w}}}}"
+//    },
+
         put("ax+y|ax+z|ay+w", new Track[]{
                 new Track(0, 14, "sequence of [sequence of [literal 'a',literal 'x' repeated once or many times,literal 'y'],sequence of [literal 'a',literal 'x' repeated once or many times,literal 'z'],sequence of [literal 'a',literal 'y' repeated once or many times,literal 'w']]"),
                 new Track(0, 4, "sequence of [literal 'a',literal 'x' repeated once or many times,literal 'y']"),
@@ -917,14 +922,19 @@ public class RegexTrackTest {
                 new Track(12, 13, "quantifier: repeated once or many times"),
                 new Track(13, 14, "literal 'w'"),
         });
+
+        put("(?:.)", new Track[]{
+                new Track(0, 4, "case insensitive literal 'Δ'"),
+                new Track(0, 1, "character class"),
+                new Track(1, 2, "literal 'Δ'"),
+                new Track(2, 3, "literal 'δ'"),
+                new Track(3, 4, "character class end"),
+        });
     }};
 
 //  {
 //
-//    {
-//      "ax+y|ax+z|ay+w",
-//      "cat{lit{a}alt{cat{plus{lit{x}}lit{y}}cat{plus{lit{x}}lit{z}}cat{plus{lit{y}}lit{w}}}}"
-//    },
+
 //
 //    // Bug fixes.
 //
@@ -1170,7 +1180,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("ax+y|ax+z|ay+w");
+        testRegexpTrack("(?:.)");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
