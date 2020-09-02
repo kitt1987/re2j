@@ -781,6 +781,19 @@ class Parser {
       this.tracks.add(new Track(pos));
     }
 
+    void PushNewCCRangeTrack(int lo, int hi) {
+      if (tracks.size() > 0) {
+        Track last = tracks.get(tracks.size()-1);
+        if (last.Start == pos && last.IsNothing()) {
+          return;
+        }
+
+        last.FreezePlainText(pos, re);
+      }
+
+      this.tracks.add(new Track(pos));
+    }
+
     void PushNewLiteralTrack(String literals) {
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
@@ -1605,9 +1618,7 @@ class Parser {
       return parseEscape(t);
     }
 
-    int rv = t.pop();
-    t.PushNewTrack();
-    return rv;
+    return t.pop();
   }
 
   // parsePerlClassEscape parses a leading Perl character class escape like \d
@@ -1837,6 +1848,7 @@ class Parser {
       } else {
         cc.appendFoldedRange(lo, hi);
       }
+      t.PushNewCCRangeTrack(lo, hi);
     }
     t.skip(1); // ']'
     t.PushNewTrack();
