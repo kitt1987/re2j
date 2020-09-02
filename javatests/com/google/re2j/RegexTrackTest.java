@@ -843,7 +843,7 @@ public class RegexTrackTest {
         });
 
         put("[\\x{100}\\x{101}]", new Track[]{
-                new Track(0, 4, "case insensitive literal 'A'"),
+                new Track(0, 16, "case insensitive literal 'A'"),
                 new Track(0, 1, "character class"),
                 new Track(1, 2, "escape"),
                 new Track(2, 8, "hexadecimal 256"),
