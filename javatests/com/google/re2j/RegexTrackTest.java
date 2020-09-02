@@ -1138,12 +1138,17 @@ public class RegexTrackTest {
         });
 
         put("(?i)abc|ABD", new Track[]{
-                new Track(0, 9, "alternation of [string \"abc\",literal 'x',string \"abd\"]"),
-                new Track(0, 3, "string \"abc\""),
-                new Track(3, 4, "alternation"),
-                new Track(4, 5, "literal 'x'"),
-                new Track(5, 6, "alternation"),
-                new Track(6, 9, "string \"abd\""),
+                new Track(0, 11, "sequence of [case insensitive string \"ABC\",string \"ABD\"]"),
+                new Track(0, 7, "case insensitive string \"ABC\""),
+                new Track(0, 5, "case insensitive literal 'A'"),
+                new Track(0, 2, "non-capturing group start"),
+                new Track(2, 3, "case insensitive"),
+                new Track(3, 4, "capturing group end"),
+                new Track(4, 5, "literal 'a'"),
+                new Track(5, 6, "literal 'b'"),
+                new Track(6, 7, "literal 'c'"),
+                new Track(7, 8, "alternation"),
+                new Track(8, 11, "string \"ABD\""),
         });
     }};
 
