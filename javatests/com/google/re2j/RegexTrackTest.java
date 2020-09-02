@@ -895,15 +895,27 @@ public class RegexTrackTest {
 
         put("ax+y|ax+z|ay+w", new Track[]{
                 new Track(0, 14, "sequence of [sequence of [literal 'a',literal 'x' repeated once or many times,literal 'y'],sequence of [literal 'a',literal 'x' repeated once or many times,literal 'z'],sequence of [literal 'a',literal 'y' repeated once or many times,literal 'w']]"),
-                new Track(0, 3, "string \"abc\""),
-                new Track(3, 4, "alternation"),
-                new Track(4, 7, "string \"abd\""),
-                new Track(7, 8, "alternation"),
-                new Track(8, 11, "string \"aef\""),
-                new Track(11, 12, "alternation"),
-                new Track(12, 15, "string \"bcx\""),
-                new Track(15, 16, "alternation"),
-                new Track(16, 19, "string \"bcy\""),
+                new Track(0, 4, "sequence of [literal 'a',literal 'x' repeated once or many times,literal 'y']"),
+                // FIXME lack of track of literal 'a'
+                new Track(1, 3, "literal 'x' repeated once or many times"),
+                new Track(1, 2, "literal 'x'"),
+                new Track(2, 3, "quantifier: repeated once or many times"),
+                new Track(3, 4, "literal 'y'"),
+                new Track(4, 5, "alternation"),
+                new Track(5, 9, "sequence of [literal 'a',literal 'x' repeated once or many times,literal 'z']"),
+
+                new Track(6, 8, "literal 'x' repeated once or many times"),
+                new Track(6, 7, "literal 'x'"),
+                new Track(7, 8, "quantifier: repeated once or many times"),
+                new Track(8, 9, "literal 'z'"),
+
+                new Track(9, 10, "alternation"),
+                new Track(10, 14, "sequence of [literal 'a',literal 'y' repeated once or many times,literal 'w']"),
+
+                new Track(11, 13, "literal 'y' repeated once or many times"),
+                new Track(11, 12, "literal 'y'"),
+                new Track(12, 13, "quantifier: repeated once or many times"),
+                new Track(13, 14, "literal 'w'"),
         });
     }};
 
