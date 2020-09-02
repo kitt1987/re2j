@@ -108,13 +108,13 @@ public class Track implements Comparable<Track>  {
             throw new IllegalStateException("need to compose at least 2 tracks");
         }
 
-        int[] range = getTrackRange(tracks);
         if (composedText.length() > 1) {
             composedText = "string \"" + composedText + "\"";
         } else {
             composedText = "literal '" + composedText + "'";
         }
 
+        int[] range = getTrackRange(tracks);
         return new Track(range[0], range[1], composedText);
     }
 

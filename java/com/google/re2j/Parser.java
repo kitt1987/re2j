@@ -1035,6 +1035,11 @@ class Parser {
                     }
                     t.skipString(lit);
                     t.PushNewLiteralTrack(lit);
+                    if (lit.length() > 1) {
+                      t.PushNewLiteralTrack("string \"" + lit + "\"");
+                    } else {
+                      t.PushNewLiteralTrack("literal '" + lit + "'");
+                    }
                     t.skipString("\\E");
                     t.PushNewTrack();
                     for (int j = 0; j < lit.length(); j++) {
