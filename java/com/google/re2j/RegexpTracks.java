@@ -121,6 +121,10 @@ public class RegexpTracks {
         Collections.sort(tracks);
         composedTracks.addAll(that.composedTracks);
         Collections.sort(composedTracks);
+
+        for (Track track : that.topmostTracks) {
+
+        }
         topmostTracks.addAll(that.topmostTracks);
         Collections.sort(topmostTracks);
         // FIXME validate composedTracks

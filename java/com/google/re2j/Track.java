@@ -303,6 +303,7 @@ public class Track implements Comparable<Track>  {
         return placeholder;
     }
     boolean IsMutable() { return mutable; }
+    void MarkReadonly() { mutable = false; }
 
     private String getComments(ArrayList<Track> tracks, Regexp re) {
         StringBuilder b = new StringBuilder();
