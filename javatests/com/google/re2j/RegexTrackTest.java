@@ -710,6 +710,13 @@ public class RegexTrackTest {
                 new Track(2, 8, "+|*?{["),
                 new Track(8, 10, "escaped string end"),
         });
+
+        put("\\Q+\\E+", new Track[]{
+                new Track(0, 10, "+|*?{["),
+                new Track(0, 2, "escaped string start"),
+                new Track(2, 8, "+|*?{["),
+                new Track(8, 10, "escaped string end"),
+        });
     }};
 
 //  {
@@ -717,7 +724,6 @@ public class RegexTrackTest {
 //    // Test flattening.
 
 //    // Test Perl quoted literals
-//    {"\\Q+|*?{[\\E", "str{+|*?{[}"},
 //    {"\\Q+\\E+", "plus{lit{+}}"},
 //    {"\\Qab\\E+", "cat{lit{a}plus{lit{b}}}"},
 //    {"\\Q\\\\E", "lit{\\}"},
