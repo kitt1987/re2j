@@ -1027,13 +1027,18 @@ public class RegexTrackTest {
         });
 
         put("(?:(?:^).)", new Track[]{
-                // FIXME not correct
-                new Track(0, 4, "any characters excluding \"\\n\""),
+                new Track(0, 10, "sequence of [line start,any characters excluding \"\\n\"]"),
+                new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group start"),
-                new Track(2, 3, "negated"),
-                new Track(3, 4, "single-line: dot also matches line breaks"),
-                new Track(4, 5, "capturing group end"),
-                new Track(5, 6, "any characters excluding \"\\n\""),
+                new Track(2, 3, "mod modifier end"),
+                new Track(3, 8, "line start"),
+                new Track(3, 6, "non-capturing group"),
+                new Track(3, 5, "non-capturing group start"),
+                new Track(5, 6, "mod modifier end"),
+                new Track(6, 7, "line start"),
+                new Track(7, 8, "capturing group end"),
+                new Track(8, 9, "any characters excluding \"\\n\""),
+                new Track(9, 10, "capturing group end"),
         });
     }};
 
