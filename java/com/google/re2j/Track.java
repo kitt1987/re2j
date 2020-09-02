@@ -55,6 +55,7 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("[:xdigit:]", "hexadecimal digits");
         CommentMap.put("[:^xdigit:]", "negated hexadecimal digits");
         CommentMap.put("\\A", "word start");
+        CommentMap.put("\\z", "word end");
         CommentMap.put("\\d", "digits");
         CommentMap.put("\\D", "non-digits");
         CommentMap.put("\\s", "whitespace");
