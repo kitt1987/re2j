@@ -345,29 +345,29 @@ public class RegexTrackTest {
         put("[[:lower:]]", new Track[]{
                 new Track(0, 11, "character class of [lowercase letters]"),
                 new Track(0, 1, "character class"),
-                new Track(1, 10, "POSIX class lowercase letters"),
+                new Track(1, 10, "POSIX class:lowercase letters"),
                 new Track(10, 11, "character class end"),
         });
         put("[^[:lower:]]", new Track[]{
-                new Track(0, 12, "character class of [negated,POSIX class lowercase letters]"),
+                new Track(0, 12, "character class of [negated,lowercase letters]"),
                 new Track(0, 1, "character class"),
                 new Track(1, 2, "negated"),
-                new Track(2, 11, "POSIX class lowercase letters"),
+                new Track(2, 11, "POSIX class:lowercase letters"),
                 new Track(11, 12, "character class end"),
         });
         put("[[:^lower:]]", new Track[]{
-                new Track(0, 12, "character class of [POSIX class negated lowercase letters]"),
+                new Track(0, 12, "character class of [negated lowercase letters]"),
                 new Track(0, 1, "character class"),
-                new Track(1, 11, "POSIX class negated lowercase letters"),
+                new Track(1, 11, "POSIX class:negated lowercase letters"),
                 new Track(11, 12, "character class end"),
         });
         put("(?i)[[:lower:]]", new Track[]{
-                new Track(0, 15, "character class of [case insensitive,POSIX class lowercase letters]"),
+                new Track(0, 15, "character class of [case insensitive,lowercase letters]"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "case insensitive"),
                 new Track(3, 4, "capturing group end"),
                 new Track(4, 5, "character class"),
-                new Track(5, 14, "POSIX class lowercase letters"),
+                new Track(5, 14, "POSIX class:lowercase letters"),
                 new Track(14, 15, "character class end"),
         });
         put("(?i)[a-z]", new Track[]{
@@ -380,22 +380,22 @@ public class RegexTrackTest {
                 new Track(8, 9, "character class end"),
         });
         put("(?i)[^[:lower:]]", new Track[]{
-                new Track(0, 16, "character class of [case insensitive,negated,POSIX class lowercase letters]"),
+                new Track(0, 16, "character class of [case insensitive,negated,lowercase letters]"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "case insensitive"),
                 new Track(3, 4, "capturing group end"),
                 new Track(4, 5, "character class"),
                 new Track(5, 6, "negated"),
-                new Track(6, 15, "POSIX class lowercase letters"),
+                new Track(6, 15, "POSIX class:lowercase letters"),
                 new Track(15, 16, "character class end"),
         });
         put("(?i)[[:^lower:]]", new Track[]{
-                new Track(0, 16, "character class of [case insensitive,POSIX class negated lowercase letters]"),
+                new Track(0, 16, "character class of [case insensitive,negated lowercase letters]"),
                 new Track(0, 2, "non-capturing group"),
                 new Track(2, 3, "case insensitive"),
                 new Track(3, 4, "capturing group end"),
                 new Track(4, 5, "character class"),
-                new Track(5, 15, "POSIX class negated lowercase letters"),
+                new Track(5, 15, "POSIX class:negated lowercase letters"),
                 new Track(15, 16, "character class end"),
         });
         put("\\d", new Track[]{
