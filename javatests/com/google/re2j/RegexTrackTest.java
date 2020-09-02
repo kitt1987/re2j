@@ -841,6 +841,14 @@ public class RegexTrackTest {
                 new Track(2, 3, "literal 'a'"),
                 new Track(3, 4, "character class end"),
         });
+
+        put("[\\x{100}\\x{101}]", new Track[]{
+                new Track(0, 4, "case insensitive literal 'A'"),
+                new Track(0, 1, "character class"),
+                new Track(1, 2, "literal 'A'"),
+                new Track(2, 3, "literal 'a'"),
+                new Track(3, 4, "character class end"),
+        });
     }};
 
 //  {
@@ -1108,7 +1116,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("[Aa]");
+        testRegexpTrack("[\\x{100}\\x{101}]");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
