@@ -1164,6 +1164,19 @@ public class RegexTrackTest {
                 // FIXME lack of tracks
                 new Track(10, 11, "literal 'd'"),
         });
+
+        put(".c|.d", new Track[]{
+                new Track(0, 6, "sequence of [character class of [literal 'a',literal 'b'],literal 'c']"),
+                new Track(0, 4, "character class of [literal 'a',literal 'b']"),
+                new Track(0, 1, "character class"),
+                new Track(1, 2, "literal 'a'"),
+                new Track(2, 3, "literal 'b'"),
+                new Track(3, 4, "character class end"),
+                new Track(4, 5, "literal 'c'"),
+                new Track(5, 6, "alternation"),
+                // FIXME lack of tracks
+                new Track(10, 11, "literal 'd'"),
+        });
     }};
 
 //  {
