@@ -207,9 +207,9 @@ public class RegexTrackTest {
         put("x{1,9876543210", new Track[]{
                 new Track(0, 14, "string \"x{1,9876543210\""),
         });
-//        put("", new Track[]{
-//                new Track(0, 0, "empty"),
-//        });
+        put("", new Track[]{
+                new Track(0, 0, "empty"),
+        });
         put("|", new Track[]{
                 // FIXME
                 new Track(0, 1, "empty string"),
