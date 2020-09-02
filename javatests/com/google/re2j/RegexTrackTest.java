@@ -1015,12 +1015,25 @@ public class RegexTrackTest {
                 new Track(4, 5, "any characters excluding \"\\n\""),
         });
 
+        //    {"(?-s).", "dnl{}"},
         put("(?-s).", new Track[]{
-                new Track(0, 4, "empty string"),
-                new Track(0, 4, "empty string"),
+                // FIXME not correct
+                new Track(0, 4, "any characters excluding \"\\n\""),
                 new Track(0, 2, "non-capturing group start"),
-                new Track(2, 3, "single-line: dot also matches line breaks"),
-                new Track(3, 4, "capturing group end"),
+                new Track(2, 3, "negated"),
+                new Track(3, 4, "single-line: dot also matches line breaks"),
+                new Track(4, 5, "capturing group end"),
+                new Track(5, 6, "any characters excluding \"\\n\""),
+        });
+
+        put("(?:(?:^).)", new Track[]{
+                // FIXME not correct
+                new Track(0, 4, "any characters excluding \"\\n\""),
+                new Track(0, 2, "non-capturing group start"),
+                new Track(2, 3, "negated"),
+                new Track(3, 4, "single-line: dot also matches line breaks"),
+                new Track(4, 5, "capturing group end"),
+                new Track(5, 6, "any characters excluding \"\\n\""),
         });
     }};
 
@@ -1030,8 +1043,6 @@ public class RegexTrackTest {
 //
 //    // Bug fixes.
 //
-
-//    {"(?-s).", "dnl{}"},
 //    {"(?:(?:^).)", "cat{bol{}dot{}}"},
 //    {"(?-s)(?:(?:^).)", "cat{bol{}dnl{}}"},
 //    {"[\\x00-\\x{10FFFF}]", "dot{}"},
@@ -1266,7 +1277,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?-s).");
+        testRegexpTrack("(?:(?:^).)");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
