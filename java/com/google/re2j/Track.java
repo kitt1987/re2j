@@ -335,7 +335,12 @@ public class Track implements Comparable<Track>  {
                 }
                 // FIXME comments must be in order
                 if (op == Regexp.Op.CHAR_CLASS && tracks.get(0).negated) {
-                    b.append("negated ");
+                    for (Track track : tracks) {
+                        if (track.negated) {
+                            b.append("negated ");
+                            break;
+                        }
+                    }
                 }
 
                 b.append(OpKeyRuneMap.get(op))
