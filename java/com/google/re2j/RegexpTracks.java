@@ -141,7 +141,7 @@ public class RegexpTracks {
                 lastEnd = topmostTracks.get(topmostTracks.size()-1).End;
             } else if (composedTracks.size() > 0) {
                 lastEnd = composedTracks.get(composedTracks.size()-1).End;
-            } else {
+            } else if (tracks.size() > 0) {
                 lastEnd = tracks.get(tracks.size()-1).End;
             }
 
