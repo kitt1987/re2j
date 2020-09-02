@@ -881,19 +881,16 @@ public class RegexTrackTest {
         });
 
         put("abc|abd|aef|bcx|bcy", new Track[]{
-                new Track(0, 10, "sequence of [case insensitive string \"AB\",string \"cd\"]"),
-                new Track(0, 8, "case insensitive string \"AB\""),
-                new Track(0, 4, "case insensitive literal 'A'"),
-                new Track(0, 1, "character class"),
-                new Track(1, 2, "literal 'A'"),
-                new Track(2, 3, "literal 'a'"),
-                new Track(3, 4, "character class end"),
-                new Track(4, 8, "case insensitive literal 'B'"),
-                new Track(4, 5, "character class"),
-                new Track(5, 6, "literal 'B'"),
-                new Track(6, 7, "literal 'b'"),
-                new Track(7, 8, "character class end"),
-                new Track(8, 10, "string \"cd\""),
+                new Track(0, 19, "alternation of [string \"abc\",string \"abd\",string \"aef\",string \"bcx\",string \"bcy\"]"),
+                new Track(0, 3, "string \"abc\""),
+                new Track(3, 4, "alternation"),
+                new Track(4, 7, "string \"abd\""),
+                new Track(7, 8, "alternation"),
+                new Track(8, 11, "string \"aef\""),
+                new Track(11, 12, "alternation"),
+                new Track(12, 15, "string \"bcx\""),
+                new Track(15, 16, "alternation"),
+                new Track(16, 19, "string \"bcy\""),
         });
     }};
 
