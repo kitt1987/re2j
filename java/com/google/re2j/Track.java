@@ -259,7 +259,7 @@ public class Track implements Comparable<Track>  {
         }
 
         if (posix) {
-            Comments = "POSIX class " + Comments;
+            Comments = "POSIX class:" + Comments;
         }
     }
 
