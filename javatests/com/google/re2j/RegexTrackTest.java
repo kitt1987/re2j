@@ -1008,7 +1008,7 @@ public class RegexTrackTest {
 
         //    {"(?s).", "dot{}"},
         put("(?s).", new Track[]{
-                new Track(0, 4, "any characters excluding \"\\n\""),
+                new Track(0, 5, "any characters excluding \"\\n\""),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "single-line: dot also matches line breaks"),
                 new Track(3, 4, "capturing group end"),
