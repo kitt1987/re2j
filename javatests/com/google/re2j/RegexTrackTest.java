@@ -933,12 +933,20 @@ public class RegexTrackTest {
         });
 
         put("(?:x|(?:xa))", new Track[]{
-                new Track(0, 5, "any characters excluding \"\\n\""),
+                // FIXME not correct
+                new Track(0, 12, "sequence of [literal 'x',string \"xa\"]"),
                 new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "mod modifier end"),
-                new Track(3, 4, "any characters excluding \"\\n\""),
-                new Track(4, 5, "capturing group end"),
+                new Track(3, 4, "literal 'x'"),
+                new Track(4, 5, "alternation"),
+                new Track(5, 11, "string \"xa\""),
+                new Track(5, 8, "non-capturing group"),
+                new Track(5, 7, "non-capturing group start"),
+                new Track(7, 8, "mod modifier end"),
+                new Track(8, 10, "string \"xa\""),
+                new Track(10, 11, "capturing group end"),
+                new Track(11, 12, "capturing group end"),
         });
     }};
 
