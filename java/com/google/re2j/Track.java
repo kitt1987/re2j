@@ -225,6 +225,7 @@ public class Track implements Comparable<Track>  {
                 case '*':
                 case '+':
                 case '?':
+                case '\\':
                     omitInComposed = true;
             }
         } else if (text.length() == 2) {
