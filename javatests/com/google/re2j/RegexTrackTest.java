@@ -763,16 +763,19 @@ public class RegexTrackTest {
                 new Track(3, 4, "capturing group end"),
                 new Track(4, 5, "line start"),
         });
+
+        put("(?m)$", new Track[]{
+                new Track(0, 5, "line end"),
+                new Track(0, 2, "non-capturing group start"),
+                new Track(2, 3, "multi-line: '^' and '$' match at the start and end of each line"),
+                new Track(3, 4, "capturing group end"),
+                new Track(4, 5, "line end"),
+        });
     }};
 
 //  {
 //
-//    // Test flattening.
-
-//    // Test Perl quoted literals
-//
 //    // Test Perl \A and \z
-//    {"(?m)^", "bol{}"},
 //    {"(?m)$", "eol{}"},
 //    {"(?-m)^", "bot{}"},
 //    {"(?-m)$", "eot{}"},
@@ -1047,7 +1050,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?m)^");
+        testRegexpTrack("(?m)$");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
