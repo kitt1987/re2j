@@ -1062,7 +1062,19 @@ public class RegexTrackTest {
                 new Track(14, 15, "capturing group end"),
         });
 
+        //    {"[\\x00-\\x{10FFFF}]", "dot{}"},
         put("[\\x00-\\x{10FFFF}]", new Track[]{
+                // FIXME not correct
+                new Track(0, 17, "character class of [hexadecimal 0,string \"-\\\",hexadecimal 1114111]"),
+                new Track(0, 1, "character class"),
+                new Track(1, 2, "escape"),
+                new Track(2, 5, "hexadecimal 0"),
+                new Track(5, 7, "string \"-\\\""),
+                new Track(7, 16, "hexadecimal 1114111"),
+                new Track(16, 17, "character class end"),
+        });
+
+        put("[^\\x00-\\x{10FFFF}]", new Track[]{
                 // FIXME not correct
                 new Track(0, 17, "character class of [hexadecimal 0,string \"-\\\",hexadecimal 1114111]"),
                 new Track(0, 1, "character class"),
@@ -1080,7 +1092,6 @@ public class RegexTrackTest {
 //
 //    // Bug fixes.
 //
-//    {"[\\x00-\\x{10FFFF}]", "dot{}"},
 //    {"[^\\x00-\\x{10FFFF}]", "cc{}"},
 //    {"(?:[a][a-])", "cat{lit{a}cc{0x2d 0x61}}"},
 //
@@ -1312,7 +1323,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("[\\x00-\\x{10FFFF}]");
+        testRegexpTrack("[^\\x00-\\x{10FFFF}]");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
