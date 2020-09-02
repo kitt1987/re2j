@@ -196,10 +196,10 @@ public class Track implements Comparable<Track>  {
 
     void FreezeCCRange(int end, int lo, int hi) {
         End = end;
-        if (text.length() > 1) {
-            this.Comments = text;
+        if (lo == hi) {
+            Comments = "literal '" + Utils.runeToString(lo) + "'";
         } else {
-            this.Comments = "literal '" + text + "'";
+            Comments = "range " + Utils.runeToString(lo) + " to " + Utils.runeToString(hi);
         }
     }
 
