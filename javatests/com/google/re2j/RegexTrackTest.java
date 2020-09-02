@@ -1136,6 +1136,15 @@ public class RegexTrackTest {
                 new Track(5, 6, "alternation"),
                 new Track(6, 9, "string \"abd\""),
         });
+
+        put("(?i)abc|ABD", new Track[]{
+                new Track(0, 9, "alternation of [string \"abc\",literal 'x',string \"abd\"]"),
+                new Track(0, 3, "string \"abc\""),
+                new Track(3, 4, "alternation"),
+                new Track(4, 5, "literal 'x'"),
+                new Track(5, 6, "alternation"),
+                new Track(6, 9, "string \"abd\""),
+        });
     }};
 
 //  {
@@ -1145,7 +1154,6 @@ public class RegexTrackTest {
 //      "abc|abd|aef|bcx|bcy",
 //      "alt{cat{lit{a}alt{cat{lit{b}cc{0x63-0x64}}str{ef}}}" + "cat{str{bc}cc{0x78-0x79}}}"
 //    },
-//    {"abc|x|abd", "alt{str{abc}lit{x}str{abd}}"},
 //    {"(?i)abc|ABD", "cat{strfold{AB}cc{0x43-0x44 0x63-0x64}}"},
 //    {"[ab]c|[ab]d", "cat{cc{0x61-0x62}cc{0x63-0x64}}"},
 //    {".c|.d", "cat{dot{}cc{0x63-0x64}}"},
@@ -1366,7 +1374,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("abc|x|abd");
+        testRegexpTrack("(?i)abc|ABD");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
