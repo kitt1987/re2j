@@ -788,7 +788,7 @@ class Parser {
           return;
         }
 
-        last.FreezePlainText(pos, re);
+        last.FreezeCCRange(pos, lo, hi);
       }
 
       this.tracks.add(new Track(pos));

@@ -194,6 +194,15 @@ public class Track implements Comparable<Track>  {
         }
     }
 
+    void FreezeCCRange(int end, int lo, int hi) {
+        End = end;
+        if (text.length() > 1) {
+            this.Comments = text;
+        } else {
+            this.Comments = "literal '" + text + "'";
+        }
+    }
+
     void FreezeRepetition(int end, Regexp re) {
         if (re.op != Regexp.Op.REPEAT) {
             throw new IllegalStateException("only repeat is supported but " + re.op);
