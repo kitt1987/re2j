@@ -1190,7 +1190,25 @@ public class RegexTrackTest {
                 new Track(13, 14, "character class end"),
         });
 
+        //    {"x{2}y|x{2}[0-9]y", "cat{rep{2,2 lit{x}}alt{lit{y}cat{cc{0x30-0x39}lit{y}}}}"},
         put("x{2}y|x{2}[0-9]y", new Track[]{
+                new Track(0, 16, "sequence of [literal 'x' repeated twice,literal 'y',sequence of [literal 'x' repeated twice,character class of [range 0 to 9],literal 'y']]"),
+                new Track(0, 4, "literal 'x' repeated twice"),
+                new Track(0, 1, "literal 'x'"),
+                new Track(1, 4, "quantifier: repeated twice"),
+                new Track(4, 5, "literal 'y'"),
+                new Track(5, 6, "alternation"),
+                new Track(6, 16, "sequence of [literal 'x' repeated twice,character class of [range 0 to 9],literal 'y']"),
+
+                // FIXME lack of tracks
+                new Track(10, 15, "character class of [range 0 to 9]"),
+                new Track(10, 11, "character class"),
+                new Track(11, 14, "range 0 to 9"),
+                new Track(14, 15, "character class end"),
+                new Track(15, 16, "literal 'y'"),
+        });
+
+        put("a.*?c|a.*?b", new Track[]{
                 new Track(0, 16, "sequence of [literal 'x' repeated twice,literal 'y',sequence of [literal 'x' repeated twice,character class of [range 0 to 9],literal 'y']]"),
                 new Track(0, 4, "literal 'x' repeated twice"),
                 new Track(0, 1, "literal 'x'"),
@@ -1216,7 +1234,7 @@ public class RegexTrackTest {
 //      "alt{cat{lit{a}alt{cat{lit{b}cc{0x63-0x64}}str{ef}}}" + "cat{str{bc}cc{0x78-0x79}}}"
 //    },
 
-//    {"x{2}y|x{2}[0-9]y", "cat{rep{2,2 lit{x}}alt{lit{y}cat{cc{0x30-0x39}lit{y}}}}"},
+
 //    {"a.*?c|a.*?b", "cat{lit{a}alt{cat{nstar{dot{}}lit{c}}cat{nstar{dot{}}lit{b}}}}"},
 //  };
 
@@ -1432,7 +1450,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("x{2}y|x{2}[0-9]y");
+        testRegexpTrack("a.*?c|a.*?b");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
