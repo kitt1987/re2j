@@ -706,8 +706,14 @@ public class RegexTrackTest {
 
         put("\\Q+|*?{[\\E", new Track[]{
                 new Track(0, 10, "string \"+|*?{[\""),
+                new Track(0, 3, "literal '+'"),
                 new Track(0, 2, "escaped string start"),
-                new Track(2, 8, "string \"+|*?{[\""),
+                new Track(2, 3, "literal '+'"),
+                new Track(3, 4, "literal '|'"),
+                new Track(4, 5, "literal '*'"),
+                new Track(5, 6, "literal '?'"),
+                new Track(6, 7, "literal '{'"),
+                new Track(7, 8, "literal '['"),
                 new Track(8, 10, "escaped string end"),
         });
 
