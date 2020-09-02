@@ -149,20 +149,6 @@ public class RegexpTracks {
 
     // particular cases for different types of Regexps
     public void ConcatLiterals(RegexpTracks that) {
-        if (that.topmostTracks.isEmpty() && that.composedTracks.isEmpty() && that.tracks.isEmpty()) {
-            ComposeTopmostTracks();
-            return;
-        }
-
-        if (topmostTracks.isEmpty() && composedTracks.isEmpty() && tracks.isEmpty()) {
-            composedTracks.addAll(that.composedTracks);
-            tracks.addAll(that.tracks);
-            Collections.sort(composedTracks);
-            Collections.sort(tracks);
-            ComposeTopmostTracks();
-            return;
-        }
-
         // If one of Regexps is an escaped literal, it would has a composed track and two track w/ an escape sign in it
         if (topmostTracks.size() > 0 || that.topmostTracks.size() > 0
                 || composedTracks.size() > 0 || that.composedTracks.size() > 0) {
