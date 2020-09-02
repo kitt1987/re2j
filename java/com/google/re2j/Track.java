@@ -323,8 +323,13 @@ public class Track implements Comparable<Track>  {
                     }
                 }
 
-                b.append(OpKeyRuneMap.get(op))
-                        .append(" of [")
+                b.append(OpKeyRuneMap.get(op));
+
+                if (op == Regexp.Op.CAPTURE && re.name != null && re.name.length() > 0) {
+                    b.append("with name \"").append(re.name).append("\"");
+                }
+
+                b.append(" of [")
                         .append(joinComments(tracks, op == Regexp.Op.ALTERNATE))
                         .append("]");
                 break;

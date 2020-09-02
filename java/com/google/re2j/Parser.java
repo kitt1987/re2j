@@ -1206,9 +1206,12 @@ class Parser {
         throw new PatternSyntaxException(ERR_INVALID_NAMED_CAPTURE, s);
       }
       String name = s.substring(4, end); // "name"
+      t.skip(4); // "(?P<"
+      t.PushNewLiteralTrack("group name");
       t.skipString(name);
-      t.skip(5); // "(?P<>"
-      t.PushNewTrack();
+      t.PushNewLiteralTrack("group name:\""+name+"\"");
+      t.skip(1); // ">"
+      t.PushNewLiteralTrack("group name end");
       if (!isValidCaptureName(name)) {
         throw new PatternSyntaxException(
             ERR_INVALID_NAMED_CAPTURE, s.substring(0, end)); // "(?P<name>"
