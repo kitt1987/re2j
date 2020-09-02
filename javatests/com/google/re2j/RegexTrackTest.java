@@ -544,7 +544,7 @@ public class RegexTrackTest {
         put("a(b|c)d", new Track[]{
                 new Track(0, 7, "sequence of [literal 'a',capturing group of [alternation of [literal 'b',literal 'c']],literal 'd']"),
                 new Track(0, 1, "literal 'a'"),
-                new Track(1, 6, "capturing group (alternation of [literal 'b',literal 'c'])"),
+                new Track(1, 6, "capturing group [alternation of [literal 'b',literal 'c']]"),
                 new Track(1, 2, "capturing group"),
                 new Track(2, 5, "alternation of [literal 'b',literal 'c']"),
                 new Track(2, 3, "literal 'b'"),
