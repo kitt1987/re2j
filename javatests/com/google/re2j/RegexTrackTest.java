@@ -637,19 +637,18 @@ public class RegexTrackTest {
         });
         put("(?:a|b)|(?:c|d)", new Track[]{
                 // FIXME literals should not exist in the topmost track again
-                new Track(0, 15, "group of alternation of [group of alternation of [literal 'a',literal 'b'],literal 'a',literal 'b',group of alternation of [literal 'c',literal 'd'],literal 'c',alternation,literal 'd']"),
-                new Track(0, 7, "group of alternation of [literal 'a',literal 'b']"),
+                new Track(0, 15, "alternation of [literal 'a',literal 'b',literal 'c',literal 'd']"),
                 new Track(0, 3, "non-capturing group"),
-                new Track(0, 2, "non-capturing group"),
+                new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "mod modifier end"),
                 new Track(3, 4, "literal 'a'"),
                 new Track(4, 5, "alternation"),
                 new Track(5, 6, "literal 'b'"),
                 new Track(6, 7, "capturing group end"),
                 new Track(7, 8, "alternation"),
-                new Track(8, 15, "group of alternation of [literal 'c',literal 'd']"),
+                new Track(8, 15, "alternation of [literal 'c',literal 'd']"),
                 new Track(8, 11, "non-capturing group"),
-                new Track(8, 10, "non-capturing group"),
+                new Track(8, 10, "non-capturing group start"),
                 new Track(10, 11, "mod modifier end"),
                 new Track(11, 12, "literal 'c'"),
                 new Track(12, 13, "alternation"),
