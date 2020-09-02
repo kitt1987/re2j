@@ -24,12 +24,6 @@ public class RegexpTracks {
         this.re = re;
     }
 
-    public void Clear() {
-        topmostTracks.clear();
-        composedTracks.clear();
-        tracks.clear();
-    }
-
     public ArrayList<Track> GetAll() {
         ArrayList<Track> allTracks = new ArrayList<Track>(topmostTracks);
         allTracks.addAll(composedTracks);

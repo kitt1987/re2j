@@ -61,7 +61,7 @@ class Regexp {
   Map<String, Integer> namedGroups; // map of group name -> capturing index
   // Do update copy ctor when adding new fields!
 
-  final RegexpTracks Tracks = new RegexpTracks(this);
+  RegexpTracks Tracks = new RegexpTracks(this);
 
   Regexp(Op op) {
     this.op = op;
@@ -86,7 +86,7 @@ class Regexp {
     runes = null;
     cap = min = max = 0;
     name = null;
-    Tracks.Clear();
+    Tracks = new RegexpTracks(this);
   }
 
   @Override
