@@ -125,6 +125,12 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("\\", EscapeText);
     }
 
+    static Track NewTopmostTrack(ArrayList<Track> tracks, Regexp re) {
+        Track tr = NewComposedTrack(tracks, re);
+        tr.mutable = true;
+        return tr;
+    }
+
     static Track NewComposedTrack(ArrayList<Track> tracks, Regexp re) {
         if (tracks.size() <= 1) {
             throw new IllegalStateException("need to compose at least 2 tracks");
@@ -164,6 +170,7 @@ public class Track implements Comparable<Track>  {
     private boolean placeholder;
     private boolean negated;
     private boolean posix;
+    private boolean mutable;
 
     Track(int start) {
         Start = start;

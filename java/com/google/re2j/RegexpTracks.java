@@ -199,7 +199,7 @@ public class RegexpTracks {
             }
 
             if (consecutive.size() > 1) {
-                needToCompose |= insertComposedTrack(topmostTracks, Track.NewComposedTrack(consecutive, re));
+                needToCompose |= insertComposedTrack(topmostTracks, Track.NewTopmostTrack(consecutive, re));
             }
 
             consecutive.clear();
@@ -207,7 +207,7 @@ public class RegexpTracks {
         }
 
         if (consecutive.size() > 1) {
-            needToCompose |= insertComposedTrack(topmostTracks, Track.NewComposedTrack(consecutive, re));
+            needToCompose |= insertComposedTrack(topmostTracks, Track.NewTopmostTrack(consecutive, re));
         }
 
         if (needToCompose) {
