@@ -950,20 +950,30 @@ public class RegexTrackTest {
                 new Track(11, 12, "capturing group end"),
         });
 
+        //    {"(?:.|(?:.a))", "cat{dot{}alt{emp{}lit{a}}}"},
         put("(?:.|(?:.a))", new Track[]{
                 // FIXME not correct
-                new Track(0, 12, "sequence of [literal 'x',string \"xa\"]"),
+                new Track(0, 5, "sequence of [any characters excluding \"\\n\"]"),
                 new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "mod modifier end"),
-                new Track(3, 4, "literal 'x'"),
+                new Track(3, 4, "any characters excluding \"\\n\""),
                 new Track(4, 5, "alternation"),
-                new Track(5, 11, "string \"xa\""),
-                new Track(5, 8, "non-capturing group"),
-                new Track(5, 7, "non-capturing group start"),
-                new Track(7, 8, "mod modifier end"),
-                new Track(8, 10, "string \"xa\""),
-                new Track(10, 11, "capturing group end"),
+                // FIXME lack of the second group
+                new Track(9, 10, "literal 'a'"),
+                new Track(11, 12, "capturing group end"),
+        });
+
+        put("(?:A(?:A|a))", new Track[]{
+                // FIXME not correct
+                new Track(0, 5, "sequence of [any characters excluding \"\\n\"]"),
+                new Track(0, 3, "non-capturing group"),
+                new Track(0, 2, "non-capturing group start"),
+                new Track(2, 3, "mod modifier end"),
+                new Track(3, 4, "any characters excluding \"\\n\""),
+                new Track(4, 5, "alternation"),
+                // FIXME lack of the second group
+                new Track(9, 10, "literal 'a'"),
                 new Track(11, 12, "capturing group end"),
         });
     }};
@@ -974,7 +984,7 @@ public class RegexTrackTest {
 //
 //    // Bug fixes.
 //
-//    {"(?:.|(?:.a))", "cat{dot{}alt{emp{}lit{a}}}"},
+
 //    {"(?:A(?:A|a))", "cat{lit{A}litfold{A}}"},
 //    {"(?:A|a)", "litfold{A}"},
 //    {"A|(?:A|a)", "litfold{A}"},
@@ -1214,7 +1224,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?:.|(?:.a))");
+        testRegexpTrack("(?:A(?:A|a))");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
