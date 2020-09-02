@@ -4,48 +4,6 @@ import java.util.*;
 
 public class Track implements Comparable<Track>  {
     static final String EscapeText = "escape";
-    static final HashMap<String, String> POSIX_GROUPS = new HashMap<String, String>();
-
-    static {
-        POSIX_GROUPS.put("[:alnum:]", "alphanumeric characters");
-        POSIX_GROUPS.put("[:^alnum:]", "negated alphanumeric characters");
-        POSIX_GROUPS.put("[:alpha:]", "alphabetic characters");
-        POSIX_GROUPS.put("[:^alpha:]", "negated alphabetic characters");
-        POSIX_GROUPS.put("[:ascii:]", "ASCII characters");
-        POSIX_GROUPS.put("[:^ascii:]", "negated ASCII characters");
-        POSIX_GROUPS.put("[:blank:]", "space and tab");
-        POSIX_GROUPS.put("[:^blank:]", "negated space and tab");
-        POSIX_GROUPS.put("[:cntrl:]", "control characters");
-        POSIX_GROUPS.put("[:^cntrl:]", "negated control characters");
-        POSIX_GROUPS.put("[:digit:]", "digits");
-        POSIX_GROUPS.put("[:^digit:]", "negated digits");
-        POSIX_GROUPS.put("[:graph:]", "visible characters");
-        POSIX_GROUPS.put("[:^graph:]", "negated visible characters");
-        POSIX_GROUPS.put("[:lower:]", "lowercase letters");
-        POSIX_GROUPS.put("[:^lower:]", "negated lowercase letters");
-        POSIX_GROUPS.put("[:print:]", "visible characters and spaces");
-        POSIX_GROUPS.put("[:^print:]", "negated visible characters and spaces");
-        POSIX_GROUPS.put("[:punct:]", "punctuation");
-        POSIX_GROUPS.put("[:^punct:]", "negated punctuation");
-        POSIX_GROUPS.put("[:space:]", "whitespace characters, including line breaks");
-        POSIX_GROUPS.put("[:^space:]", "negated whitespace characters, including line breaks");
-        POSIX_GROUPS.put("[:upper:]", "uppercase letters");
-        POSIX_GROUPS.put("[:^upper:]", "negated uppercase letters");
-        POSIX_GROUPS.put("[:word:]", "word characters");
-        POSIX_GROUPS.put("[:^word:]", "negated word characters");
-        POSIX_GROUPS.put("[:xdigit:]", "hexadecimal digits");
-        POSIX_GROUPS.put("[:^xdigit:]", "negated hexadecimal digits");
-    }
-
-    static final HashMap<String, String> PERL_GROUPS = new HashMap<String, String>();
-    static {
-        PERL_GROUPS.put("\\d", "digits shorthand");
-        PERL_GROUPS.put("\\D", "non-digits shorthand");
-        PERL_GROUPS.put("\\s", "whitespace shorthand");
-        PERL_GROUPS.put("\\S", "non-whitespace shorthand");
-        PERL_GROUPS.put("\\w", "word character shorthand");
-        PERL_GROUPS.put("\\W", "non-word character shorthand");
-    }
 
     static final HashMap<Regexp.Op, String> OpKeyRuneMap = new HashMap<Regexp.Op, String>();
     static {
@@ -95,12 +53,12 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("[:^word:]", "negated word characters");
         CommentMap.put("[:xdigit:]", "hexadecimal digits");
         CommentMap.put("[:^xdigit:]", "negated hexadecimal digits");
-        CommentMap.put("\\d", "digits shorthand");
-        CommentMap.put("\\D", "non-digits shorthand");
-        CommentMap.put("\\s", "whitespace shorthand");
-        CommentMap.put("\\S", "non-whitespace shorthand");
-        CommentMap.put("\\w", "word character shorthand");
-        CommentMap.put("\\W", "non-word character shorthand");
+        CommentMap.put("\\d", "digits");
+        CommentMap.put("\\D", "non-digits");
+        CommentMap.put("\\s", "whitespace");
+        CommentMap.put("\\S", "non-whitespace");
+        CommentMap.put("\\w", "word character");
+        CommentMap.put("\\W", "non-word character");
         CommentMap.put("\\b", "word boundary");
         CommentMap.put("\\B", "non-word boundary");
         CommentMap.put(":", "mod modifier end");
