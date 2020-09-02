@@ -109,12 +109,10 @@ public class Track implements Comparable<Track>  {
         }
 
         int[] range = getTrackRange(tracks);
-        if (composedText == null) {
-            if (composedText.length() > 1) {
-                composedText = "string \"" + composedText + "\"";
-            } else {
-                composedText = "literal '" + composedText + "'";
-            }
+        if (composedText.length() > 1) {
+            composedText = "string \"" + composedText + "\"";
+        } else {
+            composedText = "literal '" + composedText + "'";
         }
 
         return new Track(range[0], range[1], composedText);
