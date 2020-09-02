@@ -1127,13 +1127,26 @@ public class RegexTrackTest {
                 new Track(7, 8, "alternation"),
                 new Track(8, 11, "string \"abd\""),
         });
+
+        put("abc|x|abd", new Track[]{
+                // FIXME not correct
+                new Track(0, 11, "sequence of [string \"abc\",string \"abd\"]"),
+                new Track(0, 7, "string \"abc\""),
+                new Track(0, 1, "literal 'a'"),
+                new Track(1, 4, "non-capturing group"),
+                new Track(1, 3, "non-capturing group start"),
+                new Track(3, 4, "mod modifier end"),
+                new Track(4, 5, "literal 'b'"),
+                new Track(5, 6, "capturing group end"),
+                new Track(6, 7, "literal 'c'"),
+                new Track(7, 8, "alternation"),
+                new Track(8, 11, "string \"abd\""),
+        });
     }};
 
 //  {
 //
 //    // RE2 prefix_tests
-
-
 //    {
 //      "abc|abd|aef|bcx|bcy",
 //      "alt{cat{lit{a}alt{cat{lit{b}cc{0x63-0x64}}str{ef}}}" + "cat{str{bc}cc{0x78-0x79}}}"
@@ -1359,7 +1372,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("a(?:b)c|abd");
+        testRegexpTrack("abc|x|abd");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
