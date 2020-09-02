@@ -861,18 +861,17 @@ public class RegexTrackTest {
         });
 
         put("abcde", new Track[]{
-                new Track(0, 4, "case insensitive literal 'Δ'"),
-                new Track(0, 1, "character class"),
-                new Track(1, 2, "literal 'Δ'"),
-                new Track(2, 3, "literal 'δ'"),
-                new Track(3, 4, "character class end"),
+                new Track(0, 5, "string \"abcde\""),
+        });
+
+        put("[Aa][Bb]cd", new Track[]{
+                new Track(0, 5, "string \"abcde\""),
         });
     }};
 
 //  {
 //
 //    // Strings
-//    {"abcde", "str{abcde}"},
 //    {"[Aa][Bb]cd", "cat{strfold{AB}str{cd}}"},
 //
 //    // Factoring.
@@ -1129,7 +1128,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("abcde");
+        testRegexpTrack("[Aa][Bb]cd");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
