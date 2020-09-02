@@ -835,13 +835,11 @@ public class RegexTrackTest {
         });
 
         put("[Aa]", new Track[]{
-                new Track(0, 11, "capturing group \"name\" of [literal 'a']"),
-                new Track(0, 9, "non-capturing group"),
-                new Track(0, 4, "group name"),
-                new Track(4, 8, "group name:\"name\""),
-                new Track(8, 9, "group name end"),
-                new Track(9, 10, "literal 'a'"),
-                new Track(10, 11, "capturing group end"),
+                new Track(0, 4, "case insensitive literal 'A'"),
+                new Track(0, 1, "character class"),
+                new Track(1, 2, "literal 'A'"),
+                new Track(2, 3, "literal 'a'"),
+                new Track(3, 4, "character class end"),
         });
     }};
 
