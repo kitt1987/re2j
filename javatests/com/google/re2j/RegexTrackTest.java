@@ -924,11 +924,12 @@ public class RegexTrackTest {
         });
 
         put("(?:.)", new Track[]{
-                new Track(0, 4, "case insensitive literal 'Δ'"),
-                new Track(0, 1, "character class"),
-                new Track(1, 2, "literal 'Δ'"),
-                new Track(2, 3, "literal 'δ'"),
-                new Track(3, 4, "character class end"),
+                new Track(0, 5, "any characters excluding \"\\n\""),
+                new Track(0, 3, "non-capturing group"),
+                new Track(0, 2, "non-capturing group start"),
+                new Track(2, 3, "mod modifier end"),
+                new Track(3, 4, "any characters excluding \"\\n\""),
+                new Track(4, 5, "capturing group end\\n\""),
         });
     }};
 
