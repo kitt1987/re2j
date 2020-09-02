@@ -163,7 +163,6 @@ public class Track implements Comparable<Track>  {
     private boolean omitInComposed;
     private boolean placeholder;
     private boolean negated;
-    private boolean posix;
 
     Track(int start) {
         Start = start;
@@ -243,10 +242,6 @@ public class Track implements Comparable<Track>  {
             if (text.equals(EscapeText)) {
                 omitInComposed = true;
             }
-
-            if (text.startsWith("[:")) {
-                posix = true;
-            }
         }
 
         Comments = CommentMap.get(text);
@@ -256,10 +251,6 @@ public class Track implements Comparable<Track>  {
             } else {
                 Comments = "literal '" + text + "'";
             }
-        }
-
-        if (posix) {
-            Comments = "POSIX class:" + Comments;
         }
     }
 
