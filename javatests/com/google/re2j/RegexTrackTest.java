@@ -1070,7 +1070,7 @@ public class RegexTrackTest {
                 new Track(2, 5, "hexadecimal 0"),
                 new Track(5, 7, "string \"-\\\""),
                 new Track(7, 16, "hexadecimal 1114111"),
-                new Track(16, 17, "capturing group end"),
+                new Track(16, 17, "character class end"),
         });
     }};
 
