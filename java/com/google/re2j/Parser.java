@@ -1036,7 +1036,7 @@ class Parser {
 
                     for (int j = 0; j < lit.length(); j++) {
                       t.skip(1);
-                      t.PushNewTrack();
+                      t.PushNewLiteralTrack("" + lit.charAt(j));
                       literal(lit.charAt(j));
                       stack.get(stack.size()-1).Tracks.ComposeTracks(t.PopTracks());
                     }
