@@ -833,6 +833,16 @@ public class RegexTrackTest {
                 new Track(9, 10, "literal 'a'"),
                 new Track(10, 11, "capturing group end"),
         });
+
+        put("[Aa]", new Track[]{
+                new Track(0, 11, "capturing group \"name\" of [literal 'a']"),
+                new Track(0, 9, "non-capturing group"),
+                new Track(0, 4, "group name"),
+                new Track(4, 8, "group name:\"name\""),
+                new Track(8, 9, "group name end"),
+                new Track(9, 10, "literal 'a'"),
+                new Track(10, 11, "capturing group end"),
+        });
     }};
 
 //  {
@@ -1100,7 +1110,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?P<name>a)");
+        testRegexpTrack("[Aa]");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
