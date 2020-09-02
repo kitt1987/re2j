@@ -133,7 +133,8 @@ public class RegexpTracks {
 
     // particular cases for different types of Regexps
     public void ConcatLiterals(RegexpTracks that) {
-        if (that.topmostTracks.isEmpty() && that.composedTracks.isEmpty() && that.tracks.isEmpty()) {
+        if (topmostTracks.isEmpty() && composedTracks.isEmpty() && tracks.isEmpty()
+                || that.topmostTracks.isEmpty() && that.composedTracks.isEmpty() && that.tracks.isEmpty()) {
             ComposeTopmostTracks();
             return;
         }
@@ -146,7 +147,7 @@ public class RegexpTracks {
                 lastEnd = topmostTracks.get(topmostTracks.size()-1).End;
             } else if (composedTracks.size() > 0) {
                 lastEnd = composedTracks.get(composedTracks.size()-1).End;
-            } else if (tracks.size() > 0) {
+            } else {
                 lastEnd = tracks.get(tracks.size()-1).End;
             }
 
@@ -162,21 +163,11 @@ public class RegexpTracks {
                 throw new IllegalStateException("concatenated tracks should be consecutive");
             }
 
-//            ArrayList<Track> concats = new ArrayList<Track>(tracks);
-//            concats.addAll(that.tracks);
-//            topmostTracks.clear();
-//            composedTracks.clear();
-//            tracks.clear();
-//            ComposeTracks(concats);
             composedTracks.addAll(that.composedTracks);
             tracks.addAll(that.tracks);
             Collections.sort(composedTracks);
             Collections.sort(tracks);
             ComposeTopmostTracks();
-            return;
-        }
-
-        if (that.tracks.isEmpty()) {
             return;
         }
 

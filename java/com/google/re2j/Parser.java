@@ -1039,7 +1039,6 @@ class Parser {
                     t.PushNewTrack();
                     for (int j = 0; j < lit.length(); j++) {
                       literal(lit.charAt(j));
-                      stack.get(stack.size()-1).Tracks.ComposeTracks(t.PopTracks());
                     }
                     break bigswitch;
                   }
