@@ -1176,12 +1176,17 @@ public class RegexTrackTest {
         });
 
         put("x{2}|x{2}[0-9]", new Track[]{
-                new Track(0, 3, "sequence of [any characters excluding \"\\n\",literal 'c']"),
-                new Track(0, 1, "any characters excluding \"\\n\""),
-                new Track(1, 2, "literal 'c'"),
-                new Track(2, 3, "alternation"),
+                new Track(0, 5, "sequence of [literal 'x' repeated twice]"),
+                new Track(0, 4, "literal 'x' repeated twice"),
+                new Track(0, 1, "literal 'x'"),
+                new Track(1, 4, "quantifier: repeated twice"),
+                new Track(4, 5, "alternation"),
+
                 // FIXME lack of tracks
-                new Track(4, 5, "literal 'd'"),
+                new Track(9, 14, "character class of [range 0 to 9]"),
+                new Track(9, 10, "character class"),
+                new Track(10, 13, "range 0 to 9"),
+                new Track(13, 14, "character class end"),
         });
     }};
 
