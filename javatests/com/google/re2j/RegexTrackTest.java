@@ -580,8 +580,8 @@ public class RegexTrackTest {
         });
 
         put("(?:a+b+)(?:c+d+)", new Track[]{
-                new Track(0, 16, "sequence [literal 'a' repeated once or many times,literal 'b' repeated once or many times,literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
-                new Track(0, 8, "sequence [literal 'a' repeated once or many times,literal 'b' repeated once or many times]"),
+                new Track(0, 16, "sequence of [sequence of [literal 'a' repeated once or many times,literal 'b' repeated once or many times],sequence of [literal 'c' repeated once or many times,literal 'd' repeated once or many times]]"),
+                new Track(0, 8, "sequence of [literal 'a' repeated once or many times,literal 'b' repeated once or many times]"),
 
                 new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group start"),
@@ -594,7 +594,7 @@ public class RegexTrackTest {
                 new Track(6, 7, "quantifier: repeated once or many times"),
                 new Track(7, 8, "capturing group end"),
 
-                new Track(8, 16, "sequence [literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
+                new Track(8, 16, "sequence of [literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
 
                 new Track(8, 11, "non-capturing group"),
                 new Track(8, 10, "non-capturing group start"),

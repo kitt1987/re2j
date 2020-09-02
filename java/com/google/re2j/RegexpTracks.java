@@ -271,8 +271,6 @@ public class RegexpTracks {
 
             // track.Start < composed.End && track.End > composed.Start
 
-            // FIXME identify mutable tracks from readonly ones
-
             if (track.Start == composed.Start && track.End == composed.End) {
                 if (hasOverlappedTracks) {
                     throw new IllegalStateException("composed tracks should not overlap each other");
