@@ -302,6 +302,7 @@ public class Track implements Comparable<Track>  {
     boolean IsPlaceholder() {
         return placeholder;
     }
+    boolean IsMutable() { return mutable; }
 
     private String getComments(ArrayList<Track> tracks, Regexp re) {
         StringBuilder b = new StringBuilder();

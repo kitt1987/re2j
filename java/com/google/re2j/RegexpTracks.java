@@ -40,18 +40,21 @@ public class RegexpTracks {
         return collapsed;
     }
 
-    public ArrayList<Track> GetTopTracks() {
+    public ArrayList<Track> GetTopTracks(boolean includeMutableTrack) {
         ArrayList<Track> allTracks = new ArrayList<Track>();
         ArrayList<Track> availableSubs = new ArrayList<Track>();
         if (re.subs != null) {
             for (Regexp sub : re.subs) {
-                availableSubs.addAll(sub.Tracks.GetTopTracks());
+                availableSubs.addAll(sub.Tracks.GetTopTracks(true));
             }
         }
 
         ArrayList<Track> availableComposed = composedTracks;
         ArrayList<Track> availableTracks = tracks;
         for (Track top : topmostTracks) {
+            if (!includeMutableTrack && top.IsMutable()) {
+                continue;
+            }
             allTracks.add(top);
             ArrayList<Track> tmpComposed = new ArrayList<Track>();
             for (Track composed : availableComposed) {
@@ -185,7 +188,7 @@ public class RegexpTracks {
 
     public void ComposeTopmostTracks() {
         // FIXME concat tracks, composed tracks and topmost tracks of subs
-        ArrayList<Track> topmost = GetTopTracks();
+        ArrayList<Track> topmost = GetTopTracks(false);
         if (topmost.size() <= 1) {
             return;
         }
@@ -236,7 +239,7 @@ public class RegexpTracks {
 
         if (re.subs != null) {
             for (Regexp sub : re.subs) {
-                ArrayList<Track> topmost = sub.Tracks.GetTopTracks();
+                ArrayList<Track> topmost = sub.Tracks.GetTopTracks(true);
                 for (Track track : topmost) {
                     if (track.Start >= start && track.End <= end) {
                         matched.add(track);
@@ -261,6 +264,8 @@ public class RegexpTracks {
             }
 
             // track.Start < composed.End && track.End > composed.Start
+
+            // FIXME identify mutable tracks from readonly ones
 
             if (track.Start == composed.Start && track.End == composed.End) {
                 if (hasOverlappedTracks) {
