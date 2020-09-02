@@ -434,7 +434,7 @@ public class RegexTrackTest {
         });
         put("[^\\\\]", new Track[]{
                 // FIXME the topmost track
-                new Track(0, 5, "character class of [negated,literal '\\']"),
+                new Track(0, 5, "negated character class of [literal '\\']"),
                 new Track(0, 1, "character class"),
                 new Track(1, 2, "negated"),
                 new Track(2, 4, "literal '\\'"),
@@ -1081,7 +1081,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?:a|b)|(?:c|d)");
+        testRegexpTrack("[^\\\\]");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
