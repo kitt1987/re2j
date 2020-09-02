@@ -179,6 +179,11 @@ public class Track implements Comparable<Track>  {
         }
     }
 
+    void FreezeGroupName(int end, String text) {
+        FreezePlainText(end, text);
+        omitInComposed = true;
+    }
+
     void FreezeCCRange(int end, int lo, int hi) {
         End = end;
         if (lo == hi) {

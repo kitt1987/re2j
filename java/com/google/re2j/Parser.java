@@ -824,6 +824,19 @@ class Parser {
       this.tracks.add(new Track(pos));
     }
 
+    void PushNewGroupNameTrack(String literals) {
+      if (tracks.size() > 0) {
+        Track last = tracks.get(tracks.size()-1);
+        if (last.Start == pos && literals.isEmpty()) {
+          return;
+        }
+
+        last.FreezeGroupName(pos, literals);
+      }
+
+      this.tracks.add(new Track(pos));
+    }
+
     private void initTracks() {
       this.tracks = new ArrayList<Track>();
       this.tracks.add(new Track(pos));
@@ -1207,11 +1220,11 @@ class Parser {
       }
       String name = s.substring(4, end); // "name"
       t.skip(4); // "(?P<"
-      t.PushNewLiteralTrack("group name");
+      t.PushNewGroupNameTrack("group name");
       t.skipString(name);
-      t.PushNewLiteralTrack("group name:\""+name+"\"");
+      t.PushNewGroupNameTrack("group name:\""+name+"\"");
       t.skip(1); // ">"
-      t.PushNewLiteralTrack("group name end");
+      t.PushNewGroupNameTrack("group name end");
       if (!isValidCaptureName(name)) {
         throw new PatternSyntaxException(
             ERR_INVALID_NAMED_CAPTURE, s.substring(0, end)); // "(?P<name>"
