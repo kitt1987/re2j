@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Track implements Comparable<Track>  {
     static final String EscapeText = "escape";
+    static final String EmptyRegexpComment = "empty string";
 
     static final HashMap<Regexp.Op, String> OpKeyRuneMap = new HashMap<Regexp.Op, String>();
     static {
@@ -327,6 +328,9 @@ public class Track implements Comparable<Track>  {
                 break;
             case ANY_CHAR:
                 b.append(CommentMap.get("."));
+                break;
+            case EMPTY_MATCH:
+                b.append(Track.EmptyRegexpComment);
                 break;
             default:
                 throw new IllegalStateException("unsupported composed regexp " + re.op);
