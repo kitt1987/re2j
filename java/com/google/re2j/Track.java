@@ -62,8 +62,8 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("\\W", "non-word character");
         CommentMap.put("\\b", "word boundary");
         CommentMap.put("\\B", "non-word boundary");
-        CommentMap.put("\\Q", "non-word boundary");
-        CommentMap.put("\\E", "non-word boundary");
+        CommentMap.put("\\Q", "escaped string start");
+        CommentMap.put("\\E", "escaped string end");
         CommentMap.put(":", "mod modifier end");
         CommentMap.put(")", "capturing group end");
         CommentMap.put("(", "capturing group");
@@ -209,7 +209,9 @@ public class Track implements Comparable<Track>  {
             if (text.equals("(?")
                     || text.equals("*?")
                     || text.equals("+?")
-                    || text.equals("??")) {
+                    || text.equals("??")
+                    || text.equals("\\Q")
+                    || text.equals("\\E")) {
                 omitInComposed = true;
             }
 
