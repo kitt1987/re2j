@@ -738,6 +738,18 @@ public class RegexTrackTest {
                 new Track(4, 6, "escaped string end"),
                 new Track(6, 7, "quantifier: repeated once or many times"),
         });
+
+        put("\\Q\\\\E", new Track[]{
+                new Track(0, 7, "sequence of [literal 'a',literal 'b' repeated once or many times]"),
+                new Track(0, 3, "literal 'a'"),
+                new Track(0, 2, "escaped string start"),
+                new Track(2, 3, "literal 'a'"),
+                new Track(3, 7, "literal 'b' repeated once or many times"),
+                new Track(3, 6, "literal 'b'"),
+                new Track(3, 4, "literal 'b'"),
+                new Track(4, 6, "escaped string end"),
+                new Track(6, 7, "quantifier: repeated once or many times"),
+        });
     }};
 
 //  {
@@ -745,7 +757,6 @@ public class RegexTrackTest {
 //    // Test flattening.
 
 //    // Test Perl quoted literals
-//    {"\\Qab\\E+", "cat{lit{a}plus{lit{b}}}"},
 //    {"\\Q\\\\E", "lit{\\}"},
 //    {"\\Q\\\\\\E", "str{\\\\}"},
 //
@@ -1025,7 +1036,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("\\Q+|*?{[\\E");
+        testRegexpTrack("\\Q\\\\E");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
