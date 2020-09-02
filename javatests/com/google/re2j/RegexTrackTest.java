@@ -892,15 +892,23 @@ public class RegexTrackTest {
                 new Track(15, 16, "alternation"),
                 new Track(16, 19, "string \"bcy\""),
         });
+
+        put("ax+y|ax+z|ay+w", new Track[]{
+                new Track(0, 19, "alternation of [string \"abc\",string \"abd\",string \"aef\",string \"bcx\",string \"bcy\"]"),
+                new Track(0, 3, "string \"abc\""),
+                new Track(3, 4, "alternation"),
+                new Track(4, 7, "string \"abd\""),
+                new Track(7, 8, "alternation"),
+                new Track(8, 11, "string \"aef\""),
+                new Track(11, 12, "alternation"),
+                new Track(12, 15, "string \"bcx\""),
+                new Track(15, 16, "alternation"),
+                new Track(16, 19, "string \"bcy\""),
+        });
     }};
 
 //  {
 //
-//    // Factoring.
-//    {
-//      "abc|abd|aef|bcx|bcy",
-//      "alt{cat{lit{a}alt{cat{lit{b}cc{0x63-0x64}}str{ef}}}cat{str{bc}cc{0x78-0x79}}}"
-//    },
 //    {
 //      "ax+y|ax+z|ay+w",
 //      "cat{lit{a}alt{cat{plus{lit{x}}lit{y}}cat{plus{lit{x}}lit{z}}cat{plus{lit{y}}lit{w}}}}"
@@ -1150,7 +1158,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("abc|abd|aef|bcx|bcy");
+        testRegexpTrack("ax+y|ax+z|ay+w");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
