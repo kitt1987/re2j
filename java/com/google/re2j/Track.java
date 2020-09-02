@@ -331,7 +331,7 @@ public class Track implements Comparable<Track>  {
                 b.append(OpKeyRuneMap.get(op));
 
                 if (op == Regexp.Op.CAPTURE && re.name != null && re.name.length() > 0) {
-                    b.append("with name \"").append(re.name).append("\"");
+                    b.append(" \"").append(re.name).append("\"");
                 }
 
                 b.append(" of [")
