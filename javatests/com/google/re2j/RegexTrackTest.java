@@ -372,7 +372,7 @@ public class RegexTrackTest {
         });
         put("(?i)[a-z]", new Track[]{
                 new Track(0, 9, "character class of [case insensitive,range a to z]"),
-                new Track(0, 2, "non-capturing group"),
+                new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "case insensitive"),
                 new Track(3, 4, "capturing group end"),
                 new Track(4, 5, "character class"),
