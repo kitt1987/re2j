@@ -714,6 +714,7 @@ public class RegexTrackTest {
         put("\\Q+\\E+", new Track[]{
                 new Track(0, 6, "literal '+' repeated once or many times"),
                 new Track(0, 5, "literal '+'"),
+                new Track(0, 3, "literal '+'"),
                 new Track(0, 2, "escaped string start"),
                 new Track(2, 3, "literal '+'"),
                 new Track(3, 5, "escaped string end"),
