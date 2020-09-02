@@ -1081,7 +1081,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?:a+|b+)|(?:c+|d+)");
+        testRegexpTrack("(?i)[^[:lower:]]");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
