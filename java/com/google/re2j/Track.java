@@ -409,7 +409,11 @@ public class Track implements Comparable<Track>  {
                     value.append(",");
                 }
 
-                value.append(track.Comments);
+                if (track.posix) {
+                    value.append(track.text);
+                } else {
+                    value.append(track.Comments);
+                }
             }
         }
 
