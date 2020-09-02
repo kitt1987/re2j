@@ -1245,7 +1245,7 @@ class Parser {
           // Switch to negation.
         case '-':
           // FIXME negated track
-          t.PushNewTrack();
+          t.PushNewLiteralTrack("negated");
           if (sign < 0) {
             break loop;
           }
