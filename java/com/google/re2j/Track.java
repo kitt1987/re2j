@@ -379,6 +379,9 @@ public class Track implements Comparable<Track>  {
             case END_TEXT:
                 b.append(CommentMap.get("$"));
                 break;
+            case ANY_CHAR_NOT_NL:
+                b.append(CommentMap.get("."));
+                break;
             default:
                 throw new IllegalStateException("unsupported composed regexp " + re.op);
         }
