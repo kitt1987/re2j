@@ -780,12 +780,20 @@ public class RegexTrackTest {
                 new Track(3, 4, "capturing group end"),
                 new Track(4, 5, "line end"),
         });
+
+        put("(?-m)$", new Track[]{
+                new Track(0, 6, "word end"),
+                new Track(0, 2, "non-capturing group start"),
+                new Track(2, 3, "negated"),
+                new Track(3, 4, "multi-line: '^' and '$' match at the start and end of each line"),
+                new Track(4, 5, "capturing group end"),
+                new Track(5, 6, "word end"),
+        });
     }};
 
 //  {
 //
 //    // Test Perl \A and \z
-//    {"(?-m)^", "bot{}"},
 //    {"(?-m)$", "eot{}"},
 //    {"(?m)\\A", "bot{}"},
 //    {"(?m)\\z", "eot{\\z}"},
