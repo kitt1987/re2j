@@ -1018,7 +1018,7 @@ public class RegexTrackTest {
         //    {"(?-s).", "dnl{}"},
         put("(?-s).", new Track[]{
                 // FIXME not correct
-                new Track(0, 4, "any characters excluding \"\\n\""),
+                new Track(0, 6, "any characters excluding \"\\n\""),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "negated"),
                 new Track(3, 4, "single-line: dot also matches line breaks"),
