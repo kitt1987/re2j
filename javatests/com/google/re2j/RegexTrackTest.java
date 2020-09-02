@@ -853,20 +853,23 @@ public class RegexTrackTest {
         });
 
         put("[Δδ]", new Track[]{
-                new Track(0, 16, "case insensitive literal 'Δ'"),
+                new Track(0, 4, "case insensitive literal 'Δ'"),
                 new Track(0, 1, "character class"),
-                new Track(1, 2, "escape"),
-                new Track(2, 8, "hexadecimal 256"),
-                new Track(8, 9, "escape"),
-                new Track(9, 15, "hexadecimal 257"),
-                new Track(15, 16, "character class end"),
+                new Track(1, 2, "literal 'Δ'"),
+                new Track(2, 3, "literal 'δ'"),
+                new Track(3, 4, "character class end"),
+        });
+
+        put("[Δδ]", new Track[]{
+                new Track(0, 4, "case insensitive literal 'Δ'"),
+                new Track(0, 1, "character class"),
+                new Track(1, 2, "literal 'Δ'"),
+                new Track(2, 3, "literal 'δ'"),
+                new Track(3, 4, "character class end"),
         });
     }};
 
 //  {
-//
-//    // Case-folded literals
-//    {"[Δδ]", "litfold{Δ}"},
 //
 //    // Strings
 //    {"abcde", "str{abcde}"},
