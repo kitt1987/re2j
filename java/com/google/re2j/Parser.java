@@ -937,21 +937,24 @@ class Parser {
           break;
 
         case '^':
+          t.skip(1); // '^'
           if ((flags & RE2.ONE_LINE) != 0) {
             op(Regexp.Op.BEGIN_TEXT);
           } else {
             op(Regexp.Op.BEGIN_LINE);
+            t.PushNewLiteralTrack("^:m");
           }
-          t.skip(1); // '^'
+
           break;
 
         case '$':
+          t.skip(1); // '$'
           if ((flags & RE2.ONE_LINE) != 0) {
             op(Regexp.Op.END_TEXT).flags |= RE2.WAS_DOLLAR;
           } else {
             op(Regexp.Op.END_LINE);
+            t.PushNewLiteralTrack("$:m");
           }
-          t.skip(1); // '$'
           break;
 
         case '.':
