@@ -869,7 +869,7 @@ public class RegexTrackTest {
 //      }
 //    }
 //  }
-    
+
 
 //    private static String mkCharClass(RunePredicate f) {
 //        Regexp re = new Regexp(Regexp.Op.CHAR_CLASS, null);
