@@ -171,6 +171,10 @@ public class RegexpTracks {
             return;
         }
 
+        if (that.tracks.isEmpty()) {
+            return;
+        }
+
         if (tracks.size() > 1) {
             throw new IllegalStateException("literal track should have only 1 track but " + tracks.size());
         }

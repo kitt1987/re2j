@@ -1027,13 +1027,16 @@ class Parser {
                 case 'Q':
                   {
                     // \Q ... \E: the ... is always literals
+                    t.PushNewTrack();
                     String lit = t.rest();
                     int i = lit.indexOf("\\E");
                     if (i >= 0) {
                       lit = lit.substring(0, i);
                     }
                     t.skipString(lit);
+                    t.PushNewLiteralTrack(lit);
                     t.skipString("\\E");
+                    t.PushNewTrack();
                     for (int j = 0; j < lit.length(); j++) {
                       literal(lit.charAt(j));
                     }
