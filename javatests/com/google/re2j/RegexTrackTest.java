@@ -1076,13 +1076,13 @@ public class RegexTrackTest {
 
         put("[^\\x00-\\x{10FFFF}]", new Track[]{
                 // FIXME not correct
-                new Track(0, 17, "character class of [hexadecimal 0,string \"-\\\",hexadecimal 1114111]"),
-                new Track(0, 1, "character class"),
-                new Track(1, 2, "escape"),
-                new Track(2, 5, "hexadecimal 0"),
-                new Track(5, 7, "string \"-\\\""),
-                new Track(7, 16, "hexadecimal 1114111"),
-                new Track(16, 17, "character class end"),
+                new Track(0, 18, "negated character class of [hexadecimal 0,string \"-\\\",hexadecimal 1114111]"),
+                new Track(0, 2, "negated character class"),
+                new Track(2, 3, "escape"),
+                new Track(3, 6, "hexadecimal 0"),
+                new Track(6, 8, "string \"-\\\""),
+                new Track(8, 17, "hexadecimal 1114111"),
+                new Track(17, 18, "character class end"),
         });
     }};
 
