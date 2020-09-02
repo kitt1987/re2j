@@ -1405,7 +1405,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("[ab]c|[ab]d");
+        testRegexpTrack(".c|.d");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
