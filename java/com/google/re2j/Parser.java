@@ -755,6 +755,19 @@ class Parser {
       this.tracks.add(new Track(pos));
     }
 
+    void PushNewMultilineAnchorTrack() {
+      if (tracks.size() > 0) {
+        Track last = tracks.get(tracks.size()-1);
+        if (last.Start == pos && last.IsNothing()) {
+          return;
+        }
+
+        last.Freeze(pos, str.substring(last.Start, pos) + ":m");
+      }
+
+      this.tracks.add(new Track(pos));
+    }
+
     void PushNewFlagTrack(int flag) {
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
@@ -942,7 +955,7 @@ class Parser {
             op(Regexp.Op.BEGIN_TEXT);
           } else {
             op(Regexp.Op.BEGIN_LINE);
-            t.PushNewLiteralTrack("^:m");
+            t.PushNewMultilineAnchorTrack();
           }
 
           break;
@@ -953,7 +966,7 @@ class Parser {
             op(Regexp.Op.END_TEXT).flags |= RE2.WAS_DOLLAR;
           } else {
             op(Regexp.Op.END_LINE);
-            t.PushNewLiteralTrack("$:m");
+            t.PushNewMultilineAnchorTrack();
           }
           break;
 
