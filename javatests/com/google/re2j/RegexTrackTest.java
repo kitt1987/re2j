@@ -349,9 +349,8 @@ public class RegexTrackTest {
                 new Track(10, 11, "character class end"),
         });
         put("[^[:lower:]]", new Track[]{
-                new Track(0, 12, "character class of [negated,lowercase letters]"),
-                new Track(0, 1, "character class"),
-                new Track(1, 2, "negated"),
+                new Track(0, 12, "negated character class of [lowercase letters]"),
+                new Track(0, 2, "negated character class"),
                 new Track(2, 11, "POSIX class:lowercase letters"),
                 new Track(11, 12, "character class end"),
         });
