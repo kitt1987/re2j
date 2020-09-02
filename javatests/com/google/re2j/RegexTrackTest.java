@@ -1165,17 +1165,23 @@ public class RegexTrackTest {
                 new Track(10, 11, "literal 'd'"),
         });
 
+        //    {".c|.d", "cat{dot{}cc{0x63-0x64}}"},
         put(".c|.d", new Track[]{
-                new Track(0, 6, "sequence of [character class of [literal 'a',literal 'b'],literal 'c']"),
-                new Track(0, 4, "character class of [literal 'a',literal 'b']"),
-                new Track(0, 1, "character class"),
-                new Track(1, 2, "literal 'a'"),
-                new Track(2, 3, "literal 'b'"),
-                new Track(3, 4, "character class end"),
-                new Track(4, 5, "literal 'c'"),
-                new Track(5, 6, "alternation"),
+                new Track(0, 3, "sequence of [any characters excluding \"\\n\",literal 'c']"),
+                new Track(0, 1, "any characters excluding \"\\n\""),
+                new Track(1, 2, "literal 'c'"),
+                new Track(2, 3, "alternation"),
                 // FIXME lack of tracks
-                new Track(10, 11, "literal 'd'"),
+                new Track(4, 5, "literal 'd'"),
+        });
+
+        put("x{2}|x{2}[0-9]", new Track[]{
+                new Track(0, 3, "sequence of [any characters excluding \"\\n\",literal 'c']"),
+                new Track(0, 1, "any characters excluding \"\\n\""),
+                new Track(1, 2, "literal 'c'"),
+                new Track(2, 3, "alternation"),
+                // FIXME lack of tracks
+                new Track(4, 5, "literal 'd'"),
         });
     }};
 
@@ -1186,8 +1192,6 @@ public class RegexTrackTest {
 //      "abc|abd|aef|bcx|bcy",
 //      "alt{cat{lit{a}alt{cat{lit{b}cc{0x63-0x64}}str{ef}}}" + "cat{str{bc}cc{0x78-0x79}}}"
 //    },
-
-//    {".c|.d", "cat{dot{}cc{0x63-0x64}}"},
 //    {"x{2}|x{2}[0-9]", "cat{rep{2,2 lit{x}}alt{emp{}cc{0x30-0x39}}}"},
 //    {"x{2}y|x{2}[0-9]y", "cat{rep{2,2 lit{x}}alt{lit{y}cat{cc{0x30-0x39}lit{y}}}}"},
 //    {"a.*?c|a.*?b", "cat{lit{a}alt{cat{nstar{dot{}}lit{c}}cat{nstar{dot{}}lit{b}}}}"},
@@ -1405,7 +1409,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack(".c|.d");
+        testRegexpTrack("x{2}|x{2}[0-9]");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
