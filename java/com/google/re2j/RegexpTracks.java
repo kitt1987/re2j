@@ -115,6 +115,22 @@ public class RegexpTracks {
         ComposeTopmostTracks();
     }
 
+    // Only tracks scanned in a single parser loop can be composed together.
+    public void ComposeTracks(ArrayList<Track> tracks, String composedText) {
+        if (tracks.size() == 0) {
+            return;
+        }
+        // FIXME tracks must be consecutive. Validate them.
+        this.tracks.addAll(tracks);
+        if (tracks.size() > 1) {
+            insertComposedTrack(composedTracks, Track.NewComposedTrack(tracks, composedText));
+            scanAndComposeTracks(composedTracks);
+            Collections.sort(this.composedTracks);
+        }
+
+        ComposeTopmostTracks();
+    }
+
     // concat two RegexpTracks
     public void AddTracks(RegexpTracks that) {
         tracks.addAll(that.tracks);

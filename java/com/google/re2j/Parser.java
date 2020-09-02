@@ -1040,6 +1040,7 @@ class Parser {
                     for (int j = 0; j < lit.length(); j++) {
                       literal(lit.charAt(j));
                     }
+                    stack.get(stack.size()-1).Tracks.ComposeTracks(t.PopTracks(), lit);
                     break bigswitch;
                   }
                 case 'z':
