@@ -721,12 +721,15 @@ public class RegexTrackTest {
         });
 
         put("\\Qab\\E+", new Track[]{
-                new Track(0, 6, "literal '+' repeated once or many times"),
-                new Track(0, 5, "literal '+'"),
+                new Track(0, 7, "sequence of [literal 'a',literal 'b' repeated once or many times]"),
+                new Track(0, 3, "literal 'a'"),
                 new Track(0, 2, "escaped string start"),
-                new Track(2, 3, "literal '+'"),
-                new Track(3, 5, "escaped string end"),
-                new Track(5, 6, "quantifier: repeated once or many times"),
+                new Track(2, 3, "literal 'a'"),
+                new Track(3, 7, "literal 'b' repeated once or many times"),
+                new Track(3, 6, "literal 'b'"),
+                new Track(3, 4, "literal 'b'"),
+                new Track(4, 6, "escaped string end"),
+                new Track(6, 7, "quantifier: repeated once or many times"),
         });
     }};
 

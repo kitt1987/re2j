@@ -1040,7 +1040,7 @@ class Parser {
                       literal(lit.charAt(j));
                       stack.get(stack.size()-1).Tracks.ComposeTracks(t.PopTracks());
                     }
-                    
+
                     t.skipString("\\E");
                     t.PushNewTrack();
                     break bigswitch;
