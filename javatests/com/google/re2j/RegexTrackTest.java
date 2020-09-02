@@ -929,7 +929,16 @@ public class RegexTrackTest {
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "mod modifier end"),
                 new Track(3, 4, "any characters excluding \"\\n\""),
-                new Track(4, 5, "capturing group end\\n\""),
+                new Track(4, 5, "capturing group end"),
+        });
+
+        put("(?:x|(?:xa))", new Track[]{
+                new Track(0, 5, "any characters excluding \"\\n\""),
+                new Track(0, 3, "non-capturing group"),
+                new Track(0, 2, "non-capturing group start"),
+                new Track(2, 3, "mod modifier end"),
+                new Track(3, 4, "any characters excluding \"\\n\""),
+                new Track(4, 5, "capturing group end"),
         });
     }};
 
@@ -939,7 +948,6 @@ public class RegexTrackTest {
 //
 //    // Bug fixes.
 //
-//    {"(?:.)", "dot{}"},
 //    {"(?:x|(?:xa))", "cat{lit{x}alt{emp{}lit{a}}}"},
 //    {"(?:.|(?:.a))", "cat{dot{}alt{emp{}lit{a}}}"},
 //    {"(?:A(?:A|a))", "cat{lit{A}litfold{A}}"},
@@ -1181,7 +1189,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?:.)");
+        testRegexpTrack("(?:x|(?:xa))");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
