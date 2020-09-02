@@ -1129,18 +1129,12 @@ public class RegexTrackTest {
         });
 
         put("abc|x|abd", new Track[]{
-                // FIXME not correct
-                new Track(0, 11, "sequence of [string \"abc\",string \"abd\"]"),
-                new Track(0, 7, "string \"abc\""),
-                new Track(0, 1, "literal 'a'"),
-                new Track(1, 4, "non-capturing group"),
-                new Track(1, 3, "non-capturing group start"),
-                new Track(3, 4, "mod modifier end"),
-                new Track(4, 5, "literal 'b'"),
-                new Track(5, 6, "capturing group end"),
-                new Track(6, 7, "literal 'c'"),
-                new Track(7, 8, "alternation"),
-                new Track(8, 11, "string \"abd\""),
+                new Track(0, 9, "alternation of [string \"abc\",literal 'x',string \"abd\"]"),
+                new Track(0, 3, "string \"abc\""),
+                new Track(3, 4, "alternation"),
+                new Track(4, 5, "literal 'x'"),
+                new Track(5, 6, "alternation"),
+                new Track(6, 9, "string \"abd\""),
         });
     }};
 
