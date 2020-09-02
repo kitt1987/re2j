@@ -24,8 +24,8 @@ public class Track implements Comparable<Track>  {
         CommentMap.put(".", "any characters excluding \"\\n\"");
         CommentMap.put("^:m", "line start");
         CommentMap.put("$:m", "line end");
-        CommentMap.put("^", "line start");
-        CommentMap.put("$", "line end");
+        CommentMap.put("^", "word start");
+        CommentMap.put("$", "word end");
         CommentMap.put("[:alnum:]", "alphanumeric characters");
         CommentMap.put("[:^alnum:]", "negated alphanumeric characters");
         CommentMap.put("[:alpha:]", "alphabetic characters");
@@ -354,8 +354,14 @@ public class Track implements Comparable<Track>  {
             case BEGIN_LINE:
                 b.append(CommentMap.get("^:m"));
                 break;
+            case BEGIN_TEXT:
+                b.append(CommentMap.get("^"));
+                break;
             case END_LINE:
                 b.append(CommentMap.get("$:m"));
+                break;
+            case END_TEXT:
+                b.append(CommentMap.get("$"));
                 break;
             default:
                 throw new IllegalStateException("unsupported composed regexp " + re.op);
