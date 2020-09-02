@@ -1175,7 +1175,22 @@ public class RegexTrackTest {
                 new Track(4, 5, "literal 'd'"),
         });
 
+        //    {"x{2}|x{2}[0-9]", "cat{rep{2,2 lit{x}}alt{emp{}cc{0x30-0x39}}}"},
         put("x{2}|x{2}[0-9]", new Track[]{
+                new Track(0, 5, "sequence of [literal 'x' repeated twice]"),
+                new Track(0, 4, "literal 'x' repeated twice"),
+                new Track(0, 1, "literal 'x'"),
+                new Track(1, 4, "quantifier: repeated twice"),
+                new Track(4, 5, "alternation"),
+
+                // FIXME lack of tracks
+                new Track(9, 14, "character class of [range 0 to 9]"),
+                new Track(9, 10, "character class"),
+                new Track(10, 13, "range 0 to 9"),
+                new Track(13, 14, "character class end"),
+        });
+
+        put("x{2}y|x{2}[0-9]y", new Track[]{
                 new Track(0, 5, "sequence of [literal 'x' repeated twice]"),
                 new Track(0, 4, "literal 'x' repeated twice"),
                 new Track(0, 1, "literal 'x'"),
@@ -1197,7 +1212,7 @@ public class RegexTrackTest {
 //      "abc|abd|aef|bcx|bcy",
 //      "alt{cat{lit{a}alt{cat{lit{b}cc{0x63-0x64}}str{ef}}}" + "cat{str{bc}cc{0x78-0x79}}}"
 //    },
-//    {"x{2}|x{2}[0-9]", "cat{rep{2,2 lit{x}}alt{emp{}cc{0x30-0x39}}}"},
+
 //    {"x{2}y|x{2}[0-9]y", "cat{rep{2,2 lit{x}}alt{lit{y}cat{cc{0x30-0x39}lit{y}}}}"},
 //    {"a.*?c|a.*?b", "cat{lit{a}alt{cat{nstar{dot{}}lit{c}}cat{nstar{dot{}}lit{b}}}}"},
 //  };
@@ -1414,7 +1429,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("x{2}|x{2}[0-9]");
+        testRegexpTrack("x{2}y|x{2}[0-9]y");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
