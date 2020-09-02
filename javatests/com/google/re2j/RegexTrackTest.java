@@ -799,12 +799,12 @@ public class RegexTrackTest {
         });
 
         put("(?-m)\\A", new Track[]{
-                new Track(0, 6, "word start"),
+                new Track(0, 7, "word start"),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "negated"),
-                new Track(2, 3, "multi-line: '^' and '$' match at the start and end of each line"),
-                new Track(3, 4, "capturing group end"),
-                new Track(4, 6, "word start"),
+                new Track(3, 4, "multi-line: '^' and '$' match at the start and end of each line"),
+                new Track(4, 5, "capturing group end"),
+                new Track(5, 7, "word start"),
         });
 
         put("(?m)\\z", new Track[]{
