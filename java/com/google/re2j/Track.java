@@ -242,9 +242,7 @@ public class Track implements Comparable<Track>  {
         } else {
             if (text.equals(EscapeText)) {
                 omitInComposed = true;
-            }
-
-            if (text.startsWith("[:")) {
+            } else if (text.startsWith("[:")) {
                 posix = true;
             }
         }
