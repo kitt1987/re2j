@@ -1079,7 +1079,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?i)[^[:lower:]]");
+        testRegexpTrack("(?i)\\w");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
