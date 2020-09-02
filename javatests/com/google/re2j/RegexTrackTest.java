@@ -823,6 +823,15 @@ public class RegexTrackTest {
                 new Track(4, 5, "capturing group end"),
                 new Track(5, 7, "word end"),
         });
+
+        put("(?P<name>a)", new Track[]{
+                new Track(0, 7, "word end"),
+                new Track(0, 2, "non-capturing group start"),
+                new Track(2, 3, "negated"),
+                new Track(3, 4, "multi-line: '^' and '$' match at the start and end of each line"),
+                new Track(4, 5, "capturing group end"),
+                new Track(5, 7, "word end"),
+        });
     }};
 
 //  {
@@ -1093,7 +1102,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?-m)\\A");
+        testRegexpTrack("(?P<name>a)");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
