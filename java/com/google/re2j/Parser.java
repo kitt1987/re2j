@@ -1034,7 +1034,6 @@ class Parser {
                       lit = lit.substring(0, i);
                     }
                     t.skipString(lit);
-                    t.PushNewLiteralTrack(lit);
                     if (lit.length() > 1) {
                       t.PushNewLiteralTrack("string \"" + lit + "\"");
                     } else {
