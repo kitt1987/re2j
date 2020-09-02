@@ -147,7 +147,7 @@ public class RegexpTracks {
 
             if (that.topmostTracks.size() > 0) {
                 firstBegin = that.topmostTracks.get(0).Start;
-            } else if (composedTracks.size() > 0) {
+            } else if (that.composedTracks.size() > 0) {
                 firstBegin = that.composedTracks.get(0).Start;
             } else {
                 firstBegin = that.tracks.get(0).Start;
