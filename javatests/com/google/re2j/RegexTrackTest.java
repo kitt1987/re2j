@@ -825,19 +825,17 @@ public class RegexTrackTest {
         });
 
         put("(?P<name>a)", new Track[]{
-                new Track(0, 7, "word end"),
-                new Track(0, 2, "non-capturing group start"),
-                new Track(2, 3, "negated"),
-                new Track(3, 4, "multi-line: '^' and '$' match at the start and end of each line"),
-                new Track(4, 5, "capturing group end"),
-                new Track(5, 7, "word end"),
+                new Track(0, 11, "capturing group \"name\" of [literal 'a']"),
+                new Track(0, 9, "non-capturing group"),
+                new Track(0, 4, "group name"),
+                new Track(4, 8, "group name:\"name\""),
+                new Track(8, 9, "group name end"),
+                new Track(9, 10, "literal 'a'"),
+                new Track(10, 11, "capturing group end"),
         });
     }};
 
 //  {
-//
-//    // Test named captures
-//    {"(?P<name>a)", "cap{name:lit{a}}"},
 //
 //    // Case-folded literals
 //    {"[Aa]", "litfold{A}"},
