@@ -265,7 +265,7 @@ public class RegexpTracks {
         boolean hasOverlappedTracks = false;
         boolean trackToAdd = true;
         for (Track composed : list) {
-            if (track.Start >= composed.End || track.End <= composed.Start) {
+            if (track.Start >= composed.End || track.End <= composed.Start || !track.IsMutable()) {
                 continue;
             }
 
