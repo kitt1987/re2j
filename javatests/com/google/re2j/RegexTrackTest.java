@@ -1150,6 +1150,20 @@ public class RegexTrackTest {
                 new Track(7, 8, "alternation"),
                 new Track(8, 11, "string \"ABD\""),
         });
+
+        put("[ab]c|[ab]d", new Track[]{
+                new Track(0, 11, "sequence of [case insensitive string \"ABC\",string \"ABD\"]"),
+                new Track(0, 7, "case insensitive string \"ABC\""),
+                new Track(0, 5, "case insensitive literal 'A'"),
+                new Track(0, 2, "non-capturing group start"),
+                new Track(2, 3, "case insensitive"),
+                new Track(3, 4, "capturing group end"),
+                new Track(4, 5, "literal 'a'"),
+                new Track(5, 6, "literal 'b'"),
+                new Track(6, 7, "literal 'c'"),
+                new Track(7, 8, "alternation"),
+                new Track(8, 11, "string \"ABD\""),
+        });
     }};
 
 //  {
@@ -1159,7 +1173,6 @@ public class RegexTrackTest {
 //      "abc|abd|aef|bcx|bcy",
 //      "alt{cat{lit{a}alt{cat{lit{b}cc{0x63-0x64}}str{ef}}}" + "cat{str{bc}cc{0x78-0x79}}}"
 //    },
-//    {"(?i)abc|ABD", "cat{strfold{AB}cc{0x43-0x44 0x63-0x64}}"},
 //    {"[ab]c|[ab]d", "cat{cc{0x61-0x62}cc{0x63-0x64}}"},
 //    {".c|.d", "cat{dot{}cc{0x63-0x64}}"},
 //    {"x{2}|x{2}[0-9]", "cat{rep{2,2 lit{x}}alt{emp{}cc{0x30-0x39}}}"},
@@ -1379,7 +1392,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?i)abc|ABD");
+        testRegexpTrack("[ab]c|[ab]d");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
