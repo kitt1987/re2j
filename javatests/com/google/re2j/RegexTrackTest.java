@@ -608,7 +608,7 @@ public class RegexTrackTest {
                 new Track(15, 16, "capturing group end"),
         });
         put("(?:a+|b+)|(?:c+|d+)", new Track[]{
-                new Track(0, 19, "group of alternation of [literal 'a' repeated once or many times,literal 'b' repeated once or many times,literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
+                new Track(0, 19, "alternation of [literal 'a' repeated once or many times,literal 'b' repeated once or many times,literal 'c' repeated once or many times,literal 'd' repeated once or many times]"),
                 new Track(0, 9, "group of alternation of [literal 'a' repeated once or many times,literal 'b' repeated once or many times]"),
                 new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group"),
@@ -1081,7 +1081,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?:a+b+)(?:c+d+)");
+        testRegexpTrack("(?:a+|b+)|(?:c+|d+)");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
