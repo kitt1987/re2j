@@ -860,7 +860,7 @@ public class RegexTrackTest {
                 new Track(3, 4, "character class end"),
         });
 
-        put("[Δδ]", new Track[]{
+        put("abcde", new Track[]{
                 new Track(0, 4, "case insensitive literal 'Δ'"),
                 new Track(0, 1, "character class"),
                 new Track(1, 2, "literal 'Δ'"),
@@ -1129,7 +1129,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("[Δδ]");
+        testRegexpTrack("abcde");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
