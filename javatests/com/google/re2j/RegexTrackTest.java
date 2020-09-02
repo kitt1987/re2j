@@ -746,6 +746,14 @@ public class RegexTrackTest {
                 new Track(2, 3, "literal '\\'"),
                 new Track(3, 5, "escaped string end"),
         });
+
+        put("\\Q\\\\\\E", new Track[]{
+                new Track(0, 5, "literal '\\'"),
+                new Track(0, 3, "literal '\\'"),
+                new Track(0, 2, "escaped string start"),
+                new Track(2, 3, "literal '\\'"),
+                new Track(3, 5, "escaped string end"),
+        });
     }};
 
 //  {
@@ -753,7 +761,6 @@ public class RegexTrackTest {
 //    // Test flattening.
 
 //    // Test Perl quoted literals
-//    {"\\Q\\\\E", "lit{\\}"},
 //    {"\\Q\\\\\\E", "str{\\\\}"},
 //
 //    // Test Perl \A and \z
