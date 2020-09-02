@@ -1610,7 +1610,7 @@ class Parser {
         }
         r = x * 16 + y;
         t.PushNewLiteralTrack("hexadecimal " + r);
-        return x * 16 + y;
+        return r;
 
         // C escapes.  There is no case 'b', to avoid misparsing
         // the Perl word-boundary \b as the C backspace \b
