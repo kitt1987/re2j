@@ -865,7 +865,19 @@ public class RegexTrackTest {
         });
 
         put("[Aa][Bb]cd", new Track[]{
-                new Track(0, 5, "string \"abcde\""),
+                new Track(0, 10, "sequence of [case insensitive string \"AB\",string \"cd\"]"),
+                new Track(0, 8, "case insensitive string \"AB\""),
+                new Track(0, 4, "case insensitive literal 'A'"),
+                new Track(0, 1, "character class"),
+                new Track(1, 2, "literal 'A'"),
+                new Track(2, 3, "literal 'a'"),
+                new Track(3, 4, "character class end"),
+                new Track(4, 8, "case insensitive literal 'B'"),
+                new Track(4, 5, "character class"),
+                new Track(5, 6, "literal 'B'"),
+                new Track(6, 7, "literal 'b'"),
+                new Track(7, 8, "character class end"),
+                new Track(8, 10, "string \"cd\""),
         });
     }};
 
