@@ -894,7 +894,7 @@ public class RegexTrackTest {
         });
 
         put("ax+y|ax+z|ay+w", new Track[]{
-                new Track(0, 19, "alternation of [string \"abc\",string \"abd\",string \"aef\",string \"bcx\",string \"bcy\"]"),
+                new Track(0, 14, "sequence of [sequence of [literal 'a',literal 'x' repeated once or many times,literal 'y'],sequence of [literal 'a',literal 'x' repeated once or many times,literal 'z'],sequence of [literal 'a',literal 'y' repeated once or many times,literal 'w']]"),
                 new Track(0, 3, "string \"abc\""),
                 new Track(3, 4, "alternation"),
                 new Track(4, 7, "string \"abd\""),
