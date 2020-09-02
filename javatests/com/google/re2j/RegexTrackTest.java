@@ -1058,7 +1058,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?-m)^");
+        testRegexpTrack("(?m)$");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
