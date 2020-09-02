@@ -719,6 +719,15 @@ public class RegexTrackTest {
                 new Track(3, 5, "escaped string end"),
                 new Track(5, 6, "quantifier: repeated once or many times"),
         });
+
+        put("\\Qab\\E+", new Track[]{
+                new Track(0, 6, "literal '+' repeated once or many times"),
+                new Track(0, 5, "literal '+'"),
+                new Track(0, 2, "escaped string start"),
+                new Track(2, 3, "literal '+'"),
+                new Track(3, 5, "escaped string end"),
+                new Track(5, 6, "quantifier: repeated once or many times"),
+        });
     }};
 
 //  {
@@ -726,7 +735,6 @@ public class RegexTrackTest {
 //    // Test flattening.
 
 //    // Test Perl quoted literals
-//    {"\\Q+\\E+", "plus{lit{+}}"},
 //    {"\\Qab\\E+", "cat{lit{a}plus{lit{b}}}"},
 //    {"\\Q\\\\E", "lit{\\}"},
 //    {"\\Q\\\\\\E", "str{\\\\}"},
