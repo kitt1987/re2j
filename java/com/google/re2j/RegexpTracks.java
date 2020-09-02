@@ -263,6 +263,7 @@ public class RegexpTracks {
 
     private boolean insertComposedTrack(ArrayList<Track> list, Track track) {
         boolean hasOverlappedTracks = false;
+        boolean trackToAdd = true;
         for (Track composed : list) {
             if (track.Start >= composed.End || track.End <= composed.Start) {
                 continue;
@@ -288,6 +289,7 @@ public class RegexpTracks {
                 if (track.Start == composed.Start) {
                     // track contains the composed
                     composed.UpdateRange(composed.Start, track.End);
+                    trackToAdd = false;
                     hasOverlappedTracks = true;
                     continue;
                 }
@@ -302,6 +304,7 @@ public class RegexpTracks {
             if (track.End >= composed.End) {
                 // track contains the composed
                 composed.UpdateRange(track.Start, track.End);
+                trackToAdd = false;
                 hasOverlappedTracks = true;
                 continue;
             }
@@ -310,7 +313,10 @@ public class RegexpTracks {
             hasOverlappedTracks = true;
         }
 
-        list.add(track);
+        if (trackToAdd) {
+            list.add(track);
+        }
+
         return hasOverlappedTracks | track.IsPlaceholder();
     }
 
