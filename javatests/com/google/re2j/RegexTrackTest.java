@@ -798,6 +798,15 @@ public class RegexTrackTest {
                 new Track(4, 6, "word start"),
         });
 
+        put("(?-m)\\A", new Track[]{
+                new Track(0, 6, "word start"),
+                new Track(0, 2, "non-capturing group start"),
+                new Track(2, 3, "negated"),
+                new Track(2, 3, "multi-line: '^' and '$' match at the start and end of each line"),
+                new Track(3, 4, "capturing group end"),
+                new Track(4, 6, "word start"),
+        });
+
         put("(?m)\\z", new Track[]{
                 new Track(0, 6, "word end"),
                 new Track(0, 2, "non-capturing group start"),
@@ -810,7 +819,6 @@ public class RegexTrackTest {
 //  {
 //
 //    // Test Perl \A and \z
-//    {"(?m)\\z", "eot{\\z}"},
 //    {"(?-m)\\A", "bot{}"},
 //    {"(?-m)\\z", "eot{\\z}"},
 //
@@ -1080,7 +1088,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("(?m)\\A");
+        testRegexpTrack("(?-m)\\A");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
