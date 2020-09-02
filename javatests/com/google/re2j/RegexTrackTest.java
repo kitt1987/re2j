@@ -748,11 +748,12 @@ public class RegexTrackTest {
         });
 
         put("\\Q\\\\\\E", new Track[]{
-                new Track(0, 5, "literal '\\'"),
+                new Track(0, 6, "string \"\\\\\""),
                 new Track(0, 3, "literal '\\'"),
                 new Track(0, 2, "escaped string start"),
                 new Track(2, 3, "literal '\\'"),
-                new Track(3, 5, "escaped string end"),
+                new Track(3, 4, "literal '\\'"),
+                new Track(4, 6, "escaped string end"),
         });
     }};
 
