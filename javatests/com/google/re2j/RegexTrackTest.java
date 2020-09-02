@@ -1101,7 +1101,7 @@ public class RegexTrackTest {
                 new Track(7, 8, "literal 'a'"),
                 new Track(8, 9, "literal '-'"),
                 new Track(9, 10, "character class end"),
-                new Track(10, 11, "character class end"),
+                new Track(10, 11, "capturing group end"),
         });
     }};
 
