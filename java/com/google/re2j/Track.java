@@ -334,7 +334,7 @@ public class Track implements Comparable<Track>  {
                     op = Regexp.Op.ALTERNATE;
                 }
                 // FIXME comments must be in order
-                if (op == Regexp.Op.CHAR_CLASS && tracks.get(0).negated) {
+                if (op == Regexp.Op.CHAR_CLASS) {
                     for (Track track : tracks) {
                         if (track.negated) {
                             b.append("negated ");
