@@ -136,7 +136,7 @@ public class RegexpTracks {
         if (that.topmostTracks.isEmpty() && that.composedTracks.isEmpty() && that.tracks.isEmpty()) {
             return;
         }
-        
+
         // If one of Regexps is an escaped literal, it would has a composed track and two track w/ an escape sign in it
         if (topmostTracks.size() > 0 || that.topmostTracks.size() > 0
                 || composedTracks.size() > 0 || that.composedTracks.size() > 0) {
