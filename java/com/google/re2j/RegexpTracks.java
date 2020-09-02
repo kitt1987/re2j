@@ -133,8 +133,16 @@ public class RegexpTracks {
 
     // particular cases for different types of Regexps
     public void ConcatLiterals(RegexpTracks that) {
-        if (topmostTracks.isEmpty() && composedTracks.isEmpty() && tracks.isEmpty()
-                || that.topmostTracks.isEmpty() && that.composedTracks.isEmpty() && that.tracks.isEmpty()) {
+        if (that.topmostTracks.isEmpty() && that.composedTracks.isEmpty() && that.tracks.isEmpty()) {
+            ComposeTopmostTracks();
+            return;
+        }
+
+        if (topmostTracks.isEmpty() && composedTracks.isEmpty() && tracks.isEmpty()) {
+            composedTracks.addAll(that.composedTracks);
+            tracks.addAll(that.tracks);
+            Collections.sort(composedTracks);
+            Collections.sort(tracks);
             ComposeTopmostTracks();
             return;
         }
