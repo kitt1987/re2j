@@ -1018,7 +1018,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("\\Qab\\E+");
+        testRegexpTrack("\\Q\\E+");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
