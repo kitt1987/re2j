@@ -296,6 +296,10 @@ public class Track implements Comparable<Track>  {
 
         switch (op) {
             case LITERAL:
+                if ((re.flags & RE2.FOLD_CASE) != 0) {
+                    b.append("case insensitive ");
+                }
+
                 if (re.runes.length > 1) {
                     b.append("string ");
                     b.append("\"");
