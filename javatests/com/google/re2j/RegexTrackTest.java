@@ -1103,28 +1103,28 @@ public class RegexTrackTest {
                 new Track(10, 11, "capturing group end"),
         });
 
+        //    {"abc|abd", "cat{str{ab}cc{0x63-0x64}}"},
         put("abc|abd", new Track[]{
-                new Track(0, 11, "sequence of [literal 'a',character class of [literal 'a',literal '-']]"),
-                new Track(0, 3, "non-capturing group"),
-                new Track(0, 2, "non-capturing group start"),
-                new Track(2, 3, "mod modifier end"),
-                new Track(3, 6, "literal 'a'"),
-                new Track(3, 4, "character class"),
-                new Track(4, 5, "literal 'a'"),
-                new Track(5, 6, "character class end"),
-                new Track(6, 10, "character class of [literal 'a',literal '-']"),
-                new Track(6, 7, "character class"),
-                new Track(7, 8, "literal 'a'"),
-                new Track(8, 9, "literal '-'"),
-                new Track(9, 10, "character class end"),
-                new Track(10, 11, "capturing group end"),
+                // FIXME not correct
+                new Track(0, 7, "sequence of [string \"abc\",string \"abd\"]"),
+                new Track(0, 3, "string \"abc\""),
+                new Track(3, 4, "alternation"),
+                new Track(4, 7, "string \"abd\""),
+        });
+
+        put("a(?:b)c|abd", new Track[]{
+                // FIXME not correct
+                new Track(0, 7, "sequence of [string \"abc\",string \"abd\"]"),
+                new Track(0, 3, "string \"abc\""),
+                new Track(3, 4, "alternation"),
+                new Track(4, 7, "string \"abd\""),
         });
     }};
 
 //  {
 //
 //    // RE2 prefix_tests
-//    {"abc|abd", "cat{str{ab}cc{0x63-0x64}}"},
+
 //    {"a(?:b)c|abd", "cat{str{ab}cc{0x63-0x64}}"},
 //    {
 //      "abc|abd|aef|bcx|bcy",
@@ -1351,7 +1351,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("abc|abd");
+        testRegexpTrack("a(?:b)c|abd");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
