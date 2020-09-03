@@ -353,6 +353,11 @@ class Parser {
 
     if (op == Regexp.Op.ALTERNATE) {
       // Ignore tracks effected by factored subs.
+      for (Regexp sub : subs) {
+        re.Tracks.AddTracks(sub.Tracks);
+        sub.Tracks = new RegexpTracks(sub);
+      }
+
       re.subs = factor(re.subs, re.flags);
       if (re.subs.length == 1) {
         Regexp old = re;
