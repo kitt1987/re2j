@@ -319,6 +319,10 @@ public class Track implements Comparable<Track>  {
             case ALTERNATE:
             case CAPTURE:
             case CHAR_CLASS:
+                if (re.Tracks.WasAlternation()) {
+                    op = Regexp.Op.ALTERNATE;
+                }
+
                 if (op == Regexp.Op.CHAR_CLASS && re.Tracks.IsFromAlternation()) {
                     op = Regexp.Op.ALTERNATE;
                 }

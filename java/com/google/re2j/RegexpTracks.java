@@ -20,6 +20,11 @@ public class RegexpTracks {
 
     private final Regexp re;
 
+    private boolean wasAlternation;
+
+    void MarkAsAlternation() { wasAlternation = true; }
+    boolean WasAlternation() { return wasAlternation; }
+
     RegexpTracks(Regexp re) {
         this.re = re;
     }

@@ -357,6 +357,7 @@ class Parser {
       if (re.subs.length == 1) {
         Regexp old = re;
         re = re.subs[0];
+        re.Tracks.MarkAsAlternation();
         re.Tracks.AddTracks(old.Tracks);
         reuse(old);
       }
