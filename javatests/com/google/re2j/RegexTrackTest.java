@@ -454,7 +454,6 @@ public class RegexTrackTest {
 //    {"[\\x{41}-\\x7a]\\x61", "cat{cc{0x41-0x7a}lit{a}}"},
 
         put("a{,2}", new Track[]{
-                // FIXME the topmost track
                 new Track(0, 5, "string \"a{,2}\""),
         });
         put("\\.\\^\\$\\\\", new Track[]{
@@ -473,7 +472,6 @@ public class RegexTrackTest {
                 new Track(7, 8, "literal '\\'"),
         });
         put("[a-zABC]", new Track[]{
-                // FIXME the topmost track
                 new Track(0, 8, "character class of [range a to z,literal 'A',literal 'B',literal 'C']"),
                 new Track(0, 1, "character class"),
                 new Track(1, 4, "range a to z"),
@@ -483,7 +481,6 @@ public class RegexTrackTest {
                 new Track(7, 8, "character class end"),
         });
         put("[^a]", new Track[]{
-                // FIXME the topmost track
                 new Track(0, 4, "negated character class of [literal 'a']"),
                 new Track(0, 2, "negated character class"),
                 new Track(2, 3, "literal 'a'"),
@@ -626,7 +623,6 @@ public class RegexTrackTest {
                 new Track(18, 19, "capturing group end"),
         });
         put("(?:a|b)|(?:c|d)", new Track[]{
-                // FIXME literals should not exist in the topmost track again
                 new Track(0, 15, "alternation of [literal 'a',literal 'b',literal 'c',literal 'd']"),
                 new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group start"),
@@ -1444,7 +1440,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("a{,2}");
+        testRegexpTrack("(?-s).");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
