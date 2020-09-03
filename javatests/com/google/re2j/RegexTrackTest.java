@@ -1436,7 +1436,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("a.*?c|a.*?b");
+        testRegexpTrack("x{2}y|x{2}[0-9]y");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
