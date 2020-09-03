@@ -353,7 +353,7 @@ class Parser {
 
     if (op == Regexp.Op.ALTERNATE) {
       // Ignore tracks effected by factored subs.
-      for (Regexp sub : subs) {
+      for (Regexp sub : newsubs) {
         re.Tracks.AddTracks(sub.Tracks);
         sub.Tracks = new RegexpTracks(sub);
       }
