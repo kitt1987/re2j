@@ -1197,7 +1197,7 @@ public class RegexTrackTest {
         });
 
         put("a.*?c|a.*?b", new Track[]{
-                new Track(0, 11, "sequence of [sequence of [literal 'a',any characters excluding \"\\n\" repeated zero or many times(non-greedy),literal 'c'],sequence of [literal 'a',any characters excluding \"\\n\" repeated zero or many times(non-greedy),literal 'b']]"),
+                new Track(0, 11, "alternation of [sequence of [literal 'a',any characters excluding \"\\n\" repeated zero or many times(non-greedy),literal 'c'],sequence of [literal 'a',any characters excluding \"\\n\" repeated zero or many times(non-greedy),literal 'b']]"),
                 new Track(0, 5, "sequence of [literal 'a',any characters excluding \"\\n\" repeated zero or many times(non-greedy),literal 'c']"),
                 new Track(1, 4, "any characters excluding \"\\n\" repeated zero or many times(non-greedy)"),
                 new Track(1, 2, "any characters excluding \"\\n\""),
