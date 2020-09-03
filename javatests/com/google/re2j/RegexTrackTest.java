@@ -1180,7 +1180,8 @@ public class RegexTrackTest {
 
         //    {"x{2}y|x{2}[0-9]y", "cat{rep{2,2 lit{x}}alt{lit{y}cat{cc{0x30-0x39}lit{y}}}}"},
         put("x{2}y|x{2}[0-9]y", new Track[]{
-                new Track(0, 16, "alternation of [literal 'x' repeated twice,literal 'y',sequence of [literal 'x' repeated twice,character class of [range 0 to 9],literal 'y']]"),
+                new Track(0, 16, "alternation of [literal 'x' repeated twice,literal 'y',sequence of [character class of [range 0 to 9],literal 'y']]"),
+                new Track(0, 5, "sequence of [literal 'x' repeated twice,literal 'y']"),
                 new Track(0, 4, "literal 'x' repeated twice"),
                 new Track(0, 1, "literal 'x'"),
                 new Track(1, 4, "quantifier: repeated twice"),
@@ -1189,6 +1190,7 @@ public class RegexTrackTest {
                 new Track(6, 16, "sequence of [literal 'x' repeated twice,character class of [range 0 to 9],literal 'y']"),
 
                 // FIXME lack of tracks
+                new Track(10, 16, "sequence of [character class of [range 0 to 9],literal 'y']"),
                 new Track(10, 15, "character class of [range 0 to 9]"),
                 new Track(10, 11, "character class"),
                 new Track(11, 14, "range 0 to 9"),
