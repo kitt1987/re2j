@@ -1097,8 +1097,7 @@ public class RegexTrackTest {
 
         //    {"abc|abd", "cat{str{ab}cc{0x63-0x64}}"},
         put("abc|abd", new Track[]{
-                // FIXME not correct
-                new Track(0, 7, "sequence of [string \"abc\",string \"abd\"]"),
+                new Track(0, 7, "alternation of [string \"abc\",string \"abd\"]"),
                 new Track(0, 3, "string \"abc\""),
                 new Track(3, 4, "alternation"),
                 new Track(4, 7, "string \"abd\""),
@@ -1440,7 +1439,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("abc|abd");
+        testRegexpTrack("a(?:b)c|abd");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
