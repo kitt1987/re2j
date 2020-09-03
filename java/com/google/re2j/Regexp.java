@@ -97,9 +97,12 @@ class Regexp {
   }
 
   public void MoveAllTracks(RegexpTracks rt) {
-    for (Regexp sub : subs) {
-      sub.MoveAllTracks(rt);
+    if (subs != null) {
+      for (Regexp sub : subs) {
+        sub.MoveAllTracks(rt);
+      }
     }
+
     rt.AddTracks(Tracks);
     Tracks = new RegexpTracks(this);
   }
