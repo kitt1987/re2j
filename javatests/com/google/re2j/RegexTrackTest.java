@@ -1095,7 +1095,6 @@ public class RegexTrackTest {
                 new Track(10, 11, "capturing group end"),
         });
 
-        //    {"abc|abd", "cat{str{ab}cc{0x63-0x64}}"},
         put("abc|abd", new Track[]{
                 new Track(0, 7, "alternation of [string \"abc\",string \"abd\"]"),
                 new Track(0, 3, "string \"abc\""),
@@ -1103,10 +1102,8 @@ public class RegexTrackTest {
                 new Track(4, 7, "string \"abd\""),
         });
 
-        //    {"a(?:b)c|abd", "cat{str{ab}cc{0x63-0x64}}"},
         put("a(?:b)c|abd", new Track[]{
-                // FIXME not correct
-                new Track(0, 11, "sequence of [string \"abc\",string \"abd\"]"),
+                new Track(0, 11, "alternation of [string \"abc\",string \"abd\"]"),
                 new Track(0, 7, "string \"abc\""),
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 4, "non-capturing group"),
