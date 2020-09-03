@@ -96,6 +96,14 @@ class Regexp {
     return out.toString();
   }
 
+  public void MoveAllTracks(RegexpTracks rt) {
+    for (Regexp sub : subs) {
+      sub.MoveAllTracks(rt);
+    }
+    rt.AddTracks(Tracks);
+    Tracks = new RegexpTracks(this);
+  }
+
   public void UpdateSubsAndTracks(Regexp[] ss) {
     subs = ss;
     Tracks.ComposeTopmostTracks();
