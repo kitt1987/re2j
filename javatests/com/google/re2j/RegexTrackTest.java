@@ -218,7 +218,6 @@ public class RegexTrackTest {
                 new Track(2, 3, "alternation"),
         });
         put(".", new Track[]{
-                // FIXME talk about the Unicode
                 new Track(0, 1, "any characters excluding \"\\n\""),
         });
         put("^", new Track[]{
@@ -411,7 +410,6 @@ public class RegexTrackTest {
                 new Track(0, 2, "non-word character"),
         });
         put("(?i)\\w", new Track[]{
-                // FIXME the topmost track
                 new Track(0, 6, "character class of [case insensitive,word character]"),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "case insensitive"),
@@ -419,7 +417,6 @@ public class RegexTrackTest {
                 new Track(4, 6, "word character"),
         });
         put("(?i)\\W", new Track[]{
-                // FIXME the topmost track
                 new Track(0, 6, "character class of [case insensitive,non-word character]"),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "case insensitive"),
@@ -427,7 +424,6 @@ public class RegexTrackTest {
                 new Track(4, 6, "non-word character"),
         });
         put("[^\\\\]", new Track[]{
-                // FIXME the topmost track
                 new Track(0, 5, "negated character class of [literal '\\']"),
                 new Track(0, 2, "negated character class"),
                 new Track(2, 3, "escape"),
@@ -1448,7 +1444,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("a.*?c|a.*?b");
+        testRegexpTrack("a{,2}");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
