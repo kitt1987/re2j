@@ -355,6 +355,7 @@ class Parser {
       // Ignore tracks effected by factored subs.
       for (Regexp sub : newsubs) {
         re.Tracks.AddTracks(sub.Tracks);
+        // FIXME get sub tracks of sub
         sub.Tracks = new RegexpTracks(sub);
       }
 
