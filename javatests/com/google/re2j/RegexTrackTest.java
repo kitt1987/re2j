@@ -1440,7 +1440,7 @@ public class RegexTrackTest {
 
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("[^\\x00-\\x{10FFFF}]");
+        testRegexpTrack("abc|abd");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
