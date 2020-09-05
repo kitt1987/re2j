@@ -9,8 +9,7 @@
 
 package com.google.re2j;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Regular expression abstract syntax tree. Produced by parser, used by compiler. NB, this
@@ -62,6 +61,8 @@ class Regexp {
   Map<String, Integer> namedGroups; // map of group name -> capturing index
   // Do update copy ctor when adding new fields!
 
+  RegexpTracks Tracks = new RegexpTracks(this);
+
   Regexp(Op op) {
     this.op = op;
   }
@@ -85,6 +86,7 @@ class Regexp {
     runes = null;
     cap = min = max = 0;
     name = null;
+    Tracks = new RegexpTracks(this);
   }
 
   @Override
@@ -92,6 +94,34 @@ class Regexp {
     StringBuilder out = new StringBuilder();
     appendTo(out);
     return out.toString();
+  }
+
+  public void MoveAllTracks(RegexpTracks rt) {
+    if (subs != null) {
+      for (Regexp sub : subs) {
+        sub.MoveAllTracks(rt);
+      }
+    }
+
+    rt.AddTracks(Tracks);
+    Tracks = new RegexpTracks(this);
+  }
+
+  public void UpdateSubsAndTracks(Regexp[] ss) {
+    subs = ss;
+    Tracks.ComposeTopmostTracks();
+  }
+
+  public ArrayList<Track> GetAllTracks() {
+    ArrayList<Track> allTracks = new ArrayList<Track>(Tracks.GetAll());
+    if (subs != null) {
+      for (Regexp sub : subs) {
+        allTracks.addAll(sub.GetAllTracks());
+      }
+    }
+
+    Collections.sort(allTracks);
+    return allTracks;
   }
 
   private static void quoteIfHyphen(StringBuilder out, int rune) {
