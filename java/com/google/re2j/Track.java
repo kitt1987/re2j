@@ -66,6 +66,8 @@ public class Track implements Comparable<Track>  {
         CommentMap.put("\\B", "non-word boundary");
         CommentMap.put("\\Q", "escaped string start");
         CommentMap.put("\\E", "escaped string end");
+        CommentMap.put("\\p", "unicode category");
+        CommentMap.put("\\P", "non-unicode category");
         CommentMap.put(":", "mod modifier end");
         CommentMap.put(")", "capturing group end");
         CommentMap.put("(", "capturing group");
@@ -144,6 +146,7 @@ public class Track implements Comparable<Track>  {
     public String Comments;
 
     private String text;
+    private Regexp.Op relatedOp;
     private boolean omitInComposed;
     private boolean placeholder;
     private boolean negated;
@@ -233,11 +236,13 @@ public class Track implements Comparable<Track>  {
                     || text.equals("+?")
                     || text.equals("??")
                     || text.equals("\\Q")
-                    || text.equals("\\E")) {
+                    || text.equals("\\E")
+                    || text.equals("\\p")
+                    || text.equals("\\P")) {
                 omitInComposed = true;
             }
 
-            if (text.equals("[^")) {
+            if (text.equals("[^") || text.equals("\\P")) {
                 negated = true;
                 omitInComposed = true;
             }
@@ -294,6 +299,24 @@ public class Track implements Comparable<Track>  {
         StringBuilder b = new StringBuilder();
         Regexp.Op op = re.op;
 
+        if (tracks != null) {
+            ArrayList<Track> filtered = new ArrayList<Track>(tracks.size());
+            for (Track track : tracks) {
+                if (track.negated) {
+                    filtered.add(track);
+                    continue;
+                }
+
+                if (track.omitInComposed) {
+                    continue;
+                }
+
+                filtered.add(track);
+            }
+
+            tracks = filtered;
+        }
+
         switch (op) {
             case LITERAL:
                 if ((re.flags & RE2.FOLD_CASE) != 0) {
@@ -325,6 +348,11 @@ public class Track implements Comparable<Track>  {
 
                 if (op == Regexp.Op.CHAR_CLASS && re.Tracks.IsFromAlternation()) {
                     op = Regexp.Op.ALTERNATE;
+                }
+
+                if (tracks.size() == 1 && tracks.get(0).relatedOp == op && tracks.get(0).negated == negated) {
+                    b.append(tracks.get(0).Comments);
+                    break;
                 }
                 // FIXME comments must be in order
                 if (op == Regexp.Op.CHAR_CLASS) {
@@ -366,7 +394,7 @@ public class Track implements Comparable<Track>  {
                 b.append("non-capturing group");
                 break;
             case ANY_CHAR:
-                b.append(CommentMap.get("."));
+                b.append(CommentMap.get(".:s"));
                 break;
             case EMPTY_MATCH:
                 b.append(Track.EmptyRegexpComment);
@@ -391,7 +419,7 @@ public class Track implements Comparable<Track>  {
         }
 
         // FIXME considering flags here
-
+        relatedOp = op;
         return b.toString();
     }
 

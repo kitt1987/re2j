@@ -725,9 +725,18 @@ class Parser {
     private int pos = 0; // current position in UTF-16 string
 
     private ArrayList<Track> tracks = new ArrayList<Track>();
+    private boolean disableTrackUpdate = false;
 
     StringIterator(String str) {
       this.str = str;
+    }
+
+    void DisableTrackUpdate() {
+      disableTrackUpdate = true;
+    }
+
+    void EnableTrackUpdate() {
+      disableTrackUpdate = false;
     }
 
     ArrayList<Track> PopTracks() {
@@ -748,6 +757,10 @@ class Parser {
     }
 
     void PushNewTrack() {
+      if (disableTrackUpdate) {
+        return;
+      }
+
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
         if (last.Start == pos && last.IsNothing()) {
@@ -761,6 +774,10 @@ class Parser {
     }
 
     void PushNewMultilineAnchorTrack() {
+      if (disableTrackUpdate) {
+        return;
+      }
+
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
         if (last.Start == pos && last.IsNothing()) {
@@ -774,6 +791,10 @@ class Parser {
     }
 
     void PushNewFlagTrack(int flag) {
+      if (disableTrackUpdate) {
+        return;
+      }
+
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
         if (last.Start == pos && last.IsNothing()) {
@@ -787,6 +808,10 @@ class Parser {
     }
 
     void PushNewRepetitionTrack(Regexp re) {
+      if (disableTrackUpdate) {
+        return;
+      }
+
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
         if (last.Start == pos && last.IsNothing()) {
@@ -800,6 +825,10 @@ class Parser {
     }
 
     void PushNewCCRangeTrack(int lo, int hi) {
+      if (disableTrackUpdate) {
+        return;
+      }
+
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
         if (last.Start == pos && last.IsNothing()) {
@@ -813,6 +842,10 @@ class Parser {
     }
 
     void PushNewLiteralTrack(String literals) {
+      if (disableTrackUpdate) {
+        return;
+      }
+
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
         if (last.Start == pos && literals.isEmpty()) {
@@ -830,6 +863,10 @@ class Parser {
     }
 
     void PushNewGroupNameTrack(String literals) {
+      if (disableTrackUpdate) {
+        return;
+      }
+
       if (tracks.size() > 0) {
         Track last = tracks.get(tracks.size()-1);
         if (last.Start == pos && literals.isEmpty()) {
@@ -1782,13 +1819,14 @@ class Parser {
       // StringIterator doesn't guarantee that.
     }
 
-    t.PushNewTrack();
-
     // Group can have leading negation too.
     //  \p{^Han} == \P{Han}, \P{^Han} == \p{Han}.
     if (!name.isEmpty() && name.charAt(0) == '^') {
       sign = -sign;
       name = name.substring(1);
+      t.PushNewLiteralTrack("negated unicode category:" + name);
+    } else {
+      t.PushNewLiteralTrack("unicode category:" + name);
     }
 
     Pair<int[][], int[][]> pair = unicodeTable(name);
@@ -1871,6 +1909,7 @@ class Parser {
       }
       t.rewindTo(beforePos);
 
+      t.DisableTrackUpdate();
       // Single character or simple range.
       int lo = parseClassChar(t, startPos);
       int hi = lo;
@@ -1891,6 +1930,7 @@ class Parser {
       } else {
         cc.appendFoldedRange(lo, hi);
       }
+      t.EnableTrackUpdate();
       t.PushNewCCRangeTrack(lo, hi);
     }
     t.skip(1); // ']'

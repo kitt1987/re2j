@@ -60,6 +60,7 @@ public class RegexpTracks {
             if (!includeMutableTrack && top.IsMutable()) {
                 continue;
             }
+
             allTracks.add(top);
             ArrayList<Track> tmpComposed = new ArrayList<Track>();
             for (Track composed : availableComposed) {
@@ -120,28 +121,13 @@ public class RegexpTracks {
         ComposeTopmostTracks();
     }
 
-    // Only tracks scanned in a single parser loop can be composed together.
-    public void ComposeTracks(ArrayList<Track> tracks, String composedText) {
-        if (tracks.size() == 0) {
-            return;
-        }
-        // FIXME tracks must be consecutive. Validate them.
-        this.tracks.addAll(tracks);
-        if (tracks.size() > 1) {
-            insertComposedTrack(composedTracks, Track.NewComposedTrack(tracks, composedText));
-            scanAndComposeTracks(composedTracks);
-            Collections.sort(this.composedTracks);
-        }
-
-        ComposeTopmostTracks();
-    }
-
     // concat two RegexpTracks
     public void AddTracks(RegexpTracks that) {
         tracks.addAll(that.tracks);
         Collections.sort(tracks);
         composedTracks.addAll(that.composedTracks);
         Collections.sort(composedTracks);
+        removeOverlapped(composedTracks);
 
         for (Track track : that.topmostTracks) {
             track.MarkReadonly();
@@ -149,7 +135,40 @@ public class RegexpTracks {
         }
 
         Collections.sort(topmostTracks);
-        // FIXME validate composedTracks
+        removeOverlapped(topmostTracks);
+    }
+
+    public void removeOverlapped(ArrayList<Track> sorted) {
+        int i = 0;
+        while (i < sorted.size()) {
+            Track target = sorted.get(i);
+            int j = i+1;
+            boolean targetIsOverlapped = false;
+            while (j < sorted.size()) {
+                Track track = sorted.get(j);
+                if (target.Start <= track.Start && target.End >= track.End) {
+                    // track is overlapped by target
+                    target.MarkReadonly();
+                    sorted.remove(j);
+                    continue;
+                }
+
+                if (target.Start >= track.Start && target.End <= track.End) {
+                    // target is overlapped by track
+                    track.MarkReadonly();
+                    targetIsOverlapped = true;
+                }
+
+                j++;
+            }
+
+            if (targetIsOverlapped) {
+                sorted.remove(i);
+                continue;
+            }
+
+            i++;
+        }
     }
 
     // particular cases for different types of Regexps
@@ -251,9 +270,25 @@ public class RegexpTracks {
     private ArrayList<Track> findTracks(int start, int end) {
         ArrayList<Track> matched = new ArrayList<Track>();
         // FIXME scan tracks as well as topmost of subs
-        for (Track track : tracks) {
+        for (Track track : composedTracks) {
             if (track.Start >= start && track.End <= end) {
                 matched.add(track);
+            }
+        }
+
+        for (Track track : tracks) {
+            if (track.Start >= start && track.End <= end) {
+                boolean overlapped = false;
+                for (Track match : matched) {
+                    if (track.Start >= match.Start && track.End <= match.End) {
+                        overlapped = true;
+                        break;
+                    }
+                }
+
+                if (!overlapped) {
+                    matched.add(track);
+                }
             }
         }
 

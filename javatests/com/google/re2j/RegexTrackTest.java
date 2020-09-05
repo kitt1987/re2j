@@ -74,7 +74,7 @@ public class RegexTrackTest {
         OP_NAMES.put(Regexp.Op.ALTERNATE, "alt");
     }
 
-    private static final int TEST_FLAGS = MATCH_NL | PERL_X | UNICODE_GROUPS;
+    private static final int TEST_FLAGS = PERL;
 
     private static final Map<String, Track[]> PARSE_TESTS = new HashMap<String, Track[]>() {{
         put("a", new Track[]{
@@ -106,10 +106,10 @@ public class RegexTrackTest {
                 new Track(0, 3, "string \"abc\""),
         });
         put("a|^", new Track[]{
-                new Track(0, 3, "alternation of [literal 'a',line start]"),
+                new Track(0, 3, "alternation of [literal 'a',word start]"),
                 new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "alternation"),
-                new Track(2, 3, "line start"),
+                new Track(2, 3, "word start"),
         });
         put("a|b", new Track[]{
                 new Track(0, 3, "alternation of [literal 'a',literal 'b']"),
@@ -221,10 +221,10 @@ public class RegexTrackTest {
                 new Track(0, 1, "any characters excluding \"\\n\""),
         });
         put("^", new Track[]{
-                new Track(0, 1, "line start"),
+                new Track(0, 1, "word start"),
         });
         put("$", new Track[]{
-                new Track(0, 1, "line end"),
+                new Track(0, 1, "word end"),
         });
         put("\\|", new Track[]{
                 new Track(0, 2, "literal '|'"),
@@ -426,23 +426,83 @@ public class RegexTrackTest {
         put("[^\\\\]", new Track[]{
                 new Track(0, 5, "negated character class of [literal '\\']"),
                 new Track(0, 2, "negated character class"),
-                new Track(2, 3, "escape"),
-                new Track(3, 4, "literal '\\'"),
+                new Track(2, 4, "literal '\\'"),
                 new Track(4, 5, "character class end"),
         });
+
+        put("\\p{Braille}", new Track[]{
+                new Track(0, 11, "character class of [unicode category:Braille]"),
+                new Track(0, 2, "unicode category"),
+                new Track(2, 11, "unicode category:Braille"),
+        });
+
+        put("\\P{Braille}", new Track[]{
+                new Track(0, 11, "negated character class of [unicode category:Braille]"),
+                new Track(0, 2, "non-unicode category"),
+                new Track(2, 11, "unicode category:Braille"),
+        });
+
+        put("\\p{^Braille}", new Track[]{
+                new Track(0, 12, "character class of [negated unicode category:Braille]"),
+                new Track(0, 2, "unicode category"),
+                new Track(2, 12, "negated unicode category:Braille"),
+        });
+
+        put("\\P{^Braille}", new Track[]{
+                new Track(0, 12, "negated character class of [negated unicode category:Braille]"),
+                new Track(0, 2, "non-unicode category"),
+                new Track(2, 12, "negated unicode category:Braille"),
+        });
+
+        put("\\pZ", new Track[]{
+                new Track(0, 3, "character class of [unicode category:Z]"),
+                new Track(0, 2, "unicode category"),
+                new Track(2, 3, "unicode category:Z"),
+        });
+
+        put("[\\p{Braille}]", new Track[]{
+                new Track(0, 13, "character class of [unicode category:Braille]"),
+                new Track(0, 1, "character class"),
+                new Track(1, 3, "unicode category"),
+                new Track(3, 12, "unicode category:Braille"),
+                new Track(12, 13, "character class end"),
+        });
+
+        put("[\\P{Braille}]", new Track[]{
+                new Track(0, 13, "negated character class of [unicode category:Braille]"),
+                new Track(0, 1, "character class"),
+                new Track(1, 3, "non-unicode category"),
+                new Track(3, 12, "unicode category:Braille"),
+                new Track(12, 13, "character class end"),
+        });
+
+        put("[\\p{^Braille}]", new Track[]{
+                new Track(0, 14, "character class of [negated unicode category:Braille]"),
+                new Track(0, 1, "character class"),
+                new Track(1, 3, "unicode category"),
+                new Track(3, 13, "negated unicode category:Braille"),
+                new Track(13, 14, "character class end"),
+        });
+
+        put("[\\P{^Braille}]", new Track[]{
+                new Track(0, 14, "negated character class of [negated unicode category:Braille]"),
+                new Track(0, 1, "character class"),
+                new Track(1, 3, "non-unicode category"),
+                new Track(3, 13, "negated unicode category:Braille"),
+                new Track(13, 14, "character class end"),
+        });
+
+        put("[\\pZ]", new Track[]{
+                new Track(0, 5, "character class of [unicode category:Z]"),
+                new Track(0, 1, "character class"),
+                new Track(1, 3, "unicode category"),
+                new Track(3, 4, "unicode category:Z"),
+                new Track(4, 5, "character class end"),
+        });
+
 //    //  { "\\C", "byte{}" },  // probably never
 //
 //    // Unicode, negatives, and a double negative.
-//    {"\\p{Braille}", "cc{0x2800-0x28ff}"},
-//    {"\\P{Braille}", "cc{0x0-0x27ff 0x2900-0x10ffff}"},
-//    {"\\p{^Braille}", "cc{0x0-0x27ff 0x2900-0x10ffff}"},
-//    {"\\P{^Braille}", "cc{0x2800-0x28ff}"},
-//    {"\\pZ", "cc{0x20 0xa0 0x1680 0x180e 0x2000-0x200a 0x2028-0x2029 0x202f 0x205f 0x3000}"},
-//    {"[\\p{Braille}]", "cc{0x2800-0x28ff}"},
-//    {"[\\P{Braille}]", "cc{0x0-0x27ff 0x2900-0x10ffff}"},
-//    {"[\\p{^Braille}]", "cc{0x0-0x27ff 0x2900-0x10ffff}"},
-//    {"[\\P{^Braille}]", "cc{0x2800-0x28ff}"},
-//    {"[\\pZ]", "cc{0x20 0xa0 0x1680 0x180e 0x2000-0x200a 0x2028-0x2029 0x202f 0x205f 0x3000}"},
 //    {"\\p{Lu}", mkCharClass(IS_UPPER)},
 //    {"[\\p{Lu}]", mkCharClass(IS_UPPER)},
 //    {"(?i)[\\p{Lu}]", mkCharClass(IS_UPPER_FOLD)},
@@ -600,11 +660,9 @@ public class RegexTrackTest {
                 new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "mod modifier end"),
-                new Track(3, 5, "literal 'a' repeated once or many times"),
                 new Track(3, 4, "literal 'a'"),
                 new Track(4, 5, "quantifier: repeated once or many times"),
                 new Track(5, 6, "alternation"),
-                new Track(6, 8, "literal 'b' repeated once or many times"),
                 new Track(6, 7, "literal 'b'"),
                 new Track(7, 8, "quantifier: repeated once or many times"),
                 new Track(8, 9, "capturing group end"),
@@ -613,11 +671,9 @@ public class RegexTrackTest {
                 new Track(10, 13, "non-capturing group"),
                 new Track(10, 12, "non-capturing group start"),
                 new Track(12, 13, "mod modifier end"),
-                new Track(13, 15, "literal 'c' repeated once or many times"),
                 new Track(13, 14, "literal 'c'"),
                 new Track(14, 15, "quantifier: repeated once or many times"),
                 new Track(15, 16, "alternation"),
-                new Track(16, 18, "literal 'd' repeated once or many times"),
                 new Track(16, 17, "literal 'd'"),
                 new Track(17, 18, "quantifier: repeated once or many times"),
                 new Track(18, 19, "capturing group end"),
@@ -679,7 +735,7 @@ public class RegexTrackTest {
         });
 
         put("(?:[abc]|A|Z)", new Track[]{
-                new Track(0, 13, "alternation of [literal 'a',literal 'b',literal 'c',literal 'A',literal 'Z']"),
+                new Track(0, 13, "alternation of [character class of [literal 'a',literal 'b',literal 'c'],literal 'A',literal 'Z']"),
                 new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "mod modifier end"),
@@ -837,10 +893,8 @@ public class RegexTrackTest {
         put("[\\x{100}\\x{101}]", new Track[]{
                 new Track(0, 16, "case insensitive literal 'Ā'"),
                 new Track(0, 1, "character class"),
-                new Track(1, 2, "escape"),
-                new Track(2, 8, "hexadecimal 256"),
-                new Track(8, 9, "escape"),
-                new Track(9, 15, "hexadecimal 257"),
+                new Track(1, 8, "literal 'Ā'"),
+                new Track(8, 15, "literal 'ā'"),
                 new Track(15, 16, "character class end"),
         });
 
@@ -885,31 +939,22 @@ public class RegexTrackTest {
                 new Track(16, 19, "string \"bcy\""),
         });
 
-        //    {
-//      "ax+y|ax+z|ay+w",
-//      "cat{lit{a}alt{cat{plus{lit{x}}lit{y}}cat{plus{lit{x}}lit{z}}cat{plus{lit{y}}lit{w}}}}"
-//    },
-
         put("ax+y|ax+z|ay+w", new Track[]{
-                new Track(0, 14, "sequence of [sequence of [literal 'a',literal 'x' repeated once or many times,literal 'y'],sequence of [literal 'a',literal 'x' repeated once or many times,literal 'z'],sequence of [literal 'a',literal 'y' repeated once or many times,literal 'w']]"),
+                new Track(0, 14, "alternation of [sequence of [literal 'a',literal 'x' repeated once or many times,literal 'y'],sequence of [literal 'a',literal 'x' repeated once or many times,literal 'z'],sequence of [literal 'a',literal 'y' repeated once or many times,literal 'w']]"),
                 new Track(0, 4, "sequence of [literal 'a',literal 'x' repeated once or many times,literal 'y']"),
-                // FIXME lack of track of literal 'a'
-                new Track(1, 3, "literal 'x' repeated once or many times"),
+                new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "literal 'x'"),
                 new Track(2, 3, "quantifier: repeated once or many times"),
                 new Track(3, 4, "literal 'y'"),
                 new Track(4, 5, "alternation"),
                 new Track(5, 9, "sequence of [literal 'a',literal 'x' repeated once or many times,literal 'z']"),
-
-                new Track(6, 8, "literal 'x' repeated once or many times"),
+                new Track(5, 6, "literal 'a'"),
                 new Track(6, 7, "literal 'x'"),
                 new Track(7, 8, "quantifier: repeated once or many times"),
                 new Track(8, 9, "literal 'z'"),
-
                 new Track(9, 10, "alternation"),
                 new Track(10, 14, "sequence of [literal 'a',literal 'y' repeated once or many times,literal 'w']"),
-
-                new Track(11, 13, "literal 'y' repeated once or many times"),
+                new Track(10, 11, "literal 'a'"),
                 new Track(11, 12, "literal 'y'"),
                 new Track(12, 13, "quantifier: repeated once or many times"),
                 new Track(13, 14, "literal 'w'"),
@@ -924,16 +969,14 @@ public class RegexTrackTest {
                 new Track(4, 5, "capturing group end"),
         });
 
-        //    {"(?:x|(?:xa))", "cat{lit{x}alt{emp{}lit{a}}}"},
         put("(?:x|(?:xa))", new Track[]{
-                // FIXME not correct
-                new Track(0, 12, "sequence of [literal 'x',string \"xa\"]"),
+                new Track(0, 12, "alternation of [literal 'x',string \"xa\"]"),
                 new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "mod modifier end"),
+                new Track(3, 11, "alternation of [literal 'x',string \"xa\"]"),
                 new Track(3, 4, "literal 'x'"),
                 new Track(4, 5, "alternation"),
-                new Track(5, 11, "string \"xa\""),
                 new Track(5, 8, "non-capturing group"),
                 new Track(5, 7, "non-capturing group start"),
                 new Track(7, 8, "mod modifier end"),
@@ -944,15 +987,19 @@ public class RegexTrackTest {
 
         //    {"(?:.|(?:.a))", "cat{dot{}alt{emp{}lit{a}}}"},
         put("(?:.|(?:.a))", new Track[]{
-                // FIXME not correct
-                new Track(0, 5, "sequence of [any characters excluding \"\\n\"]"),
+                new Track(0, 12, "alternation of [any characters excluding \"\\n\",sequence of [any characters excluding \"\\n\",literal 'a']]"),
                 new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "mod modifier end"),
+                new Track(3, 11, "alternation of [any characters excluding \"\\n\",sequence of [any characters excluding \"\\n\",literal 'a']]"),
                 new Track(3, 4, "any characters excluding \"\\n\""),
                 new Track(4, 5, "alternation"),
-                // FIXME lack of the second group
+                new Track(5, 8, "non-capturing group"),
+                new Track(5, 7, "non-capturing group start"),
+                new Track(7, 8, "mod modifier end"),
+                new Track(8, 9, "any characters excluding \"\\n\""),
                 new Track(9, 10, "literal 'a'"),
+                new Track(10, 11, "capturing group end"),
                 new Track(11, 12, "capturing group end"),
         });
 
@@ -1000,7 +1047,7 @@ public class RegexTrackTest {
 
         //    {"(?s).", "dot{}"},
         put("(?s).", new Track[]{
-                new Track(0, 5, "any characters excluding \"\\n\""),
+                new Track(0, 5, "any characters including \"\\n\""),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "single-line: dot also matches line breaks"),
                 new Track(3, 4, "capturing group end"),
@@ -1019,15 +1066,15 @@ public class RegexTrackTest {
         });
 
         put("(?:(?:^).)", new Track[]{
-                new Track(0, 10, "sequence of [line start,any characters excluding \"\\n\"]"),
+                new Track(0, 10, "sequence of [word start,any characters excluding \"\\n\"]"),
                 new Track(0, 3, "non-capturing group"),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "mod modifier end"),
-                new Track(3, 8, "line start"),
+                new Track(3, 8, "word start"),
                 new Track(3, 6, "non-capturing group"),
                 new Track(3, 5, "non-capturing group start"),
                 new Track(5, 6, "mod modifier end"),
-                new Track(6, 7, "line start"),
+                new Track(6, 7, "word start"),
                 new Track(7, 8, "capturing group end"),
                 new Track(8, 9, "any characters excluding \"\\n\""),
                 new Track(9, 10, "capturing group end"),
@@ -1035,8 +1082,7 @@ public class RegexTrackTest {
 
         //    {"(?-s)(?:(?:^).)", "cat{bol{}dnl{}}"},
         put("(?-s)(?:(?:^).)", new Track[]{
-                // FIXME not correct
-                new Track(0, 15, "sequence of [negated,single-line: dot also matches line breaks,line start,any characters excluding \"\\n\"]"),
+                new Track(0, 15, "sequence of [word start,any characters excluding \"\\n\"]"),
                 new Track(0, 8, "non-capturing group"),
                 new Track(0, 2, "non-capturing group start"),
                 new Track(2, 3, "negated"),
@@ -1044,11 +1090,11 @@ public class RegexTrackTest {
                 new Track(4, 5, "capturing group end"),
                 new Track(5, 7, "non-capturing group start"),
                 new Track(7, 8, "mod modifier end"),
-                new Track(8, 13, "line start"),
+                new Track(8, 13, "word start"),
                 new Track(8, 11, "non-capturing group"),
                 new Track(8, 10, "non-capturing group start"),
                 new Track(10, 11, "mod modifier end"),
-                new Track(11, 12, "line start"),
+                new Track(11, 12, "word start"),
                 new Track(12, 13, "capturing group end"),
                 new Track(13, 14, "any characters excluding \"\\n\""),
                 new Track(14, 15, "capturing group end"),
@@ -1056,25 +1102,17 @@ public class RegexTrackTest {
 
         //    {"[\\x00-\\x{10FFFF}]", "dot{}"},
         put("[\\x00-\\x{10FFFF}]", new Track[]{
-                // FIXME not correct
-                new Track(0, 17, "character class of [hexadecimal 0,string \"-\\\",hexadecimal 1114111]"),
+                new Track(0, 17, "character class of [range \u0000 to \uFFFF]"),
                 new Track(0, 1, "character class"),
-                new Track(1, 2, "escape"),
-                new Track(2, 5, "hexadecimal 0"),
-                new Track(5, 7, "string \"-\\\""),
-                new Track(7, 16, "hexadecimal 1114111"),
+                new Track(1, 16, "range \u0000 to \uFFFF"),
                 new Track(16, 17, "character class end"),
         });
 
         //    {"[^\\x00-\\x{10FFFF}]", "cc{}"},
         put("[^\\x00-\\x{10FFFF}]", new Track[]{
-                // FIXME not correct
-                new Track(0, 18, "negated character class of [hexadecimal 0,string \"-\\\",hexadecimal 1114111]"),
+                new Track(0, 18, "negated character class of [range \u0000 to \uFFFF]"),
                 new Track(0, 2, "negated character class"),
-                new Track(2, 3, "escape"),
-                new Track(3, 6, "hexadecimal 0"),
-                new Track(6, 8, "string \"-\\\""),
-                new Track(8, 17, "hexadecimal 1114111"),
+                new Track(2, 17, "range \u0000 to \uFFFF"),
                 new Track(17, 18, "character class end"),
         });
 
@@ -1126,7 +1164,7 @@ public class RegexTrackTest {
         });
 
         put("(?i)abc|ABD", new Track[]{
-                new Track(0, 11, "sequence of [case insensitive string \"ABC\",string \"ABD\"]"),
+                new Track(0, 11, "alternation of [case insensitive string \"ABC\",string \"ABD\"]"),
                 new Track(0, 7, "case insensitive string \"ABC\""),
                 new Track(0, 5, "case insensitive literal 'A'"),
                 new Track(0, 2, "non-capturing group start"),
@@ -1141,7 +1179,8 @@ public class RegexTrackTest {
 
         //    {"[ab]c|[ab]d", "cat{cc{0x61-0x62}cc{0x63-0x64}}"},
         put("[ab]c|[ab]d", new Track[]{
-                new Track(0, 6, "sequence of [character class of [literal 'a',literal 'b'],literal 'c']"),
+                new Track(0, 11, "alternation of [sequence of [character class of [literal 'a',literal 'b'],literal 'c'],sequence of [character class of [literal 'a',literal 'b'],literal 'd']]"),
+                new Track(0, 5, "sequence of [character class of [literal 'a',literal 'b'],literal 'c']"),
                 new Track(0, 4, "character class of [literal 'a',literal 'b']"),
                 new Track(0, 1, "character class"),
                 new Track(1, 2, "literal 'a'"),
@@ -1149,48 +1188,53 @@ public class RegexTrackTest {
                 new Track(3, 4, "character class end"),
                 new Track(4, 5, "literal 'c'"),
                 new Track(5, 6, "alternation"),
-                // FIXME lack of tracks
+                new Track(6, 11, "sequence of [character class of [literal 'a',literal 'b'],literal 'd']"),
+                new Track(6, 10, "character class of [literal 'a',literal 'b']"),
+                new Track(6, 7, "character class"),
+                new Track(7, 8, "literal 'a'"),
+                new Track(8, 9, "literal 'b'"),
+                new Track(9, 10, "character class end"),
                 new Track(10, 11, "literal 'd'"),
         });
 
         //    {".c|.d", "cat{dot{}cc{0x63-0x64}}"},
         put(".c|.d", new Track[]{
-                new Track(0, 3, "sequence of [any characters excluding \"\\n\",literal 'c']"),
+                new Track(0, 5, "alternation of [sequence of [any characters excluding \"\\n\",literal 'c'],sequence of [any characters excluding \"\\n\",literal 'd']]"),
+                new Track(0, 2, "sequence of [any characters excluding \"\\n\",literal 'c']"),
                 new Track(0, 1, "any characters excluding \"\\n\""),
                 new Track(1, 2, "literal 'c'"),
                 new Track(2, 3, "alternation"),
-                // FIXME lack of tracks
+                new Track(3, 5, "sequence of [any characters excluding \"\\n\",literal 'd']"),
+                new Track(3, 4, "any characters excluding \"\\n\""),
                 new Track(4, 5, "literal 'd'"),
         });
 
-        //    {"x{2}|x{2}[0-9]", "cat{rep{2,2 lit{x}}alt{emp{}cc{0x30-0x39}}}"},
         put("x{2}|x{2}[0-9]", new Track[]{
-                new Track(0, 5, "sequence of [literal 'x' repeated twice]"),
+                new Track(0, 14,
+                        "alternation of [literal 'x' repeated twice,sequence of [literal 'x' repeated twice,character class of [range 0 to 9]]]"),
                 new Track(0, 4, "literal 'x' repeated twice"),
                 new Track(0, 1, "literal 'x'"),
                 new Track(1, 4, "quantifier: repeated twice"),
                 new Track(4, 5, "alternation"),
-
-                // FIXME lack of tracks
+                new Track(5, 14, "sequence of [literal 'x' repeated twice,character class of [range 0 to 9]]"),
+                new Track(5, 6, "literal 'x'"),
+                new Track(6, 9, "quantifier: repeated twice"),
                 new Track(9, 14, "character class of [range 0 to 9]"),
                 new Track(9, 10, "character class"),
                 new Track(10, 13, "range 0 to 9"),
                 new Track(13, 14, "character class end"),
         });
 
-        //    {"x{2}y|x{2}[0-9]y", "cat{rep{2,2 lit{x}}alt{lit{y}cat{cc{0x30-0x39}lit{y}}}}"},
         put("x{2}y|x{2}[0-9]y", new Track[]{
-                new Track(0, 16, "alternation of [literal 'x' repeated twice,literal 'y',sequence of [character class of [range 0 to 9],literal 'y']]"),
+                new Track(0, 16, "alternation of [sequence of [literal 'x' repeated twice,literal 'y'],sequence of [literal 'x' repeated twice,character class of [range 0 to 9],literal 'y']]"),
                 new Track(0, 5, "sequence of [literal 'x' repeated twice,literal 'y']"),
-                new Track(0, 4, "literal 'x' repeated twice"),
                 new Track(0, 1, "literal 'x'"),
                 new Track(1, 4, "quantifier: repeated twice"),
                 new Track(4, 5, "literal 'y'"),
                 new Track(5, 6, "alternation"),
                 new Track(6, 16, "sequence of [literal 'x' repeated twice,character class of [range 0 to 9],literal 'y']"),
-
-                // FIXME lack of tracks
-                new Track(10, 16, "sequence of [character class of [range 0 to 9],literal 'y']"),
+                new Track(6, 7, "literal 'x'"),
+                new Track(7, 10, "quantifier: repeated twice"),
                 new Track(10, 15, "character class of [range 0 to 9]"),
                 new Track(10, 11, "character class"),
                 new Track(11, 14, "range 0 to 9"),
@@ -1201,13 +1245,13 @@ public class RegexTrackTest {
         put("a.*?c|a.*?b", new Track[]{
                 new Track(0, 11, "alternation of [sequence of [literal 'a',any characters excluding \"\\n\" repeated zero or many times(non-greedy),literal 'c'],sequence of [literal 'a',any characters excluding \"\\n\" repeated zero or many times(non-greedy),literal 'b']]"),
                 new Track(0, 5, "sequence of [literal 'a',any characters excluding \"\\n\" repeated zero or many times(non-greedy),literal 'c']"),
-                new Track(1, 4, "any characters excluding \"\\n\" repeated zero or many times(non-greedy)"),
+                new Track(0, 1, "literal 'a'"),
                 new Track(1, 2, "any characters excluding \"\\n\""),
                 new Track(2, 4, "quantifier: repeated zero or many times(non-greedy)"),
                 new Track(4, 5, "literal 'c'"),
                 new Track(5, 6, "alternation"),
                 new Track(6, 11, "sequence of [literal 'a',any characters excluding \"\\n\" repeated zero or many times(non-greedy),literal 'b']"),
-                new Track(7, 10, "any characters excluding \"\\n\" repeated zero or many times(non-greedy)"),
+                new Track(6, 7, "literal 'a'"),
                 new Track(7, 8, "any characters excluding \"\\n\""),
                 new Track(8, 10, "quantifier: repeated zero or many times(non-greedy)"),
                 new Track(10, 11, "literal 'b'"),
@@ -1221,9 +1265,6 @@ public class RegexTrackTest {
 //      "abc|abd|aef|bcx|bcy",
 //      "alt{cat{lit{a}alt{cat{lit{b}cc{0x63-0x64}}str{ef}}}" + "cat{str{bc}cc{0x78-0x79}}}"
 //    },
-
-
-//    {"a.*?c|a.*?b", "cat{lit{a}alt{cat{nstar{dot{}}lit{c}}cat{nstar{dot{}}lit{b}}}}"},
 //  };
 
     // TODO(adonovan): add some tests for:
@@ -1280,78 +1321,6 @@ public class RegexTrackTest {
 //    {"[a\\n]", "cc{0xa 0x61}"},
 //  };
 
-//  @Test
-//  public void testParseNoMatchNL() {
-//    testParseDump(NOMATCHNL_TESTS, 0);
-//  }
-
-    // Test Parse -> Dump.
-//  private void testParseDump(String[][] tests, int flags) {
-//    for (String[] test : tests) {
-//      try {
-//        Regexp re = Parser.parse(test[0], flags);
-//        String d = dump(re);
-//        Truth.assertWithMessage("parse/dump of " + test[0]).that(d).isEqualTo(test[1]);
-//      } catch (PatternSyntaxException e) {
-//        throw new RuntimeException("Parsing failed: " + test[0], e);
-//      }
-//    }
-//  }
-
-
-//    private static String mkCharClass(RunePredicate f) {
-//        Regexp re = new Regexp(Regexp.Op.CHAR_CLASS, null);
-//        ArrayList<Integer> runes = new ArrayList<Integer>();
-//        int lo = -1;
-//        for (int i = 0; i <= Unicode.MAX_RUNE; i++) {
-//            if (f.applies(i)) {
-//                if (lo < 0) {
-//                    lo = i;
-//                }
-//            } else {
-//                if (lo >= 0) {
-//                    runes.add(lo);
-//                    runes.add(i - 1);
-//                    lo = -1;
-//                }
-//            }
-//        }
-//        if (lo >= 0) {
-//            runes.add(lo);
-//            runes.add(Unicode.MAX_RUNE);
-//        }
-//        re.runes = new int[runes.size()];
-//        int j = 0;
-//        for (Integer i : runes) {
-//            re.runes[j++] = i;
-//        }
-//        return dump(re);
-//    }
-
-//  @Test
-//  public void testAppendRangeCollapse() {
-//    // AppendRange should collapse each of the new ranges
-//    // into the earlier ones (it looks back two ranges), so that
-//    // the slice never grows very large.
-//    // Note that we are not calling cleanClass.
-//    CharClass cc = new CharClass();
-//    // Add 'A', 'a', 'B', 'b', etc.
-//    for (int i = 'A'; i <= 'Z'; i++) {
-//      cc.appendRange(i, i);
-//      cc.appendRange(i + 'a' - 'A', i + 'a' - 'A');
-//    }
-//    assertEquals("AZaz", runesToString(cc.toArray()));
-//  }
-//
-//  // Converts an array of Unicode runes to a Java UTF-16 string.
-//  private static String runesToString(int[] runes) {
-//    StringBuilder out = new StringBuilder();
-//    for (int rune : runes) {
-//      out.appendCodePoint(rune);
-//    }
-//    return out.toString();
-//  }
-
 //  private static final String[] INVALID_REGEXPS = {
 //    "(",
 //    ")",
@@ -1400,45 +1369,9 @@ public class RegexTrackTest {
 //    "a++", "a**", "a?*", "a+*", "a{1}*", ".{1}{2}.{3}",
 //  };
 
-//  @Test
-//  public void testParseInvalidRegexps() throws PatternSyntaxException {
-//    for (String regexp : INVALID_REGEXPS) {
-//      try {
-//        Regexp re = Parser.parse(regexp, PERL);
-//        fail("Parsing (PERL) " + regexp + " should have failed, instead got " + dump(re));
-//      } catch (PatternSyntaxException e) {
-//        /* ok */
-//      }
-//      try {
-//        Regexp re = Parser.parse(regexp, POSIX);
-//        fail("parsing (POSIX) " + regexp + " should have failed, instead got " + dump(re));
-//      } catch (PatternSyntaxException e) {
-//        /* ok */
-//      }
-//    }
-//    for (String regexp : ONLY_PERL) {
-//      Parser.parse(regexp, PERL);
-//      try {
-//        Regexp re = Parser.parse(regexp, POSIX);
-//        fail("parsing (POSIX) " + regexp + " should have failed, instead got " + dump(re));
-//      } catch (PatternSyntaxException e) {
-//        /* ok */
-//      }
-//    }
-//    for (String regexp : ONLY_POSIX) {
-//      try {
-//        Regexp re = Parser.parse(regexp, PERL);
-//        fail("parsing (PERL) " + regexp + " should have failed, instead got " + dump(re));
-//      } catch (PatternSyntaxException e) {
-//        /* ok */
-//      }
-//      Parser.parse(regexp, POSIX);
-//    }
-//  }
-
     @Test
     public void testToStringEquivalentParse() throws PatternSyntaxException {
-        testRegexpTrack("x{2}y|x{2}[0-9]y");
+//        testRegexpTrack("\\p{Lu}");
 
         for (String regexp : PARSE_TESTS.keySet()) {
             testRegexpTrack(regexp);
