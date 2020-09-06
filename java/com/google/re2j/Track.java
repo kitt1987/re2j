@@ -138,6 +138,8 @@ public class Track implements Comparable<Track>  {
     private boolean posix;
     private boolean mutable;
 
+    private Track associated;
+
     Track(int start) {
         Start = start;
     }

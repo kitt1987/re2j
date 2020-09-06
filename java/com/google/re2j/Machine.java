@@ -9,6 +9,7 @@
 
 package com.google.re2j;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 // A Machine matches an input string of Unicode characters against an
@@ -99,6 +100,8 @@ class Machine {
   private int[] matchcap;
   private int ncap;
 
+  private ArrayList<Track> tracks = new ArrayList<Track>();
+
   /**
    * Constructs a matching Machine for the specified {@code RE2}.
    */
@@ -113,6 +116,7 @@ class Machine {
   // init() reinitializes an existing Machine for re-use on a new input.
   void init(int ncap) {
     // length change need new arrays
+    this.tracks.clear();
     this.ncap = ncap;
     if (ncap > matchcap.length) {
       initNewCap(ncap);
