@@ -107,21 +107,6 @@ public class Track implements Comparable<Track>  {
         return topmost;
     }
 
-    static Track NewComposedTrack(ArrayList<Track> tracks, String composedText) {
-        if (tracks.size() <= 1) {
-            throw new IllegalStateException("need to compose at least 2 tracks");
-        }
-
-        if (composedText.length() > 1) {
-            composedText = "string \"" + composedText + "\"";
-        } else {
-            composedText = "literal '" + composedText + "'";
-        }
-
-        int[] range = getTrackRange(tracks);
-        return new Track(range[0], range[1], composedText);
-    }
-
     private static int[] getTrackRange(ArrayList<Track> tracks) {
         int start = Integer.MAX_VALUE, end = 0;
         for (Track track : tracks) {
