@@ -9,6 +9,8 @@
 
 package com.google.re2j;
 
+import java.util.ArrayList;
+
 /**
  * A single instruction in the regular expression virtual machine.
  *
@@ -35,11 +37,11 @@ final class Inst {
   // otherwise a list of [lo,hi] pairs.  hi is *inclusive*.
   // REVIEWERS: why not half-open intervals?
 
-  public final Track RegexpTrack;
+  public final ArrayList<Track> Tracks;
 
-  Inst(int op, Track regexpTrack) {
+  Inst(int op, ArrayList<Track> tracks) {
     this.op = op;
-    RegexpTrack = regexpTrack;
+    Tracks = tracks;
   }
 
   static boolean isRuneOp(int op) {
