@@ -35,8 +35,11 @@ final class Inst {
   // otherwise a list of [lo,hi] pairs.  hi is *inclusive*.
   // REVIEWERS: why not half-open intervals?
 
-  Inst(int op) {
+  public final Track RegexpTrack;
+
+  Inst(int op, Track regexpTrack) {
     this.op = op;
+    RegexpTrack = regexpTrack;
   }
 
   static boolean isRuneOp(int op) {
